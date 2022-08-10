@@ -19,6 +19,11 @@ namespace mirrorworld_sdk_unity.Runtime
             };
         }
 
+        public static void SetAuthorizationHeader(UnityWebRequest req, string accessToken)
+        {
+            req.SetRequestHeader("Authorization", "Bearer " + accessToken);
+        }
+        
         public static void SetApiKeyHeader(UnityWebRequest req, string apiKey)
         {
             req.SetRequestHeader("x-api-key", apiKey);

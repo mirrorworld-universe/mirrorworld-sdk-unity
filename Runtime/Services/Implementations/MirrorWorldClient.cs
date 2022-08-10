@@ -14,6 +14,10 @@ namespace mirrorworld_sdk_unity.Runtime.Services.Implementations
         
         private IAuthenticationService _authentication;
         
+        private IMarketplaceService _marketplace;
+
+        private IWalletService _wallet;
+        
         public MirrorWorldClient(Environment environment, EnvironmentVersion environmentVersion, string apiKey)
         {
             _environment = environment;
@@ -31,6 +35,16 @@ namespace mirrorworld_sdk_unity.Runtime.Services.Implementations
         public IAuthenticationService Authentication
         {
             get { return _authentication ??= new AuthenticationService(_environment, _environmentVersion, _apiKey); }
+        }
+        
+        public IMarketplaceService Marketplace
+        {
+            get { return _marketplace ??= new MarketplaceService(_environment, _environmentVersion, _apiKey); }
+        }
+
+        public IWalletService Wallet
+        {
+            get { return _wallet ??= new WalletService(_environment, _environmentVersion, _apiKey); }
         }
     }
 }
