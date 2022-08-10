@@ -1,0 +1,21 @@
+{
+  "name": "fun.mirrorworld.mirrorworld-sdk-unity",
+  "version": "1.0.0",
+  "displayName": "Mirror World SDK Unity",
+  "description": "Mirror World SDK Unity",
+  "unity": "2021.3",
+  "dependencies": {
+
+  },
+  "keywords": [
+    "Mirror",
+    "World",
+    "Unity",
+    "SDK"
+  ],
+  "author": {
+    "name": "Bilal Afzal",
+    "email": "bilal@mirrorworld.fun",
+    "url": "https://mirrorworld.fun/"
+  }
+}
