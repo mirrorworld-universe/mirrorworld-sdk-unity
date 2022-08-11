@@ -1,15 +1,16 @@
 using System;
 using System.Collections;
-using mirrorworld_sdk_unity.Runtime.Models.Request.Authentication;
+using mirrorworld_sdk_unity.Runtime.Models.Request.Marketplace;
 using mirrorworld_sdk_unity.Runtime.Models.Response;
 using mirrorworld_sdk_unity.Runtime.Models.Response.Authentication;
+using mirrorworld_sdk_unity.Runtime.Models.Response.Marketplace;
 using mirrorworld_sdk_unity.Runtime.Services.Interfaces;
 using Newtonsoft.Json;
 using UnityEngine.Networking;
 
 namespace mirrorworld_sdk_unity.Runtime.Services.Implementations
 {
-    public class AuthenticationService : IAuthenticationService
+    public class MarketplaceService : IMarketplaceService
     {
         private readonly Environment _environment;
 
@@ -19,7 +20,7 @@ namespace mirrorworld_sdk_unity.Runtime.Services.Implementations
 
         private readonly string _apiKey;
         
-        public AuthenticationService(Environment environment, EnvironmentVersion environmentVersion, string apiKey)
+        public MarketplaceService(Environment environment, EnvironmentVersion environmentVersion, string apiKey)
         {
             _environment = environment;
             _environmentVersion = environmentVersion;
@@ -33,177 +34,36 @@ namespace mirrorworld_sdk_unity.Runtime.Services.Implementations
 
         }
 
-        public IEnumerator LoginWithEmail(BasicEmailLoginRequest requestBody, Action<CommonResponse<LoginResponse>> callBack)
+        public IEnumerator CreateCollection(CreateCollectionRequest requestBody, string accessToken, Action<CommonResponse<MintResponse>> callBack)
         {
             var rawRequestBody = JsonConvert.SerializeObject(requestBody);
 
-            string endpoint = _baseUrlWithVersion + "auth/login";
+            string endpoint = _baseUrlWithVersion + "solana/mint/collection";
             
             UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
-            
-            Utils.SetContentTypeHeader(request);
-            Utils.SetAcceptHeader(request);
-            Utils.SetApiKeyHeader(request, _apiKey);
-
-            byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
-            request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
-            request.downloadHandler = new DownloadHandlerBuffer();
-        
-            yield return request.SendWebRequest();
-        
-            string rawResponseBody = request.downloadHandler.text;
-
-            CommonResponse<LoginResponse> responseBody;
-
-            if (request.result != UnityWebRequest.Result.Success)
-            {
-                responseBody = Utils.CustomErrorResponse<LoginResponse>(request.responseCode, request.error, rawResponseBody);
-            }
-            else
-            {
-                responseBody = JsonConvert.DeserializeObject<CommonResponse<LoginResponse>>(rawResponseBody);
-                responseBody.HttpStatusCode = request.responseCode;
-                
-            }
-
-            callBack(responseBody);
-        }
-
-        public IEnumerator LoginWithGoogle(LoginWithGoogleRequest requestBody, Action<CommonResponse<LoginResponse>> callBack)
-        {
-            var rawRequestBody = JsonConvert.SerializeObject(requestBody);
-
-            string endpoint = _baseUrlWithVersion + "auth/google";
-            
-            UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
-            
-            Utils.SetContentTypeHeader(request);
-            Utils.SetAcceptHeader(request);
-            Utils.SetApiKeyHeader(request, _apiKey);
-
-            byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
-            request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
-            request.downloadHandler = new DownloadHandlerBuffer();
-        
-            yield return request.SendWebRequest();
-        
-            string rawResponseBody = request.downloadHandler.text;
-
-            CommonResponse<LoginResponse> responseBody;
-
-            if (request.result != UnityWebRequest.Result.Success)
-            {
-                responseBody = Utils.CustomErrorResponse<LoginResponse>(request.responseCode, request.error, rawResponseBody);
-            }
-            else
-            {
-                responseBody = JsonConvert.DeserializeObject<CommonResponse<LoginResponse>>(rawResponseBody);
-                responseBody.HttpStatusCode = request.responseCode;
-                
-            }
-
-            callBack(responseBody);
-        }
-
-        public IEnumerator Signup(SignupRequest requestBody, Action<CommonResponse<SignupResponse>> callBack)
-        {
-            
-            var rawRequestBody = JsonConvert.SerializeObject(requestBody);
-
-            string endpoint = _baseUrlWithVersion + "auth/signup";
-            
-            UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
-            
-            Utils.SetContentTypeHeader(request);
-            Utils.SetAcceptHeader(request);
-            Utils.SetApiKeyHeader(request, _apiKey);
-
-            byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
-            request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
-            request.downloadHandler = new DownloadHandlerBuffer();
-        
-            yield return request.SendWebRequest();
-        
-            string rawResponseBody = request.downloadHandler.text;
-
-            CommonResponse<SignupResponse> responseBody;
-
-            if (request.result != UnityWebRequest.Result.Success)
-            {
-                responseBody = Utils.CustomErrorResponse<SignupResponse>(request.responseCode, request.error, rawResponseBody);
-            }
-            else
-            {
-                responseBody = JsonConvert.DeserializeObject<CommonResponse<SignupResponse>>(rawResponseBody);
-                responseBody.HttpStatusCode = request.responseCode;
-                
-            }
-
-            callBack(responseBody);
-        }
-
-        public IEnumerator CompleteSignup(CompleteSignupRequest requestBody, Action<CommonResponse<LoginResponse>> callBack)
-        {
-            var rawRequestBody = JsonConvert.SerializeObject(requestBody);
-
-            string endpoint = _baseUrlWithVersion + "auth/complete-signup";
-            
-            UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
-            
-            Utils.SetContentTypeHeader(request);
-            Utils.SetAcceptHeader(request);
-            Utils.SetApiKeyHeader(request, _apiKey);
-
-            byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
-            request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
-            request.downloadHandler = new DownloadHandlerBuffer();
-        
-            yield return request.SendWebRequest();
-        
-            string rawResponseBody = request.downloadHandler.text;
-
-            CommonResponse<LoginResponse> responseBody;
-
-            if (request.result != UnityWebRequest.Result.Success)
-            {
-                responseBody = Utils.CustomErrorResponse<LoginResponse>(request.responseCode, request.error, rawResponseBody);
-            }
-            else
-            {
-                responseBody = JsonConvert.DeserializeObject<CommonResponse<LoginResponse>>(rawResponseBody);
-                responseBody.HttpStatusCode = request.responseCode;
-                
-            }
-
-            callBack(responseBody);
-        }
-        
-        public IEnumerator GetCurrentUserInfo(string accessToken, Action<CommonResponse<UserResponse>> callBack)
-        {
-            string endpoint = _baseUrlWithVersion + "auth/me";
-            
-            UnityWebRequest request = new UnityWebRequest(endpoint, "GET");
             
             Utils.SetContentTypeHeader(request);
             Utils.SetAcceptHeader(request);
             Utils.SetApiKeyHeader(request, _apiKey);
             Utils.SetAuthorizationHeader(request, accessToken);
-            
+
+            byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
+            request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
             request.downloadHandler = new DownloadHandlerBuffer();
         
             yield return request.SendWebRequest();
         
             string rawResponseBody = request.downloadHandler.text;
 
-            CommonResponse<UserResponse> responseBody;
+            CommonResponse<MintResponse> responseBody;
 
             if (request.result != UnityWebRequest.Result.Success)
             {
-                responseBody = Utils.CustomErrorResponse<UserResponse>(request.responseCode, request.error, rawResponseBody);
+                responseBody = Utils.CustomErrorResponse<MintResponse>(request.responseCode, request.error, rawResponseBody);
             }
             else
             {
-                responseBody = JsonConvert.DeserializeObject<CommonResponse<UserResponse>>(rawResponseBody);
+                responseBody = JsonConvert.DeserializeObject<CommonResponse<MintResponse>>(rawResponseBody);
                 responseBody.HttpStatusCode = request.responseCode;
                 
             }
@@ -211,32 +71,36 @@ namespace mirrorworld_sdk_unity.Runtime.Services.Implementations
             callBack(responseBody);
         }
 
-        public IEnumerator RefreshToken(string refreshToken, Action<CommonResponse<LoginResponse>> callBack)
+        public IEnumerator CreateSubCollection(CreateSubCollectionRequest requestBody, string accessToken, Action<CommonResponse<MintResponse>> callBack)
         {
-            string endpoint = _baseUrlWithVersion + "auth/refresh-token";
+            var rawRequestBody = JsonConvert.SerializeObject(requestBody);
+
+            string endpoint = _baseUrlWithVersion + "solana/mint/sub-collection";
             
-            UnityWebRequest request = new UnityWebRequest(endpoint, "GET");
+            UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
             
             Utils.SetContentTypeHeader(request);
             Utils.SetAcceptHeader(request);
             Utils.SetApiKeyHeader(request, _apiKey);
-            request.SetRequestHeader("x-refresh-token", refreshToken);
-            
+            Utils.SetAuthorizationHeader(request, accessToken);
+
+            byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
+            request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
             request.downloadHandler = new DownloadHandlerBuffer();
         
             yield return request.SendWebRequest();
         
             string rawResponseBody = request.downloadHandler.text;
 
-            CommonResponse<LoginResponse> responseBody;
+            CommonResponse<MintResponse> responseBody;
 
             if (request.result != UnityWebRequest.Result.Success)
             {
-                responseBody = Utils.CustomErrorResponse<LoginResponse>(request.responseCode, request.error, rawResponseBody);
+                responseBody = Utils.CustomErrorResponse<MintResponse>(request.responseCode, request.error, rawResponseBody);
             }
             else
             {
-                responseBody = JsonConvert.DeserializeObject<CommonResponse<LoginResponse>>(rawResponseBody);
+                responseBody = JsonConvert.DeserializeObject<CommonResponse<MintResponse>>(rawResponseBody);
                 responseBody.HttpStatusCode = request.responseCode;
                 
             }
@@ -244,32 +108,213 @@ namespace mirrorworld_sdk_unity.Runtime.Services.Implementations
             callBack(responseBody);
         }
 
-        public IEnumerator QueryUser(string email, Action<CommonResponse<UserResponse>> callBack)
+        public IEnumerator CreateNft(CreateNftRequest requestBody, string accessToken, Action<CommonResponse<MintResponse>> callBack)
         {
+            var rawRequestBody = JsonConvert.SerializeObject(requestBody);
+
+            string endpoint = _baseUrlWithVersion + "solana/mint/nft";
             
-            string endpoint = _baseUrlWithVersion + "auth/user?email=" + email;
-            
-            UnityWebRequest request = new UnityWebRequest(endpoint, "GET");
+            UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
             
             Utils.SetContentTypeHeader(request);
             Utils.SetAcceptHeader(request);
             Utils.SetApiKeyHeader(request, _apiKey);
-            
+            Utils.SetAuthorizationHeader(request, accessToken);
+
+            byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
+            request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
             request.downloadHandler = new DownloadHandlerBuffer();
         
             yield return request.SendWebRequest();
         
             string rawResponseBody = request.downloadHandler.text;
 
-            CommonResponse<UserResponse> responseBody;
+            CommonResponse<MintResponse> responseBody;
 
             if (request.result != UnityWebRequest.Result.Success)
             {
-                responseBody = Utils.CustomErrorResponse<UserResponse>(request.responseCode, request.error, rawResponseBody);
+                responseBody = Utils.CustomErrorResponse<MintResponse>(request.responseCode, request.error, rawResponseBody);
             }
             else
             {
-                responseBody = JsonConvert.DeserializeObject<CommonResponse<UserResponse>>(rawResponseBody);
+                responseBody = JsonConvert.DeserializeObject<CommonResponse<MintResponse>>(rawResponseBody);
+                responseBody.HttpStatusCode = request.responseCode;
+                
+            }
+
+            callBack(responseBody);
+        }
+
+        public IEnumerator FetchSingleNftDetails(string mintAddress, Action<CommonResponse<SingleNftDetailResponse>> callBack)
+        {
+            string endpoint = _baseUrlWithVersion + "solana/nft/" + mintAddress;
+            
+            UnityWebRequest request = new UnityWebRequest(endpoint, "GET");
+            
+            Utils.SetContentTypeHeader(request);
+            Utils.SetAcceptHeader(request);
+            Utils.SetApiKeyHeader(request, _apiKey);
+
+            request.downloadHandler = new DownloadHandlerBuffer();
+        
+            yield return request.SendWebRequest();
+        
+            string rawResponseBody = request.downloadHandler.text;
+
+            CommonResponse<SingleNftDetailResponse> responseBody;
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                responseBody = Utils.CustomErrorResponse<SingleNftDetailResponse>(request.responseCode, request.error, rawResponseBody);
+            }
+            else
+            {
+                responseBody = JsonConvert.DeserializeObject<CommonResponse<SingleNftDetailResponse>>(rawResponseBody);
+                responseBody.HttpStatusCode = request.responseCode;
+                
+            }
+
+            callBack(responseBody);
+        }
+
+        public IEnumerator FetchMultipleNftsByMintAddresses(FetchMultipleNftsByMintAddressesRequest requestBody, Action<CommonResponse<MultipleNftDetailResponse>> callBack)
+        {
+            var rawRequestBody = JsonConvert.SerializeObject(requestBody);
+
+            string endpoint = _baseUrlWithVersion + "solana/nft/mints";
+            
+            UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
+            
+            Utils.SetContentTypeHeader(request);
+            Utils.SetAcceptHeader(request);
+            Utils.SetApiKeyHeader(request, _apiKey);
+
+            byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
+            request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
+            request.downloadHandler = new DownloadHandlerBuffer();
+        
+            yield return request.SendWebRequest();
+        
+            string rawResponseBody = request.downloadHandler.text;
+
+            CommonResponse<MultipleNftDetailResponse> responseBody;
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                responseBody = Utils.CustomErrorResponse<MultipleNftDetailResponse>(request.responseCode, request.error, rawResponseBody);
+            }
+            else
+            {
+                responseBody = JsonConvert.DeserializeObject<CommonResponse<MultipleNftDetailResponse>>(rawResponseBody);
+                responseBody.HttpStatusCode = request.responseCode;
+                
+            }
+
+            callBack(responseBody);
+        }
+
+        public IEnumerator FetchMultipleNftsByCreators(FetchMultipleNftsByCreatorsRequest requestBody, Action<CommonResponse<MultipleNftDetailResponse>> callBack)
+        {
+            var rawRequestBody = JsonConvert.SerializeObject(requestBody);
+
+            string endpoint = _baseUrlWithVersion + "solana/nft/creators";
+            
+            UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
+            
+            Utils.SetContentTypeHeader(request);
+            Utils.SetAcceptHeader(request);
+            Utils.SetApiKeyHeader(request, _apiKey);
+
+            byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
+            request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
+            request.downloadHandler = new DownloadHandlerBuffer();
+        
+            yield return request.SendWebRequest();
+        
+            string rawResponseBody = request.downloadHandler.text;
+
+            CommonResponse<MultipleNftDetailResponse> responseBody;
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                responseBody = Utils.CustomErrorResponse<MultipleNftDetailResponse>(request.responseCode, request.error, rawResponseBody);
+            }
+            else
+            {
+                responseBody = JsonConvert.DeserializeObject<CommonResponse<MultipleNftDetailResponse>>(rawResponseBody);
+                responseBody.HttpStatusCode = request.responseCode;
+                
+            }
+
+            callBack(responseBody);
+        }
+
+        public IEnumerator FetchMultipleNftsByUpdateAuthorities(FetchMultipleNftsByUpdateAuthoritiesRequest requestBody,
+            Action<CommonResponse<MultipleNftDetailResponse>> callBack)
+        {
+            var rawRequestBody = JsonConvert.SerializeObject(requestBody);
+
+            string endpoint = _baseUrlWithVersion + "solana/nft/update-authorities";
+            
+            UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
+            
+            Utils.SetContentTypeHeader(request);
+            Utils.SetAcceptHeader(request);
+            Utils.SetApiKeyHeader(request, _apiKey);
+
+            byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
+            request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
+            request.downloadHandler = new DownloadHandlerBuffer();
+        
+            yield return request.SendWebRequest();
+        
+            string rawResponseBody = request.downloadHandler.text;
+
+            CommonResponse<MultipleNftDetailResponse> responseBody;
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                responseBody = Utils.CustomErrorResponse<MultipleNftDetailResponse>(request.responseCode, request.error, rawResponseBody);
+            }
+            else
+            {
+                responseBody = JsonConvert.DeserializeObject<CommonResponse<MultipleNftDetailResponse>>(rawResponseBody);
+                responseBody.HttpStatusCode = request.responseCode;
+                
+            }
+
+            callBack(responseBody);
+        }
+
+        public IEnumerator FetchMultipleNftsByOwners(FetchMultipleNftsByOwnersRequest requestBody, Action<CommonResponse<MultipleNftDetailResponse>> callBack)
+        {
+            var rawRequestBody = JsonConvert.SerializeObject(requestBody);
+
+            string endpoint = _baseUrlWithVersion + "solana/nft/owners";
+            
+            UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
+            
+            Utils.SetContentTypeHeader(request);
+            Utils.SetAcceptHeader(request);
+            Utils.SetApiKeyHeader(request, _apiKey);
+
+            byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
+            request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
+            request.downloadHandler = new DownloadHandlerBuffer();
+        
+            yield return request.SendWebRequest();
+        
+            string rawResponseBody = request.downloadHandler.text;
+
+            CommonResponse<MultipleNftDetailResponse> responseBody;
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                responseBody = Utils.CustomErrorResponse<MultipleNftDetailResponse>(request.responseCode, request.error, rawResponseBody);
+            }
+            else
+            {
+                responseBody = JsonConvert.DeserializeObject<CommonResponse<MultipleNftDetailResponse>>(rawResponseBody);
                 responseBody.HttpStatusCode = request.responseCode;
                 
             }
