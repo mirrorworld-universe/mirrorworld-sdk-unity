@@ -144,5 +144,182 @@ namespace mirrorworld_sdk_unity.Runtime.Services.Implementations
 
             callBack(responseBody);
         }
+
+        public IEnumerator FetchSingleNftDetails(string mintAddress, Action<CommonResponse<SingleNftDetailResponse>> callBack)
+        {
+            string endpoint = _baseUrlWithVersion + "solana/nft/" + mintAddress;
+            
+            UnityWebRequest request = new UnityWebRequest(endpoint, "GET");
+            
+            Utils.SetContentTypeHeader(request);
+            Utils.SetAcceptHeader(request);
+            Utils.SetApiKeyHeader(request, _apiKey);
+
+            request.downloadHandler = new DownloadHandlerBuffer();
+        
+            yield return request.SendWebRequest();
+        
+            string rawResponseBody = request.downloadHandler.text;
+
+            CommonResponse<SingleNftDetailResponse> responseBody;
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                responseBody = Utils.CustomErrorResponse<SingleNftDetailResponse>(request.responseCode, request.error, rawResponseBody);
+            }
+            else
+            {
+                responseBody = JsonConvert.DeserializeObject<CommonResponse<SingleNftDetailResponse>>(rawResponseBody);
+                responseBody.HttpStatusCode = request.responseCode;
+                
+            }
+
+            callBack(responseBody);
+        }
+
+        public IEnumerator FetchMultipleNftsByMintAddresses(FetchMultipleNftsByMintAddressesRequest requestBody, Action<CommonResponse<MultipleNftDetailResponse>> callBack)
+        {
+            var rawRequestBody = JsonConvert.SerializeObject(requestBody);
+
+            string endpoint = _baseUrlWithVersion + "solana/nft/mints";
+            
+            UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
+            
+            Utils.SetContentTypeHeader(request);
+            Utils.SetAcceptHeader(request);
+            Utils.SetApiKeyHeader(request, _apiKey);
+
+            byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
+            request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
+            request.downloadHandler = new DownloadHandlerBuffer();
+        
+            yield return request.SendWebRequest();
+        
+            string rawResponseBody = request.downloadHandler.text;
+
+            CommonResponse<MultipleNftDetailResponse> responseBody;
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                responseBody = Utils.CustomErrorResponse<MultipleNftDetailResponse>(request.responseCode, request.error, rawResponseBody);
+            }
+            else
+            {
+                responseBody = JsonConvert.DeserializeObject<CommonResponse<MultipleNftDetailResponse>>(rawResponseBody);
+                responseBody.HttpStatusCode = request.responseCode;
+                
+            }
+
+            callBack(responseBody);
+        }
+
+        public IEnumerator FetchMultipleNftsByCreators(FetchMultipleNftsByCreatorsRequest requestBody, Action<CommonResponse<MultipleNftDetailResponse>> callBack)
+        {
+            var rawRequestBody = JsonConvert.SerializeObject(requestBody);
+
+            string endpoint = _baseUrlWithVersion + "solana/nft/creators";
+            
+            UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
+            
+            Utils.SetContentTypeHeader(request);
+            Utils.SetAcceptHeader(request);
+            Utils.SetApiKeyHeader(request, _apiKey);
+
+            byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
+            request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
+            request.downloadHandler = new DownloadHandlerBuffer();
+        
+            yield return request.SendWebRequest();
+        
+            string rawResponseBody = request.downloadHandler.text;
+
+            CommonResponse<MultipleNftDetailResponse> responseBody;
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                responseBody = Utils.CustomErrorResponse<MultipleNftDetailResponse>(request.responseCode, request.error, rawResponseBody);
+            }
+            else
+            {
+                responseBody = JsonConvert.DeserializeObject<CommonResponse<MultipleNftDetailResponse>>(rawResponseBody);
+                responseBody.HttpStatusCode = request.responseCode;
+                
+            }
+
+            callBack(responseBody);
+        }
+
+        public IEnumerator FetchMultipleNftsByUpdateAuthorities(FetchMultipleNftsByUpdateAuthoritiesRequest requestBody,
+            Action<CommonResponse<MultipleNftDetailResponse>> callBack)
+        {
+            var rawRequestBody = JsonConvert.SerializeObject(requestBody);
+
+            string endpoint = _baseUrlWithVersion + "solana/nft/update-authorities";
+            
+            UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
+            
+            Utils.SetContentTypeHeader(request);
+            Utils.SetAcceptHeader(request);
+            Utils.SetApiKeyHeader(request, _apiKey);
+
+            byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
+            request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
+            request.downloadHandler = new DownloadHandlerBuffer();
+        
+            yield return request.SendWebRequest();
+        
+            string rawResponseBody = request.downloadHandler.text;
+
+            CommonResponse<MultipleNftDetailResponse> responseBody;
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                responseBody = Utils.CustomErrorResponse<MultipleNftDetailResponse>(request.responseCode, request.error, rawResponseBody);
+            }
+            else
+            {
+                responseBody = JsonConvert.DeserializeObject<CommonResponse<MultipleNftDetailResponse>>(rawResponseBody);
+                responseBody.HttpStatusCode = request.responseCode;
+                
+            }
+
+            callBack(responseBody);
+        }
+
+        public IEnumerator FetchMultipleNftsByOwners(FetchMultipleNftsByOwnersRequest requestBody, Action<CommonResponse<MultipleNftDetailResponse>> callBack)
+        {
+            var rawRequestBody = JsonConvert.SerializeObject(requestBody);
+
+            string endpoint = _baseUrlWithVersion + "solana/nft/owners";
+            
+            UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
+            
+            Utils.SetContentTypeHeader(request);
+            Utils.SetAcceptHeader(request);
+            Utils.SetApiKeyHeader(request, _apiKey);
+
+            byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
+            request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
+            request.downloadHandler = new DownloadHandlerBuffer();
+        
+            yield return request.SendWebRequest();
+        
+            string rawResponseBody = request.downloadHandler.text;
+
+            CommonResponse<MultipleNftDetailResponse> responseBody;
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                responseBody = Utils.CustomErrorResponse<MultipleNftDetailResponse>(request.responseCode, request.error, rawResponseBody);
+            }
+            else
+            {
+                responseBody = JsonConvert.DeserializeObject<CommonResponse<MultipleNftDetailResponse>>(rawResponseBody);
+                responseBody.HttpStatusCode = request.responseCode;
+                
+            }
+
+            callBack(responseBody);
+        }
     }
 }
