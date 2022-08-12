@@ -23,5 +23,17 @@ namespace mirrorworld_sdk_unity.Runtime.Services.Interfaces
         public IEnumerator FetchMultipleNftsByUpdateAuthorities(FetchMultipleNftsByUpdateAuthoritiesRequest requestBody, Action<CommonResponse<MultipleNftDetailResponse>> callBack);
         
         public IEnumerator FetchMultipleNftsByOwners(FetchMultipleNftsByOwnersRequest requestBody, Action<CommonResponse<MultipleNftDetailResponse>> callBack);
+        
+        public IEnumerator ActivityOfSingleNft(string mintAddress, Action<CommonResponse<ActivityOfSingleNftResponse>> callBack);
+        
+        public IEnumerator ListNftOnMarketplace(ListNftOnMarketplaceRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack);
+        
+        public IEnumerator UpdateNftListOnMarketplace(UpdateNftListOnMarketplaceRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack);
+        
+        public IEnumerator CancelNftListOnMarketplace(CancelNftListOnMarketplaceRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack);
+        
+        public IEnumerator BuyNftOnMarketplace(BuyNftOnMarketplaceRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack);
+        
+        public IEnumerator TransferNft(TransferNftRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack);
     }
 }

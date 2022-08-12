@@ -321,5 +321,224 @@ namespace mirrorworld_sdk_unity.Runtime.Services.Implementations
 
             callBack(responseBody);
         }
+
+        public IEnumerator ActivityOfSingleNft(string mintAddress, Action<CommonResponse<ActivityOfSingleNftResponse>> callBack)
+        {
+            string endpoint = _baseUrlWithVersion + "solana/activity/" + mintAddress;
+            
+            UnityWebRequest request = new UnityWebRequest(endpoint, "GET");
+            
+            Utils.SetContentTypeHeader(request);
+            Utils.SetAcceptHeader(request);
+            Utils.SetApiKeyHeader(request, _apiKey);
+
+            request.downloadHandler = new DownloadHandlerBuffer();
+        
+            yield return request.SendWebRequest();
+        
+            string rawResponseBody = request.downloadHandler.text;
+
+            CommonResponse<ActivityOfSingleNftResponse> responseBody;
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                responseBody = Utils.CustomErrorResponse<ActivityOfSingleNftResponse>(request.responseCode, request.error, rawResponseBody);
+            }
+            else
+            {
+                responseBody = JsonConvert.DeserializeObject<CommonResponse<ActivityOfSingleNftResponse>>(rawResponseBody);
+                responseBody.HttpStatusCode = request.responseCode;
+                
+            }
+
+            callBack(responseBody);
+        }
+
+        public IEnumerator ListNftOnMarketplace(ListNftOnMarketplaceRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack)
+        {
+            var rawRequestBody = JsonConvert.SerializeObject(requestBody);
+
+            string endpoint = _baseUrlWithVersion + "solana/marketplace/list";
+            
+            UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
+            
+            Utils.SetContentTypeHeader(request);
+            Utils.SetAcceptHeader(request);
+            Utils.SetApiKeyHeader(request, _apiKey);
+            Utils.SetAuthorizationHeader(request, accessToken);
+
+            byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
+            request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
+            request.downloadHandler = new DownloadHandlerBuffer();
+        
+            yield return request.SendWebRequest();
+        
+            string rawResponseBody = request.downloadHandler.text;
+
+            CommonResponse<ListingResponse> responseBody;
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                responseBody = Utils.CustomErrorResponse<ListingResponse>(request.responseCode, request.error, rawResponseBody);
+            }
+            else
+            {
+                responseBody = JsonConvert.DeserializeObject<CommonResponse<ListingResponse>>(rawResponseBody);
+                responseBody.HttpStatusCode = request.responseCode;
+                
+            }
+
+            callBack(responseBody);
+        }
+
+        public IEnumerator UpdateNftListOnMarketplace(UpdateNftListOnMarketplaceRequest requestBody, string accessToken,
+            Action<CommonResponse<ListingResponse>> callBack)
+        {
+            var rawRequestBody = JsonConvert.SerializeObject(requestBody);
+
+            string endpoint = _baseUrlWithVersion + "solana/marketplace/update";
+            
+            UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
+            
+            Utils.SetContentTypeHeader(request);
+            Utils.SetAcceptHeader(request);
+            Utils.SetApiKeyHeader(request, _apiKey);
+            Utils.SetAuthorizationHeader(request, accessToken);
+
+            byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
+            request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
+            request.downloadHandler = new DownloadHandlerBuffer();
+        
+            yield return request.SendWebRequest();
+        
+            string rawResponseBody = request.downloadHandler.text;
+
+            CommonResponse<ListingResponse> responseBody;
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                responseBody = Utils.CustomErrorResponse<ListingResponse>(request.responseCode, request.error, rawResponseBody);
+            }
+            else
+            {
+                responseBody = JsonConvert.DeserializeObject<CommonResponse<ListingResponse>>(rawResponseBody);
+                responseBody.HttpStatusCode = request.responseCode;
+                
+            }
+
+            callBack(responseBody);
+        }
+
+        public IEnumerator CancelNftListOnMarketplace(CancelNftListOnMarketplaceRequest requestBody, string accessToken,
+            Action<CommonResponse<ListingResponse>> callBack)
+        {
+            var rawRequestBody = JsonConvert.SerializeObject(requestBody);
+
+            string endpoint = _baseUrlWithVersion + "solana/marketplace/cancel";
+            
+            UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
+            
+            Utils.SetContentTypeHeader(request);
+            Utils.SetAcceptHeader(request);
+            Utils.SetApiKeyHeader(request, _apiKey);
+            Utils.SetAuthorizationHeader(request, accessToken);
+
+            byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
+            request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
+            request.downloadHandler = new DownloadHandlerBuffer();
+        
+            yield return request.SendWebRequest();
+        
+            string rawResponseBody = request.downloadHandler.text;
+
+            CommonResponse<ListingResponse> responseBody;
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                responseBody = Utils.CustomErrorResponse<ListingResponse>(request.responseCode, request.error, rawResponseBody);
+            }
+            else
+            {
+                responseBody = JsonConvert.DeserializeObject<CommonResponse<ListingResponse>>(rawResponseBody);
+                responseBody.HttpStatusCode = request.responseCode;
+                
+            }
+
+            callBack(responseBody);
+        }
+
+        public IEnumerator BuyNftOnMarketplace(BuyNftOnMarketplaceRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack)
+        {
+            var rawRequestBody = JsonConvert.SerializeObject(requestBody);
+
+            string endpoint = _baseUrlWithVersion + "solana/marketplace/buy";
+            
+            UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
+            
+            Utils.SetContentTypeHeader(request);
+            Utils.SetAcceptHeader(request);
+            Utils.SetApiKeyHeader(request, _apiKey);
+            Utils.SetAuthorizationHeader(request, accessToken);
+
+            byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
+            request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
+            request.downloadHandler = new DownloadHandlerBuffer();
+        
+            yield return request.SendWebRequest();
+        
+            string rawResponseBody = request.downloadHandler.text;
+
+            CommonResponse<ListingResponse> responseBody;
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                responseBody = Utils.CustomErrorResponse<ListingResponse>(request.responseCode, request.error, rawResponseBody);
+            }
+            else
+            {
+                responseBody = JsonConvert.DeserializeObject<CommonResponse<ListingResponse>>(rawResponseBody);
+                responseBody.HttpStatusCode = request.responseCode;
+                
+            }
+
+            callBack(responseBody);
+        }
+
+        public IEnumerator TransferNft(TransferNftRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack)
+        {
+            var rawRequestBody = JsonConvert.SerializeObject(requestBody);
+
+            string endpoint = _baseUrlWithVersion + "solana/marketplace/transfer";
+            
+            UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
+            
+            Utils.SetContentTypeHeader(request);
+            Utils.SetAcceptHeader(request);
+            Utils.SetApiKeyHeader(request, _apiKey);
+            Utils.SetAuthorizationHeader(request, accessToken);
+
+            byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
+            request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
+            request.downloadHandler = new DownloadHandlerBuffer();
+        
+            yield return request.SendWebRequest();
+        
+            string rawResponseBody = request.downloadHandler.text;
+
+            CommonResponse<ListingResponse> responseBody;
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                responseBody = Utils.CustomErrorResponse<ListingResponse>(request.responseCode, request.error, rawResponseBody);
+            }
+            else
+            {
+                responseBody = JsonConvert.DeserializeObject<CommonResponse<ListingResponse>>(rawResponseBody);
+                responseBody.HttpStatusCode = request.responseCode;
+                
+            }
+
+            callBack(responseBody);
+        }
     }
 }

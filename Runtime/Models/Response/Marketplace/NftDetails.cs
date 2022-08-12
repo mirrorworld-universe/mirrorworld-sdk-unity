@@ -28,14 +28,14 @@ namespace mirrorworld_sdk_unity.Runtime.Models.Response.Marketplace
         [JsonProperty("listings")] public List<Listing> Listings;
     }
 
-    public partial class Attribute
+    public class Attribute
     {
         [JsonProperty("trait_type")] public string TraitType;
 
         [JsonProperty("value")] public object Value;
     }
 
-    public partial class Creator
+    public class Creator
     {
         [JsonProperty("address")] public string Address;
 
@@ -44,7 +44,7 @@ namespace mirrorworld_sdk_unity.Runtime.Models.Response.Marketplace
         [JsonProperty("share")] public long Share;
     }
 
-    public partial class Listing
+    public class Listing
     {
         [JsonProperty("id")] public long Id;
 
@@ -54,18 +54,18 @@ namespace mirrorworld_sdk_unity.Runtime.Models.Response.Marketplace
 
         [JsonProperty("metadata")] public string Metadata;
 
-        [JsonProperty("purchaseId")] public object PurchaseId;
+        [JsonProperty("purchaseId")] public long? PurchaseId;
 
-        [JsonProperty("price")] public string Price;
+        [JsonProperty("price")] public decimal Price;
 
-        [JsonProperty("tokenSize")] public long TokenSize;
+        [JsonProperty("tokenSize")] public decimal TokenSize;
 
-        [JsonProperty("createdAt")] public DateTime CreatedAt;
+        [JsonProperty("createdAt")] public DateTime? CreatedAt;
 
         [JsonProperty("canceledAt")] public DateTime? CanceledAt;
     }
 
-    public partial class Owner
+    public class Owner
     {
         [JsonProperty("address")] public string Address;
     }
