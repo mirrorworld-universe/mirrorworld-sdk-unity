@@ -18,6 +18,8 @@ namespace mirrorworld_sdk_unity.Runtime.Services.Implementations
 
         private IWalletService _wallet;
         
+        private IAndroidService _android;
+        
         public MirrorWorldClient(Environment environment, EnvironmentVersion environmentVersion, string apiKey)
         {
             _environment = environment;
@@ -45,6 +47,11 @@ namespace mirrorworld_sdk_unity.Runtime.Services.Implementations
         public IWalletService Wallet
         {
             get { return _wallet ??= new WalletService(_environment, _environmentVersion, _apiKey); }
+        }
+        
+        public IAndroidService Android
+        {
+            get { return _android ??= new AndroidService(); }
         }
     }
 }
