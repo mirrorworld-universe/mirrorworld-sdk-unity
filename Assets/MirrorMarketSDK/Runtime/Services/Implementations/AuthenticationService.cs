@@ -79,175 +79,175 @@ namespace MirrorworldSDK.Implementations
             yield return responseBody;
         }
 
-    //    public IEnumerator Signup(SignupRequest requestBody, Action<CommonResponse<SignupResponse>> callBack)
-    //    {
-            
-    //        var rawRequestBody = JsonConvert.SerializeObject(requestBody);
+        //    public IEnumerator Signup(SignupRequest requestBody, Action<CommonResponse<SignupResponse>> callBack)
+        //    {
 
-    //        string endpoint = rootUrl + "auth/signup";
-            
-    //        UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
-            
-    //        Utils.SetContentTypeHeader(request);
-    //        Utils.SetAcceptHeader(request);
-    //        Utils.SetApiKeyHeader(request, apiKey);
+        //        var rawRequestBody = JsonConvert.SerializeObject(requestBody);
 
-    //        byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
-    //        request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
-    //        request.downloadHandler = new DownloadHandlerBuffer();
-        
-    //        yield return request.SendWebRequest();
-        
-    //        string rawResponseBody = request.downloadHandler.text;
+        //        string endpoint = rootUrl + "auth/signup";
 
-    //        CommonResponse<SignupResponse> responseBody;
+        //        UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
 
-    //        if (request.result != UnityWebRequest.Result.Success)
-    //        {
-    //            responseBody = Utils.CustomErrorResponse<SignupResponse>(request.responseCode, request.error, rawResponseBody);
-    //        }
-    //        else
-    //        {
-    //            responseBody = JsonConvert.DeserializeObject<CommonResponse<SignupResponse>>(rawResponseBody);
-    //            responseBody.HttpStatusCode = request.responseCode;
-                
-    //        }
+        //        Utils.SetContentTypeHeader(request);
+        //        Utils.SetAcceptHeader(request);
+        //        Utils.SetApiKeyHeader(request, apiKey);
 
-    //        callBack(responseBody);
-    //    }
+        //        byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
+        //        request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
+        //        request.downloadHandler = new DownloadHandlerBuffer();
 
-    //    public IEnumerator CompleteSignup(CompleteSignupRequest requestBody, Action<CommonResponse<LoginResponse>> callBack)
-    //    {
-    //        var rawRequestBody = JsonConvert.SerializeObject(requestBody);
+        //        yield return request.SendWebRequest();
 
-    //        string endpoint = rootUrl + "auth/complete-signup";
-            
-    //        UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
-            
-    //        Utils.SetContentTypeHeader(request);
-    //        Utils.SetAcceptHeader(request);
-    //        Utils.SetApiKeyHeader(request, apiKey);
+        //        string rawResponseBody = request.downloadHandler.text;
 
-    //        byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
-    //        request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
-    //        request.downloadHandler = new DownloadHandlerBuffer();
-        
-    //        yield return request.SendWebRequest();
-        
-    //        string rawResponseBody = request.downloadHandler.text;
+        //        CommonResponse<SignupResponse> responseBody;
 
-    //        CommonResponse<LoginResponse> responseBody;
+        //        if (request.result != UnityWebRequest.Result.Success)
+        //        {
+        //            responseBody = Utils.CustomErrorResponse<SignupResponse>(request.responseCode, request.error, rawResponseBody);
+        //        }
+        //        else
+        //        {
+        //            responseBody = JsonConvert.DeserializeObject<CommonResponse<SignupResponse>>(rawResponseBody);
+        //            responseBody.HttpStatusCode = request.responseCode;
 
-    //        if (request.result != UnityWebRequest.Result.Success)
-    //        {
-    //            responseBody = Utils.CustomErrorResponse<LoginResponse>(request.responseCode, request.error, rawResponseBody);
-    //        }
-    //        else
-    //        {
-    //            responseBody = JsonConvert.DeserializeObject<CommonResponse<LoginResponse>>(rawResponseBody);
-    //            responseBody.HttpStatusCode = request.responseCode;
-                
-    //        }
+        //        }
 
-    //        callBack(responseBody);
-    //    }
-        
-    //    public IEnumerator GetCurrentUserInfo(string accessToken, Action<CommonResponse<UserResponse>> callBack)
-    //    {
-    //        string endpoint = rootUrl + "auth/me";
-            
-    //        UnityWebRequest request = new UnityWebRequest(endpoint, "GET");
-            
-    //        Utils.SetContentTypeHeader(request);
-    //        Utils.SetAcceptHeader(request);
-    //        Utils.SetApiKeyHeader(request, apiKey);
-    //        Utils.SetAuthorizationHeader(request, accessToken);
-            
-    //        request.downloadHandler = new DownloadHandlerBuffer();
-        
-    //        yield return request.SendWebRequest();
-        
-    //        string rawResponseBody = request.downloadHandler.text;
+        //        callBack(responseBody);
+        //    }
 
-    //        CommonResponse<UserResponse> responseBody;
+        //    public IEnumerator CompleteSignup(CompleteSignupRequest requestBody, Action<CommonResponse<LoginResponse>> callBack)
+        //    {
+        //        var rawRequestBody = JsonConvert.SerializeObject(requestBody);
 
-    //        if (request.result != UnityWebRequest.Result.Success)
-    //        {
-    //            responseBody = Utils.CustomErrorResponse<UserResponse>(request.responseCode, request.error, rawResponseBody);
-    //        }
-    //        else
-    //        {
-    //            responseBody = JsonConvert.DeserializeObject<CommonResponse<UserResponse>>(rawResponseBody);
-    //            responseBody.HttpStatusCode = request.responseCode;
-                
-    //        }
+        //        string endpoint = rootUrl + "auth/complete-signup";
 
-    //        callBack(responseBody);
-    //    }
+        //        UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
 
-    //    public IEnumerator RefreshToken(string refreshToken, Action<CommonResponse<LoginResponse>> callBack)
-    //    {
-    //        string endpoint = rootUrl + "auth/refresh-token";
-            
-    //        UnityWebRequest request = new UnityWebRequest(endpoint, "GET");
-            
-    //        Utils.SetContentTypeHeader(request);
-    //        Utils.SetAcceptHeader(request);
-    //        Utils.SetApiKeyHeader(request, apiKey);
-    //        request.SetRequestHeader("x-refresh-token", refreshToken);
-            
-    //        request.downloadHandler = new DownloadHandlerBuffer();
-        
-    //        yield return request.SendWebRequest();
-        
-    //        string rawResponseBody = request.downloadHandler.text;
+        //        Utils.SetContentTypeHeader(request);
+        //        Utils.SetAcceptHeader(request);
+        //        Utils.SetApiKeyHeader(request, apiKey);
 
-    //        CommonResponse<LoginResponse> responseBody;
+        //        byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
+        //        request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
+        //        request.downloadHandler = new DownloadHandlerBuffer();
 
-    //        if (request.result != UnityWebRequest.Result.Success)
-    //        {
-    //            responseBody = Utils.CustomErrorResponse<LoginResponse>(request.responseCode, request.error, rawResponseBody);
-    //        }
-    //        else
-    //        {
-    //            responseBody = JsonConvert.DeserializeObject<CommonResponse<LoginResponse>>(rawResponseBody);
-    //            responseBody.HttpStatusCode = request.responseCode;
-                
-    //        }
+        //        yield return request.SendWebRequest();
 
-    //        callBack(responseBody);
-    //    }
+        //        string rawResponseBody = request.downloadHandler.text;
 
-    //    public IEnumerator QueryUser(string email, Action<CommonResponse<UserResponse>> callBack)
-    //    {
-    //        string endpoint = rootUrl + "auth/user?email=" + email;
-            
-    //        UnityWebRequest request = new UnityWebRequest(endpoint, "GET");
-            
-    //        Utils.SetContentTypeHeader(request);
-    //        Utils.SetAcceptHeader(request);
-    //        Utils.SetApiKeyHeader(request, apiKey);
-            
-    //        request.downloadHandler = new DownloadHandlerBuffer();
-        
-    //        yield return request.SendWebRequest();
-        
-    //        string rawResponseBody = request.downloadHandler.text;
+        //        CommonResponse<LoginResponse> responseBody;
 
-    //        CommonResponse<UserResponse> responseBody;
+        //        if (request.result != UnityWebRequest.Result.Success)
+        //        {
+        //            responseBody = Utils.CustomErrorResponse<LoginResponse>(request.responseCode, request.error, rawResponseBody);
+        //        }
+        //        else
+        //        {
+        //            responseBody = JsonConvert.DeserializeObject<CommonResponse<LoginResponse>>(rawResponseBody);
+        //            responseBody.HttpStatusCode = request.responseCode;
 
-    //        if (request.result != UnityWebRequest.Result.Success)
-    //        {
-    //            responseBody = Utils.CustomErrorResponse<UserResponse>(request.responseCode, request.error, rawResponseBody);
-    //        }
-    //        else
-    //        {
-    //            responseBody = JsonConvert.DeserializeObject<CommonResponse<UserResponse>>(rawResponseBody);
-    //            responseBody.HttpStatusCode = request.responseCode;
-                
-    //        }
+        //        }
 
-    //        callBack(responseBody);
-    //    }
-    //}
+        //        callBack(responseBody);
+        //    }
+
+        //    public IEnumerator GetCurrentUserInfo(string accessToken, Action<CommonResponse<UserResponse>> callBack)
+        //    {
+        //        string endpoint = rootUrl + "auth/me";
+
+        //        UnityWebRequest request = new UnityWebRequest(endpoint, "GET");
+
+        //        Utils.SetContentTypeHeader(request);
+        //        Utils.SetAcceptHeader(request);
+        //        Utils.SetApiKeyHeader(request, apiKey);
+        //        Utils.SetAuthorizationHeader(request, accessToken);
+
+        //        request.downloadHandler = new DownloadHandlerBuffer();
+
+        //        yield return request.SendWebRequest();
+
+        //        string rawResponseBody = request.downloadHandler.text;
+
+        //        CommonResponse<UserResponse> responseBody;
+
+        //        if (request.result != UnityWebRequest.Result.Success)
+        //        {
+        //            responseBody = Utils.CustomErrorResponse<UserResponse>(request.responseCode, request.error, rawResponseBody);
+        //        }
+        //        else
+        //        {
+        //            responseBody = JsonConvert.DeserializeObject<CommonResponse<UserResponse>>(rawResponseBody);
+        //            responseBody.HttpStatusCode = request.responseCode;
+
+        //        }
+
+        //        callBack(responseBody);
+        //    }
+
+        //    public IEnumerator RefreshToken(string refreshToken, Action<CommonResponse<LoginResponse>> callBack)
+        //    {
+        //        string endpoint = rootUrl + "auth/refresh-token";
+
+        //        UnityWebRequest request = new UnityWebRequest(endpoint, "GET");
+
+        //        Utils.SetContentTypeHeader(request);
+        //        Utils.SetAcceptHeader(request);
+        //        Utils.SetApiKeyHeader(request, apiKey);
+        //        request.SetRequestHeader("x-refresh-token", refreshToken);
+
+        //        request.downloadHandler = new DownloadHandlerBuffer();
+
+        //        yield return request.SendWebRequest();
+
+        //        string rawResponseBody = request.downloadHandler.text;
+
+        //        CommonResponse<LoginResponse> responseBody;
+
+        //        if (request.result != UnityWebRequest.Result.Success)
+        //        {
+        //            responseBody = Utils.CustomErrorResponse<LoginResponse>(request.responseCode, request.error, rawResponseBody);
+        //        }
+        //        else
+        //        {
+        //            responseBody = JsonConvert.DeserializeObject<CommonResponse<LoginResponse>>(rawResponseBody);
+        //            responseBody.HttpStatusCode = request.responseCode;
+
+        //        }
+
+        //        callBack(responseBody);
+        //    }
+
+        //    public IEnumerator QueryUser(string email, Action<CommonResponse<UserResponse>> callBack)
+        //    {
+        //        string endpoint = rootUrl + "auth/user?email=" + email;
+
+        //        UnityWebRequest request = new UnityWebRequest(endpoint, "GET");
+
+        //        Utils.SetContentTypeHeader(request);
+        //        Utils.SetAcceptHeader(request);
+        //        Utils.SetApiKeyHeader(request, apiKey);
+
+        //        request.downloadHandler = new DownloadHandlerBuffer();
+
+        //        yield return request.SendWebRequest();
+
+        //        string rawResponseBody = request.downloadHandler.text;
+
+        //        CommonResponse<UserResponse> responseBody;
+
+        //        if (request.result != UnityWebRequest.Result.Success)
+        //        {
+        //            responseBody = Utils.CustomErrorResponse<UserResponse>(request.responseCode, request.error, rawResponseBody);
+        //        }
+        //        else
+        //        {
+        //            responseBody = JsonConvert.DeserializeObject<CommonResponse<UserResponse>>(rawResponseBody);
+        //            responseBody.HttpStatusCode = request.responseCode;
+
+        //        }
+
+        //        callBack(responseBody);
+        //    }
+    }
 }

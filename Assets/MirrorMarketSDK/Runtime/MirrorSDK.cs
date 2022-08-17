@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Threading;
-using MirrorworldSDK.Implementations;
-using MirrorworldSDK.Models;
+using MirrorworldSDK.Wrapper;
 using UnityEngine;
 
 
@@ -54,13 +51,15 @@ namespace MirrorworldSDK
                 return;
             }
 
-            Instance.apiKey = apiKey;
+            LogFlow("Mirror SDK Inited.");
+            MirrorWrapper.Instance.SetApiKey(apiKey);
         }
 
         //set if use debug mode
         public static void SetDebugMode(bool useDebug)
         {
-            Instance.debugMode = useDebug;
+            LogFlow("Set debug mode to "+useDebug);
+            MirrorWrapper.Instance.SetDebug(useDebug);
         }
 
         //open login ui
@@ -76,23 +75,9 @@ namespace MirrorworldSDK
 
         private static void LogFlow(string content)
         {
-            if (Instance.debugMode)
+            if (MirrorWrapper.Instance.GetDebug())
             {
                 Debug.Log("MirrorSDKUnity:" + content);
-            }
-        }
-
-        //singleton
-        protected static MirrorSDK _instance = null;
-        private static MirrorSDK Instance
-        {
-            get
-            {
-                if (null == _instance)
-                {
-                    _instance = new MirrorSDK();
-                }
-                return _instance;
             }
         }
     }

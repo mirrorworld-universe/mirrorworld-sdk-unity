@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections;
-using mirrorworld_sdk_unity.Runtime.Models.Request.Wallet;
-using mirrorworld_sdk_unity.Runtime.Models.Response;
+using MirrorworldSDK;
+using MirrorworldSDK.Interfaces;
 using MirrorworldSDK.Models;
-using mirrorworld_sdk_unity.Runtime.Services.Interfaces;
 using Newtonsoft.Json;
 using UnityEngine.Networking;
 
@@ -11,23 +10,17 @@ namespace mirrorworld_sdk_unity.Runtime.Services.Implementations
 {
     public class WalletService : IWalletService
     {
-        private readonly Environment _environment;
-
-        private readonly EnvironmentVersion _environmentVersion;
-
         private readonly string _baseUrlWithVersion;
 
         private readonly string _apiKey;
         
-        public WalletService(Environment environment, EnvironmentVersion environmentVersion, string apiKey)
+        public WalletService(string apiKey)
         {
-            _environment = environment;
-            _environmentVersion = environmentVersion;
             _apiKey = apiKey;
 
             string baseUrl;
 
-            baseUrl = environment == Environment.Staging ? Constant.StagingV1ApiBaseUrl : Constant.ProductionV1ApiBaseUrl;
+            baseUrl = Constant.StagingV1ApiBaseUrl;
 
             _baseUrlWithVersion = baseUrl + "v1/";
 
