@@ -1,4 +1,5 @@
-using mirrorworld_sdk_unity.Runtime.Models.Response;
+
+using MirrorworldSDK.Models;
 using UnityEngine.Networking;
 
 namespace MirrorworldSDK

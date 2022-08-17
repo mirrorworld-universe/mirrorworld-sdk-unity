@@ -1,12 +1,14 @@
 using System;
+using System.Collections;
 using System.Threading;
 using MirrorworldSDK.Implementations;
+using MirrorworldSDK.Models;
 using UnityEngine;
 
 
 namespace MirrorworldSDK
 {
-    public class MirrorSDK : MonoBehaviour
+    public partial class MirrorSDK : MonoBehaviour
     {
         #region settings
         [Header("AppInfo")]
@@ -15,13 +17,10 @@ namespace MirrorworldSDK
         [Tooltip("Open debug mode")]
         public bool debugMode = false;
 
-        private static string mApiKey = "";
-        private static bool mDebugMode = false;
         #endregion settings
 
         #region logic
         private static bool inited = false;
-        private AuthenticationService authenticationService;
         private string refreshToken = "";
         private string accessToken = "";
         #endregion logic
@@ -34,6 +33,7 @@ namespace MirrorworldSDK
                 LogFlow("Already inited,no need to init in awake flow.");
                 return;
             }
+
             if(apiKey == "")
             {
                 LogFlow("Please input an api key");
@@ -46,7 +46,7 @@ namespace MirrorworldSDK
         }
 
         //do init sdk,you can find apikey on developer website
-        public void InitSDK(string apiKey)
+        public static void InitSDK(string apiKey)
         {
             if (inited)
             {
@@ -54,15 +54,12 @@ namespace MirrorworldSDK
                 return;
             }
 
-            mApiKey = apiKey;
-
-            authenticationService = new AuthenticationService();
+            Instance.apiKey = apiKey;
         }
 
         //set if use debug mode
         public static void SetDebugMode(bool useDebug)
         {
-            mDebugMode = useDebug;
             Instance.debugMode = useDebug;
         }
 
@@ -79,7 +76,7 @@ namespace MirrorworldSDK
 
         private static void LogFlow(string content)
         {
-            if (mDebugMode)
+            if (Instance.debugMode)
             {
                 Debug.Log("MirrorSDKUnity:" + content);
             }

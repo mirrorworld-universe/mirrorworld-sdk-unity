@@ -19,14 +19,13 @@ public class Test : MonoBehaviour
 
     public void onBtnInitSDKClicked()
     {
-        MirrorSDK.InitSDKWithParams("WsPRi3GQz0FGfoSklYUYzDesdKjKvxdrmtQ", true);
+        MirrorSDK.InitSDK("WsPRi3GQz0FGfoSklYUYzDesdKjKvxdrmtQ");
+        MirrorSDK.SetDebugMode(true);
     }
 
     public void onBtnStartLoginClicked()
     {
-        MirrorSDK.StartLoginWithCallback((result)=> {
-            Debug.Log("adfasd  "+result);
-        });
+        MirrorSDK.StartLogin();
     }
 
     public void onBtnGetWalletAddressClicked()

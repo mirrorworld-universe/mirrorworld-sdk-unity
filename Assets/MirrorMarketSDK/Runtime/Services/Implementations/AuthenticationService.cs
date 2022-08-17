@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
-using MirrorworldSDK.Interfaces;
 using MirrorworldSDK.Models;
 using Newtonsoft.Json;
-using UnityEngine;
 using UnityEngine.Networking;
 
 namespace MirrorworldSDK.Implementations
@@ -13,7 +11,7 @@ namespace MirrorworldSDK.Implementations
         private readonly string urlLoginWithEmail = Constant.StagingV1ApiBaseUrl + "auth/login";
         private readonly string urlLoginWithGoogle = Constant.StagingV1ApiBaseUrl + "auth/google";
 
-        public IEnumerator LoginWithEmail(string apiKey, BasicEmailLoginRequest requestBody, Action<CommonResponse<LoginResponse>> callBack)
+        public IEnumerator LoginWithEmail(string apiKey, BasicEmailLoginRequest requestBody)
         {
             var rawRequestBody = JsonConvert.SerializeObject(requestBody);
             
@@ -44,10 +42,10 @@ namespace MirrorworldSDK.Implementations
                 
             }
 
-            callBack(responseBody);
+            yield return responseBody;
         }
 
-        public IEnumerator LoginWithGoogle(string apiKey, LoginWithGoogleRequest requestBody, Action<CommonResponse<LoginResponse>> callBack)
+        public IEnumerator LoginWithGoogle(string apiKey, LoginWithGoogleRequest requestBody)
         {
             var rawRequestBody = JsonConvert.SerializeObject(requestBody);
             
@@ -78,7 +76,7 @@ namespace MirrorworldSDK.Implementations
                 
             }
 
-            callBack(responseBody);
+            yield return responseBody;
         }
 
     //    public IEnumerator Signup(SignupRequest requestBody, Action<CommonResponse<SignupResponse>> callBack)

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using MirrorworldSDK.Models;
-using MirrorworldSDK.Models;
 
 namespace MirrorworldSDK.Interfaces
 {
