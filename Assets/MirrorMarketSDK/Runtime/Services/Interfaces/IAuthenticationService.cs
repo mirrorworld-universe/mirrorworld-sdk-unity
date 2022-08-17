@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
-using mirrorworld_sdk_unity.Runtime.Models.Request.Authentication;
-using mirrorworld_sdk_unity.Runtime.Models.Response;
-using mirrorworld_sdk_unity.Runtime.Models.Response.Authentication;
+using MirrorworldSDK.Models;
 
-namespace mirrorworld_sdk_unity.Runtime.Services.Interfaces
+namespace MirrorworldSDK.Interfaces
 {
     public interface IAuthenticationService
     {

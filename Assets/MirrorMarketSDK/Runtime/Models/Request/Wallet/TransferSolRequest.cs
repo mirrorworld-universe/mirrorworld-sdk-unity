@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace mirrorworld_sdk_unity.Runtime.Models.Request.Wallet
+namespace MirrorworldSDK.Models
 {
     public class TransferSolRequest
     {

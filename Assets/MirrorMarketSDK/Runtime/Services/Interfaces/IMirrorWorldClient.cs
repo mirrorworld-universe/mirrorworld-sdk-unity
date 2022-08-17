@@ -1,4 +1,4 @@
-namespace mirrorworld_sdk_unity.Runtime.Services.Interfaces
+namespace MirrorworldSDK.Interfaces
 {
     public interface IMirrorWorldClient
     {

@@ -1,6 +1,6 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace mirrorworld_sdk_unity.Runtime.Models.Response.Marketplace
+namespace MirrorworldSDK.Models
 {
     public class MintResponse
     {

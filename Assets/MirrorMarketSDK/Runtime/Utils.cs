@@ -1,7 +1,7 @@
 using mirrorworld_sdk_unity.Runtime.Models.Response;
 using UnityEngine.Networking;
 
-namespace mirrorworld_sdk_unity.Runtime
+namespace MirrorworldSDK
 {
     public static class Utils
     {

@@ -1,7 +1,7 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace mirrorworld_sdk_unity.Runtime.Models.Request.Marketplace
+namespace MirrorworldSDK.Models
 {
     public class FetchMultipleNftsByCreatorsRequest
     {

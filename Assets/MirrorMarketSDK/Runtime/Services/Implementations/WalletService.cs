@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 using System.Collections;
 using mirrorworld_sdk_unity.Runtime.Models.Request.Wallet;
 using mirrorworld_sdk_unity.Runtime.Models.Response;
-using mirrorworld_sdk_unity.Runtime.Models.Response.Wallet;
+using MirrorworldSDK.Models;
 using mirrorworld_sdk_unity.Runtime.Services.Interfaces;
 using Newtonsoft.Json;
 using UnityEngine.Networking;

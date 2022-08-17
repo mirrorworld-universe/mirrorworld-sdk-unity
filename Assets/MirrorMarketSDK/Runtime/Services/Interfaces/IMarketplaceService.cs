@@ -1,10 +1,9 @@
-using System;
+﻿using System;
 using System.Collections;
-using mirrorworld_sdk_unity.Runtime.Models.Request.Marketplace;
-using mirrorworld_sdk_unity.Runtime.Models.Response;
-using mirrorworld_sdk_unity.Runtime.Models.Response.Marketplace;
+using MirrorworldSDK.Models;
+using MirrorworldSDK.Models;
 
-namespace mirrorworld_sdk_unity.Runtime.Services.Interfaces
+namespace MirrorworldSDK.Interfaces
 {
     public interface IMarketplaceService
     {

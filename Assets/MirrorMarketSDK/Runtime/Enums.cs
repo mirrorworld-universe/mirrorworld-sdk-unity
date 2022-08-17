@@ -1,4 +1,4 @@
-namespace mirrorworld_sdk_unity.Runtime
+namespace MirrorworldSDK
 {
     public enum Environment
     {

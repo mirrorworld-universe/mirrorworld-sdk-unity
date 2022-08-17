@@ -1,7 +1,7 @@
 using System;
 using Newtonsoft.Json;
 
-namespace mirrorworld_sdk_unity.Runtime.Models.Response.Authentication
+namespace MirrorworldSDK.Models
 {
     public class UserResponse
     {

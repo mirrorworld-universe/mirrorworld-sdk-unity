@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
-using mirrorworld_sdk_unity.Runtime.Models.Request.Wallet;
-using mirrorworld_sdk_unity.Runtime.Models.Response;
-using mirrorworld_sdk_unity.Runtime.Models.Response.Wallet;
+using MirrorworldSDK.Models;
 
-namespace mirrorworld_sdk_unity.Runtime.Services.Interfaces
+namespace MirrorworldSDK.Interfaces
 {
     public interface IWalletService
     {
