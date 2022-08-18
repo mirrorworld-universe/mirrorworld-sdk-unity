@@ -73,7 +73,16 @@ namespace MirrorworldSDK
                 LogFlow("Please call InitSDK function first.");
                 return;
             }
-            GameObject loadingObj = ResourcesUtils.Instance.LoadPrefab("PageLoginHorizontal", mirrorSDKObject.transform);
+
+            if(Screen.width > Screen.height)
+            {
+                GameObject loadingObj = ResourcesUtils.Instance.LoadPrefab("PageLoginHorizontal", mirrorSDKObject.transform);
+            }
+            else
+            {
+                GameObject loadingObj = ResourcesUtils.Instance.LoadPrefab("PageLoginHorizontal", mirrorSDKObject.transform);
+                LogFlow("SDK do not support vertical layout now.");
+            }
         }
 
         public static void GetWalletAddress(Action<string> callback)

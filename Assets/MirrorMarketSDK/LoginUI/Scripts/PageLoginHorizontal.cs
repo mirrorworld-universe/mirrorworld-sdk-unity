@@ -15,4 +15,9 @@ public class PageLoginHorizontal : MonoBehaviour
     {
         
     }
+
+    public void OnBtnGoogleLogin()
+    {
+
+    }
 }
