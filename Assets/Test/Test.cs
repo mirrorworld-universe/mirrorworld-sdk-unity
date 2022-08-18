@@ -18,7 +18,7 @@ public class Test : MonoBehaviour
 
     public void onBtnInitSDKClicked()
     {
-        MirrorSDK.InitSDK("WsPRi3GQz0FGfoSklYUYzDesdKjKvxdrmtQ");
+        //MirrorSDK.InitSDK("WsPRi3GQz0FGfoSklYUYzDesdKjKvxdrmtQ");
         MirrorSDK.SetDebugMode(true);
     }
 

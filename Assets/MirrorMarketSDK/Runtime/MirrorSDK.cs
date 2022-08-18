@@ -1,4 +1,5 @@
 using System;
+using MirrorworldSDK.UI;
 using MirrorworldSDK.Wrapper;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ namespace MirrorworldSDK
         private static bool inited = false;
         private string refreshToken = "";
         private string accessToken = "";
+        public static GameObject mirrorSDKObject;
         #endregion logic
 
         //Will try to init sdk with params on prefab
@@ -37,13 +39,13 @@ namespace MirrorworldSDK
                 return;
             }
 
-            InitSDK(apiKey);
+            InitSDK(apiKey,gameObject);
 
             SetDebugMode(debugMode);
         }
 
         //do init sdk,you can find apikey on developer website
-        public static void InitSDK(string apiKey)
+        public static void InitSDK(string apiKey,GameObject mirrorSDKGameObject)
         {
             if (inited)
             {
@@ -52,6 +54,7 @@ namespace MirrorworldSDK
             }
 
             LogFlow("Mirror SDK Inited.");
+            mirrorSDKObject = mirrorSDKGameObject;
             MirrorWrapper.Instance.SetApiKey(apiKey);
         }
 
@@ -65,7 +68,12 @@ namespace MirrorworldSDK
         //open login ui
         public static void StartLogin()
         {
-            LogFlow("TODO:Show login page.Not realizated yet.");
+            if(mirrorSDKObject == null)
+            {
+                LogFlow("Please call InitSDK function first.");
+                return;
+            }
+            GameObject loadingObj = ResourcesUtils.Instance.LoadPrefab("PageLoginHorizontal", mirrorSDKObject.transform);
         }
 
         public static void GetWalletAddress(Action<string> callback)
