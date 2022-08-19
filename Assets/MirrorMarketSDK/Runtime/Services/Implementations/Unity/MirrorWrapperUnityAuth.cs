@@ -46,39 +46,6 @@ namespace MirrorworldSDK.Wrapper
             yield return responseBody;
         }
 
-        public IEnumerator LoginWithGoogle(string apiKey, LoginWithGoogleRequest requestBody)
-        {
-            var rawRequestBody = JsonConvert.SerializeObject(requestBody);
-
-            UnityWebRequest request = new UnityWebRequest(urlLoginWithGoogle, "POST");
-
-            Utils.SetContentTypeHeader(request);
-            Utils.SetAcceptHeader(request);
-            Utils.SetApiKeyHeader(request, apiKey);
-
-            byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
-            request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
-            request.downloadHandler = new DownloadHandlerBuffer();
-
-            yield return request.SendWebRequest();
-
-            string rawResponseBody = request.downloadHandler.text;
-
-            CommonResponse<LoginResponse> responseBody;
-
-            if (request.result != UnityWebRequest.Result.Success)
-            {
-                responseBody = Utils.CustomErrorResponse<LoginResponse>(request.responseCode, request.error, rawResponseBody);
-            }
-            else
-            {
-                responseBody = JsonConvert.DeserializeObject<CommonResponse<LoginResponse>>(rawResponseBody);
-                responseBody.HttpStatusCode = request.responseCode;
-
-            }
-
-            yield return responseBody;
-        }
     }
 }
 
