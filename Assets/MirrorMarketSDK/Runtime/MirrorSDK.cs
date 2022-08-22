@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using MirrorworldSDK.Models;
 using MirrorworldSDK.UI;
 using MirrorworldSDK.Wrapper;
 using UnityEngine;
@@ -57,6 +59,8 @@ namespace MirrorworldSDK
             MonoBehaviour monoBehaviour = gameObject.GetComponent<MonoBehaviour>();
             MirrorSDK.monoBehaviour = monoBehaviour;
             MirrorWrapper.Instance.InitSDK(monoBehaviour);
+            MirrorWrapper.Instance.SetApiKey(apiKey);
+            MirrorWrapper.Instance.SetDebug(useDebug);
 #elif UNITY_ANDROID && !(UNITY_EDITOR)
             MirrorWrapper.Instance.InitSDK();
             MirrorWrapper.Instance.SetAPIKey(apiKey);
@@ -82,12 +86,56 @@ namespace MirrorworldSDK
 
         public static void GetWalletAddress(Action<string> callback)
         {
-            MirrorWrapper.Instance.LogFlow("TODO:GetWalletAddress.Not realizated yet.");
+            UserResponse user = MirrorWrapper.Instance.GetCurrentUser();
+            if (user != null)
+            {
+                MirrorWrapper.Instance.LogFlow("Have old current user,use old data.");
+                callback(user.SolAddress);
+            }
+            else
+            {
+                MirrorWrapper.Instance.LogFlow("No old current user,try to get data.");
+                MirrorWrapper.Instance.GetCurrentUserInfo((response)=> {
+                    callback(response.Data.SolAddress);
+                });
+            }
         }
 
         public static void GetAccessToken()
         {
-            monoBehaviour.StartCoroutine(MirrorWrapper.Instance.GetAccessToken());
+            MirrorWrapper.Instance.GetAccessToken();
         }
+
+        public static void QueryUser(string email, Action<UserResponse> callback)
+        {
+            MirrorWrapper.Instance.QueryUser(email, (response) =>
+            {
+                callback(response.Data);
+            });
+        }
+
+        #region marketplace
+
+        public static void FetchSingleNFT(string mintAddress,Action<SingleNFTResponseObj> action)
+        {
+            MirrorWrapper.Instance.FetchSingleNft(mintAddress, action);
+        }
+
+        public static void FetchNFTsByMintAddress(List<string> mintAddresses,Action<MultipleNFTsResponse> action)
+        {
+            MirrorWrapper.Instance.FetchNFTsByMintAddress(mintAddresses, action);
+        }
+
+        public static void FetchNFTsByCreators(List<string> creators, Action<MultipleNFTsResponse> action)
+        {
+            MirrorWrapper.Instance.FetchNftsByCreators(creators, action);
+        }
+
+        public static void FetchNFTsByUpdateAuthorityAddress(List<string> updateAuthorityAddresses, Action<MultipleNFTsResponse> action)
+        {
+            MirrorWrapper.Instance.FetchNftsByUpdateAuthorities(updateAuthorityAddresses, action);
+        }
+
+        #endregion
     }
 }

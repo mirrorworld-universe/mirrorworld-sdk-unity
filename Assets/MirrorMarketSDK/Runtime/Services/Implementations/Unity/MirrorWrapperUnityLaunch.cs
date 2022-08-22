@@ -40,7 +40,7 @@ namespace MirrorworldSDK.Wrapper
         public void StartLogin()
         {
             LogFlow("Start login.Waitting to login on web.");
-            LoginWithEmail("suqiang@rct.studio", "yuebaobao", (response) =>
+            LoginWithEmail("squall19871987@163.com", "yuebaobao", (response) =>
             {
                 LogFlow("LoginWithEmail result is:" + response);
             });
@@ -60,6 +60,11 @@ namespace MirrorworldSDK.Wrapper
             {
                 Debug.Log("MirrorSDKUnity:" + content);
             }
+        }
+
+        public UserResponse GetCurrentUser()
+        {
+            return tmpUser;
         }
     }
 

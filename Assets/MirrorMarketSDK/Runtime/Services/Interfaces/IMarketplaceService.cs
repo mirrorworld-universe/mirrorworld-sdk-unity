@@ -1,37 +1,36 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using MirrorworldSDK.Models;
 
 namespace MirrorworldSDK.Interfaces
 {
     public interface IMarketplaceService
     {
-        public IEnumerator CreateCollection(CreateCollectionRequest requestBody, string accessToken, Action<CommonResponse<MintResponse>> callBack);
+        public void CreateCollection(CreateCollectionRequest requestBody, string accessToken, Action<CommonResponse<MintResponse>> callBack);
         
-        public IEnumerator CreateSubCollection(CreateSubCollectionRequest requestBody, string mintAddress, Action<CommonResponse<MintResponse>> callBack);
+        public void CreateSubCollection(CreateSubCollectionRequest requestBody, string mintAddress, Action<CommonResponse<MintResponse>> callBack);
         
-        public IEnumerator CreateNft(CreateNftRequest requestBody, string accessToken, Action<CommonResponse<MintResponse>> callBack);
+        public void CreateNft(CreateNftRequest requestBody, string accessToken, Action<CommonResponse<MintResponse>> callBack);
         
-        public IEnumerator FetchSingleNftDetails(string mintAddress, Action<CommonResponse<SingleNftDetailResponse>> callBack);
+        public void FetchNFTsByMintAddress(List<string> mintAddresses, Action<MultipleNFTsResponse> callBack);
         
-        public IEnumerator FetchMultipleNftsByMintAddresses(FetchMultipleNftsByMintAddressesRequest requestBody, Action<CommonResponse<MultipleNftDetailResponse>> callBack);
+        public void FetchNftsByCreators(List<string> creators, Action<MultipleNFTsResponse> callBack);
         
-        public IEnumerator FetchMultipleNftsByCreators(FetchMultipleNftsByCreatorsRequest requestBody, Action<CommonResponse<MultipleNftDetailResponse>> callBack);
+        public void FetchNftsByUpdateAuthorities(List<string> updateAuthorities, Action<MultipleNFTsResponse> callBack);
         
-        public IEnumerator FetchMultipleNftsByUpdateAuthorities(FetchMultipleNftsByUpdateAuthoritiesRequest requestBody, Action<CommonResponse<MultipleNftDetailResponse>> callBack);
+        public void FetchNftsByOwners(List<string> owners, Action<MultipleNFTsResponse> callBack);
         
-        public IEnumerator FetchMultipleNftsByOwners(FetchMultipleNftsByOwnersRequest requestBody, Action<CommonResponse<MultipleNftDetailResponse>> callBack);
+        public void FetchSingleNft(string mintAddress, Action<SingleNFTResponseObj> callBack);
         
-        public IEnumerator ActivityOfSingleNft(string mintAddress, Action<CommonResponse<ActivityOfSingleNftResponse>> callBack);
+        public void ListNftOnMarketplace(ListNftOnMarketplaceRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack);
         
-        public IEnumerator ListNftOnMarketplace(ListNftOnMarketplaceRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack);
+        public void UpdateNftListOnMarketplace(UpdateNftListOnMarketplaceRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack);
         
-        public IEnumerator UpdateNftListOnMarketplace(UpdateNftListOnMarketplaceRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack);
+        public void CancelNftListOnMarketplace(CancelNftListOnMarketplaceRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack);
         
-        public IEnumerator CancelNftListOnMarketplace(CancelNftListOnMarketplaceRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack);
+        public void BuyNftOnMarketplace(BuyNftOnMarketplaceRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack);
         
-        public IEnumerator BuyNftOnMarketplace(BuyNftOnMarketplaceRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack);
-        
-        public IEnumerator TransferNft(TransferNftRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack);
+        public void TransferNft(TransferNftRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack);
     }
 }

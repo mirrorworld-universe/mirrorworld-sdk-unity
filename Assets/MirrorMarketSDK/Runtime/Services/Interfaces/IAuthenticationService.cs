@@ -14,9 +14,9 @@ namespace MirrorworldSDK.Interfaces
         
         //public IEnumerator CompleteSignup(CompleteSignupRequest requestBody, Action<CommonResponse<LoginResponse>> callBack);
 
-        public void GetCurrentUserInfo(string accessToken, Action<CommonResponse<UserResponse>> callBack);
+        public void GetCurrentUserInfo(Action<CommonResponse<UserResponse>> callBack);
 
-        public void RefreshToken(string refreshToken, Action<CommonResponse<LoginResponse>> callBack);
+        public void GetAccessToken();
         
         public void QueryUser(string email, Action<CommonResponse<UserResponse>> callBack);
     }

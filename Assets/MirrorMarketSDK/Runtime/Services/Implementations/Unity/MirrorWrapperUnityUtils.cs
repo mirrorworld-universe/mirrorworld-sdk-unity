@@ -23,7 +23,7 @@ namespace MirrorworldSDK.Wrapper
 
             if (accessToken == "")
             {
-                yield return monoBehaviour.StartCoroutine(GetAccessToken());
+                yield return monoBehaviour.StartCoroutine(DoGetAccessToken());
                 if (accessToken == "")
                 {
                     LogFlow("Get access token failed.");
@@ -44,7 +44,7 @@ namespace MirrorworldSDK.Wrapper
 
             if (accessToken == "")
             {
-                yield return monoBehaviour.StartCoroutine(GetAccessToken());
+                yield return monoBehaviour.StartCoroutine(DoGetAccessToken());
                 if (accessToken == "")
                 {
                     LogFlow("Get access token failed.");
@@ -70,7 +70,8 @@ namespace MirrorworldSDK.Wrapper
             yield return request.SendWebRequest();
 
             string rawResponseBody = request.downloadHandler.text;
-
+            //CommonResponse<string> responseBody = JsonConvert.DeserializeObject<CommonResponse<string>>(rawResponseBody);
+            //UpdateRefreshToken(responseBody.Data.)
             callBack(rawResponseBody);
         }
 
@@ -92,53 +93,6 @@ namespace MirrorworldSDK.Wrapper
             callBack(rawResponseBody);
         }
 
-        public IEnumerator GetAccessToken()
-        {
-            if (refreshToken == "")
-            {
-                refreshToken = GetStringFromLocal(localKeyRefreshToken);
-                if (refreshToken == "")
-                {
-                    LogFlow("Try to get access token but there is no refresh token local.Seems logic is wrong.");
-                    yield break;
-                }
-            }
-
-            if(apiKey == "")
-            {
-                LogFlow("Try to get access token but there is no api key.Seems logic is wrong.");
-                yield break;
-            }
-            
-
-            UnityWebRequest request = new UnityWebRequest(urlRefreshToken, "GET");
-
-            Utils.SetContentTypeHeader(request);
-            Utils.SetAcceptHeader(request);
-            Utils.SetApiKeyHeader(request, apiKey);
-            Utils.SetAuthorizationHeader(request, accessToken);
-            Utils.SetRefreshToken(request, refreshToken);
-
-            request.downloadHandler = new DownloadHandlerBuffer();
-
-            yield return request.SendWebRequest();
-
-            string rawResponseBody = request.downloadHandler.text;
-
-            CommonResponse<LoginResponse> responseBody = JsonConvert.DeserializeObject<CommonResponse<LoginResponse>>(rawResponseBody);
-
-            if (responseBody.Code.Equals((int)MirrorResponseCode.Success))
-            {
-                LogFlow("GetAccessToken success");
-                saveKeyParams(responseBody.Data.AccessToken, responseBody.Data.RefreshToken, responseBody.Data.UserResponse);
-            }
-            else
-            {
-                LogFlow("GetAccessToken failed:" + rawResponseBody);
-            }
-            
-        }
-
         private void SaveStringToLocal(string key, string value)
         {
             PlayerPrefs.SetString(key, value);
@@ -153,8 +107,22 @@ namespace MirrorworldSDK.Wrapper
         private void saveKeyParams(string accessToken,string refreshToken,UserResponse userResponse)
         {
             this.accessToken = accessToken;
-            this.refreshToken = refreshToken;
+            UpdateRefreshToken(refreshToken);
+        }
+
+        private void SaveCurrentUser(UserResponse userResponse)
+        {
+            if(userResponse == null)
+            {
+                LogFlow("User Response object is null,logic error!");
+                return;
+            }
             tmpUser = userResponse;
+        }
+
+        private void UpdateRefreshToken(string newRefreshToken)
+        {
+            refreshToken = newRefreshToken;
             SaveStringToLocal(localKeyRefreshToken, refreshToken);
         }
     }

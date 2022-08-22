@@ -4,6 +4,61 @@ using Newtonsoft.Json;
 
 namespace MirrorworldSDK.Models
 {
+
+    public class SingleNFTResponse
+    {
+        [JsonProperty("nft")] public SingleNFTResponseObj nft;
+    }
+
+    public class MultipleNFTsResponse
+    {
+        [JsonProperty("nfts")] public List<SingleNFTResponseObj> nfts;
+    }
+
+    public class SingleNFTResponseObj
+    {
+        [JsonProperty("name")] public string name;
+
+        [JsonProperty("sellerFeeBasisPoints")] public decimal sellerFeeBasisPoints;
+
+        [JsonProperty("updateAuthorityAddress")] public string updateAuthorityAddress;
+
+        [JsonProperty("description")] public string description;
+
+        [JsonProperty("image")] public string image;
+
+        [JsonProperty("externalUrl")] public string externalUrl;
+
+        [JsonProperty("creators")] public List<NFTCreatorObj> creators;
+
+        [JsonProperty("owner")] public NFTOwnerObj owner;
+
+        [JsonProperty("attributes")] public List<NFTAttributeObj> attributes;
+
+        [JsonProperty("listings")] public List<string> listings;
+    }
+
+    public class NFTCreatorObj
+    {
+        [JsonProperty("address")] public string address;
+
+        [JsonProperty("verified")] public bool verified;
+
+        [JsonProperty("share")] public decimal share;
+    }
+
+    public class NFTAttributeObj
+    {
+        [JsonProperty("trait_type")] public string trait_type;
+
+        [JsonProperty("value")] public string value;
+    }
+
+    public class NFTOwnerObj
+    {
+        [JsonProperty("address")] public string address;
+    }
+
     public class ActivityOfSingleNftResponse
     {
         [JsonProperty("mintAddress")] public string MintAddress;
