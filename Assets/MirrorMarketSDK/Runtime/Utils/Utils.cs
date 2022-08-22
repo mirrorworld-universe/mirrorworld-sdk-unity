@@ -39,5 +39,10 @@ namespace MirrorworldSDK
         {
             req.SetRequestHeader("Content-Type", "application/json");
         }
+
+        public static void SetRefreshToken(UnityWebRequest req,string refreshToken)
+        {
+            req.SetRequestHeader("x-refresh-token", refreshToken);
+        }
     }
 }

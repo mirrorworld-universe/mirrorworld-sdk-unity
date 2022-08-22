@@ -8,15 +8,15 @@ namespace MirrorworldSDK.Implementations
 {
     public class AuthenticationService
     {
-        private readonly string urlLoginWithEmail = Constant.StagingV1ApiBaseUrl + "auth/login";
-        private readonly string urlLoginWithGoogle = Constant.StagingV1ApiBaseUrl + "auth/google";
+        private readonly string urlLoginWithEmail = Constant.ApiRoot + "auth/login";
+        private readonly string urlLoginWithGoogle = Constant.ApiRoot + "auth/google";
 
-        public IEnumerator LoginWithEmail(string apiKey, BasicEmailLoginRequest requestBody)
+        public IEnumerator LoginWithEmail(string apiKey, BasicEmailLoginRequest requestBody, Action<CommonResponse<LoginResponse>> callBack)
         {
             var rawRequestBody = JsonConvert.SerializeObject(requestBody);
-            
+
             UnityWebRequest request = new UnityWebRequest(urlLoginWithEmail, "POST");
-            
+
             Utils.SetContentTypeHeader(request);
             Utils.SetAcceptHeader(request);
             Utils.SetApiKeyHeader(request, apiKey);
@@ -24,9 +24,9 @@ namespace MirrorworldSDK.Implementations
             byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
             request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
             request.downloadHandler = new DownloadHandlerBuffer();
-        
+
             yield return request.SendWebRequest();
-        
+
             string rawResponseBody = request.downloadHandler.text;
 
             CommonResponse<LoginResponse> responseBody;
@@ -39,10 +39,10 @@ namespace MirrorworldSDK.Implementations
             {
                 responseBody = JsonConvert.DeserializeObject<CommonResponse<LoginResponse>>(rawResponseBody);
                 responseBody.HttpStatusCode = request.responseCode;
-                
+
             }
 
-            yield return responseBody;
+            callBack(responseBody);
         }
 
         public IEnumerator LoginWithGoogle(string apiKey, LoginWithGoogleRequest requestBody)

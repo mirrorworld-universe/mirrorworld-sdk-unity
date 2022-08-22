@@ -3,6 +3,13 @@ namespace MirrorworldSDK
     public static class Constant
     {
         public static string ProductionV1ApiBaseUrl = "";
-        public static string StagingV1ApiBaseUrl = "https://api-staging.mirrorworld.fun/v1/";
+
+        //default
+        public static readonly string UserRoot = "https://api.mirrorworld.fun/v1/";
+        public static string ApiRoot = "https://api.mirrorworld.fun/v1/";
+
+        //Staging
+        //public static readonly string UserRoot = "https://api-staging.mirrorworld.fun/v1/";
+        //public static string ApiRoot = "https://api-staging.mirrorworld.fun/v1/";
     }
 }

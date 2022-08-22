@@ -21,7 +21,7 @@ namespace MirrorworldSDK.Implementations
 
             string baseUrl;
 
-            baseUrl = Constant.StagingV1ApiBaseUrl;
+            baseUrl = Constant.ApiRoot;
 
             _baseUrlWithVersion = baseUrl + "v1/";
 

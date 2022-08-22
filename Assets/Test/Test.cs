@@ -27,10 +27,21 @@ public class Test : MonoBehaviour
         MirrorSDK.StartLogin();
     }
 
-    public void onBtnGetWalletAddressClicked()
+    public void onBtnClicked()
     {
-        MirrorSDK.GetWalletAddress((result)=>{
-            Debug.Log(result);
+        var btnName = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name;
+        Debug.Log("button name:" + btnName);
+
+        if(btnName == "BtnGetWallet")
+        {
+            MirrorSDK.GetWalletAddress((result) => {
+                Debug.Log(result);
             });
+        }
+        else if (btnName == "BtnGetAccessToken")
+        {
+            MirrorSDK.GetAccessToken();
+        }
+        
     }
 }

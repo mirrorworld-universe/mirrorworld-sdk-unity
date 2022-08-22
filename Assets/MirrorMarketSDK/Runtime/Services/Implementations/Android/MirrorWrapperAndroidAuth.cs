@@ -1,9 +1,13 @@
 ﻿#if UNITY_ANDROID && !(UNITY_EDITOR)
 using System;
-public class NewClass
+namespace MirrorworldSDK.Wrapper
 {
-    public NewClass()
+    public partial class MirrorWrapper
     {
+        public void InitSDK()
+        {
+
+        }
     }
 }
 #endif

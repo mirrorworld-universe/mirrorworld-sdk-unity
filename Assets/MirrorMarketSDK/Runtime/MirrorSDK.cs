@@ -21,7 +21,7 @@ namespace MirrorworldSDK
         private static bool inited = false;
         private string refreshToken = "";
         private string accessToken = "";
-        public static GameObject mirrorSDKObject;
+        public static MonoBehaviour monoBehaviour;
         #endregion logic
 
         //Will try to init sdk with params on prefab
@@ -29,73 +29,65 @@ namespace MirrorworldSDK
         {
             if (inited)
             {
-                LogFlow("Already inited,no need to init in awake flow.");
+                MirrorWrapper.Instance.LogFlow("Already inited,no need to init in awake flow.");
                 return;
             }
 
             if(apiKey == "")
             {
-                LogFlow("Please input an api key");
+                MirrorWrapper.Instance.LogFlow("Please input an api key");
                 return;
             }
 
-            InitSDK(apiKey,gameObject);
+            InitSDK(apiKey,gameObject,debugMode);
 
             SetDebugMode(debugMode);
         }
 
         //do init sdk,you can find apikey on developer website
-        public static void InitSDK(string apiKey,GameObject mirrorSDKGameObject)
+        public static void InitSDK(string apiKey,GameObject gameObject,bool useDebug)
         {
             if (inited)
             {
-                LogFlow("please don't call InitSDK function more than one time.");
+                MirrorWrapper.Instance.LogFlow("please don't call InitSDK function more than one time.");
                 return;
             }
 
-            LogFlow("Mirror SDK Inited.");
-            mirrorSDKObject = mirrorSDKGameObject;
+#if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
+            MonoBehaviour monoBehaviour = gameObject.GetComponent<MonoBehaviour>();
+            MirrorSDK.monoBehaviour = monoBehaviour;
+            MirrorWrapper.Instance.InitSDK(monoBehaviour);
+#elif UNITY_ANDROID && !(UNITY_EDITOR)
+            MirrorWrapper.Instance.InitSDK();
+            MirrorWrapper.Instance.SetAPIKey(apiKey);
+            MirrorWrapper.Instance.SetDebug(useDebug);
+#elif UNITY_IOS && !(UNITY_EDITOR)
             MirrorWrapper.Instance.SetApiKey(apiKey);
+            MirrorWrapper.Instance.LogFlow("Mirror SDK Inited.");
+#endif
         }
 
         //set if use debug mode
         public static void SetDebugMode(bool useDebug)
         {
-            LogFlow("Set debug mode to "+useDebug);
+            MirrorWrapper.Instance.LogFlow("Set debug mode to "+useDebug);
             MirrorWrapper.Instance.SetDebug(useDebug);
         }
 
         //open login ui
         public static void StartLogin()
         {
-            if(mirrorSDKObject == null)
-            {
-                LogFlow("Please call InitSDK function first.");
-                return;
-            }
-
-            if(Screen.width > Screen.height)
-            {
-                GameObject loadingObj = ResourcesUtils.Instance.LoadPrefab("PageLoginHorizontal", mirrorSDKObject.transform);
-            }
-            else
-            {
-                GameObject loadingObj = ResourcesUtils.Instance.LoadPrefab("PageLoginHorizontal", mirrorSDKObject.transform);
-                LogFlow("SDK do not support vertical layout now.");
-            }
+            MirrorWrapper.Instance.StartLogin();
         }
 
         public static void GetWalletAddress(Action<string> callback)
         {
-            LogFlow("TODO:GetWalletAddress.Not realizated yet.");
+            MirrorWrapper.Instance.LogFlow("TODO:GetWalletAddress.Not realizated yet.");
         }
 
-        private static void LogFlow(string content)
+        public static void GetAccessToken()
         {
-            if (MirrorWrapper.Instance.GetDebug())
-            {
-                Debug.Log("MirrorSDKUnity:" + content);
-            }
+            monoBehaviour.StartCoroutine(MirrorWrapper.Instance.GetAccessToken());
         }
     }
 }

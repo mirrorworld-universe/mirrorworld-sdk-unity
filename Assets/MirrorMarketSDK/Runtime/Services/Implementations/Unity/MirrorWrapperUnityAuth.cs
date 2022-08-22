@@ -2,51 +2,50 @@
 using System;
 using System.Collections;
 using MirrorworldSDK;
+using MirrorworldSDK.Interfaces;
 using MirrorworldSDK.Models;
 using Newtonsoft.Json;
 using UnityEngine.Networking;
 
 namespace MirrorworldSDK.Wrapper
 {
-    public partial class MirrorWrapper
+    public partial class MirrorWrapper : IAuthenticationService
     {
-        private readonly string urlLoginWithEmail = Constant.StagingV1ApiBaseUrl + "auth/login";
-        private readonly string urlLoginWithGoogle = Constant.StagingV1ApiBaseUrl + "auth/google";
+        private readonly string urlLoginWithEmail = Constant.ApiRoot + "auth/login";
+        private readonly string urlRefreshToken = Constant.UserRoot + "auth/refresh-token";
 
-        public IEnumerator LoginWithEmail(string apiKey, BasicEmailLoginRequest requestBody)
+        public void GetCurrentUserInfo(string accessToken, Action<CommonResponse<UserResponse>> callBack)
         {
-            var rawRequestBody = JsonConvert.SerializeObject(requestBody);
-
-            UnityWebRequest request = new UnityWebRequest(urlLoginWithEmail, "POST");
-
-            Utils.SetContentTypeHeader(request);
-            Utils.SetAcceptHeader(request);
-            Utils.SetApiKeyHeader(request, apiKey);
-
-            byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(rawRequestBody);
-            request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
-            request.downloadHandler = new DownloadHandlerBuffer();
-
-            yield return request.SendWebRequest();
-
-            string rawResponseBody = request.downloadHandler.text;
-
-            CommonResponse<LoginResponse> responseBody;
-
-            if (request.result != UnityWebRequest.Result.Success)
-            {
-                responseBody = Utils.CustomErrorResponse<LoginResponse>(request.responseCode, request.error, rawResponseBody);
-            }
-            else
-            {
-                responseBody = JsonConvert.DeserializeObject<CommonResponse<LoginResponse>>(rawResponseBody);
-                responseBody.HttpStatusCode = request.responseCode;
-
-            }
-
-            yield return responseBody;
+            throw new NotImplementedException();
         }
 
+        public void LoginWithEmail(string emailAddress, string password, Action<CommonResponse<LoginResponse>> callBack)
+        {
+            BasicEmailLoginRequest requestBody = new BasicEmailLoginRequest();
+            requestBody.Email = emailAddress;
+            requestBody.Password = password;
+            var rawRequestBody = JsonConvert.SerializeObject(requestBody);
+
+            monoBehaviour.StartCoroutine(Post(urlLoginWithEmail, rawRequestBody, (rawResponseBody) =>
+            {
+                LogFlow("rawResponseBody:" + rawResponseBody);
+
+                CommonResponse<LoginResponse> responseBody = JsonConvert.DeserializeObject<CommonResponse<LoginResponse>>(rawResponseBody);
+                saveKeyParams(responseBody.Data.AccessToken, responseBody.Data.RefreshToken, responseBody.Data.UserResponse);
+
+                callBack(responseBody);
+            }));
+        }
+
+        public void QueryUser(string email, Action<CommonResponse<UserResponse>> callBack)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RefreshToken(string refreshToken, Action<CommonResponse<LoginResponse>> callBack)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 #endif

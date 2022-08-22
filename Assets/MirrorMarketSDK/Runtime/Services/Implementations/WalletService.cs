@@ -20,7 +20,7 @@ namespace mirrorworld_sdk_unity.Runtime.Services.Implementations
 
             string baseUrl;
 
-            baseUrl = Constant.StagingV1ApiBaseUrl;
+            baseUrl = Constant.ApiRoot;
 
             _baseUrlWithVersion = baseUrl + "v1/";
 
