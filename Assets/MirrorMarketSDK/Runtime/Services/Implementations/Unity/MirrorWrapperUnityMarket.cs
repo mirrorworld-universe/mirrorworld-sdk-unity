@@ -12,6 +12,7 @@ namespace MirrorworldSDK.Wrapper
         private readonly string urlFetchSingleNFT = Constant.ApiRoot + "solana/nft/";
         private readonly string urlFetchNFTsByMintAddresses = Constant.ApiRoot + "solana/nft/mints";
 
+        //tested
         public void FetchSingleNft(string mintAddress, Action<SingleNFTResponseObj> callBack)
         {
             string url = urlFetchSingleNFT + mintAddress;
@@ -26,7 +27,12 @@ namespace MirrorworldSDK.Wrapper
 
         public void BuyNftOnMarketplace(BuyNftOnMarketplaceRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack)
         {
-            throw new NotImplementedException();
+            //monoBehaviour.StartCoroutine(CheckAndGet(url, null, (response) => {
+
+            //    CommonResponse<SingleNFTResponse> responseBody = JsonConvert.DeserializeObject<CommonResponse<SingleNFTResponse>>(response);
+            //    SingleNFTResponseObj nft = responseBody.Data.nft;
+            //    callBack(nft);
+            //}));
         }
 
         public void CancelNftListOnMarketplace(CancelNftListOnMarketplaceRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack)

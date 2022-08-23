@@ -38,7 +38,13 @@ namespace MirrorworldSDK.Wrapper
         {
             if (apiKey == "")
             {
-                LogFlow("Please set apiKey first.");
+                //LogFlow("Please set apiKey first.");
+                CommonResponse<string> commonResponse = new CommonResponse<string>();
+                commonResponse.Code = (long)MirrorResponseCode.LocalFailed;
+                commonResponse.Error = "Please set apiKey first.";
+
+                string resStr = JsonConvert.SerializeObject(commonResponse);
+                callBack(resStr);
                 yield break;
             }
 
@@ -47,7 +53,13 @@ namespace MirrorworldSDK.Wrapper
                 yield return monoBehaviour.StartCoroutine(DoGetAccessToken());
                 if (accessToken == "")
                 {
-                    LogFlow("Get access token failed.");
+                    //LogFlow("Get access token failed.");
+                    CommonResponse<string> commonResponse = new CommonResponse<string>();
+                    commonResponse.Code = (long)MirrorResponseCode.LocalFailed;
+                    commonResponse.Error = "Get access token failed.";
+
+                    string resStr = JsonConvert.SerializeObject(commonResponse);
+                    callBack(resStr);
                     yield break;
                 }
             }

@@ -96,7 +96,7 @@ namespace MirrorworldSDK.Wrapper
             }
             else
             {
-                LogFlow("GetAccessToken failed:" + rawResponseBody);
+                LogFlow("GetAccessToken failed: code:" + responseBody.Code + " reason:" + responseBody.Error);
             }
 
         }
@@ -104,6 +104,22 @@ namespace MirrorworldSDK.Wrapper
         public void GetAccessToken()
         {
             monoBehaviour.StartCoroutine(DoGetAccessToken());
+        }
+
+        public void IsLoggedIn(Action<bool> action)
+        {
+            monoBehaviour.StartCoroutine(CheckAndGet(urlGetCurrentUser, null, (response) => {
+
+                CommonResponse<UserResponse> responseBody = JsonConvert.DeserializeObject<CommonResponse<UserResponse>>(response);
+
+                if(responseBody.Data != null)
+                {
+                    SaveCurrentUser(responseBody.Data);
+                }
+
+                action(responseBody.Data != null);
+
+            }));
         }
     }
 }

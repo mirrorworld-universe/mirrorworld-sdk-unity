@@ -114,6 +114,11 @@ namespace MirrorworldSDK
             });
         }
 
+        public static void IsLoggedIn(Action<bool> action)
+        {
+            MirrorWrapper.Instance.IsLoggedIn(action);
+        }
+
         #region marketplace
 
         public static void FetchSingleNFT(string mintAddress,Action<SingleNFTResponseObj> action)

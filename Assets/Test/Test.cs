@@ -83,6 +83,11 @@ public class Test : MonoBehaviour
                 Debug.Log("FetchNFTsByUpdateAuthorityAddress result is:" + nfts.nfts);
             });
         }
-
+        else if(btnName == "BtnIsLoggedIn")
+        {
+            MirrorSDK.IsLoggedIn((isLoggedIn) => {
+                Debug.Log("isLoggedIn:" + isLoggedIn);
+            });
+        }
     }
 }
