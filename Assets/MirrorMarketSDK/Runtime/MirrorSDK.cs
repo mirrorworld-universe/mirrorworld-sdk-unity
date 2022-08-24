@@ -19,6 +19,12 @@ namespace MirrorworldSDK
         [Tooltip("runtime environment")]
         public Environment environment = Environment.StagingDevnet;
 
+        [Tooltip("Temp Attr")]
+        public string debugEmail = "";
+        public string password = "";
+        public static string sdebugEmail = "";
+        public static string spassword = "";
+
         #endregion settings
 
         #region logic
@@ -40,6 +46,10 @@ namespace MirrorworldSDK
                 MirrorWrapper.Instance.LogFlow("Please input an api key");
                 return;
             }
+
+            //for test
+            spassword = password;
+            sdebugEmail = debugEmail;
 
             InitSDK(apiKey,gameObject,debugMode, environment);
 

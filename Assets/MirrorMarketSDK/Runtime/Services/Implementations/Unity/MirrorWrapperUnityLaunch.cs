@@ -41,8 +41,9 @@ namespace MirrorworldSDK.Wrapper
 
         public void StartLogin()
         {
-            LogFlow("Start login.Waitting to login on web.");
-            LoginWithEmail("squall19871987@163.com", "yuebaobao", (response) =>
+            //test
+            LogFlow("Start login.Waitting to login on web.but not implemented.Please use debug email.");
+            LoginWithEmail(MirrorSDK.sdebugEmail, MirrorSDK.spassword, (response) =>
             {
                 LogFlow("LoginWithEmail result is:" + response);
             });

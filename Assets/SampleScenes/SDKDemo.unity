@@ -6921,6 +6921,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6236376754683695852, guid: 2ca39d7c5936f436b9cd2d79123ee069, type: 3}
+      propertyPath: password
+      value: yuebaobao
+      objectReference: {fileID: 0}
+    - target: {fileID: 6236376754683695852, guid: 2ca39d7c5936f436b9cd2d79123ee069, type: 3}
+      propertyPath: debugEmail
+      value: squall19871987@163.com
+      objectReference: {fileID: 0}
     - target: {fileID: 6236376754683695854, guid: 2ca39d7c5936f436b9cd2d79123ee069, type: 3}
       propertyPath: m_Name
       value: MirrorSDK
