@@ -16,13 +16,13 @@ namespace MirrorworldSDK
         public string apiKey = "your api key";
         [Tooltip("Open debug mode")]
         public bool debugMode = false;
+        [Tooltip("runtime environment")]
+        public Environment environment = Environment.StagingDevnet;
 
         #endregion settings
 
         #region logic
         private static bool inited = false;
-        private string refreshToken = "";
-        private string accessToken = "";
         public static MonoBehaviour monoBehaviour;
         #endregion logic
 
@@ -41,13 +41,13 @@ namespace MirrorworldSDK
                 return;
             }
 
-            InitSDK(apiKey,gameObject,debugMode);
+            InitSDK(apiKey,gameObject,debugMode, environment);
 
             SetDebugMode(debugMode);
         }
 
         //do init sdk,you can find apikey on developer website
-        public static void InitSDK(string apiKey,GameObject gameObject,bool useDebug)
+        public static void InitSDK(string apiKey,GameObject gameObject,bool useDebug,Environment environment)
         {
             if (inited)
             {
@@ -58,7 +58,7 @@ namespace MirrorworldSDK
 #if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
             MonoBehaviour monoBehaviour = gameObject.GetComponent<MonoBehaviour>();
             MirrorSDK.monoBehaviour = monoBehaviour;
-            MirrorWrapper.Instance.InitSDK(monoBehaviour);
+            MirrorWrapper.Instance.InitSDK(monoBehaviour,environment);
             MirrorWrapper.Instance.SetApiKey(apiKey);
             MirrorWrapper.Instance.SetDebug(useDebug);
 #elif UNITY_ANDROID && !(UNITY_EDITOR)
@@ -119,28 +119,95 @@ namespace MirrorworldSDK
             MirrorWrapper.Instance.IsLoggedIn(action);
         }
 
+        #region mint
+
+        public static void MintNFT(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, Action<CommonResponse<MintResponse>> callBack)
+        {
+            MirrorWrapper.Instance.MintNft(parentCollection,collectionName,collectionSymbol,collectionInfoUrl,callBack);
+        }
+
+        public static void CreateVerifiedCollection(string collectionName, string collectionSymbol, string collectionInfoUrl, Action<CommonResponse<MintResponse>> callBack)
+        {
+            MirrorWrapper.Instance.CreateVerifiedCollection(collectionName, collectionSymbol, collectionInfoUrl, callBack);
+        }
+
+        public static void CreateVerifiedSubCollection(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, Action<CommonResponse<MintResponse>> callBack)
+        {
+            MirrorWrapper.Instance.CreateVerifiedSubCollection(parentCollection, collectionName, collectionSymbol, collectionInfoUrl, callBack);
+        }
+
+        #endregion
+
         #region marketplace
 
         public static void FetchSingleNFT(string mintAddress,Action<SingleNFTResponseObj> action)
         {
-            MirrorWrapper.Instance.FetchSingleNft(mintAddress, action);
+            MirrorWrapper.Instance.FetchSingleNFT(mintAddress, action);
         }
 
         public static void FetchNFTsByMintAddress(List<string> mintAddresses,Action<MultipleNFTsResponse> action)
         {
-            MirrorWrapper.Instance.FetchNFTsByMintAddress(mintAddresses, action);
+            MirrorWrapper.Instance.FetchNFTsByMintAddresses(mintAddresses, action);
         }
 
         public static void FetchNFTsByCreators(List<string> creators, Action<MultipleNFTsResponse> action)
         {
-            MirrorWrapper.Instance.FetchNftsByCreators(creators, action);
+            MirrorWrapper.Instance.FetchNftsByCreatorAddresses(creators, action);
         }
 
-        public static void FetchNFTsByUpdateAuthorityAddress(List<string> updateAuthorityAddresses, Action<MultipleNFTsResponse> action)
+        public static void FetchNftsByUpdateAuthorities(List<string> updateAuthorityAddresses, Action<CommonResponse<MultipleNFTsResponse>> action)
         {
             MirrorWrapper.Instance.FetchNftsByUpdateAuthorities(updateAuthorityAddresses, action);
         }
 
+        public static void ListNFT(string mintAddress, decimal price, Action<CommonResponse<ListingResponse>> callBack)
+        {
+            MirrorWrapper.Instance.ListNFT(mintAddress,price,callBack);
+        }
+
+        public static void CancelNFTListing(string mintAddress, decimal price, Action<CommonResponse<ListingResponse>> callBack)
+        {
+            MirrorWrapper.Instance.CancelNFTListing(mintAddress, price, callBack);
+        }
+
+        public static void UpdateNFTListing(string mintAddress, decimal price, Action<CommonResponse<ListingResponse>> callBack)
+        {
+            MirrorWrapper.Instance.UpdateNFTListing(mintAddress, price, callBack);
+        }
+
+        public static void BuyNFT(string mintAddress, decimal price, Action<CommonResponse<ListingResponse>> callBack)
+        {
+            MirrorWrapper.Instance.BuyNFT(mintAddress, price, callBack);
+        }
+
+        public static void TransferNFT(string mintAddress, string toWallet, Action<CommonResponse<ListingResponse>> callBack)
+        {
+            MirrorWrapper.Instance.TransferNFT(mintAddress, toWallet, callBack);
+        }
+
+        #endregion
+
+        #region Wallet
+        public static void GetWalletTokens(Action<CommonResponse<WalletTokenResponse>> action)
+        {
+            MirrorWrapper.Instance.GetWalletTokens(action);
+        }
+        public static void GetWalletTransactions(decimal number, string nextBefore, Action<CommonResponse<TransferTokenResponse>> action)
+        {
+            MirrorWrapper.Instance.GetWalletTransactions(number,nextBefore,action);
+        }
+        public static void GetWalletTransactionsBySignatrue(string signature, Action<CommonResponse<TransferTokenResponse>> action)
+        {
+            MirrorWrapper.Instance.GetWalletTransactionsBySignatrue(signature,action);
+        }
+        public static void TransferSol(ulong amout, string publicKey, Action<CommonResponse<TransferSolResponse>> callBack)
+        {
+            MirrorWrapper.Instance.TransferSol(amout,publicKey,callBack);
+        }
+        public static void TransferToken(ulong amout, string publicKey, Action<CommonResponse<TransferTokenResponse>> callBack)
+        {
+            MirrorWrapper.Instance.TransferToken(amout,publicKey,callBack);
+        }
         #endregion
     }
 }

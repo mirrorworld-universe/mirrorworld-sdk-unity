@@ -2,7 +2,8 @@ namespace MirrorworldSDK
 {
     public enum Environment
     {
-        Staging,
+        StagingDevnet,
+        StagingMainnet,
         Production
     }
     

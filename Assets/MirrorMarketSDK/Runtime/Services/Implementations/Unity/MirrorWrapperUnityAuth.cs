@@ -11,14 +11,16 @@ namespace MirrorworldSDK.Wrapper
 {
     public partial class MirrorWrapper : IAuthenticationService
     {
-        private readonly string urlLoginWithEmail = Constant.ApiRoot + "auth/login";
-        private readonly string urlRefreshToken = Constant.UserRoot + "auth/refresh-token";
-        private readonly string urlGetCurrentUser = Constant.ApiRoot + "auth/me";
-        private readonly string urlQueryUser = Constant.ApiRoot + "auth/user";
+        private readonly string urlLoginWithEmail = "auth/login";
+        private readonly string urlRefreshToken = "auth/refresh-token";
+        private readonly string urlGetCurrentUser = "auth/me";
+        private readonly string urlQueryUser = "auth/user";
 
         public void GetCurrentUserInfo(Action<CommonResponse<UserResponse>> callBack)
         {
-            monoBehaviour.StartCoroutine(CheckAndGet(urlGetCurrentUser, null, (response) => {
+            string url = GetAPIRoot() + urlGetCurrentUser;
+
+            monoBehaviour.StartCoroutine(CheckAndGet(url, null, (response) => {
                 CommonResponse<UserResponse> responseBody = JsonConvert.DeserializeObject<CommonResponse<UserResponse>>(response);
                 SaveCurrentUser(responseBody.Data);
                 callBack(responseBody);
@@ -27,14 +29,14 @@ namespace MirrorworldSDK.Wrapper
 
         public void LoginWithEmail(string emailAddress, string password, Action<CommonResponse<LoginResponse>> callBack)
         {
-            //todo check email format
-
             BasicEmailLoginRequest requestBody = new BasicEmailLoginRequest();
             requestBody.Email = emailAddress;
             requestBody.Password = password;
             var rawRequestBody = JsonConvert.SerializeObject(requestBody);
 
-            monoBehaviour.StartCoroutine(Post(urlLoginWithEmail, rawRequestBody, (rawResponseBody) =>
+            string url = GetAuthRoot() + urlLoginWithEmail;
+
+            monoBehaviour.StartCoroutine(Post(url, rawRequestBody, (rawResponseBody) =>
             {
                 LogFlow("rawResponseBody:" + rawResponseBody);
 
@@ -47,7 +49,7 @@ namespace MirrorworldSDK.Wrapper
 
         public void QueryUser(string email, Action<CommonResponse<UserResponse>> callBack)
         {
-            string url = urlQueryUser + "?email=" + email;
+            string url = GetAPIRoot() + urlQueryUser + "?email=" + email;
             monoBehaviour.StartCoroutine(CheckAndGet(url, null, (response) => {
                 CommonResponse<UserResponse> responseBody = JsonConvert.DeserializeObject<CommonResponse<UserResponse>>(response);
                 callBack(responseBody);
@@ -72,8 +74,9 @@ namespace MirrorworldSDK.Wrapper
                 yield break;
             }
 
+            string url = GetAuthRoot() + urlRefreshToken;
 
-            UnityWebRequest request = new UnityWebRequest(urlRefreshToken, "GET");
+            UnityWebRequest request = new UnityWebRequest(url, "GET");
 
             Utils.SetContentTypeHeader(request);
             Utils.SetAcceptHeader(request);

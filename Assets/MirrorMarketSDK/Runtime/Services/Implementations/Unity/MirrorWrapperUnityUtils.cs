@@ -74,6 +74,7 @@ namespace MirrorworldSDK.Wrapper
             Utils.SetContentTypeHeader(request);
             Utils.SetAcceptHeader(request);
             Utils.SetApiKeyHeader(request, apiKey);
+            Utils.SetAuthorizationHeader(request, accessToken);
 
             byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(messageBody);
             request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
@@ -136,6 +137,48 @@ namespace MirrorworldSDK.Wrapper
         {
             refreshToken = newRefreshToken;
             SaveStringToLocal(localKeyRefreshToken, refreshToken);
+        }
+
+        private string GetAPIRoot()
+        {
+            if(environment == Environment.Production)
+            {
+                return Constant.ApiRootProduction;
+            }
+            else if(environment == Environment.StagingMainnet)
+            {
+                return Constant.ApiRootStagingMainnet;
+            }
+            else if (environment == Environment.StagingDevnet)
+            {
+                return Constant.ApiRootStagingDevnet;
+            }
+            else
+            {
+                LogFlow("GetAPIRoot failed! env is:" + environment);
+                return Constant.ApiRootStagingDevnet;
+            }
+        }
+
+        private string GetAuthRoot()
+        {
+            if (environment == Environment.Production)
+            {
+                return Constant.UserRootProduction;
+            }
+            else if (environment == Environment.StagingMainnet)
+            {
+                return Constant.UserRootStagingMainnet;
+            }
+            else if (environment == Environment.StagingDevnet)
+            {
+                return Constant.UserRootStagingDevnet;
+            }
+            else
+            {
+                LogFlow("GetAuthRoot failed! env is:" + environment);
+                return Constant.UserRootStagingDevnet;
+            }
         }
     }
 }

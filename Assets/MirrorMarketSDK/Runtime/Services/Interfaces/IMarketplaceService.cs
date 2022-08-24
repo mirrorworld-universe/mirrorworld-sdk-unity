@@ -7,30 +7,35 @@ namespace MirrorworldSDK.Interfaces
 {
     public interface IMarketplaceService
     {
-        public void CreateCollection(CreateCollectionRequest requestBody, string accessToken, Action<CommonResponse<MintResponse>> callBack);
+        //create
+        public void CreateVerifiedCollection(string collectionName, string collectionSymbol, string collectionInfoUrl, Action<CommonResponse<MintResponse>> callBack);
         
-        public void CreateSubCollection(CreateSubCollectionRequest requestBody, string mintAddress, Action<CommonResponse<MintResponse>> callBack);
+        public void CreateVerifiedSubCollection(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, Action<CommonResponse<MintResponse>> callBack);
         
-        public void CreateNft(CreateNftRequest requestBody, string accessToken, Action<CommonResponse<MintResponse>> callBack);
+        public void MintNft(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, Action<CommonResponse<MintResponse>> callBack);
+
+        //fetch
+        public void FetchNFTsByMintAddresses(List<string> mintAddresses, Action<MultipleNFTsResponse> callBack);
         
-        public void FetchNFTsByMintAddress(List<string> mintAddresses, Action<MultipleNFTsResponse> callBack);
+        public void FetchNftsByCreatorAddresses(List<string> creators, Action<MultipleNFTsResponse> callBack);
         
-        public void FetchNftsByCreators(List<string> creators, Action<MultipleNFTsResponse> callBack);
+        public void FetchNftsByUpdateAuthorities(List<string> updateAuthorities, Action<CommonResponse<MultipleNFTsResponse>> callBack);
         
-        public void FetchNftsByUpdateAuthorities(List<string> updateAuthorities, Action<MultipleNFTsResponse> callBack);
+        public void FetchNftsByOwnerAddresses(List<string> owners, Action<MultipleNFTsResponse> callBack);
         
-        public void FetchNftsByOwners(List<string> owners, Action<MultipleNFTsResponse> callBack);
+        public void FetchSingleNFT(string mintAddress, Action<SingleNFTResponseObj> callBack);
+
+        //list
+        public void ListNFT(string mintAddress, decimal price, Action<CommonResponse<ListingResponse>> callBack);
         
-        public void FetchSingleNft(string mintAddress, Action<SingleNFTResponseObj> callBack);
+        public void UpdateNFTListing(string mintAddress, decimal price, Action<CommonResponse<ListingResponse>> callBack);
         
-        public void ListNftOnMarketplace(ListNftOnMarketplaceRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack);
-        
-        public void UpdateNftListOnMarketplace(UpdateNftListOnMarketplaceRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack);
-        
-        public void CancelNftListOnMarketplace(CancelNftListOnMarketplaceRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack);
-        
-        public void BuyNftOnMarketplace(BuyNftOnMarketplaceRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack);
-        
-        public void TransferNft(TransferNftRequest requestBody, string accessToken, Action<CommonResponse<ListingResponse>> callBack);
+        public void CancelNFTListing(string mintAddress, decimal price, Action<CommonResponse<ListingResponse>> callBack);
+
+        //buy
+        public void BuyNFT(string mintAddress, decimal price, Action<CommonResponse<ListingResponse>> callBack);
+
+        //transfer
+        public void TransferNFT(string mintAddress, string walletAddress, Action<CommonResponse<ListingResponse>> callBack);
     }
 }

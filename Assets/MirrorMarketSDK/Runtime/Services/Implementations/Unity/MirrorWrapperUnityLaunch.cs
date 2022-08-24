@@ -9,6 +9,7 @@ namespace MirrorworldSDK.Wrapper
     {
         private string apiKey = "";
         private bool debugMode = false;
+        private Environment environment;
 
         private string accessToken = "";
         private string refreshToken = "";
@@ -16,9 +17,10 @@ namespace MirrorworldSDK.Wrapper
 
         private MonoBehaviour monoBehaviour;
 
-        public void InitSDK(MonoBehaviour monoBehaviour)
+        public void InitSDK(MonoBehaviour monoBehaviour,Environment environment)
         {
             LogFlow("Unity wrapper inited.");
+            this.environment = environment;
             this.monoBehaviour = monoBehaviour;
         }
 

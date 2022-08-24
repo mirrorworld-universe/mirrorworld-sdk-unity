@@ -6,10 +6,15 @@ namespace MirrorworldSDK.Interfaces
 {
     public interface IWalletService
     {
-        public IEnumerator TransferSol(TransferSolResponse requestBody, string accessToken, Action<CommonResponse<TransferSolResponse>> callBack);
+        public void GetWalletTokens(Action<CommonResponse<WalletTokenResponse>> action);
+
+        public void GetWalletTransactions(decimal number, string nextBefore, Action<CommonResponse<TransferTokenResponse>> action);
+
+        public void GetWalletTransactionsBySignatrue(string signature, Action<CommonResponse<TransferTokenResponse>> action);
+
+        public void TransferSol(ulong amout, string publicKey, Action<CommonResponse<TransferSolResponse>> callBack);
         
-        public IEnumerator TransferToken(TransferTokenRequest requestBody, string accessToken, Action<CommonResponse<TransferTokenResponse>> callBack);
+        public void TransferToken(ulong amout, string publicKey, Action<CommonResponse<TransferTokenResponse>> callBack);
         
-        public IEnumerator GetWalletTokens(string accessToken, Action<CommonResponse<WalletTokenResponse>> callBack);
     }
 }
