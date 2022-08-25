@@ -23,6 +23,13 @@ public class Test : MonoBehaviour
     {
         //MirrorSDK.InitSDK("WsPRi3GQz0FGfoSklYUYzDesdKjKvxdrmtQ");
         //MirrorSDK.SetDebugMode(true);
+
+        GameObject mirrorObj = new GameObject("MirrorSDK", typeof(MirrorSDK));
+        string apiKey = "your api key";
+        bool debugMode = true;
+        Environment environment = Environment.StagingDevnet;
+
+        MirrorSDK.InitSDK(apiKey, mirrorObj, debugMode, environment);
     }
 
     public void onBtnStartLoginClicked()
