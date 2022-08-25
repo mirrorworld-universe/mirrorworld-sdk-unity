@@ -118,7 +118,7 @@ namespace MirrorworldSDK
 
         public static void QueryUser(string email, Action<UserResponse> callback)
         {
-            MirrorWrapper.Instance.QueryUser(email, (response) =>
+            MirrorWrapper.Instance.FetchUser(email, (response) =>
             {
                 callback(response.Data);
             });
@@ -150,9 +150,14 @@ namespace MirrorworldSDK
 
         #region marketplace
 
-        public static void FetchSingleNFT(string mintAddress,Action<SingleNFTResponseObj> action)
+        public static void GetNFTDetails(string mintAddress,Action<SingleNFTResponseObj> action)
         {
-            MirrorWrapper.Instance.FetchSingleNFT(mintAddress, action);
+            MirrorWrapper.Instance.GetNFTDetails(mintAddress, action);
+        }
+
+        public static void GetNFTsOwnedByAddress(List<string> owners, Action<MultipleNFTsResponse> callBack)
+        {
+            MirrorWrapper.Instance.GetNFTsOwnedByAddress(owners,callBack);
         }
 
         public static void FetchNFTsByMintAddress(List<string> mintAddresses,Action<MultipleNFTsResponse> action)
@@ -214,9 +219,9 @@ namespace MirrorworldSDK
         {
             MirrorWrapper.Instance.TransferSol(amout,publicKey,callBack);
         }
-        public static void TransferToken(ulong amout, string publicKey, Action<CommonResponse<TransferTokenResponse>> callBack)
+        public static void TransferSPLToken(ulong amout, string publicKey, Action<CommonResponse<TransferTokenResponse>> callBack)
         {
-            MirrorWrapper.Instance.TransferToken(amout,publicKey,callBack);
+            MirrorWrapper.Instance.TransferSPLToken(amout,publicKey,callBack);
         }
         #endregion
     }

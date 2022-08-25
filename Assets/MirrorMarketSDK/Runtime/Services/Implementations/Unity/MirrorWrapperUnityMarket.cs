@@ -28,7 +28,7 @@ namespace MirrorworldSDK.Wrapper
         private readonly string urlBuyNFTOnTheMarketplace = "solana/marketplace/buy";
 
 
-        public void FetchSingleNFT(string mintAddress, Action<SingleNFTResponseObj> callBack)
+        public void GetNFTDetails(string mintAddress, Action<SingleNFTResponseObj> callBack)
         {
             string url = GetAPIRoot() + urlFetchSingleNFT + mintAddress;
 
@@ -146,7 +146,7 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void FetchNftsByOwnerAddresses(List<string> owners, Action<MultipleNFTsResponse> callBack)
+        public void GetNFTsOwnedByAddress(List<string> owners, Action<MultipleNFTsResponse> callBack)
         {
             FetchMultipleNftsByOwnersRequest requestBody = new FetchMultipleNftsByOwnersRequest();
 

@@ -1,6 +1,7 @@
 
 using System.Collections.Generic;
 using MirrorworldSDK;
+using MirrorworldSDK.Models;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -61,7 +62,7 @@ public class Test : MonoBehaviour
         }
         else if(btnName == "BtnFetchSingleNFT")
         {
-            MirrorSDK.FetchSingleNFT(myOwnNFT, (response) => {
+            MirrorSDK.GetNFTDetails(myOwnNFT, (response) => {
                 Debug.Log("Fetch success:" + response);
             });
         }
@@ -187,8 +188,11 @@ public class Test : MonoBehaviour
         else if(btnName == "BtnGetWalletTokens")
         {
             MirrorSDK.GetWalletTokens((response) => {
-                var rawRequestBody = JsonConvert.SerializeObject(response);
-                Debug.Log("GetWalletTokens"+ rawRequestBody);
+                long resCode = response.Code;
+                WalletTokenResponse res = response.Data;
+                string error = response.Error;
+                string message = response.Message;
+                string status = response.Status;
             });
         }
         else if (btnName == "BtnGetWalletTransactions")
@@ -221,7 +225,7 @@ public class Test : MonoBehaviour
         {
             ulong amount = 10;
             string publicKey = "wallet address";
-            MirrorSDK.TransferToken(amount, publicKey, (response) => {
+            MirrorSDK.TransferSPLToken(amount, publicKey, (response) => {
                 var rawRequestBody = JsonConvert.SerializeObject(response);
                 Debug.Log("TransferToken" + rawRequestBody);
             });

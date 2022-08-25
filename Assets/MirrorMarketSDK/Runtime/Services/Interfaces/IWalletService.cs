@@ -14,7 +14,7 @@ namespace MirrorworldSDK.Interfaces
 
         public void TransferSol(ulong amout, string publicKey, Action<CommonResponse<TransferSolResponse>> callBack);
         
-        public void TransferToken(ulong amout, string publicKey, Action<CommonResponse<TransferTokenResponse>> callBack);
+        public void TransferSPLToken(ulong amout, string publicKey, Action<CommonResponse<TransferTokenResponse>> callBack);
         
     }
 }

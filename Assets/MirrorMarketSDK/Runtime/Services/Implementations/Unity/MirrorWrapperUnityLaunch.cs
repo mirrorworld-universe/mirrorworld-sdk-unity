@@ -45,6 +45,11 @@ namespace MirrorworldSDK.Wrapper
             LogFlow("Start login.Waitting to login on web.but not implemented.Please use debug email.");
             LoginWithEmail(MirrorSDK.sdebugEmail, MirrorSDK.spassword, (response) =>
             {
+                long resCode = response.Code;
+                LoginResponse tokenResponse = response.Data;
+                string error = response.Error;
+                string message = response.Message;
+                string status = response.Status;
                 LogFlow("LoginWithEmail result is:" + response);
             });
             //todo open url
