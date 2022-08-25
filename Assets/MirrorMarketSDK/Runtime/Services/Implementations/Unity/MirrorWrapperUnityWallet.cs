@@ -75,7 +75,7 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void TransferToken(ulong amout, string publicKey, Action<CommonResponse<TransferTokenResponse>> callBack)
+        public void TransferSPLToken(ulong amout, string publicKey, Action<CommonResponse<TransferTokenResponse>> callBack)
         {
             string url = GetAPIRoot() + urlTransferTokenToAnotherAddress;
 
