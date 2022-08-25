@@ -45,7 +45,7 @@ public class Test : MonoBehaviour
 
         if(btnName == "BtnGetWallet")
         {
-            MirrorSDK.GetWalletAddress((result) => {
+            MirrorSDK.GetWallet((result) => {
                 Debug.Log(result);
             });
         }
@@ -56,8 +56,8 @@ public class Test : MonoBehaviour
         else if(btnName == "BtnQueryUser")
         {
             string email = "squall19871987@163.com";
-            MirrorSDK.QueryUser(email,(user)=> {
-                Debug.Log("QueryUser " + email + " result is:" + user.Email);
+            MirrorSDK.FetchUser(email,(user)=> {
+                Debug.Log("QueryUser " + email + " result is:" + user);
             });
         }
         else if(btnName == "BtnFetchSingleNFT")
@@ -79,7 +79,7 @@ public class Test : MonoBehaviour
         {
             List<string> creators = new List<string>();
             creators.Add("GCeY1zY2QFz1iYekbsX1jQjtJnjyxWXtBhxAJPrvG3Bg");
-            MirrorSDK.FetchNFTsByCreators(creators, (nfts) =>
+            MirrorSDK.FetchNFTsByCreatorAddresses(creators, (nfts) =>
             {
                 Debug.Log("FetchNFTsByCreators result is:" + nfts.nfts);
             });
@@ -88,7 +88,7 @@ public class Test : MonoBehaviour
         {
             List<string> authens = new List<string>();
             authens.Add("4eMGGR6qyvhrSSrHJBjaYkXZpM5kNwbzRQq9q89NfvPC");
-            MirrorSDK.FetchNftsByUpdateAuthorities(authens, (res) =>
+            MirrorSDK.FetchNFTsByUpdateAuthorities(authens, (res) =>
             {
                 var rawRequestBody = JsonConvert.SerializeObject(res);
                 Debug.Log("FetchNFTsByUpdateAuthorityAddress result is:" + rawRequestBody);
