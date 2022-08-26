@@ -155,7 +155,7 @@ namespace MirrorworldSDK
 
         #region marketplace
 
-        public static void GetNFTDetails(string mintAddress,Action<SingleNFTResponseObj> action)
+        public static void GetNFTDetails(string mintAddress,Action<CommonResponse<SingleNFTResponse>> action)
         {
             MirrorWrapper.Instance.GetNFTDetails(mintAddress, action);
         }

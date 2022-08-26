@@ -1,42 +1,12 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using MirrorworldSDK;
 using Newtonsoft.Json;
 using TMPro;
 using UnityEngine;
 
-public enum TestAPIEnum
-{
-    InitSDK,
-    SetDebug,
-    GetWallet,
-    GetAccessToken,
-    FetchUser,
-    GetNFTDetails,
-    GetNFTsByMints,
-    GetNFTsByCreators,
-    GetNFTsByAutherity,
-    IsLoggedIn,
-    CreateCollection,
-    CreateSubCollection,
-    CreateNFT,
-    ListNFT,
-    UpdateList,
-    CancelList,
-    BuyNFT,
-    TransferNFT,
-    GetWalletTokens,
-    GetWalletTransactions,
-    GetWalletTransactionsBySignature,
-    TransferSol,
-    TransferToken
-}
-
 public class TestManager : MonoBehaviour
 {
-    public static TestAPIEnum testAPIEnum;
-
     public GameObject apiInfo;
     public GameObject apiList;
 
@@ -70,7 +40,12 @@ public class TestManager : MonoBehaviour
 
     public void OnBtnInitClicked()
     {
+        GameObject mirrorObj = new GameObject("MirrorSDK", typeof(MirrorSDK));
+        string apiKey = "your api key";
+        bool debugMode = true;
+        MirrorworldSDK.Environment environment = MirrorworldSDK.Environment.StagingDevnet;
 
+        MirrorSDK.InitSDK(apiKey, mirrorObj, debugMode, environment);
     }
 
     public void OnBtnLoginClicked()
@@ -84,7 +59,7 @@ public class TestManager : MonoBehaviour
         Debug.Log("button name:" + btnName);
 
         ClearLog();
-        PrintLog("wait to call");
+        PrintLog("wait to call...");
 
         if (btnName == "BtnSetApiKey")
         {
@@ -96,6 +71,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("GetAccessToken", null, null, null, null, "GetAccessToken", "Get Access Token",()=> {
                 MirrorSDK.GetAccessToken();
+                PrintLog("Access token is secret,you can see the result in console.");
             });
         }
         else if (btnName == "BtnQueryUser")
@@ -365,7 +341,8 @@ public class TestManager : MonoBehaviour
 
     private void PrintLog(string content)
     {
-        contentText.text += content + "\n";
+        contentText.text += "MirrorTest:" + content + "\n";
+        GUIUtility.systemCopyBuffer = content;
     }
 
     private void ClearLog()
@@ -375,9 +352,20 @@ public class TestManager : MonoBehaviour
 
     private void UpdateValues()
     {
-        v1 = input1.text;
-        v2 = input2.text;
-        v3 = input3.text;
-        v4 = input4.text;
+        v1 = input1.GetParsedText().Trim();
+        v1 = SubLastChar(v1);
+        v2 = input2.GetParsedText().Trim();
+        v2 = SubLastChar(v2);
+        v3 = input3.GetParsedText().Trim();
+        v3 = SubLastChar(v3);
+        v4 = input4.GetParsedText().Trim();
+        v4 = SubLastChar(v4);
+    }
+
+    private string SubLastChar(string originStr)
+    {
+        if (originStr.Length == 0) return originStr;
+        originStr = originStr.Substring(0, originStr.Length-1);
+        return originStr;
     }
 }
