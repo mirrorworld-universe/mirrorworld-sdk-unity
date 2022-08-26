@@ -29,7 +29,7 @@ namespace MirrorworldSDK.Wrapper
             this.debugMode = debugMode;
         }
 
-        public void SetApiKey(string apiKey)
+        public void SetAPIKey(string apiKey)
         {
             this.apiKey = apiKey;
         }

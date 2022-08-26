@@ -69,7 +69,7 @@ namespace MirrorworldSDK
             MonoBehaviour monoBehaviour = gameObject.GetComponent<MonoBehaviour>();
             MirrorSDK.monoBehaviour = monoBehaviour;
             MirrorWrapper.Instance.InitSDK(monoBehaviour,environment);
-            MirrorWrapper.Instance.SetApiKey(apiKey);
+            MirrorWrapper.Instance.SetAPIKey(apiKey);
             MirrorWrapper.Instance.SetDebug(useDebug);
 #elif UNITY_ANDROID && !(UNITY_EDITOR)
             MirrorWrapper.Instance.InitSDK();
@@ -79,6 +79,11 @@ namespace MirrorworldSDK
             MirrorWrapper.Instance.SetApiKey(apiKey);
             MirrorWrapper.Instance.LogFlow("Mirror SDK Inited.");
 #endif
+        }
+
+        public static void SetAPIKey(string apiKey)
+        {
+            MirrorWrapper.Instance.SetAPIKey(apiKey);
         }
 
         //set if use debug mode
@@ -94,19 +99,19 @@ namespace MirrorworldSDK
             MirrorWrapper.Instance.StartLogin();
         }
 
-        public static void GetWalletAddress(Action<string> callback)
+        public static void GetWallet(Action<UserResponse> callback)
         {
             UserResponse user = MirrorWrapper.Instance.GetCurrentUser();
             if (user != null)
             {
                 MirrorWrapper.Instance.LogFlow("Have old current user,use old data.");
-                callback(user.SolAddress);
+                callback(user);
             }
             else
             {
                 MirrorWrapper.Instance.LogFlow("No old current user,try to get data.");
                 MirrorWrapper.Instance.GetCurrentUserInfo((response)=> {
-                    callback(response.Data.SolAddress);
+                    callback(response.Data);
                 });
             }
         }
@@ -116,11 +121,11 @@ namespace MirrorworldSDK
             MirrorWrapper.Instance.GetAccessToken();
         }
 
-        public static void QueryUser(string email, Action<UserResponse> callback)
+        public static void FetchUser(string email, Action<CommonResponse<UserResponse>> callback)
         {
             MirrorWrapper.Instance.FetchUser(email, (response) =>
             {
-                callback(response.Data);
+                callback(response);
             });
         }
 
@@ -150,7 +155,7 @@ namespace MirrorworldSDK
 
         #region marketplace
 
-        public static void GetNFTDetails(string mintAddress,Action<SingleNFTResponseObj> action)
+        public static void GetNFTDetails(string mintAddress,Action<CommonResponse<SingleNFTResponse>> action)
         {
             MirrorWrapper.Instance.GetNFTDetails(mintAddress, action);
         }
@@ -165,12 +170,12 @@ namespace MirrorworldSDK
             MirrorWrapper.Instance.FetchNFTsByMintAddresses(mintAddresses, action);
         }
 
-        public static void FetchNFTsByCreators(List<string> creators, Action<MultipleNFTsResponse> action)
+        public static void FetchNFTsByCreatorAddresses(List<string> creators, Action<MultipleNFTsResponse> action)
         {
             MirrorWrapper.Instance.FetchNftsByCreatorAddresses(creators, action);
         }
 
-        public static void FetchNftsByUpdateAuthorities(List<string> updateAuthorityAddresses, Action<CommonResponse<MultipleNFTsResponse>> action)
+        public static void FetchNFTsByUpdateAuthorities(List<string> updateAuthorityAddresses, Action<CommonResponse<MultipleNFTsResponse>> action)
         {
             MirrorWrapper.Instance.FetchNftsByUpdateAuthorities(updateAuthorityAddresses, action);
         }

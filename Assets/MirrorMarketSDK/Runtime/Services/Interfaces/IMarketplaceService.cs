@@ -23,7 +23,7 @@ namespace MirrorworldSDK.Interfaces
         
         public void GetNFTsOwnedByAddress(List<string> owners, Action<MultipleNFTsResponse> callBack);
         
-        public void GetNFTDetails(string mintAddress, Action<SingleNFTResponseObj> callBack);
+        public void GetNFTDetails(string mintAddress, Action<CommonResponse<SingleNFTResponse>> callBack);
 
         //list
         public void ListNFT(string mintAddress, decimal price, Action<CommonResponse<ListingResponse>> callBack);

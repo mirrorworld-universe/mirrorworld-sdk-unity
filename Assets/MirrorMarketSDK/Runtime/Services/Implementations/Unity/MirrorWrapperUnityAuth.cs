@@ -18,7 +18,7 @@ namespace MirrorworldSDK.Wrapper
 
         public void GetCurrentUserInfo(Action<CommonResponse<UserResponse>> callBack)
         {
-            string url = GetAPIRoot() + urlGetCurrentUser;
+            string url = GetAuthRoot() + urlGetCurrentUser;
 
             monoBehaviour.StartCoroutine(CheckAndGet(url, null, (response) => {
                 CommonResponse<UserResponse> responseBody = JsonConvert.DeserializeObject<CommonResponse<UserResponse>>(response);
@@ -49,7 +49,7 @@ namespace MirrorworldSDK.Wrapper
 
         public void FetchUser(string email, Action<CommonResponse<UserResponse>> callBack)
         {
-            string url = GetAPIRoot() + urlQueryUser + "?email=" + email;
+            string url = GetAuthRoot() + urlQueryUser + "?email=" + email;
             monoBehaviour.StartCoroutine(CheckAndGet(url, null, (response) => {
                 CommonResponse<UserResponse> responseBody = JsonConvert.DeserializeObject<CommonResponse<UserResponse>>(response);
                 callBack(responseBody);
@@ -111,7 +111,9 @@ namespace MirrorworldSDK.Wrapper
 
         public void IsLoggedIn(Action<bool> action)
         {
-            monoBehaviour.StartCoroutine(CheckAndGet(urlGetCurrentUser, null, (response) => {
+            string url = GetAuthRoot() + urlGetCurrentUser;
+
+            monoBehaviour.StartCoroutine(CheckAndGet(url, null, (response) => {
 
                 CommonResponse<UserResponse> responseBody = JsonConvert.DeserializeObject<CommonResponse<UserResponse>>(response);
 
