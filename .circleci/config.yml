@@ -1,73 +1,110 @@
 version: 2.1
-
 orbs:
-  unity: game-ci/unity@0.1.1
-
+  unity: game-ci/unity@1.0.0
 workflows:
-  test_and_build:
+  test-build-with-executors:
     jobs:
       - unity/test:
-          name: "test-2021"
-          unity-license-var-name: "UNITY_ENCODED_LICENSE_2021"
+          context: unity-orb
           executor:
-            name: "unity/ubuntu-2021"
-            target-platform: "linux-il2cpp"
-            resource-class: "medium"
-          project-path: "src"
-          test-platform: "playmode"
-          context: unity-orb-testing
+            editor_version: 2021.3.1f1
+            name: unity/ubuntu
+            resource_class: medium
+            target_platform: linux-il2cpp
+          name: test-linux
+          project-path: Unity2D-Demo-Game-CI-CD/src
+          step-name: Run tests on Linux
+          test-platform: playmode
+          unity-license-var-name: UNITY_ENCODED_LICENSE
+      - unity/test:
+          context: unity-orb
+          executor:
+            editor_version: 2021.3.2f1
+            name: unity/windows-2019
+            size: large
+            target_platform: windows-il2cpp
+          name: test-windows
+          project-path: Unity2D-Demo-Game-CI-CD/src
+          step-name: Run tests on Windows
+          test-platform: playmode
+          unity-license-var-name: UNITY_ENCODED_LICENSE
+          unity-password-var-name: UNITY_PASSWORD
+          unity-username-var-name: UNITY_USERNAME
       - unity/build:
-          name: "build-linux64-2021"
-          step-name: "Build StandaloneLinux64"
-          unity-license-var-name: "UNITY_ENCODED_LICENSE_2021"
-          executor:
-            name: "unity/ubuntu-2021"
-            target-platform: "linux-il2cpp"
-            resource-class: "medium"
-          project-path: "src"
           build-target: StandaloneLinux64
           compress: true
-          requires:
-            - test-2021
-          context: unity-orb-testing
-      - unity/build:
-          name: "build-webgl-2021"
-          step-name: "Build WebGL"
-          unity-license-var-name: "UNITY_ENCODED_LICENSE_2021"
+          context: unity-orb
           executor:
-            name: "unity/ubuntu"
-            target-platform: "webgl"
-            editor-version: "2021.2.11f1"
-            resource-class: "large"
-          project-path: "src"
-          build-target: "WebGL"
-          compress: false
+            editor_version: 2021.3.1f1
+            name: unity/ubuntu
+            resource_class: large
+            target_platform: linux-il2cpp
+          name: build-linux64-il2cpp
+          project-path: Unity2D-Demo-Game-CI-CD/src
           requires:
-            - test-2021
-          context: unity-orb-testing
+            - test-linux
+          step-name: Build StandaloneLinux64 using IL2CPP
+          unity-license-var-name: UNITY_ENCODED_LICENSE
       - unity/build:
-          name: "build-osx"
-          step-name: "Build StandaloneOSX"
-          unity-license-var-name: "UNITY_ENCODED_LICENSE_2021"
+          build-target: StandaloneWindows64
+          compress: true
+          context: unity-orb
           executor:
-            name: "unity/ubuntu-2021"
-            target-platform: "mac-mono"
-            resource-class: "medium"
-          project-path: "src"
-          build-target: "StandaloneOSX"
+            editor_version: 2021.3.2f1
+            name: unity/windows-2019
+            size: large
+            target_platform: windows-il2cpp
+          name: build-windows64-il2cpp
+          project-path: Unity2D-Demo-Game-CI-CD/src
           requires:
-            - test-2021
-          context: unity-orb-testing
+            - test-windows
+          step-name: Build StandaloneWindows64 using IL2CPP
+          unity-license-var-name: UNITY_ENCODED_LICENSE
+          unity-password-var-name: UNITY_PASSWORD
+          unity-username-var-name: UNITY_USERNAME
       - unity/build:
-          name: "build-windows64-2021"
-          step-name: "Build StandaloneWindows64"
-          unity-license-var-name: "UNITY_ENCODED_LICENSE_2021"
+          build-target: StandaloneWindows64
+          compress: true
+          context: unity-orb
           executor:
-            name: "unity/ubuntu-2021"
-            target-platform: "windows-mono"
-            resource-class: "medium"
-          project-path: "src"
-          build-target: "StandaloneWindows64"
+            editor_version: 2021.3.2f1
+            name: unity/windows-2019-cuda
+            size: medium
+            target_platform: windows-il2cpp
+          name: build-windows64-il2cpp-cuda
+          project-path: Unity2D-Demo-Game-CI-CD/src
           requires:
-            - test-2021
-          context: unity-orb-testing
+            - test-windows
+          step-name: Build StandaloneWindows64 using IL2CPP and CUDA executor
+          unity-license-var-name: UNITY_ENCODED_LICENSE
+          unity-password-var-name: UNITY_PASSWORD
+          unity-username-var-name: UNITY_USERNAME
+      - unity/build:
+          build-target: StandaloneLinux64
+          compress: true
+          context: unity-orb
+          executor:
+            editor_version: 2021.3.1f1
+            name: unity/ubuntu
+            resource_class: large
+            target_platform: base
+          name: build-linux64-mono
+          project-path: Unity2D-Demo-Game-CI-CD/src
+          requires:
+            - test-linux
+          step-name: Build StandaloneLinux64 using Mono
+          unity-license-var-name: UNITY_ENCODED_LICENSE
+      - unity/build:
+          build-target: StandaloneWindows64
+          context: unity-orb
+          executor:
+            editor_version: 2021.3.2f1
+            name: unity/ubuntu
+            resource_class: large
+            target_platform: windows-mono
+          name: build-windows64-mono
+          project-path: Unity2D-Demo-Game-CI-CD/src
+          requires:
+            - test-linux
+          step-name: Build StandaloneWindows64 using Mono
+          unity-license-var-name: UNITY_ENCODED_LICENSE
