@@ -2,24 +2,24 @@ version: 2.1
 orbs:
   unity: game-ci/unity@1.0.0
 workflows:
-  # create-unity-activation-file:
-  #   jobs:
-  #     - unity/create-activation-file: 
-  #         editor_version: 2021.3.3f1
-  test-build-with-executors:
+  create-unity-activation-file:
     jobs:
-      - unity/test:
-          context: unity
-          executor:
-            editor_version: 2021.3.3f1
-            name: unity/ubuntu
-            resource_class: medium
-            target_platform: linux-il2cpp
-          name: test-linux
-          step-name: Run tests on Linux
-          test-platform: playmode
-          # unity-license-var-name: UNITY_ENCODED_LICENSE 
-          unity-serial-var-name: UNITY_SERIAL
-          unity-password-var-name: UNITY_PASSWORD
-          unity-username-var-name: UNITY_USERNAME
+      - unity/create-activation-file: 
+          editor_version: 2021.3.3f1
+  # test-build-with-executors:
+  #   jobs:
+  #     - unity/test:
+  #         context: unity
+  #         executor:
+  #           editor_version: 2021.3.3f1
+  #           name: unity/ubuntu
+  #           resource_class: medium
+  #           target_platform: linux-il2cpp
+  #         name: test-linux
+  #         step-name: Run tests on Linux
+  #         test-platform: playmode
+  #         # unity-license-var-name: UNITY_ENCODED_LICENSE 
+  #         unity-serial-var-name: UNITY_SERIAL
+  #         unity-password-var-name: UNITY_PASSWORD
+  #         unity-username-var-name: UNITY_USERNAME
     
