@@ -11,7 +11,7 @@ workflows:
       - unity/test:
           context: unity
           executor:
-            editor_version: 2021.3.0f1
+            editor_version: 2021.3.3f1
             name: unity/ubuntu
             resource_class: medium
             target_platform: linux-il2cpp
