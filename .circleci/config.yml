@@ -5,11 +5,13 @@ workflows:
   test-build-with-executors:
     jobs:
       - unity/test:
+          context: unity
           executor:
             editor_version: 2021.3.3f1
             name: unity/ubuntu
             resource_class: medium
             target_platform: mac-mono
-          name: test-linux
+          name: test-macOS
           step-name: Run tests on macOS
           test-platform: playmode
+          
