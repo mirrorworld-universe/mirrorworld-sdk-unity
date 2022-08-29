@@ -17,7 +17,7 @@ namespace MirrorworldSDK
         [Tooltip("Open debug mode")]
         public bool debugMode = false;
         [Tooltip("runtime environment")]
-        public Environment environment = Environment.StagingDevnet;
+        public MirrorEnv environment = MirrorEnv.StagingDevnet;
 
         [Tooltip("Temp Attr")]
         public string debugEmail = "";
@@ -57,7 +57,7 @@ namespace MirrorworldSDK
         }
 
         //do init sdk,you can find apikey on developer website
-        public static void InitSDK(string apiKey,GameObject gameObject,bool useDebug,Environment environment)
+        public static void InitSDK(string apiKey,GameObject gameObject,bool useDebug,MirrorEnv environment)
         {
             if (inited)
             {
@@ -97,6 +97,12 @@ namespace MirrorworldSDK
         public static void StartLogin()
         {
             MirrorWrapper.Instance.StartLogin();
+        }
+
+        
+        public static void LoginWithEmail(string emailAddress, string password, Action<CommonResponse<LoginResponse>> callBack)
+        {
+            MirrorWrapper.Instance.LoginWithEmail(emailAddress, password, callBack);
         }
 
         public static void GetWallet(Action<UserResponse> callback)
