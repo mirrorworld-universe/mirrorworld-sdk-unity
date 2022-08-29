@@ -6,7 +6,7 @@ workflows:
     jobs:
       - unity/test:
           context: unity
-          unity-license-var-name: UNITY_ENCODED_LICENSE
+          unity-serial-var-name: UNITY_SERIAL
           unity-username-var-name: UNITY_USERNAME
           unity-password-var-name: UNITY_PASSWORD
           executor:
