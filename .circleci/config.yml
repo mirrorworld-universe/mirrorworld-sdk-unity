@@ -5,14 +5,11 @@ workflows:
   test-build-with-executors:
     jobs:
       - unity/test:
-          context: unity-orb
           executor:
-            editor_version: 2021.3.1f1
+            editor_version: 2021.3.3f1
             name: unity/ubuntu
             resource_class: medium
-            target_platform: linux-il2cpp
+            target_platform: mac-mono
           name: test-linux
-          project-path: Unity2D-Demo-Game-CI-CD/src
-          step-name: Run tests on Linux
+          step-name: Run tests on macOS
           test-platform: playmode
-          unity-license-var-name: UNITY_ENCODED_LICENSE
