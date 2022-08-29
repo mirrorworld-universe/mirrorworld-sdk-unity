@@ -18,5 +18,5 @@ workflows:
           name: test-linux
           step-name: Run tests on Linux
           test-platform: playmode
-          unity-license-var-name: UNITY_ENCODED_LICENSE2
+          unity-license-var-name: UNITY_ENCODED_LICENSE
       
