@@ -4,7 +4,7 @@ orbs:
 workflows:
   test-build-with-executors:
     jobs:
-      - unity/test:
+      - unity/build:
           context: unity
           unity-serial-var-name: UNITY_SERIAL
           unity-username-var-name: UNITY_USERNAME
@@ -16,5 +16,5 @@ workflows:
             target_platform: mac-mono
           name: test-macOS
           step-name: Run tests on macOS
-          test-platform: playmode
+          build-target: StandaloneOSX
           
