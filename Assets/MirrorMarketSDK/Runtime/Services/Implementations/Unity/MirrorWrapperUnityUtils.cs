@@ -141,15 +141,15 @@ namespace MirrorworldSDK.Wrapper
 
         private string GetAPIRoot()
         {
-            if(environment == MirrorEnv.Production)
+            if(environment == MirrorEnv.ProductionMainnet)
             {
                 return Constant.ApiRootProduction;
             }
-            else if(environment == MirrorEnv.StagingMainnet)
+            else if(environment == MirrorEnv.ProductionDevnet)
             {
-                return Constant.ApiRootStagingMainnet;
+                return Constant.ApiRootProductionDev;
             }
-            else if (environment == MirrorEnv.StagingDevnet)
+            else if (environment == MirrorEnv.Staging)
             {
                 return Constant.ApiRootStagingDevnet;
             }
@@ -162,15 +162,15 @@ namespace MirrorworldSDK.Wrapper
 
         private string GetAuthRoot()
         {
-            if (environment == MirrorEnv.Production)
+            if (environment == MirrorEnv.ProductionMainnet)
             {
                 return Constant.UserRootProduction;
             }
-            else if (environment == MirrorEnv.StagingMainnet)
+            else if (environment == MirrorEnv.ProductionDevnet)
             {
-                return Constant.UserRootStagingMainnet;
+                return Constant.UserRootStagingDevnet;
             }
-            else if (environment == MirrorEnv.StagingDevnet)
+            else if (environment == MirrorEnv.Staging)
             {
                 return Constant.UserRootStagingDevnet;
             }

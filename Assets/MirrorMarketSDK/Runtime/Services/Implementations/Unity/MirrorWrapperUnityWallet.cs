@@ -68,6 +68,8 @@ namespace MirrorworldSDK.Wrapper
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
 
+                LogFlow("TransferSol result :" + response);
+
                 CommonResponse<TransferSolResponse> responseBody = JsonConvert.DeserializeObject<CommonResponse<TransferSolResponse>>(response);
 
                 callBack(responseBody);

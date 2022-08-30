@@ -4,6 +4,6 @@ namespace MirrorworldSDK.Models
 {
     public class TransferSolResponse
     {
-        [JsonProperty("txSignature")] public string TxSignature;
+        [JsonProperty("tx_signature")] public string TxSignature;
     }
 }

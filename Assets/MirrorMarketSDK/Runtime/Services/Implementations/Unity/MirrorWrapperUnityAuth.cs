@@ -38,8 +38,6 @@ namespace MirrorworldSDK.Wrapper
 
             monoBehaviour.StartCoroutine(Post(url, rawRequestBody, (rawResponseBody) =>
             {
-                LogFlow("rawResponseBody:" + rawResponseBody);
-
                 CommonResponse<LoginResponse> responseBody = JsonConvert.DeserializeObject<CommonResponse<LoginResponse>>(rawResponseBody);
                 saveKeyParams(responseBody.Data.AccessToken, responseBody.Data.RefreshToken, responseBody.Data.UserResponse);
 

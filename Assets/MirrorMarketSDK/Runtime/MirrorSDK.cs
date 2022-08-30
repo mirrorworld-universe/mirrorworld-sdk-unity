@@ -17,7 +17,7 @@ namespace MirrorworldSDK
         [Tooltip("Open debug mode")]
         public bool debugMode = false;
         [Tooltip("runtime environment")]
-        public MirrorEnv environment = MirrorEnv.StagingDevnet;
+        public MirrorEnv environment = MirrorEnv.Staging;
 
         [Tooltip("Temp Attr")]
         public string debugEmail = "";
@@ -142,19 +142,19 @@ namespace MirrorworldSDK
 
         #region mint
 
-        public static void MintNFT(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, Action<CommonResponse<MintResponse>> callBack)
+        public static void MintNFT(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl,string confirmation, Action<CommonResponse<MintResponse>> callBack)
         {
-            MirrorWrapper.Instance.MintNft(parentCollection,collectionName,collectionSymbol,collectionInfoUrl,callBack);
+            MirrorWrapper.Instance.MintNft(parentCollection,collectionName,collectionSymbol,collectionInfoUrl, confirmation,callBack);
         }
 
-        public static void CreateVerifiedCollection(string collectionName, string collectionSymbol, string collectionInfoUrl, Action<CommonResponse<MintResponse>> callBack)
+        public static void CreateVerifiedCollection(string collectionName, string collectionSymbol, string collectionInfoUrl, string confirmation, Action<CommonResponse<MintResponse>> callBack)
         {
-            MirrorWrapper.Instance.CreateVerifiedCollection(collectionName, collectionSymbol, collectionInfoUrl, callBack);
+            MirrorWrapper.Instance.CreateVerifiedCollection(collectionName, collectionSymbol, collectionInfoUrl,confirmation, callBack);
         }
 
-        public static void CreateVerifiedSubCollection(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, Action<CommonResponse<MintResponse>> callBack)
+        public static void CreateVerifiedSubCollection(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, string confirmation, Action<CommonResponse<MintResponse>> callBack)
         {
-            MirrorWrapper.Instance.CreateVerifiedSubCollection(parentCollection, collectionName, collectionSymbol, collectionInfoUrl, callBack);
+            MirrorWrapper.Instance.CreateVerifiedSubCollection(parentCollection, collectionName, collectionSymbol, collectionInfoUrl,confirmation, callBack);
         }
 
         #endregion
@@ -166,17 +166,22 @@ namespace MirrorworldSDK
             MirrorWrapper.Instance.GetNFTDetails(mintAddress, action);
         }
 
-        public static void GetNFTsOwnedByAddress(List<string> owners, Action<MultipleNFTsResponse> callBack)
+        public static void GetActivityOfSingleNFT(string mintAddress,Action<CommonResponse<ActivityOfSingleNftResponse>> action)
+        {
+            MirrorWrapper.Instance.GetActivityOfSingleNFT(mintAddress,action);
+        }
+
+        public static void GetNFTsOwnedByAddress(List<string> owners, Action<CommonResponse<MultipleNFTsResponse>> callBack)
         {
             MirrorWrapper.Instance.GetNFTsOwnedByAddress(owners,callBack);
         }
 
-        public static void FetchNFTsByMintAddress(List<string> mintAddresses,Action<MultipleNFTsResponse> action)
+        public static void FetchNFTsByMintAddress(List<string> mintAddresses,Action<CommonResponse<MultipleNFTsResponse>> action)
         {
             MirrorWrapper.Instance.FetchNFTsByMintAddresses(mintAddresses, action);
         }
 
-        public static void FetchNFTsByCreatorAddresses(List<string> creators, Action<MultipleNFTsResponse> action)
+        public static void FetchNFTsByCreatorAddresses(List<string> creators, Action<CommonResponse<MultipleNFTsResponse>> action)
         {
             MirrorWrapper.Instance.FetchNftsByCreatorAddresses(creators, action);
         }
@@ -186,19 +191,19 @@ namespace MirrorworldSDK
             MirrorWrapper.Instance.FetchNftsByUpdateAuthorities(updateAuthorityAddresses, action);
         }
 
-        public static void ListNFT(string mintAddress, decimal price, Action<CommonResponse<ListingResponse>> callBack)
+        public static void ListNFT(string mintAddress, decimal price,string confirmation, Action<CommonResponse<ListingResponse>> callBack)
         {
-            MirrorWrapper.Instance.ListNFT(mintAddress,price,callBack);
+            MirrorWrapper.Instance.ListNFT(mintAddress,price,confirmation,callBack);
         }
 
-        public static void CancelNFTListing(string mintAddress, decimal price, Action<CommonResponse<ListingResponse>> callBack)
+        public static void CancelNFTListing(string mintAddress, decimal price,string confirmation, Action<CommonResponse<ListingResponse>> callBack)
         {
-            MirrorWrapper.Instance.CancelNFTListing(mintAddress, price, callBack);
+            MirrorWrapper.Instance.CancelNFTListing(mintAddress, price, confirmation, callBack);
         }
 
-        public static void UpdateNFTListing(string mintAddress, decimal price, Action<CommonResponse<ListingResponse>> callBack)
+        public static void UpdateNFTListing(string mintAddress, decimal price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
         {
-            MirrorWrapper.Instance.UpdateNFTListing(mintAddress, price, callBack);
+            MirrorWrapper.Instance.UpdateNFTListing(mintAddress, price, confirmation, callBack);
         }
 
         public static void BuyNFT(string mintAddress, decimal price, Action<CommonResponse<ListingResponse>> callBack)

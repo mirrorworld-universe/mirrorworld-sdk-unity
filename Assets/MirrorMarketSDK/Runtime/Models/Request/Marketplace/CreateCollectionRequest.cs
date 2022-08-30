@@ -9,5 +9,7 @@ namespace MirrorworldSDK.Models
         [JsonProperty("symbol")] public string Symbol;
 
         [JsonProperty("url")] public string Url;
+
+        [JsonProperty("confirmation")] public string Comfirmation;
     }
 }
