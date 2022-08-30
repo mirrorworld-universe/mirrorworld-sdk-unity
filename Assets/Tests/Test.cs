@@ -279,7 +279,7 @@ namespace Tests
 
         private void TestLog(string content)
         {
-            Debug.Log("MirrorSDKUnitTest:" + content);
+            //Debug.Log("MirrorSDKUnitTest:" + content);
         }
     }
 }
