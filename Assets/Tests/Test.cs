@@ -19,15 +19,16 @@ namespace Tests
             string password = "yuebaobao";
             int i = 0;
             MirrorSDK.LoginWithEmail(email,password,(loginRes)=> {
+                TestLog("LoginWithEmail success!");
                 i++;
                 MirrorSDK.GetWalletTokens((tokenRes)=> {
-                    Debug.Log("GetWalletTokens success!");
+                    TestLog("GetWalletTokens success!");
                     i++;
                 });
                 decimal number = 1;
                 string nextBefore = "nextBefore";
                 MirrorSDK.GetWalletTransactions(number,nextBefore,(tokenRes) => {
-                    Debug.Log("GetWalletTransactions success!");
+                    TestLog("GetWalletTransactions success!");
                     i++;
                 });
             });
@@ -46,38 +47,58 @@ namespace Tests
 
         //}
 
-        [Test]
-        public void TransferNFTToAnotherSolWallet()
+        [UnityTest]
+        public IEnumerator TransferNFTToAnotherSolWallet()
         {
             //Include: GenerateAnNFTFLow/TransferNFTToAnother
             InitMirror();
             string email = "squall19871987@163.com";
             string password = "yuebaobao";
+            int i = 5;
             MirrorSDK.LoginWithEmail(email, password, (loginRes) => {
+                TestLog("LoginWithEmail success!");
+                i--;
                 string name = "UnitySDKTestTopCollection";
                 string symbol = "UnitySDK";
                 string url = "https://mirror-nft.s3.us-west-2.amazonaws.com/assets/111.json";
 
                 MirrorSDK.CreateVerifiedCollection(name, symbol, url, (topRes) =>
                 {
+                    TestLog("CreateVerifiedCollection success!");
+                    i--;
                     string parentCollection = topRes.Data.MintAddress;
                     string subName = "SubUnitySDKCollection";
 
                     MirrorSDK.CreateVerifiedSubCollection(parentCollection,subName, symbol,url,(subRes)=> {
+                        TestLog("CreateVerifiedSubCollection success!");
+                        i--;
+                        if(subRes.Code != (long)MirrorResponseCode.Success)
+                        {
+                            TestLog(subRes.Error);
+                        }
                         string subCollection = subRes.Data.MintAddress;
                         string nftName = "UnitySDKTestNFT";
 
                         MirrorSDK.MintNFT(subCollection, nftName, symbol, url, (nftRes) => {
+                            TestLog("MintNFT success!");
+                            i--;
                             string nftAddress = nftRes.Data.MintAddress;
                             string anotherWallet = "HkGWQxFspfcaHQbbnnwwGrUDGyKFTYmFgSrB6p238Tqz";
 
                             MirrorSDK.TransferNFT(nftAddress, anotherWallet,(transRes)=> {
+                                TestLog("TransferNFT success!");
+                                i--;
 
                             });
                         });
                     });
                 });
             });
+
+            while (i != 0)
+            {
+                yield return null;
+            }
         }
 
         [Test]
@@ -149,6 +170,11 @@ namespace Tests
 
             MirrorSDK.InitSDK(apiKey, mirrorObj, debugMode, environment);
             return mirrorObj.GetComponent<MonoBehaviour>();
+        }
+
+        private void TestLog(string content)
+        {
+            Debug.Log("MirrorSDKUnitTest:" + content);
         }
     }
 }
