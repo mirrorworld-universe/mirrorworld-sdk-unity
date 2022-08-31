@@ -7,5 +7,7 @@ namespace MirrorworldSDK.Models
         [JsonProperty("mint_address")] public string MintAddress;
 
         [JsonProperty("price")] public decimal Price;
+
+        [JsonProperty("confirmation")] public string Confirmation;
     }
 }

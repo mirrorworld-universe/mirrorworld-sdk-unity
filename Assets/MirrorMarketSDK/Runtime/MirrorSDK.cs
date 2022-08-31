@@ -8,69 +8,61 @@ using UnityEngine;
 
 namespace MirrorworldSDK
 {
-    public partial class MirrorSDK : MonoBehaviour
+    public class MirrorSDK : MonoBehaviour
     {
         #region settings
         [Header("AppInfo")]
         [Tooltip("You can get it on your developer management.")]
-        public string apiKey = "your api key";
+        public string apiKey = Constant.SDKDefaultAPIKeyValue;
         [Tooltip("Open debug mode")]
         public bool debugMode = false;
         [Tooltip("runtime environment")]
-        public MirrorEnv environment = MirrorEnv.StagingDevnet;
+        public MirrorEnv environment = MirrorEnv.Staging;
 
         [Tooltip("Temp Attr")]
         public string debugEmail = "";
         public string password = "";
-        public static string sdebugEmail = "";
-        public static string spassword = "";
 
         #endregion settings
 
-        #region logic
-        private static bool inited = false;
-        public static MonoBehaviour monoBehaviour;
-        #endregion logic
-
+        //protected static MirrorSDK mInstance = null;
+        //public static MirrorSDK Instance
+        //{
+        //    get
+        //    {
+        //        if (null == mInstance)
+        //        {
+        //            mInstance = new MirrorSDK();
+        //        }
+        //        return mInstance;
+        //    }
+        //}
         //Will try to init sdk with params on prefab
         private void Awake()
         {
-            if (inited)
-            {
-                MirrorWrapper.Instance.LogFlow("Already inited,no need to init in awake flow.");
-                return;
-            }
-
-            if(apiKey == "")
+            Debug.Log("Awake" + apiKey);
+            if (apiKey == "" || apiKey == "your api key")
             {
                 MirrorWrapper.Instance.LogFlow("Please input an api key");
                 return;
             }
 
-            //for test
-            spassword = password;
-            sdebugEmail = debugEmail;
+            InitSDK(apiKey, gameObject, debugMode, environment);
 
-            InitSDK(apiKey,gameObject,debugMode, environment);
-
-            SetDebugMode(debugMode);
+#if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
+            MirrorWrapper.Instance.SetDebugEmail(debugEmail, password);
+#endif
         }
 
         //do init sdk,you can find apikey on developer website
         public static void InitSDK(string apiKey,GameObject gameObject,bool useDebug,MirrorEnv environment)
         {
-            if (inited)
-            {
-                MirrorWrapper.Instance.LogFlow("please don't call InitSDK function more than one time.");
-                return;
-            }
-
 #if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
+
             MonoBehaviour monoBehaviour = gameObject.GetComponent<MonoBehaviour>();
-            MirrorSDK.monoBehaviour = monoBehaviour;
-            MirrorWrapper.Instance.InitSDK(monoBehaviour,environment);
-            MirrorWrapper.Instance.SetAPIKey(apiKey);
-            MirrorWrapper.Instance.SetDebug(useDebug);
+
+            MirrorWrapper.Instance.InitSDK(monoBehaviour,environment,apiKey,useDebug);
+
 #elif UNITY_ANDROID && !(UNITY_EDITOR)
             MirrorWrapper.Instance.InitSDK();
             MirrorWrapper.Instance.SetAPIKey(apiKey);
@@ -96,7 +88,25 @@ namespace MirrorworldSDK
         //open login ui
         public static void StartLogin()
         {
+
+#if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
+            MirrorWrapper.Instance.LogFlow("Start login in unity...");
+
+            MirrorWrapper.Instance.GetLoginSession(MirrorWrapper.Instance.debugEmail, (startSuccess) =>{
+
+                MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
+
+                GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("DialogCanvas",monoBehaviour.transform);
+
+                MirrorWrapper.Instance.LogFlow("Open login page result:" + startSuccess);
+            });
+
+            //MirrorWrapper.Instance.StartEmailLogin();
+#elif UNITY_ANDROID && !(UNITY_EDITOR)
             MirrorWrapper.Instance.StartLogin();
+#elif UNITY_IOS && !(UNITY_EDITOR)
+            MirrorWrapper.Instance.LogFlow("IOS is not implemented");
+#endif
         }
 
         
@@ -142,19 +152,19 @@ namespace MirrorworldSDK
 
         #region mint
 
-        public static void MintNFT(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, Action<CommonResponse<MintResponse>> callBack)
+        public static void MintNFT(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl,string confirmation, Action<CommonResponse<MintResponse>> callBack)
         {
-            MirrorWrapper.Instance.MintNft(parentCollection,collectionName,collectionSymbol,collectionInfoUrl,callBack);
+            MirrorWrapper.Instance.MintNft(parentCollection,collectionName,collectionSymbol,collectionInfoUrl, confirmation,callBack);
         }
 
-        public static void CreateVerifiedCollection(string collectionName, string collectionSymbol, string collectionInfoUrl, Action<CommonResponse<MintResponse>> callBack)
+        public static void CreateVerifiedCollection(string collectionName, string collectionSymbol, string collectionInfoUrl, string confirmation, Action<CommonResponse<MintResponse>> callBack)
         {
-            MirrorWrapper.Instance.CreateVerifiedCollection(collectionName, collectionSymbol, collectionInfoUrl, callBack);
+            MirrorWrapper.Instance.CreateVerifiedCollection(collectionName, collectionSymbol, collectionInfoUrl,confirmation, callBack);
         }
 
-        public static void CreateVerifiedSubCollection(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, Action<CommonResponse<MintResponse>> callBack)
+        public static void CreateVerifiedSubCollection(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, string confirmation, Action<CommonResponse<MintResponse>> callBack)
         {
-            MirrorWrapper.Instance.CreateVerifiedSubCollection(parentCollection, collectionName, collectionSymbol, collectionInfoUrl, callBack);
+            MirrorWrapper.Instance.CreateVerifiedSubCollection(parentCollection, collectionName, collectionSymbol, collectionInfoUrl,confirmation, callBack);
         }
 
         #endregion
@@ -166,17 +176,22 @@ namespace MirrorworldSDK
             MirrorWrapper.Instance.GetNFTDetails(mintAddress, action);
         }
 
-        public static void GetNFTsOwnedByAddress(List<string> owners, Action<MultipleNFTsResponse> callBack)
+        public static void GetActivityOfSingleNFT(string mintAddress,Action<CommonResponse<ActivityOfSingleNftResponse>> action)
+        {
+            MirrorWrapper.Instance.GetActivityOfSingleNFT(mintAddress,action);
+        }
+
+        public static void GetNFTsOwnedByAddress(List<string> owners, Action<CommonResponse<MultipleNFTsResponse>> callBack)
         {
             MirrorWrapper.Instance.GetNFTsOwnedByAddress(owners,callBack);
         }
 
-        public static void FetchNFTsByMintAddress(List<string> mintAddresses,Action<MultipleNFTsResponse> action)
+        public static void FetchNFTsByMintAddress(List<string> mintAddresses,Action<CommonResponse<MultipleNFTsResponse>> action)
         {
             MirrorWrapper.Instance.FetchNFTsByMintAddresses(mintAddresses, action);
         }
 
-        public static void FetchNFTsByCreatorAddresses(List<string> creators, Action<MultipleNFTsResponse> action)
+        public static void FetchNFTsByCreatorAddresses(List<string> creators, Action<CommonResponse<MultipleNFTsResponse>> action)
         {
             MirrorWrapper.Instance.FetchNftsByCreatorAddresses(creators, action);
         }
@@ -186,19 +201,19 @@ namespace MirrorworldSDK
             MirrorWrapper.Instance.FetchNftsByUpdateAuthorities(updateAuthorityAddresses, action);
         }
 
-        public static void ListNFT(string mintAddress, decimal price, Action<CommonResponse<ListingResponse>> callBack)
+        public static void ListNFT(string mintAddress, decimal price,string confirmation, Action<CommonResponse<ListingResponse>> callBack)
         {
-            MirrorWrapper.Instance.ListNFT(mintAddress,price,callBack);
+            MirrorWrapper.Instance.ListNFT(mintAddress,price,confirmation,callBack);
         }
 
-        public static void CancelNFTListing(string mintAddress, decimal price, Action<CommonResponse<ListingResponse>> callBack)
+        public static void CancelNFTListing(string mintAddress, decimal price,string confirmation, Action<CommonResponse<ListingResponse>> callBack)
         {
-            MirrorWrapper.Instance.CancelNFTListing(mintAddress, price, callBack);
+            MirrorWrapper.Instance.CancelNFTListing(mintAddress, price, confirmation, callBack);
         }
 
-        public static void UpdateNFTListing(string mintAddress, decimal price, Action<CommonResponse<ListingResponse>> callBack)
+        public static void UpdateNFTListing(string mintAddress, decimal price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
         {
-            MirrorWrapper.Instance.UpdateNFTListing(mintAddress, price, callBack);
+            MirrorWrapper.Instance.UpdateNFTListing(mintAddress, price, confirmation, callBack);
         }
 
         public static void BuyNFT(string mintAddress, decimal price, Action<CommonResponse<ListingResponse>> callBack)
@@ -234,6 +249,41 @@ namespace MirrorworldSDK
         {
             MirrorWrapper.Instance.TransferSPLToken(amout,publicKey,callBack);
         }
+        #endregion
+
+        #region unity debug flow
+
+        public static void CompleteLoginWithSession(Action<bool> action)
+        {
+            string token = MirrorWrapper.Instance.GetDebugSession();
+
+            if (token == "")
+            {
+                MirrorWrapper.Instance.LogFlow("Please start debug login first.");
+
+                return;
+            }
+
+            MirrorWrapper.Instance.CompleteLoginWithSession(token, (loginRes)=> {
+
+                if(loginRes.Code != (long)MirrorResponseCode.Success)
+                {
+                    MirrorWrapper.Instance.LogFlow("Login failed.");
+
+                    action(false);
+                }
+                else
+                {
+                    action(true);
+                }
+            });
+        }
+
+        public static void LoginDebugClear()
+        {
+            MirrorWrapper.Instance.LoginDebugClear();
+        }
+
         #endregion
     }
 }

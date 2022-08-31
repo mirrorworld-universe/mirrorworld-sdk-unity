@@ -11,6 +11,7 @@ namespace MirrorworldSDK.Wrapper
     {
         //fetch
         private readonly string urlFetchSingleNFT = "solana/nft/";
+        private readonly string urlGetActivityOfSingleNFT = "solana/nft/activity/";
         private readonly string urlFetchNFTsByMintAddresses = "solana/nft/mints";
         private readonly string urlFetchMultiNFTsDataByOwnerAddresses = "solana/nft/owners";
         private readonly string urlFetchMultiNFTsDataByCreatorAddress = "solana/nft/creators";
@@ -40,13 +41,26 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void CreateVerifiedCollection(string collectionName, string collectionSymbol, string collectionInfoUrl, Action<CommonResponse<MintResponse>> callBack)
+        public void GetActivityOfSingleNFT(string mintAddress, Action<CommonResponse<ActivityOfSingleNftResponse>> callBack)
+        {
+            string url = GetAPIRoot() + urlGetActivityOfSingleNFT + mintAddress;
+
+            monoBehaviour.StartCoroutine(CheckAndGet(url, null, (response) => {
+
+                CommonResponse<ActivityOfSingleNftResponse> responseBody = JsonConvert.DeserializeObject<CommonResponse<ActivityOfSingleNftResponse>>(response);
+
+                callBack(responseBody);
+            }));
+        }
+
+        public void CreateVerifiedCollection(string collectionName, string collectionSymbol, string collectionInfoUrl, string confirmation, Action<CommonResponse<MintResponse>> callBack)
         {
             CreateCollectionRequest requestBody = new CreateCollectionRequest();
 
             requestBody.Name = collectionName;
             requestBody.Symbol = collectionSymbol;
             requestBody.Url = collectionInfoUrl;
+            if(confirmation != null) requestBody.Comfirmation = confirmation;
 
             var rawRequestBody = JsonConvert.SerializeObject(requestBody);
 
@@ -61,7 +75,7 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void CreateVerifiedSubCollection(string parentCollection,string collectionName, string collectionSymbol, string collectionInfoUrl, Action<CommonResponse<MintResponse>> callBack)
+        public void CreateVerifiedSubCollection(string parentCollection,string collectionName, string collectionSymbol, string collectionInfoUrl,string confirmation, Action<CommonResponse<MintResponse>> callBack)
         {
             CreateSubCollectionRequest requestBody = new CreateSubCollectionRequest();
 
@@ -69,6 +83,7 @@ namespace MirrorworldSDK.Wrapper
             requestBody.Symbol = collectionSymbol;
             requestBody.Url = collectionInfoUrl;
             requestBody.CollectionMint = parentCollection;
+            if (confirmation != null) requestBody.Confirmation = confirmation;
 
             var rawRequestBody = JsonConvert.SerializeObject(requestBody);
 
@@ -83,7 +98,7 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void MintNft(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, Action<CommonResponse<MintResponse>> callBack)
+        public void MintNft(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl,string confirmation, Action<CommonResponse<MintResponse>> callBack)
         {
             CreateNftRequest requestBody = new CreateNftRequest();
 
@@ -91,6 +106,7 @@ namespace MirrorworldSDK.Wrapper
             requestBody.Symbol = collectionSymbol;
             requestBody.Url = collectionInfoUrl;
             requestBody.CollectionMint = parentCollection;
+            if (confirmation != null) requestBody.Confirmation = confirmation;
 
             var rawRequestBody = JsonConvert.SerializeObject(requestBody);
 
@@ -104,7 +120,7 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void FetchNftsByCreatorAddresses(List<string> creators, Action<MultipleNFTsResponse> callBack)
+        public void FetchNftsByCreatorAddresses(List<string> creators, Action<CommonResponse<MultipleNFTsResponse>> callBack)
         {
             FetchMultipleNftsByCreatorsRequest requestBody = new FetchMultipleNftsByCreatorsRequest();
 
@@ -118,13 +134,13 @@ namespace MirrorworldSDK.Wrapper
 
                 CommonResponse<MultipleNFTsResponse> responseBody = JsonConvert.DeserializeObject<CommonResponse<MultipleNFTsResponse>>(response);
 
-                MultipleNFTsResponse nfts = responseBody.Data;
+                //MultipleNFTsResponse nfts = responseBody.Data;
 
-                callBack(nfts);
+                callBack(responseBody);
             }));
         }
 
-        public void FetchNFTsByMintAddresses(List<string> mintAddresses, Action<MultipleNFTsResponse> callBack)
+        public void FetchNFTsByMintAddresses(List<string> mintAddresses, Action<CommonResponse<MultipleNFTsResponse>> callBack)
         {
             FetchMultipleNftsByMintAddressesRequest requestBody = new FetchMultipleNftsByMintAddressesRequest();
 
@@ -138,13 +154,13 @@ namespace MirrorworldSDK.Wrapper
 
                 CommonResponse<MultipleNFTsResponse> responseBody = JsonConvert.DeserializeObject<CommonResponse<MultipleNFTsResponse>>(response);
 
-                MultipleNFTsResponse nfts = responseBody.Data;
+                //MultipleNFTsResponse nfts = responseBody.Data;
 
-                callBack(nfts);
+                callBack(responseBody);
             }));
         }
 
-        public void GetNFTsOwnedByAddress(List<string> owners, Action<MultipleNFTsResponse> callBack)
+        public void GetNFTsOwnedByAddress(List<string> owners, Action<CommonResponse<MultipleNFTsResponse>> callBack)
         {
             FetchMultipleNftsByOwnersRequest requestBody = new FetchMultipleNftsByOwnersRequest();
 
@@ -158,9 +174,9 @@ namespace MirrorworldSDK.Wrapper
 
                 CommonResponse<MultipleNFTsResponse> responseBody = JsonConvert.DeserializeObject<CommonResponse<MultipleNFTsResponse>>(response);
 
-                MultipleNFTsResponse nfts = responseBody.Data;
+                //MultipleNFTsResponse nfts = responseBody.Data;
 
-                callBack(nfts);
+                callBack(responseBody);
             }));
         }
 
@@ -183,11 +199,13 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void ListNFT(string mintAddress, decimal price, Action<CommonResponse<ListingResponse>> callBack)
+        public void ListNFT(string mintAddress, decimal price,string confirmation, Action<CommonResponse<ListingResponse>> callBack)
         {
             ListNftOnMarketplaceRequest requestBody = new ListNftOnMarketplaceRequest();
 
             requestBody.MintAddress = mintAddress;
+
+            requestBody.Confirmation = confirmation;
 
             requestBody.Price = price;
 
@@ -204,13 +222,15 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void UpdateNFTListing(string mintAddress, decimal price, Action<CommonResponse<ListingResponse>> callBack)
+        public void UpdateNFTListing(string mintAddress, decimal price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
         {
             ListNftOnMarketplaceRequest requestBody = new ListNftOnMarketplaceRequest();
 
             requestBody.MintAddress = mintAddress;
 
             requestBody.Price = price;
+
+            requestBody.Confirmation = confirmation;
 
             var rawRequestBody = JsonConvert.SerializeObject(requestBody);
 
@@ -225,13 +245,15 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void CancelNFTListing(string mintAddress, decimal price, Action<CommonResponse<ListingResponse>> callBack)
+        public void CancelNFTListing(string mintAddress, decimal price,string confirmation, Action<CommonResponse<ListingResponse>> callBack)
         {
             CancelNftListOnMarketplaceRequest requestBody = new CancelNftListOnMarketplaceRequest();
 
             requestBody.MintAddress = mintAddress;
 
             requestBody.Price = price;
+
+            requestBody.Confirmation = confirmation;
 
             var rawRequestBody = JsonConvert.SerializeObject(requestBody);
 

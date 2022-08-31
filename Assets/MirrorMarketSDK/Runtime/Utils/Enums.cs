@@ -2,9 +2,9 @@ namespace MirrorworldSDK
 {
     public enum MirrorEnv
     {
-        StagingDevnet,
-        StagingMainnet,
-        Production
+        Staging,
+        ProductionMainnet,
+        ProductionDevnet
     }
     
     public enum EnvironmentVersion
@@ -18,6 +18,13 @@ namespace MirrorworldSDK
         LocalFailed = 400,
         PayFailed = 100001,
         AccountLocked = 100002,
+    }
 
+    public class Confirmation
+    {
+        public static string Default = null;
+        public static string Finalized = "finalized";
+        public static string Confirmed = "confirmed";
+        public static string Processed = "processed";
     }
 }
