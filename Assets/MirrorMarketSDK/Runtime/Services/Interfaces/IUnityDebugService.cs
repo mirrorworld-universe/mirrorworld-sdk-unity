@@ -5,8 +5,8 @@ namespace MirrorworldSDK.Interfaces
 {
     public interface IUnityDebugService
     {
-        public void GetLoginSession(Action<CommonResponse<GetLoginSessionResponse>> action);
+        public void GetLoginSession(string emailAddress, Action<bool> action);
 
-        public void CompleteLoginWithSession(Action<CommonResponse<UserResponse>> action);
+        public void CompleteLoginWithSession(string session, Action<CommonResponse<LoginResponse>> action);
     }
 }

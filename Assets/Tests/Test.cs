@@ -270,16 +270,19 @@ namespace Tests
         private void InitMirror()
         {
             GameObject mirrorObj = new GameObject("MirrorSDK", typeof(MirrorSDK));
+
             string apiKey = "WsPRi3GQz0FGfoSklYUYzDesdKjKvxdrmtQ";
+
             bool debugMode = true;
-            MirrorworldSDK.MirrorEnv environment = MirrorworldSDK.MirrorEnv.Staging;
+
+            MirrorEnv environment = MirrorEnv.Staging;
 
             MirrorSDK.InitSDK(apiKey, mirrorObj, debugMode, environment);
         }
 
         private void TestLog(string content)
         {
-            //Debug.Log("MirrorSDKUnitTest:" + content);
+            Debug.Log("MirrorSDKUnitTest:" + content);
         }
     }
 }

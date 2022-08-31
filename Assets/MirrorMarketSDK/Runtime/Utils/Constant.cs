@@ -13,5 +13,8 @@ namespace MirrorworldSDK
         //staging
         public static readonly string UserRootStagingDevnet = "https://api-staging.mirrorworld.fun/v1/";
         public static string ApiRootStagingDevnet = "https://api-staging.mirrorworld.fun/v1/devnet/";
+
+
+        public static readonly string SDKDefaultAPIKeyValue = "your api key";
     }
 }

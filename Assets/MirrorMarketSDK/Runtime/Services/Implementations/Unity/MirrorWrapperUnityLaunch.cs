@@ -2,6 +2,7 @@
 using System;
 using MirrorworldSDK.Models;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MirrorworldSDK.Wrapper
 {
@@ -15,13 +16,25 @@ namespace MirrorworldSDK.Wrapper
         private string refreshToken = "";
         private UserResponse tmpUser = null;
 
+        //logic
         private MonoBehaviour monoBehaviour;
+        private bool inited = false;
 
-        public void InitSDK(MonoBehaviour monoBehaviour,MirrorEnv environment)
+        private readonly string urlDebugLoginUrlPre = "https://auth-staging.mirrorworld.fun/login?session=";
+
+        public void InitSDK(MonoBehaviour monoBehaviour,MirrorEnv environment,string apiKey,bool useDebug)
         {
-            LogFlow("Unity wrapper inited.");
+            if (inited)
+            {
+                LogFlow("Unity wrapper can't be inited again.");
+                return;
+            }
+            inited = true;
             this.environment = environment;
             this.monoBehaviour = monoBehaviour;
+            SetAPIKey(apiKey);
+            SetDebug(useDebug);
+            LogFlow("Unity wrapper inited.");
         }
 
         public void SetDebug(bool debugMode)
@@ -39,21 +52,9 @@ namespace MirrorworldSDK.Wrapper
             return debugMode;
         }
 
-        public void StartLogin()
+        public MonoBehaviour GetMonoBehaviour()
         {
-            //test
-            LogFlow("Start login.Waitting to login on web.but not implemented.Please use debug email.");
-            LoginWithEmail(MirrorSDK.sdebugEmail, MirrorSDK.spassword, (response) =>
-            {
-                long resCode = response.Code;
-                LoginResponse tokenResponse = response.Data;
-                string error = response.Error;
-                string message = response.Message;
-                string status = response.Status;
-                LogFlow("LoginWithEmail result is:" + response);
-            });
-            //todo open url
-            //todo show waiting dialog
+            return monoBehaviour;
         }
 
         private void SetLoginResponse(LoginResponse response)
