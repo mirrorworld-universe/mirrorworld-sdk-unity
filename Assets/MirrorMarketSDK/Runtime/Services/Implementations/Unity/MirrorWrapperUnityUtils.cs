@@ -83,8 +83,9 @@ namespace MirrorworldSDK.Wrapper
             yield return request.SendWebRequest();
 
             string rawResponseBody = request.downloadHandler.text;
-            //CommonResponse<string> responseBody = JsonConvert.DeserializeObject<CommonResponse<string>>(rawResponseBody);
-            //UpdateRefreshToken(responseBody.Data.)
+
+            request.Dispose();
+
             callBack(rawResponseBody);
         }
 
@@ -102,6 +103,8 @@ namespace MirrorworldSDK.Wrapper
             yield return request.SendWebRequest();
 
             string rawResponseBody = request.downloadHandler.text;
+
+            request.Dispose();
 
             callBack(rawResponseBody);
         }
