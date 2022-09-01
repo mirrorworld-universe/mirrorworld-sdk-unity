@@ -10,9 +10,14 @@ namespace Tests
 {
     public class TestUnitClass
     {
+        //specified params
         private string testEmail = "squall19871987@163.com";
         private string testPw = "yuebaobao";
         private string anotherWallet = "HkGWQxFspfcaHQbbnnwwGrUDGyKFTYmFgSrB6p238Tqz";
+
+        //logic
+        private GameObject sdkObject;
+
 
         [UnityTest]
         public IEnumerator TestGetWalletAssets()
@@ -269,7 +274,10 @@ namespace Tests
 
         private void InitMirror()
         {
-            GameObject mirrorObj = new GameObject("MirrorSDK", typeof(MirrorSDK));
+            if(sdkObject == null)
+            {
+                sdkObject = new GameObject("MirrorSDK", typeof(MirrorSDK));
+            }
 
             string apiKey = "WsPRi3GQz0FGfoSklYUYzDesdKjKvxdrmtQ";
 
@@ -277,7 +285,7 @@ namespace Tests
 
             MirrorEnv environment = MirrorEnv.Staging;
 
-            MirrorSDK.InitSDK(apiKey, mirrorObj, debugMode, environment);
+            MirrorSDK.InitSDK(apiKey, sdkObject, debugMode, environment);
         }
 
         private void TestLog(string content)

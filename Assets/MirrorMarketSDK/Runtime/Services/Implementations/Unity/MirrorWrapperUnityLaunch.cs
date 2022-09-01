@@ -71,6 +71,14 @@ namespace MirrorworldSDK.Wrapper
             }
         }
 
+        public void LogWarn(string content)
+        {
+            if (debugMode)
+            {
+                Debug.LogWarning("MirrorSDK Warn:" + content);
+            }
+        }
+
         public UserResponse GetCurrentUser()
         {
             return tmpUser;
