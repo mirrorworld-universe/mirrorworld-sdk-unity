@@ -25,19 +25,6 @@ namespace MirrorworldSDK
 
         #endregion settings
 
-        //protected static MirrorSDK mInstance = null;
-        //public static MirrorSDK Instance
-        //{
-        //    get
-        //    {
-        //        if (null == mInstance)
-        //        {
-        //            mInstance = new MirrorSDK();
-        //        }
-        //        return mInstance;
-        //    }
-        //}
-        //Will try to init sdk with params on prefab
         private void Awake()
         {
             Debug.Log("Awake" + apiKey);
