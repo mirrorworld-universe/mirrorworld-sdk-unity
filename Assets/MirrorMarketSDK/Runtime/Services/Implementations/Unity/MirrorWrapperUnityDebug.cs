@@ -18,6 +18,7 @@ namespace MirrorworldSDK.Wrapper
 
         //flow
         private string debugSession = "";
+        private Action<bool> loginCb = null;
 
         public void SetDebugEmail(string email,string password)
         {
@@ -36,11 +37,17 @@ namespace MirrorworldSDK.Wrapper
                 saveKeyParams(responseBody.Data.AccessToken, responseBody.Data.RefreshToken, responseBody.Data.UserResponse);
 
                 action(responseBody);
+
+                bool loginSuccess = responseBody.Code == (long)MirrorResponseCode.Success;
+
+                if (loginCb != null) loginCb(loginSuccess);
             }));
         }
 
-        public void GetLoginSession(string emailAddress, Action<bool> action)
+        public void GetLoginSession(string emailAddress, Action<bool> openBrowerResult, Action<bool> loginCb)
         {
+            this.loginCb = loginCb;
+
             GetLoginSessionRequest requestBody = new GetLoginSessionRequest();
 
             requestBody.emailAddress = emailAddress;
@@ -63,11 +70,11 @@ namespace MirrorworldSDK.Wrapper
 
                     Application.OpenURL(url);
 
-                    if(action != null) action(true);
+                    if(openBrowerResult != null) openBrowerResult(true);
                 }
                 else
                 {
-                    if (action != null) action(false);
+                    if (openBrowerResult != null) openBrowerResult(false);
                 }
             }));
         }

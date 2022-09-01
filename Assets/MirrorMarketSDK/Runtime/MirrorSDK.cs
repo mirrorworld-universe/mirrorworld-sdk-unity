@@ -73,7 +73,7 @@ namespace MirrorworldSDK
         }
 
         //open login ui
-        public static void StartLogin()
+        public static void StartLogin(Action<bool> action)
         {
 
 #if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
@@ -86,7 +86,8 @@ namespace MirrorworldSDK
                 GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("DialogCanvas",monoBehaviour.transform);
 
                 MirrorWrapper.Instance.LogFlow("Open login page result:" + startSuccess);
-            });
+
+            }, action);
 
             //MirrorWrapper.Instance.StartEmailLogin();
 #elif UNITY_ANDROID && !(UNITY_EDITOR)
