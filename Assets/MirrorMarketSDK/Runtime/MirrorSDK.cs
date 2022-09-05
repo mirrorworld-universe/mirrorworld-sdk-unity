@@ -27,7 +27,6 @@ namespace MirrorworldSDK
 
         private void Awake()
         {
-            Debug.Log("Awake" + apiKey);
             if (apiKey == "" || apiKey == "your api key")
             {
                 MirrorWrapper.Instance.LogFlow("Please input an api key");

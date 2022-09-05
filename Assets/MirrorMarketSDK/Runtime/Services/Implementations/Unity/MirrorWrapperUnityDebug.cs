@@ -15,6 +15,7 @@ namespace MirrorworldSDK.Wrapper
         //url
         private readonly string urlStartLoginSession = "auth/token/start-session";
         private readonly string urlCompleteLoginWithSession = "auth/token/complete-session/";
+        private readonly string urlDebugLoginUrlPre = "https://auth-staging.mirrorworld.fun/login?session=";
 
         //flow
         private string debugSession = "";
@@ -30,7 +31,7 @@ namespace MirrorworldSDK.Wrapper
         {
             string url = GetAuthRoot() + urlCompleteLoginWithSession + session;
 
-            monoBehaviour.StartCoroutine(CheckAndGet(url, null, (rawResponseBody) => {
+            monoBehaviour.StartCoroutine(Get(url, null, (rawResponseBody) => {
 
                 CommonResponse<LoginResponse> responseBody = JsonConvert.DeserializeObject<CommonResponse<LoginResponse>>(rawResponseBody);
 
@@ -56,7 +57,13 @@ namespace MirrorworldSDK.Wrapper
 
             string url = GetAuthRoot() + urlStartLoginSession;
 
-            monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
+            if(apiKey == "" || apiKey == Constant.SDKDefaultAPIKeyValue)
+            {
+                LogFlow("No api key,please set it.");
+                return;
+            }
+
+            monoBehaviour.StartCoroutine(Post(url, rawRequestBody, (response) => {
 
                 CommonResponse<GetLoginSessionResponse> responseBody = JsonConvert.DeserializeObject<CommonResponse<GetLoginSessionResponse>>(response);
 
