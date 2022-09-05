@@ -20,8 +20,8 @@ workflows:
           test-platform: playmode
           unity-license-var-name: UNITY_ENCODED_LICENSE
           # unity-serial-var-name: UNITY_SERIAL
-          # unity-password-var-name: UNITY_PASSWORD
-          # unity-username-var-name: UNITY_USERNAME
+          unity-password-var-name: UNITY_PASSWORD
+          unity-username-var-name: UNITY_USERNAME
           
       # macOS Mono
       # - unity/build:
