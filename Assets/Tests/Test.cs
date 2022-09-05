@@ -48,6 +48,33 @@ namespace Tests
         }
 
         [UnityTest]
+        public IEnumerator GetTransactionBySignature()
+        {
+            //Need to airpot SOL first.
+            //Include: Login/TransferSOLToAnotherAddress()/GetWalletTransactionBySignatrue()
+
+            InitMirror();
+            int i = 0;
+            MirrorSDK.LoginWithEmail(testEmail, testPw, (loginRes) => {
+
+                TestLog("LoginWithEmail success!");
+                i++;
+
+                string signature = "4sExqYsdXZPKnGsjGWsS3y8yhGRc3BDHBo93oLHR6SCTFDgdvw2Lgj52efXmSQyam2zwhxGS6C9k5EHV449VvoQS";
+                MirrorSDK.GetWalletTransactionsBySignatrue(signature, (getTransRes) =>
+                {
+                    TestLog("GetWalletTransactionsBySignatrue success!");
+                    i++;
+                });
+            });
+
+            while (i != 2)
+            {
+                yield return null;
+            }
+        }
+
+        [UnityTest]
         public IEnumerator TransferSolAndGetThisTransaction()
         {
             //Need to airpot SOL first.
@@ -61,22 +88,24 @@ namespace Tests
                 ulong amount = (ulong)10;
                 i++;
 
-                MirrorSDK.TransferSol(amount, anotherWallet,(transRes)=> {
+                MirrorSDK.TransferSol(amount, anotherWallet,Confirmation.Finalized,(transRes)=> {
+               
                     TestLog("TransferSol success!");
                     string signature = transRes.Data.TxSignature;
                     i++;
 
-                    MirrorSDK.GetWalletTransactionsBySignatrue(signature,(getTransRes)=> {
-                        TestLog("GetWalletTransactionsBySignatrue success!");
-                        i++;
-                    });
+                    //MirrorSDK.GetWalletTransactionsBySignatrue(signature,(getTransRes)=> {
+                    //    TestLog("GetWalletTransactionsBySignatrue success!");
+                    //    i++;
+                    //});
                 });
             });
 
-            while (i != 3)
+            while (i != 2)
             {
                 yield return null;
             }
+
         }
 
         [UnityTest]

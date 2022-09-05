@@ -20,8 +20,6 @@ namespace MirrorworldSDK.Wrapper
         private MonoBehaviour monoBehaviour;
         private bool inited = false;
 
-        private readonly string urlDebugLoginUrlPre = "https://auth-staging.mirrorworld.fun/login?session=";
-
         public void InitSDK(MonoBehaviour monoBehaviour,MirrorEnv environment,string apiKey,bool useDebug)
         {
             if (inited)

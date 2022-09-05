@@ -11,7 +11,7 @@ namespace MirrorworldSDK.Models
     }
     
     
-    public partial class Token
+    public class Token
     {
         [JsonProperty("ata")] public string ATA;
 

@@ -260,7 +260,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("TransferSol", "amount", "public key", null, null, "TransferSol", "TransferSol", ()=> {
                 ulong price = ulong.Parse(v1);
-                MirrorSDK.TransferSol(price, v2,(res)=> {
+                MirrorSDK.TransferSol(price, v2,Confirmation.Default,(res)=> {
                     var body = JsonConvert.SerializeObject(res);
                     PrintLog("result:" + body);
                 });

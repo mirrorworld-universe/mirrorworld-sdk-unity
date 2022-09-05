@@ -12,7 +12,7 @@ namespace MirrorworldSDK.Interfaces
 
         public void GetWalletTransactionsBySignatrue(string signature, Action<CommonResponse<TransferTokenResponse>> action);
 
-        public void TransferSol(ulong amout, string publicKey, Action<CommonResponse<TransferSolResponse>> callBack);
+        public void TransferSol(ulong amout, string publicKey,string confirmation, Action<CommonResponse<TransferSolResponse>> callBack);
         
         public void TransferSPLToken(ulong amout, string publicKey, Action<CommonResponse<TransferTokenResponse>> callBack);
         
