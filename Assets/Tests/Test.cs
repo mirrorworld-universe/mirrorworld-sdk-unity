@@ -102,7 +102,7 @@ namespace Tests
                 yield return null;
             }
 
-            yield return new WaitForSeconds(10);
+            yield return new WaitForSeconds(20);
 
             MirrorSDK.GetWalletTransactionsBySignatrue(signature, (getTransRes) => {
                 TestLog("GetWalletTransactionsBySignatrue success!");
