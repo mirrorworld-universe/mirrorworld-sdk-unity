@@ -48,21 +48,21 @@ namespace Tests
         }
 
         [UnityTest]
-        public IEnumerator GetTransaction()
+        public IEnumerator GetTransactionBySignature()
         {
             //Need to airpot SOL first.
             //Include: Login/TransferSOLToAnotherAddress()/GetWalletTransactionBySignatrue()
-            string signature = "4sExqYsdXZPKnGsjGWsS3y8yhGRc3BDHBo93oLHR6SCTFDgdvw2Lgj52efXmSQyam2zwhxGS6C9k5EHV449VvoQS";
+
             InitMirror();
             int i = 0;
             MirrorSDK.LoginWithEmail(testEmail, testPw, (loginRes) => {
 
                 TestLog("LoginWithEmail success!");
-                ulong amount = (ulong)10;
                 i++;
 
-
-                MirrorSDK.GetWalletTransactionsBySignatrue(signature, (getTransRes) => {
+                string signature = "4sExqYsdXZPKnGsjGWsS3y8yhGRc3BDHBo93oLHR6SCTFDgdvw2Lgj52efXmSQyam2zwhxGS6C9k5EHV449VvoQS";
+                MirrorSDK.GetWalletTransactionsBySignatrue(signature, (getTransRes) =>
+                {
                     TestLog("GetWalletTransactionsBySignatrue success!");
                     i++;
                 });
@@ -74,13 +74,12 @@ namespace Tests
             }
         }
 
-
         [UnityTest]
         public IEnumerator TransferSolAndGetThisTransaction()
         {
             //Need to airpot SOL first.
             //Include: Login/TransferSOLToAnotherAddress()/GetWalletTransactionBySignatrue()
-            string signature = null ;
+
             InitMirror();
             int i = 0;
             MirrorSDK.LoginWithEmail(testEmail, testPw, (loginRes) => {
@@ -92,8 +91,13 @@ namespace Tests
                 MirrorSDK.TransferSol(amount, anotherWallet,Confirmation.Finalized,(transRes)=> {
                
                     TestLog("TransferSol success!");
-                     signature = transRes.Data.TxSignature;
+                    string signature = transRes.Data.TxSignature;
                     i++;
+
+                    //MirrorSDK.GetWalletTransactionsBySignatrue(signature,(getTransRes)=> {
+                    //    TestLog("GetWalletTransactionsBySignatrue success!");
+                    //    i++;
+                    //});
                 });
             });
 
@@ -102,16 +106,6 @@ namespace Tests
                 yield return null;
             }
 
-            yield return new WaitForSeconds(20);
-
-            MirrorSDK.GetWalletTransactionsBySignatrue(signature, (getTransRes) => {
-                TestLog("GetWalletTransactionsBySignatrue success!");
-                i++;
-            });
-            while (i != 3)
-            {
-                yield return null;
-            }
         }
 
         [UnityTest]
