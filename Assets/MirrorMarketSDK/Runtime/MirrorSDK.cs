@@ -228,9 +228,9 @@ namespace MirrorworldSDK
         {
             MirrorWrapper.Instance.GetWalletTransactionsBySignatrue(signature,action);
         }
-        public static void TransferSol(ulong amout, string publicKey, Action<CommonResponse<TransferSolResponse>> callBack)
+        public static void TransferSol(ulong amout, string publicKey, string confirmation, Action<CommonResponse<TransferSolResponse>> callBack)
         {
-            MirrorWrapper.Instance.TransferSol(amout,publicKey,callBack);
+            MirrorWrapper.Instance.TransferSol(amout,publicKey, confirmation, callBack);
         }
         public static void TransferSPLToken(ulong amout, string publicKey, Action<CommonResponse<TransferTokenResponse>> callBack)
         {

@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace MirrorworldSDK.Models
 {
-    public class TransferTokenRequest
+    public class TransferTokenRequest : BaseWeb3Request
     {
         [JsonProperty("to_publickey")] public string ToPublicKey;
 

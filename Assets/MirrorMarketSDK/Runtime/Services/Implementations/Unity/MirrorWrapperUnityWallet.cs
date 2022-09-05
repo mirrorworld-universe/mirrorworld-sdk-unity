@@ -48,13 +48,14 @@ namespace MirrorworldSDK.Wrapper
 
             monoBehaviour.StartCoroutine(CheckAndGet(url, null, (response) =>
             {
+                LogFlow("response:"+ response);
                 CommonResponse<TransferTokenResponse> responseBody = JsonConvert.DeserializeObject<CommonResponse<TransferTokenResponse>>(response);
 
                 action(responseBody);
             }));
         }
 
-        public void TransferSol(ulong amout, string publicKey, Action<CommonResponse<TransferSolResponse>> callBack)
+        public void TransferSol(ulong amout, string publicKey,string confirmation, Action<CommonResponse<TransferSolResponse>> callBack)
         {
             string url = GetAPIRoot() + urlTransferSolToAnotherAddress;
 
@@ -63,6 +64,8 @@ namespace MirrorworldSDK.Wrapper
             requestBody.Amount = amout;
 
             requestBody.ToPublicKey = publicKey;
+
+            requestBody.Confirmation = confirmation;
 
             var rawRequestBody = JsonConvert.SerializeObject(requestBody);
 
