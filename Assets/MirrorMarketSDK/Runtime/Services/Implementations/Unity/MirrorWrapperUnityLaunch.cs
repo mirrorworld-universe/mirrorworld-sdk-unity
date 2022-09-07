@@ -1,4 +1,4 @@
-﻿#if  (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
+﻿
 using System;
 using MirrorworldSDK.Models;
 using UnityEngine;
@@ -45,11 +45,6 @@ namespace MirrorworldSDK.Wrapper
             this.apiKey = apiKey;
         }
 
-        public bool GetDebug()
-        {
-            return debugMode;
-        }
-
         public MonoBehaviour GetMonoBehaviour()
         {
             return monoBehaviour;
@@ -81,7 +76,7 @@ namespace MirrorworldSDK.Wrapper
         {
             return tmpUser;
         }
+
     }
 
 }
-#endif

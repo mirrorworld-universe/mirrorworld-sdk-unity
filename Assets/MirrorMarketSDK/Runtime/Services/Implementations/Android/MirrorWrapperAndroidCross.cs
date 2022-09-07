@@ -1,14 +1,17 @@
-﻿#if UNITY_ANDROID && !(UNITY_EDITOR)
-using System;
+﻿using System;
+using MirrorworldSDK.Models;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace MirrorworldSDK.Wrapper
 {
     public partial class MirrorWrapper
     {
+        private AndroidBridgeUtils bridgeUtils = new AndroidBridgeUtils();
+
         private AndroidJavaObject javaSDKInstance;
 
-        public void InitSDK()
+        public void AndroidInitSDK(MirrorEnv env)
         {
             if (Application.platform == RuntimePlatform.Android)
             {
@@ -20,7 +23,7 @@ namespace MirrorworldSDK.Wrapper
 
                 AndroidJavaClass javaClass = new AndroidJavaClass("com.mirror.sdkjava.MirrorSDKJava");
                 javaSDKInstance = javaClass.CallStatic<AndroidJavaObject>("getInstance");
-                javaSDKInstance.Call("InitSDK", jo);
+                javaSDKInstance.Call("InitSDK", jo, bridgeUtils.GetAndroidMirrorEnv(env));
             }
             else
             {
@@ -28,17 +31,17 @@ namespace MirrorworldSDK.Wrapper
             }
         }
 
-        public void SetAPIKey(string key)
+        public void AndroidSetAPIKey(string key)
         {
             if (javaSDKInstance != null) javaSDKInstance.Call("SetAppID", key);
         }
 
-        public void SetDebug(bool useDebug)
+        public void AndroidSetDebug(bool useDebug)
         {
             if (javaSDKInstance != null) javaSDKInstance.Call("SetDebug", useDebug);
         }
 
-        public void StartLogin()
+        public void AndroidStartLogin()
         {
             if (javaSDKInstance == null)
             {
@@ -48,19 +51,7 @@ namespace MirrorworldSDK.Wrapper
             javaSDKInstance.Call("StartLogin");
         }
 
-        public void StartLoginWithCallback(Action<string> callback)
-        {
-            if (javaSDKInstance == null)
-            {
-                LogFlow("Must call InitSDK function first.");
-                return;
-            }
-            javaSDKInstance.Call("StartLoginWithCallback", new MirrorCallback((result) => {
-                callback(result);
-            }));
-        }
-
-        public void GetWalletAddress(Action<string> callback)
+        public void AndroidStartLogin(Action<bool> callback)
         {
             if (javaSDKInstance == null)
             {
@@ -68,33 +59,31 @@ namespace MirrorworldSDK.Wrapper
                 return;
             }
 
+            javaSDKInstance.Call("StartLogin", new MirrorCallback((resultString)=> {
 
-            javaSDKInstance.Call("APIGetWalletAddress", new MirrorCallback((result) => {
-                LogFlow("GetWalletAddress result is:" + result);
-                callback(result);
+                CommonResponse<LoginResponse> responseBody = JsonConvert.DeserializeObject<CommonResponse<LoginResponse>>(resultString);
+
+                saveKeyParams(responseBody.Data.AccessToken, responseBody.Data.RefreshToken, responseBody.Data.UserResponse);
+
+                if(responseBody.Code == (long)MirrorResponseCode.Success)
+                {
+                    callback(true);
+                }
+                else
+                {
+                    callback(false);
+                }
             }));
         }
 
-        public void LogFlow(string content)
+        public string AndroidAccessToken()
         {
-            if (javaSDKInstance != null) javaSDKInstance.Call("LogFlow", content);
+            return accessToken;
         }
 
-        class MirrorCallback : AndroidJavaProxy
+        public string AndroidGetRefreshToken()
         {
-            private Action<string> action;
-            //android接口包名不能出错：com.example.android.PluginCallback
-            public MirrorCallback(Action<string> action) : base("com.mirror.sdkjava.MirrorCallback")
-            {
-                this.action = action;
-            }
-
-            public void callback(string result)
-            {
-                this.action(result);
-            }
+            return refreshToken;
         }
     }
-
 }
-#endif

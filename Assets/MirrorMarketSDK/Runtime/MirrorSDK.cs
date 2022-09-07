@@ -22,8 +22,8 @@ namespace MirrorworldSDK
         [Tooltip("Temp Attr")]
         public string debugEmail = "";
         public string password = "";
-
         #endregion settings
+
 
         private void Awake()
         {
@@ -40,7 +40,6 @@ namespace MirrorworldSDK
 #endif
         }
 
-        //do init sdk,you can find apikey on developer website
         public static void InitSDK(string apiKey,GameObject gameObject,bool useDebug,MirrorEnv environment)
         {
 #if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
@@ -49,26 +48,63 @@ namespace MirrorworldSDK
 
             MirrorWrapper.Instance.InitSDK(monoBehaviour,environment,apiKey,useDebug);
 
-#elif UNITY_ANDROID && !(UNITY_EDITOR)
-            MirrorWrapper.Instance.InitSDK();
+#elif (UNITY_ANDROID && !(UNITY_EDITOR))
+
+            MirrorWrapper.Instance.AndroidInitSDK(environment);
+
             MirrorWrapper.Instance.SetAPIKey(apiKey);
+            
+            MirrorWrapper.Instance.AndroidSetAPIKey(apiKey);
+
             MirrorWrapper.Instance.SetDebug(useDebug);
-#elif UNITY_IOS && !(UNITY_EDITOR)
+            
+            MirrorWrapper.Instance.AndroidSetDebug(useDebug);
+
+#elif (UNITY_IOS && !(UNITY_EDITOR))
+
             MirrorWrapper.Instance.SetApiKey(apiKey);
+
             MirrorWrapper.Instance.LogFlow("Mirror SDK Inited.");
 #endif
         }
 
         public static void SetAPIKey(string apiKey)
         {
+#if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
+
             MirrorWrapper.Instance.SetAPIKey(apiKey);
+
+#elif (UNITY_ANDROID && !(UNITY_EDITOR))
+
+            MirrorWrapper.Instance.AndroidSetAPIKey(apiKey);
+
+            MirrorWrapper.Instance.SetAPIKey(apiKey);
+
+#elif (UNITY_IOS && !(UNITY_EDITOR))
+
+            MirrorWrapper.Instance.SetApiKey(apiKey);
+
+            MirrorWrapper.Instance.LogFlow("Mirror SDK Inited.");
+#endif
         }
 
         //set if use debug mode
         public static void SetDebugMode(bool useDebug)
         {
-            MirrorWrapper.Instance.LogFlow("Set debug mode to "+useDebug);
+#if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
+
             MirrorWrapper.Instance.SetDebug(useDebug);
+
+#elif (UNITY_ANDROID && !(UNITY_EDITOR))
+
+            MirrorWrapper.Instance.AndroidSetDebug(apiKey);
+
+            MirrorWrapper.Instance.SetDebug(apiKey);
+
+#elif (UNITY_IOS && !(UNITY_EDITOR))
+
+            MirrorWrapper.Instance.LogFlow("IOS is not implemented.");
+#endif
         }
 
         //open login ui
@@ -76,6 +112,7 @@ namespace MirrorworldSDK
         {
 
 #if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
+
             MirrorWrapper.Instance.LogFlow("Start login in unity...");
 
             MirrorWrapper.Instance.GetLoginSession(MirrorWrapper.Instance.debugEmail, (startSuccess) =>{
@@ -88,15 +125,17 @@ namespace MirrorworldSDK
 
             }, action);
 
-            //MirrorWrapper.Instance.StartEmailLogin();
 #elif UNITY_ANDROID && !(UNITY_EDITOR)
-            MirrorWrapper.Instance.StartLogin();
+
+            MirrorWrapper.Instance.AndroidStartLogin(action);
+
 #elif UNITY_IOS && !(UNITY_EDITOR)
+
             MirrorWrapper.Instance.LogFlow("IOS is not implemented");
 #endif
         }
 
-        
+
         public static void LoginWithEmail(string emailAddress, string password, Action<CommonResponse<LoginResponse>> callBack)
         {
             MirrorWrapper.Instance.LoginWithEmail(emailAddress, password, callBack);

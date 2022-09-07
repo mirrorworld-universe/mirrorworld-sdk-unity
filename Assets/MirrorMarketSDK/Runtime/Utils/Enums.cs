@@ -1,3 +1,4 @@
+
 namespace MirrorworldSDK
 {
     public enum MirrorEnv

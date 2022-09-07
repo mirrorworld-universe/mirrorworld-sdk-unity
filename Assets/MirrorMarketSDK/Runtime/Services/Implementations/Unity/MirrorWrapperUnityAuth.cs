@@ -1,4 +1,4 @@
-﻿#if  (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
+﻿
 using System;
 using System.Collections;
 using MirrorworldSDK;
@@ -94,6 +94,7 @@ namespace MirrorworldSDK.Wrapper
             if (responseBody.Code.Equals((int)MirrorResponseCode.Success))
             {
                 LogFlow("GetAccessToken success");
+
                 saveKeyParams(responseBody.Data.AccessToken, responseBody.Data.RefreshToken, responseBody.Data.UserResponse);
             }
             else
@@ -127,4 +128,3 @@ namespace MirrorworldSDK.Wrapper
         }
     }
 }
-#endif
