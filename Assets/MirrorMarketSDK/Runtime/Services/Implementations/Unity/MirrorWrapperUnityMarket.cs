@@ -310,5 +310,4 @@ namespace MirrorworldSDK.Wrapper
         }
     }
 }
-#endif
 

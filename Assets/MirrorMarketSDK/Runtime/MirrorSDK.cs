@@ -42,21 +42,20 @@ namespace MirrorworldSDK
 
         public static void InitSDK(string apiKey,GameObject gameObject,bool useDebug,MirrorEnv environment)
         {
-#if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
 
             MonoBehaviour monoBehaviour = gameObject.GetComponent<MonoBehaviour>();
 
             MirrorWrapper.Instance.InitSDK(monoBehaviour,environment,apiKey,useDebug);
 
-#elif (UNITY_ANDROID && !(UNITY_EDITOR))
+            MirrorWrapper.Instance.SetAPIKey(apiKey);
+
+            MirrorWrapper.Instance.SetDebug(useDebug);
+
+#if (UNITY_ANDROID && !(UNITY_EDITOR))
 
             MirrorWrapper.Instance.AndroidInitSDK(environment);
 
-            MirrorWrapper.Instance.SetAPIKey(apiKey);
-            
             MirrorWrapper.Instance.AndroidSetAPIKey(apiKey);
-
-            MirrorWrapper.Instance.SetDebug(useDebug);
             
             MirrorWrapper.Instance.AndroidSetDebug(useDebug);
 
@@ -91,15 +90,11 @@ namespace MirrorworldSDK
         //set if use debug mode
         public static void SetDebugMode(bool useDebug)
         {
-#if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
-
             MirrorWrapper.Instance.SetDebug(useDebug);
 
-#elif (UNITY_ANDROID && !(UNITY_EDITOR))
+#if (UNITY_ANDROID && !(UNITY_EDITOR))
 
-            MirrorWrapper.Instance.AndroidSetDebug(apiKey);
-
-            MirrorWrapper.Instance.SetDebug(apiKey);
+            MirrorWrapper.Instance.AndroidSetDebug(useDebug);
 
 #elif (UNITY_IOS && !(UNITY_EDITOR))
 
@@ -110,6 +105,7 @@ namespace MirrorworldSDK
         //open login ui
         public static void StartLogin(Action<bool> action)
         {
+            MirrorWrapper.Instance.LogFlow("Start login logic...");
 
 #if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
 
@@ -126,6 +122,8 @@ namespace MirrorworldSDK
             }, action);
 
 #elif UNITY_ANDROID && !(UNITY_EDITOR)
+
+            MirrorWrapper.Instance.LogFlow("Start login in android...");
 
             MirrorWrapper.Instance.AndroidStartLogin(action);
 

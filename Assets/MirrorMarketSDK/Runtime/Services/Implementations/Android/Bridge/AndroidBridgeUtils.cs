@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace MirrorworldSDK.Wrapper
 {
@@ -6,26 +7,35 @@ namespace MirrorworldSDK.Wrapper
     {
         public AndroidJavaObject GetAndroidMirrorEnv(MirrorworldSDK.MirrorEnv env)
         {
-            AndroidJavaClass ajc = new AndroidJavaClass("com.mirror.sdk.constant.MirrorEnv");
-
-            AndroidJavaObject androidEnv = ajc.CallStatic<AndroidJavaObject>("Staging");
+            AndroidJavaObject androidEnv = GetAndroidMirrorEnv("Staging");
 
             if (env == MirrorEnv.Staging)
             {
-                androidEnv = ajc.CallStatic<AndroidJavaObject>("Staging");
+                androidEnv = GetAndroidMirrorEnv("Staging");
             }
             else if (env == MirrorEnv.ProductionMainnet)
             {
-                androidEnv = ajc.CallStatic<AndroidJavaObject>("MainNet");
+                androidEnv = GetAndroidMirrorEnv("MainNet");
             }
             else if (env == MirrorEnv.ProductionMainnet)
             {
-                androidEnv = ajc.CallStatic<AndroidJavaObject>("DevNet");
+                androidEnv = GetAndroidMirrorEnv("DevNet");
             }
             else
             {
                 MirrorWrapper.Instance.LogFlow("Can not find unity env:" + env + ".Will use staging environment.");
             }
+
+            return androidEnv;
+        }
+
+        private AndroidJavaObject GetAndroidMirrorEnv(string enumParamName)
+        {
+            AndroidJavaObject ajc = new AndroidJavaClass("com.mirror.sdk.constant.MirrorEnv");
+
+            AndroidJavaObject androidEnv = ajc.GetStatic<AndroidJavaObject>(enumParamName);
+
+            Debug.Log("GetAndroidMirrorEnv "+ enumParamName+" is:"+androidEnv);
 
             return androidEnv;
         }

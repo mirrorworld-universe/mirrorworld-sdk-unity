@@ -17,11 +17,11 @@ namespace MirrorworldSDK.Wrapper
             {
                 AndroidJavaClass jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
                 AndroidJavaObject jo = jc.GetStatic<AndroidJavaObject>("currentActivity");
-                //AndroidJavaClass javaClass = new AndroidJavaClass("com.mirror.sdk3.MirrorSDKJava");
+                //AndroidJavaClass javaClass = new AndroidJavaClass("com.mirror.sdk3.MirrorSDK");
                 //AndroidJavaObject javaObject = javaClass.CallStatic<AndroidJavaObject>("getInstance", jo);
                 //javaObject.Call("InitSDK");
 
-                AndroidJavaClass javaClass = new AndroidJavaClass("com.mirror.sdkjava.MirrorSDKJava");
+                AndroidJavaClass javaClass = new AndroidJavaClass("com.mirror.sdk.MirrorSDK");
                 javaSDKInstance = javaClass.CallStatic<AndroidJavaObject>("getInstance");
                 javaSDKInstance.Call("InitSDK", jo, bridgeUtils.GetAndroidMirrorEnv(env));
             }
@@ -61,18 +61,11 @@ namespace MirrorworldSDK.Wrapper
 
             javaSDKInstance.Call("StartLogin", new MirrorCallback((resultString)=> {
 
-                CommonResponse<LoginResponse> responseBody = JsonConvert.DeserializeObject<CommonResponse<LoginResponse>>(resultString);
+                LoginResponse responseBody = JsonConvert.DeserializeObject<LoginResponse>(resultString);
 
-                saveKeyParams(responseBody.Data.AccessToken, responseBody.Data.RefreshToken, responseBody.Data.UserResponse);
+                saveKeyParams(responseBody.AccessToken, responseBody.RefreshToken, responseBody.UserResponse);
 
-                if(responseBody.Code == (long)MirrorResponseCode.Success)
-                {
-                    callback(true);
-                }
-                else
-                {
-                    callback(false);
-                }
+                callback(true);
             }));
         }
 
