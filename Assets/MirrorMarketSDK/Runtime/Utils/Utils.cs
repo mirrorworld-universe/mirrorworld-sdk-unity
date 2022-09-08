@@ -6,6 +6,9 @@ namespace MirrorworldSDK
 {
     public static class Utils
     {
+        public static bool debugEditor = false;
+        public static bool debugIOS = false;
+
         public static CommonResponse<TData> CustomErrorResponse<TData>(long httpStatusCode, string error, string message)
         {
             return new CommonResponse<TData>()

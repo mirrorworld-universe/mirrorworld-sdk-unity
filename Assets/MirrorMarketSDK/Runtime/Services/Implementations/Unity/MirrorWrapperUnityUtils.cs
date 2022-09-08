@@ -1,5 +1,4 @@
-﻿#if  (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using MirrorworldSDK.Models;
@@ -123,6 +122,7 @@ namespace MirrorworldSDK.Wrapper
         private void saveKeyParams(string accessToken,string refreshToken,UserResponse userResponse)
         {
             this.accessToken = accessToken;
+
             UpdateRefreshToken(refreshToken);
         }
 
@@ -185,4 +185,3 @@ namespace MirrorworldSDK.Wrapper
         }
     }
 }
-#endif

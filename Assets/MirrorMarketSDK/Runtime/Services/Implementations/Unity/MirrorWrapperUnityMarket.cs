@@ -1,5 +1,4 @@
-﻿#if  (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
-using System;
+﻿using System;
 using System.Collections.Generic;
 using MirrorworldSDK.Interfaces;
 using MirrorworldSDK.Models;
@@ -311,5 +310,4 @@ namespace MirrorworldSDK.Wrapper
         }
     }
 }
-#endif
 

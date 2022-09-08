@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections;
 using MirrorworldSDK.Interfaces;
 using MirrorworldSDK.Models;
@@ -102,4 +103,3 @@ namespace MirrorworldSDK.Wrapper
         }
     }
 }
-
