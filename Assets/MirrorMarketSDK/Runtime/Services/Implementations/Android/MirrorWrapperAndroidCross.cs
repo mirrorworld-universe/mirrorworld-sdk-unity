@@ -1,8 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using MirrorworldSDK.Models;
 using Newtonsoft.Json;
 using UnityEngine;
 
+/**
+ * Unity SDK's API are mostly realized by c#
+ * When run on Android or IOS platform,Unity SDK would use target platform's login and tokens.
+ * Some API can't realized by Unity,so call them on target platform as well.
+ */
 namespace MirrorworldSDK.Wrapper
 {
     public partial class MirrorWrapper
@@ -69,14 +75,59 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public string AndroidAccessToken()
+        public void AndroidOpenWallet()
         {
-            return accessToken;
+            if (javaSDKInstance == null)
+            {
+                LogFlow("Must call InitSDK function first.");
+                return;
+            }
+
+            javaSDKInstance.Call("OpenWallet");
         }
 
-        public string AndroidGetRefreshToken()
+        public void AndroidOpenTransferPage(string minAddress, string image, string name)
         {
-            return refreshToken;
+            if (javaSDKInstance == null)
+            {
+                LogFlow("Must call InitSDK function first.");
+                return;
+            }
+
+            javaSDKInstance.Call("OpenTransferPage", minAddress, image, name);
+        }
+
+        public void AndroidOpenNFTManagePage(string minAddress, string image, string name, double price)
+        {
+            if (javaSDKInstance == null)
+            {
+                LogFlow("Must call InitSDK function first.");
+                return;
+            }
+
+            javaSDKInstance.Call("OpenNFTManagePage", minAddress, image,name,price);
+        }
+
+        public void AndroidOpenSellPage(string mintAddress,string image,string name)
+        {
+            if (javaSDKInstance == null)
+            {
+                LogFlow("Must call InitSDK function first.");
+                return;
+            }
+
+            javaSDKInstance.Call("OpenSellPage", mintAddress,image,name);
+        }
+
+        public void AndroidOpenMarket(List<string> collections)
+        {
+            if (javaSDKInstance == null)
+            {
+                LogFlow("Must call InitSDK function first.");
+                return;
+            }
+
+            javaSDKInstance.Call("OpenMarket", collections);
         }
     }
 }

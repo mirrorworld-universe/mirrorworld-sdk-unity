@@ -17,7 +17,7 @@ namespace MirrorworldSDK
         [Tooltip("Open debug mode")]
         public bool debugMode = false;
         [Tooltip("runtime environment")]
-        public MirrorEnv environment = MirrorEnv.Staging;
+        public MirrorEnv environment = MirrorEnv.StagingDevNet;
 
         [Tooltip("Temp Attr")]
         public string debugEmail = "";
@@ -308,6 +308,104 @@ namespace MirrorworldSDK
             MirrorWrapper.Instance.LoginDebugClear();
         }
 
+        #endregion
+
+        #region market ui
+        public static void OpenWalletPage()
+        {
+            if (Utils.IsEditor())
+            {
+                MirrorWrapper.Instance.LogFlow("Not supported.");
+            }
+            else if (Application.platform == RuntimePlatform.Android)
+            {
+                MirrorWrapper.Instance.AndroidOpenWallet();
+            }
+            else if (Application.platform == RuntimePlatform.IPhonePlayer)
+            {
+                MirrorWrapper.Instance.LogFlow("Not supported.");
+            }
+            else
+            {
+                MirrorWrapper.Instance.LogFlow("Unknown platform!");
+            }
+        }
+        public static void OpenMarketPage(List<string> collections)
+        {
+            if (Utils.IsEditor())
+            {
+                MirrorWrapper.Instance.LogFlow("Not supported.");
+            }
+            else if (Application.platform == RuntimePlatform.Android)
+            {
+                MirrorWrapper.Instance.AndroidOpenMarket(collections);
+            }
+            else if (Application.platform == RuntimePlatform.IPhonePlayer)
+            {
+                MirrorWrapper.Instance.LogFlow("Not supported.");
+            }
+            else
+            {
+                MirrorWrapper.Instance.LogFlow("Unknown platform!");
+            }
+        }
+        public static void OpenTransferPage(string mintAddress,string image,string name)
+        {
+            if (Utils.IsEditor())
+            {
+                MirrorWrapper.Instance.LogFlow("Not supported.");
+            }
+            else if (Application.platform == RuntimePlatform.Android)
+            {
+                MirrorWrapper.Instance.AndroidOpenTransferPage(mintAddress,image,name);
+            }
+            else if (Application.platform == RuntimePlatform.IPhonePlayer)
+            {
+                MirrorWrapper.Instance.LogFlow("Not supported.");
+            }
+            else
+            {
+                MirrorWrapper.Instance.LogFlow("Unknown platform!");
+            }
+        }
+        public static void OpenSellPage(string mintAddress,string image,string name)
+        {
+            if (Utils.IsEditor())
+            {
+                MirrorWrapper.Instance.LogFlow("Not supported.");
+            }
+            else if (Application.platform == RuntimePlatform.Android)
+            {
+                MirrorWrapper.Instance.AndroidOpenSellPage(mintAddress, image, name);
+            }
+            else if (Application.platform == RuntimePlatform.IPhonePlayer)
+            {
+                MirrorWrapper.Instance.LogFlow("Not supported.");
+            }
+            else
+            {
+                MirrorWrapper.Instance.LogFlow("Unknown platform!");
+            }
+        }
+        public static void OpenNFTManagePage(string mintAddress, string image, string name, double price)
+        {
+            if (Utils.IsEditor())
+            {
+                MirrorWrapper.Instance.LogFlow("Not supported.");
+            }
+            else if (Application.platform == RuntimePlatform.Android)
+            {
+                MirrorWrapper.Instance.AndroidOpenNFTManagePage(mintAddress, image, name, price);
+            }
+            else if (Application.platform == RuntimePlatform.IPhonePlayer)
+            {
+                MirrorWrapper.Instance.LogFlow("Not supported.");
+            }
+            else
+            {
+                MirrorWrapper.Instance.LogFlow("Unknown platform!");
+            }
+        }
         #endregion
     }
 }

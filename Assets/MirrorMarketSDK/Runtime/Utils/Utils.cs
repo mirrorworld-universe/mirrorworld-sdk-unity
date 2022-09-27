@@ -1,5 +1,6 @@
 
 using MirrorworldSDK.Models;
+using UnityEngine;
 using UnityEngine.Networking;
 
 namespace MirrorworldSDK
@@ -46,6 +47,13 @@ namespace MirrorworldSDK
         public static void SetRefreshToken(UnityWebRequest req,string refreshToken)
         {
             req.SetRequestHeader("x-refresh-token", refreshToken);
+        }
+
+        public static bool IsEditor()
+        {
+            return Application.platform == RuntimePlatform.LinuxEditor ||
+                Application.platform == RuntimePlatform.OSXEditor ||
+                Application.platform == RuntimePlatform.WindowsEditor;
         }
     }
 }
