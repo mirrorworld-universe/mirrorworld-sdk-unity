@@ -312,7 +312,7 @@ namespace Tests
 
             bool debugMode = true;
 
-            MirrorEnv environment = MirrorEnv.Staging;
+            MirrorEnv environment = MirrorEnv.StagingDevNet;
 
             MirrorSDK.InitSDK(apiKey, sdkObject, debugMode, environment);
         }

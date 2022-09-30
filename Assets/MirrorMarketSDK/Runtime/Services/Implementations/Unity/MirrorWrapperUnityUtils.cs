@@ -152,9 +152,13 @@ namespace MirrorworldSDK.Wrapper
             {
                 return Constant.ApiRootProductionDev;
             }
-            else if (environment == MirrorEnv.Staging)
+            else if (environment == MirrorEnv.StagingDevNet)
             {
                 return Constant.ApiRootStagingDevnet;
+            }
+            else if (environment == MirrorEnv.StagingMainNet)
+            {
+                return Constant.ApiRootStagingMainnet;
             }
             else
             {
@@ -173,9 +177,13 @@ namespace MirrorworldSDK.Wrapper
             {
                 return Constant.UserRootStagingDevnet;
             }
-            else if (environment == MirrorEnv.Staging)
+            else if (environment == MirrorEnv.StagingDevNet)
             {
                 return Constant.UserRootStagingDevnet;
+            }
+            else if (environment == MirrorEnv.StagingMainNet)
+            {
+                return Constant.UserRootStagingMainnet;
             }
             else
             {

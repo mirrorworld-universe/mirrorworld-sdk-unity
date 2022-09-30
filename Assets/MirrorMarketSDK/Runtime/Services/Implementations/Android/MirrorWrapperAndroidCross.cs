@@ -39,7 +39,7 @@ namespace MirrorworldSDK.Wrapper
 
         public void AndroidSetAPIKey(string key)
         {
-            if (javaSDKInstance != null) javaSDKInstance.Call("SetAppID", key);
+            if (javaSDKInstance != null) javaSDKInstance.Call("SetApiKey", key);
         }
 
         public void AndroidSetDebug(bool useDebug)

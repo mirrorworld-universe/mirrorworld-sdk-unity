@@ -43,7 +43,7 @@ public class TestManager : MonoBehaviour
         GameObject mirrorObj = new GameObject("MirrorSDK", typeof(MirrorSDK));
         string apiKey = "your api key";
         bool debugMode = true;
-        MirrorEnv environment = MirrorEnv.Staging;
+        MirrorEnv environment = MirrorEnv.StagingDevNet;
 
         MirrorSDK.InitSDK(apiKey, mirrorObj, debugMode, environment);
     }
@@ -62,6 +62,8 @@ public class TestManager : MonoBehaviour
 
         ClearLog();
         PrintLog("wait to call...");
+
+        bool notOpenDetail = false;
 
         if (btnName == "BtnSetApiKey")
         {
@@ -276,9 +278,39 @@ public class TestManager : MonoBehaviour
                 });
             });
         }
+        else if (btnName == "BtnOpenWallet")
+        {
+            notOpenDetail = true;
+            MirrorSDK.OpenWalletPage();
+        }
+        else if (btnName == "BtnTransferPage")
+        {
+            notOpenDetail = true;
+            MirrorSDK.OpenTransferPage("", "http://metadata-assets.mirrorworld.fun/mirror_jump/images/Mythical_Astronautcal.png", "TestSellNFT");
+        }
+        else if (btnName == "BtnOpenManage")
+        {
+            notOpenDetail = true;
+            MirrorSDK.OpenNFTManagePage("", "http://metadata-assets.mirrorworld.fun/mirror_jump/images/Mythical_Astronautcal.png", "TestSellNFT",1.1);
+        }
+        else if (btnName == "BtnOpenSell")
+        {
+            notOpenDetail = true;
+            MirrorSDK.OpenSellPage("", "http://metadata-assets.mirrorworld.fun/mirror_jump/images/Mythical_Astronautcal.png","TestSellNFT");
+        }
+        else if (btnName == "BtnOpenMarket")
+        {
+            notOpenDetail = true;
+            List<string> collections = new List<string>();
+            collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
+            MirrorSDK.OpenMarketPage(collections);
+        }
 
-        apiInfo.SetActive(true);
-        apiList.SetActive(false);
+        if (!notOpenDetail)
+        {
+            apiInfo.SetActive(true);
+            apiList.SetActive(false);
+        }
     }
 
     private void SetInfoPanel(string apiName,string hint1,string hint2,string hint3,string hint4,string btnText,string content,Action action)

@@ -1,0 +1,151 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.DefaultCompany.MirrorSDK"
+4    android:installLocation="preferExternal"
+5    android:versionCode="1"
+6    android:versionName="0.1" >
+7
+8    <uses-sdk
+9        android:minSdkVersion="22"
+9-->/Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/launcher/src/main/AndroidManifest.xml
+10        android:targetSdkVersion="30" />
+10-->/Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/launcher/src/main/AndroidManifest.xml
+11
+12    <supports-screens
+12-->/Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/launcher/src/main/AndroidManifest.xml:3:3-163
+13        android:anyDensity="true"
+13-->/Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/launcher/src/main/AndroidManifest.xml:3:135-160
+14        android:largeScreens="true"
+14-->/Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/launcher/src/main/AndroidManifest.xml:3:78-105
+15        android:normalScreens="true"
+15-->/Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/launcher/src/main/AndroidManifest.xml:3:49-77
+16        android:smallScreens="true"
+16-->/Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/launcher/src/main/AndroidManifest.xml:3:21-48
+17        android:xlargeScreens="true" />
+17-->/Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/launcher/src/main/AndroidManifest.xml:3:106-134
+18
+19    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+19-->/Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/launcher/src/main/AndroidManifest.xml:7:3-77
+19-->/Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/launcher/src/main/AndroidManifest.xml:7:20-74
+20    <uses-permission android:name="android.permission.INTERNET" />
+20-->/Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/launcher/src/main/AndroidManifest.xml:8:3-65
+20-->/Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/launcher/src/main/AndroidManifest.xml:8:20-62
+21
+22    <uses-feature android:glEsVersion="0x00030000" />
+22-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:5-54
+22-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:19-51
+23    <uses-feature
+23-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:5-15:36
+24        android:name="android.hardware.vulkan.version"
+24-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:9-55
+25        android:required="false" />
+25-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:9-33
+26    <uses-feature
+26-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:5-22:36
+27        android:name="android.hardware.touchscreen"
+27-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:9-52
+28        android:required="false" />
+28-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:9-33
+29    <uses-feature
+29-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:5-25:36
+30        android:name="android.hardware.touchscreen.multitouch"
+30-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:9-63
+31        android:required="false" />
+31-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:9-33
+32    <uses-feature
+32-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:5-28:36
+33        android:name="android.hardware.touchscreen.multitouch.distinct"
+33-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:27:9-72
+34        android:required="false" />
+34-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:28:9-33
+35
+36    <application
+36-->/Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/launcher/src/main/AndroidManifest.xml:4:3-6:17
+37        android:debuggable="true"
+38        android:extractNativeLibs="true"
+38-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:30:18-50
+39        android:icon="@mipmap/app_icon"
+39-->/Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/launcher/src/main/AndroidManifest.xml:4:49-80
+40        android:label="@string/app_name" >
+40-->/Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/launcher/src/main/AndroidManifest.xml:4:16-48
+41        <meta-data
+41-->/Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/launcher/src/main/AndroidManifest.xml:5:5-79
+42            android:name="unity.builder"
+42-->/Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/launcher/src/main/AndroidManifest.xml:5:16-44
+43            android:value="\33260678415660" />
+43-->/Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/launcher/src/main/AndroidManifest.xml:5:45-76
+44
+45        <activity
+45-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:31:9-51:20
+46            android:name="com.unity3d.player.UnityPlayerActivity"
+46-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:32:13-66
+47            android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density"
+47-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:33:13-194
+48            android:hardwareAccelerated="false"
+48-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:34:13-48
+49            android:launchMode="singleTask"
+49-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:35:13-44
+50            android:resizeableActivity="false"
+50-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:36:13-47
+51            android:screenOrientation="reverseLandscape"
+51-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:37:13-57
+52            android:theme="@style/UnityThemeSelector" >
+52-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:38:13-54
+53            <intent-filter>
+53-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:39:13-43:29
+54                <action android:name="android.intent.action.MAIN" />
+54-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:40:17-69
+54-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:40:25-66
+55
+56                <category android:name="android.intent.category.LAUNCHER" />
+56-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:42:17-77
+56-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:42:27-74
+57            </intent-filter>
+58
+59            <meta-data
+59-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:45:13-47:40
+60                android:name="unityplayer.UnityActivity"
+60-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:46:17-57
+61                android:value="true" />
+61-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:47:17-37
+62            <meta-data
+62-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:48:13-50:40
+63                android:name="android.notch_support"
+63-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:49:17-53
+64                android:value="true" />
+64-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:50:17-37
+65        </activity>
+66
+67        <meta-data
+67-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:53:9-55:33
+68            android:name="unity.splash-mode"
+68-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:54:13-45
+69            android:value="0" />
+69-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:55:13-30
+70        <meta-data
+70-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:56:9-58:36
+71            android:name="unity.splash-enable"
+71-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:57:13-47
+72            android:value="True" />
+72-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:58:13-33
+73        <meta-data
+73-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:59:9-61:36
+74            android:name="unity.launch-fullscreen"
+74-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:60:13-51
+75            android:value="True" />
+75-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:61:13-33
+76        <meta-data
+76-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:62:9-64:37
+77            android:name="unity.allow-resizable-window"
+77-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:63:13-56
+78            android:value="False" />
+78-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:64:13-34
+79        <meta-data
+79-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:65:9-67:50
+80            android:name="notch.config"
+80-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:66:13-40
+81            android:value="portrait|landscape" />
+81-->[:unityLibrary] /Users/squall/Projects/mirrorworld-sdk-unity/AndroidBuild/unityLibrary/build/intermediates/library_manifest/debug/AndroidManifest.xml:67:13-47
+82    </application>
+83
+84</manifest>
