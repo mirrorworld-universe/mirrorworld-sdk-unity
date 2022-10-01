@@ -95,5 +95,20 @@ namespace MirrorworldSDK.Wrapper
         {
             return debugSession;
         }
+
+        public void DebugOpenWalletPage()
+        {
+            IsLoggedIn((isLogged)=> {
+                if (isLogged) {
+                    string url = GetEntranceRoot() + apiKey;
+                    LogFlow("Will open third browser..."+url);
+                    Application.OpenURL(url);
+                }
+                else
+                {
+                    LogFlow("Please login first.");
+                }
+            });
+        }
     }
 }

@@ -315,7 +315,7 @@ public class MirrorSDK : MonoBehaviour
     {
         if (Utils.IsEditor())
         {
-            MirrorWrapper.Instance.LogFlow("Not supported.");
+            MirrorWrapper.Instance.DebugOpenWalletPage();
         }
         else if (Application.platform == RuntimePlatform.Android)
         {
