@@ -57,7 +57,7 @@ namespace MirrorworldSDK.Wrapper
             javaSDKInstance.Call("StartLogin");
         }
 
-        public void AndroidStartLogin(Action<bool> callback)
+        public void AndroidStartLogin(Action<LoginResponse> callback)
         {
             if (javaSDKInstance == null)
             {
@@ -71,7 +71,7 @@ namespace MirrorworldSDK.Wrapper
 
                 saveKeyParams(responseBody.AccessToken, responseBody.RefreshToken, responseBody.UserResponse);
 
-                callback(true);
+                callback(responseBody);
             }));
         }
 

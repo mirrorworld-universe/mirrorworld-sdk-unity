@@ -41,6 +41,7 @@ public class MirrorSDK : MonoBehaviour
 
     public static void InitSDK(string apiKey, GameObject gameObject, bool useDebug, MirrorEnv environment)
     {
+        DontDestroyOnLoad(gameObject);
 
         MonoBehaviour monoBehaviour = gameObject.GetComponent<MonoBehaviour>();
 
@@ -102,7 +103,7 @@ public class MirrorSDK : MonoBehaviour
     }
 
     //open login ui
-    public static void StartLogin(Action<bool> action)
+    public static void StartLogin(Action<LoginResponse> action)
     {
         MirrorWrapper.Instance.LogFlow("Start login logic...");
 

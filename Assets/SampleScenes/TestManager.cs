@@ -51,7 +51,7 @@ public class TestManager : MonoBehaviour
     public void OnBtnLoginClicked()
     {
         MirrorSDK.StartLogin((isSuccess)=> {
-            Debug.Log("Login result:" + isSuccess);
+            Debug.Log("Login result:" + isSuccess.ToString());
         });
     }
 
@@ -286,24 +286,24 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnTransferPage")
         {
             notOpenDetail = true;
-            MirrorSDK.OpenTransferPage("", "http://metadata-assets.mirrorworld.fun/mirror_jump/images/Mythical_Astronautcal.png", "TestSellNFT");
+            //MirrorSDK.OpenTransferPage("", "http://metadata-assets.mirrorworld.fun/mirror_jump/images/Mythical_Astronautcal.png", "TestSellNFT");
         }
         else if (btnName == "BtnOpenManage")
         {
             notOpenDetail = true;
-            MirrorSDK.OpenNFTManagePage("", "http://metadata-assets.mirrorworld.fun/mirror_jump/images/Mythical_Astronautcal.png", "TestSellNFT",1.1);
+            //MirrorSDK.OpenNFTManagePage("", "http://metadata-assets.mirrorworld.fun/mirror_jump/images/Mythical_Astronautcal.png", "TestSellNFT",1.1);
         }
         else if (btnName == "BtnOpenSell")
         {
             notOpenDetail = true;
-            MirrorSDK.OpenSellPage("", "http://metadata-assets.mirrorworld.fun/mirror_jump/images/Mythical_Astronautcal.png","TestSellNFT");
+            //MirrorSDK.OpenSellPage("", "http://metadata-assets.mirrorworld.fun/mirror_jump/images/Mythical_Astronautcal.png","TestSellNFT");
         }
         else if (btnName == "BtnOpenMarket")
         {
             notOpenDetail = true;
             List<string> collections = new List<string>();
             collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
-            MirrorSDK.OpenMarketPage(collections);
+            //MirrorSDK.OpenMarketPage(collections);
         }
 
         if (!notOpenDetail)

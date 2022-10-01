@@ -19,7 +19,7 @@ namespace MirrorworldSDK.Wrapper
 
         //flow
         private string debugSession = "";
-        private Action<bool> loginCb = null;
+        private Action<LoginResponse> loginCb = null;
 
         public void SetDebugEmail(string email,string password)
         {
@@ -41,11 +41,11 @@ namespace MirrorworldSDK.Wrapper
 
                 bool loginSuccess = responseBody.Code == (long)MirrorResponseCode.Success;
 
-                if (loginCb != null) loginCb(loginSuccess);
+                if (loginCb != null) loginCb(responseBody.Data);
             }));
         }
 
-        public void GetLoginSession(string emailAddress, Action<bool> openBrowerResult, Action<bool> loginCb)
+        public void GetLoginSession(string emailAddress, Action<bool> openBrowerResult, Action<LoginResponse> loginCb)
         {
             this.loginCb = loginCb;
 
