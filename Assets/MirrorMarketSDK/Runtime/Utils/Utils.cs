@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 namespace MirrorworldSDK
 {
-    public static class Utils
+    public static class MirrorUtils
     {
         public static bool debugEditor = false;
         public static bool debugIOS = false;

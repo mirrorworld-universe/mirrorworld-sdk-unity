@@ -70,10 +70,10 @@ namespace MirrorworldSDK.Wrapper
         {
             UnityWebRequest request = new UnityWebRequest(url, "POST");
 
-            Utils.SetContentTypeHeader(request);
-            Utils.SetAcceptHeader(request);
-            Utils.SetApiKeyHeader(request, apiKey);
-            Utils.SetAuthorizationHeader(request, accessToken);
+            MirrorUtils.SetContentTypeHeader(request);
+            MirrorUtils.SetAcceptHeader(request);
+            MirrorUtils.SetApiKeyHeader(request, apiKey);
+            MirrorUtils.SetAuthorizationHeader(request, accessToken);
 
             byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(messageBody);
             request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
@@ -92,10 +92,10 @@ namespace MirrorworldSDK.Wrapper
         {
             UnityWebRequest request = new UnityWebRequest(url, "GET");
 
-            Utils.SetContentTypeHeader(request);
-            Utils.SetAcceptHeader(request);
-            Utils.SetApiKeyHeader(request, apiKey);
-            Utils.SetAuthorizationHeader(request, accessToken);
+            MirrorUtils.SetContentTypeHeader(request);
+            MirrorUtils.SetAcceptHeader(request);
+            MirrorUtils.SetApiKeyHeader(request, apiKey);
+            MirrorUtils.SetAuthorizationHeader(request, accessToken);
 
             request.downloadHandler = new DownloadHandlerBuffer();
 

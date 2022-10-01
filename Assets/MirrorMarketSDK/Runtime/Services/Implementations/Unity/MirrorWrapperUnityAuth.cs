@@ -77,11 +77,11 @@ namespace MirrorworldSDK.Wrapper
 
             UnityWebRequest request = new UnityWebRequest(url, "GET");
 
-            Utils.SetContentTypeHeader(request);
-            Utils.SetAcceptHeader(request);
-            Utils.SetApiKeyHeader(request, apiKey);
-            Utils.SetAuthorizationHeader(request, accessToken);
-            Utils.SetRefreshToken(request, refreshToken);
+            MirrorUtils.SetContentTypeHeader(request);
+            MirrorUtils.SetAcceptHeader(request);
+            MirrorUtils.SetApiKeyHeader(request, apiKey);
+            MirrorUtils.SetAuthorizationHeader(request, accessToken);
+            MirrorUtils.SetRefreshToken(request, refreshToken);
 
             request.downloadHandler = new DownloadHandlerBuffer();
 
