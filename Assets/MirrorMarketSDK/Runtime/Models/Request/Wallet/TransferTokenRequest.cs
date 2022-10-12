@@ -1,15 +1,18 @@
-using Newtonsoft.Json;
+
+
+using System;
 
 namespace MirrorworldSDK.Models
 {
+    [Serializable]
     public class TransferTokenRequest : BaseWeb3Request
     {
-        [JsonProperty("to_publickey")] public string ToPublicKey;
+        public string to_publickey;
 
-        [JsonProperty("amount")] public ulong Amount;
+        public ulong amount;
 
-        [JsonProperty("token_mint")] public string TokenMint;
+        public string token_mint;
 
-        [JsonProperty("decimals")] public int Decimals;
+        public int decimals;
     }
 }

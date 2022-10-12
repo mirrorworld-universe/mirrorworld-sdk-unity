@@ -1,7 +1,6 @@
 ﻿using System;
 using MirrorworldSDK.Interfaces;
 using MirrorworldSDK.Models;
-using Newtonsoft.Json;
 using UnityEngine;
 
 namespace MirrorworldSDK.Wrapper
@@ -10,7 +9,6 @@ namespace MirrorworldSDK.Wrapper
     {
         //keep
         public string debugEmail = "";
-        public string password = "";
 
         //url
         private readonly string urlStartLoginSession = "auth/token/start-session";
@@ -21,10 +19,9 @@ namespace MirrorworldSDK.Wrapper
         private string debugSession = "";
         private Action<LoginResponse> loginCb = null;
 
-        public void SetDebugEmail(string email,string password)
+        public void SetDebugEmail(string email)
         {
             debugEmail = email;
-            this.password = password;
         }
 
         public void CompleteLoginWithSession(string session, Action<CommonResponse<LoginResponse>> action)
@@ -33,17 +30,17 @@ namespace MirrorworldSDK.Wrapper
 
             monoBehaviour.StartCoroutine(Get(url, null, (rawResponseBody) => {
 
-                CommonResponse<LoginResponse> responseBody = JsonConvert.DeserializeObject<CommonResponse<LoginResponse>>(rawResponseBody);
+                CommonResponse<LoginResponse> responseBody = JsonUtility.FromJson<CommonResponse<LoginResponse>>(rawResponseBody);
 
-                saveKeyParams(responseBody.Data.AccessToken, responseBody.Data.RefreshToken, responseBody.Data.UserResponse);
+                saveKeyParams(responseBody.data.access_token, responseBody.data.refresh_token, responseBody.data.user);
 
                 action(responseBody);
 
-                bool loginSuccess = responseBody.Code == (long)MirrorResponseCode.Success;
+                bool loginSuccess = responseBody.code == (long)MirrorResponseCode.Success;
 
-                SaveCurrentUser(responseBody.Data.UserResponse);
+                SaveCurrentUser(responseBody.data.user);
 
-                if (loginCb != null) loginCb(responseBody.Data);
+                if (loginCb != null) loginCb(responseBody.data);
             }));
         }
 
@@ -53,9 +50,9 @@ namespace MirrorworldSDK.Wrapper
 
             GetLoginSessionRequest requestBody = new GetLoginSessionRequest();
 
-            requestBody.emailAddress = emailAddress;
+            requestBody.email = emailAddress;
 
-            var rawRequestBody = JsonConvert.SerializeObject(requestBody);
+            var rawRequestBody = JsonUtility.ToJson(requestBody);
 
             string url = GetAuthRoot() + urlStartLoginSession;
 
@@ -67,13 +64,13 @@ namespace MirrorworldSDK.Wrapper
 
             monoBehaviour.StartCoroutine(Post(url, rawRequestBody, (response) => {
 
-                CommonResponse<GetLoginSessionResponse> responseBody = JsonConvert.DeserializeObject<CommonResponse<GetLoginSessionResponse>>(response);
+                CommonResponse<GetLoginSessionResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetLoginSessionResponse>>(response);
 
-                if(responseBody.Code == (long)MirrorResponseCode.Success)
+                if(responseBody.code == (long)MirrorResponseCode.Success)
                 {
-                    debugSession = responseBody.Data.sessionToken;
+                    debugSession = responseBody.data.session_token;
 
-                    string session = responseBody.Data.sessionToken;
+                    string session = responseBody.data.session_token;
 
                     string url = urlDebugLoginUrlPre + session;
 
@@ -132,9 +129,9 @@ namespace MirrorworldSDK.Wrapper
             }
 
             LoginResponse fakeRes = new LoginResponse();
-            fakeRes.AccessToken = accessToken;
-            fakeRes.RefreshToken = refreshToken;
-            fakeRes.UserResponse = GetCurrentUser();
+            fakeRes.access_token = accessToken;
+            fakeRes.refresh_token = refreshToken;
+            fakeRes.user = GetCurrentUser();
 
             return fakeRes;
         }

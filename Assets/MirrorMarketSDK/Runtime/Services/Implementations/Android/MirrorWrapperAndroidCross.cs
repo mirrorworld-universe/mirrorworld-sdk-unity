@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using MirrorworldSDK.Models;
-using Newtonsoft.Json;
 using UnityEngine;
 
 /**
@@ -67,9 +66,9 @@ namespace MirrorworldSDK.Wrapper
 
             javaSDKInstance.Call("StartLogin", new MirrorCallback((resultString)=> {
 
-                LoginResponse responseBody = JsonConvert.DeserializeObject<LoginResponse>(resultString);
+                LoginResponse responseBody = JsonUtility.FromJson<LoginResponse>(resultString);
 
-                saveKeyParams(responseBody.AccessToken, responseBody.RefreshToken, responseBody.UserResponse);
+                saveKeyParams(responseBody.access_token, responseBody.refresh_token, responseBody.user);
 
                 callback(responseBody);
             }));

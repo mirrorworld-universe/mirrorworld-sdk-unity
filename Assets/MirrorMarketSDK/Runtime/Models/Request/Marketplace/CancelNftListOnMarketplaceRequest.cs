@@ -1,13 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿
+
+using System;
 
 namespace MirrorworldSDK.Models
 {
+    [Serializable]
     public class CancelNftListOnMarketplaceRequest
     {
-        [JsonProperty("mint_address")] public string MintAddress;
+        public string mint_address;
 
-        [JsonProperty("price")] public decimal Price;
+        public decimal price;
 
-        [JsonProperty("confirmation")] public string Confirmation;
+        public string confirmation;
     }
 }

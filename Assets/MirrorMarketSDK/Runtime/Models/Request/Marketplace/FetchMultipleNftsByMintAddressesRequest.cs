@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MirrorworldSDK.Models
 {
+    [Serializable]
     public class FetchMultipleNftsByMintAddressesRequest
     {
-        [JsonProperty("mint_addresses")] public List<string> MintAddresses;
+        public List<string> mint_addresses;
     }
 }

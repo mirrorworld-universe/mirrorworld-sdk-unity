@@ -1,7 +1,7 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using MirrorworldSDK;
-using Newtonsoft.Json;
+
 using TMPro;
 using UnityEngine;
 
@@ -82,7 +82,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("FetchUser", "email", null, null, null, "FetchUser", "FetchUser",()=> {
                 MirrorSDK.FetchUser(v1,(res)=> {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -91,7 +91,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("GetWallet",null,null,null,null, "GetWallet", "Get wallet",()=> {
                 MirrorSDK.GetWallet((res)=> {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -100,7 +100,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("GetNFTDetails", "mint address", null, null, null, "GetNFTDetails", "GetNFTDetails",()=> {
                 MirrorSDK.GetNFTDetails(v1,(res)=> {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -111,7 +111,7 @@ public class TestManager : MonoBehaviour
                 List<string> list = new List<string>();
                 list.Add(v1);
                 MirrorSDK.FetchNFTsByMintAddress(list, (res) => {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -123,7 +123,7 @@ public class TestManager : MonoBehaviour
                 list.Add(v1);
 
                 MirrorSDK.FetchNFTsByCreatorAddresses(list, (res) => {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -135,7 +135,7 @@ public class TestManager : MonoBehaviour
                 list.Add(v1);
 
                 MirrorSDK.FetchNFTsByUpdateAuthorities(list, (res) => {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -145,7 +145,7 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("IsLoggedIn", null, null, null, null, "IsLoggedIn", "IsLoggedIn", () =>
             {
                 MirrorSDK.IsLoggedIn((res)=> {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             }
@@ -155,7 +155,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("CreateVerifiedCollection", "name", "symbol", "url", null, "CreateVerifiedCollection", "CreateVerifiedCollection", () => {
                 MirrorSDK.CreateVerifiedCollection(v1, v2, v3, null, (res) => {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 }); }
                 );
@@ -164,7 +164,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("MintNFT",  "parent collection", "name", "symbol", "url", "MintNFT", "MintNFT",()=> {
                 MirrorSDK.MintNFT(v1,v2,v3,v4,null, (res) => {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -173,7 +173,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("CreateVerifiedSubCollection", "parent collection", "name", "symbol", "url", "CreateVerifiedSubCollection", "CreateVerifiedSubCollection",()=> {
                 MirrorSDK.CreateVerifiedSubCollection(v1,v2,v3,v4,null,(res)=>{
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -183,7 +183,7 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("ListNFT", "mint address", "price", null, null, "ListNFT", "ListNFT", ()=> {
                 decimal price = decimal.Parse(v2);
                 MirrorSDK.ListNFT(v1,price,Confirmation.Default,(res)=> {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -194,7 +194,7 @@ public class TestManager : MonoBehaviour
                 decimal price = decimal.Parse(v2);
                 MirrorSDK.UpdateNFTListing(v1,price, Confirmation.Default, (res) =>
                 {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -205,7 +205,7 @@ public class TestManager : MonoBehaviour
                 decimal price = decimal.Parse(v2);
                 MirrorSDK.CancelNFTListing(v1, price, Confirmation.Default, (res) =>
                 {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -215,7 +215,7 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("BuyNFT", "mint address", null, null, null, "BuyNFT", "BuyNFT", ()=> {
                 decimal price = decimal.Parse(v2);
                 MirrorSDK.BuyNFT(v1,price,(res)=> {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -224,7 +224,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("FetchNFTsByMintAddresses", "mint address", "to wallet", null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses",()=> {
                 MirrorSDK.TransferNFT(v1,v2,(res)=> {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -233,7 +233,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("GetWalletTokens", null, null, null, null, "GetWalletTokens", "GetWalletTokens", ()=> {
                 MirrorSDK.GetWalletTokens((res)=> {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -243,7 +243,7 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("GetWalletTransactions", "number", "next_before", null, null, "GetWalletTransactions", "GetWalletTransactions", ()=> {
                 decimal price = decimal.Parse(v1);
                 MirrorSDK.GetWalletTransactions(price,v2,(res)=> {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -253,7 +253,7 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("GetWalletTransactionsBySignatrue", "signature", null, null, null, "GetWalletTransactionsBySignatrue", "GetWalletTransactionsBySignatrue", ()=> {
                 MirrorSDK.GetWalletTransactionsBySignatrue(v1, (res) =>
                 {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -263,7 +263,7 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("TransferSol", "amount", "public key", null, null, "TransferSol", "TransferSol", ()=> {
                 ulong price = ulong.Parse(v1);
                 MirrorSDK.TransferSol(price, v2,Confirmation.Default,(res)=> {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -273,7 +273,7 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("FetchNFTsByMintAddresses", "amount", "public key", null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses",()=> {
                 ulong price = ulong.Parse(v1);
                 MirrorSDK.TransferSPLToken(price,v2,(res)=> {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });

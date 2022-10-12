@@ -1,11 +1,10 @@
-using Newtonsoft.Json;
 
 namespace MirrorworldSDK.Models
 {
     public class BuyNftOnMarketplaceRequest
     {
-        [JsonProperty("mint_address")] public string MintAddress;
+        public string mint_address;
 
-        [JsonProperty("price")] public decimal Price;
+        public decimal price;
     }
 }

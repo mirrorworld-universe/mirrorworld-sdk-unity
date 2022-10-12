@@ -1,15 +1,18 @@
-﻿using Newtonsoft.Json;
+﻿
+
+using System;
 
 namespace MirrorworldSDK.Models
 {
+    [Serializable]
     public class CreateCollectionRequest
     {
-        [JsonProperty("name")] public string Name;
+        public string name;
 
-        [JsonProperty("symbol")] public string Symbol;
+        public string symbol;
 
-        [JsonProperty("url")] public string Url;
+        public string url;
 
-        [JsonProperty("confirmation")] public string Comfirmation;
+        public string comfirmation;
     }
 }

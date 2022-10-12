@@ -14,12 +14,12 @@ namespace MirrorworldSDK
         {
             return new CommonResponse<TData>()
             {
-                Data = default(TData),
-                Code = 0,
-                Status = "fail",
-                Message = message,
-                Error = error,
-                HttpStatusCode = httpStatusCode
+                data = default(TData),
+                code = 0,
+                status = "fail",
+                message = message,
+                error = error,
+                http_status_code = httpStatusCode
         
             };
         }

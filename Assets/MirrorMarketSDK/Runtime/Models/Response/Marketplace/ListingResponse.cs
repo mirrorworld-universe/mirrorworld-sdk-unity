@@ -1,30 +1,30 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace MirrorworldSDK.Models
 {
+    [Serializable]
     public class ListingResponse
     {
-        [JsonProperty("id")] public long Id;
+        public long id;
 
-        [JsonProperty("type")] public string Type;
+        public string type;
 
-        [JsonProperty("wallet_address")] public string WalletAddress;
+        public string wallet_address;
 
-        [JsonProperty("mint_address")] public string MintAddress;
+        public string mint_address;
 
-        [JsonProperty("price")] public decimal Price;
+        public decimal price;
 
-        [JsonProperty("seller_address")] public string SellerAddress;
+        public string seller_address;
 
-        [JsonProperty("signature")] public string Signature;
+        public string signature;
 
-        [JsonProperty("status")] public string Status;
+        public string status;
 
-        [JsonProperty("updatedAt")] public DateTime? UpdatedAt;
+        public DateTime? updatedAt;
 
-        [JsonProperty("createdAt")] public DateTime? CreatedAt;
+        public DateTime? createdAt;
 
-        [JsonProperty("to_wallet_address")] public string ToWalletAddress;
+        public string to_wallet_address;
     }
 }

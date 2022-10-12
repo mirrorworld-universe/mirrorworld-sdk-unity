@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using MirrorworldSDK.Models;
-using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -22,6 +21,7 @@ namespace MirrorworldSDK.Wrapper
 
             if (accessToken == "")
             {
+                LogFlow("No access token,try to get one...");
                 yield return monoBehaviour.StartCoroutine(DoGetAccessToken());
                 if (accessToken == "")
                 {
@@ -39,25 +39,26 @@ namespace MirrorworldSDK.Wrapper
             {
                 //LogFlow("Please set apiKey first.");
                 CommonResponse<string> commonResponse = new CommonResponse<string>();
-                commonResponse.Code = (long)MirrorResponseCode.LocalFailed;
-                commonResponse.Error = "Please set apiKey first.";
+                commonResponse.code = (long)MirrorResponseCode.LocalFailed;
+                commonResponse.error = "Please set apiKey first.";
 
-                string resStr = JsonConvert.SerializeObject(commonResponse);
+                string resStr = JsonUtility.ToJson(commonResponse);
                 callBack(resStr);
                 yield break;
             }
 
             if (accessToken == "")
             {
+                LogFlow("No access token,try to get one...");
                 yield return monoBehaviour.StartCoroutine(DoGetAccessToken());
                 if (accessToken == "")
                 {
-                    //LogFlow("Get access token failed.");
+                    LogFlow("Get access token failed.");
                     CommonResponse<string> commonResponse = new CommonResponse<string>();
-                    commonResponse.Code = (long)MirrorResponseCode.LocalFailed;
-                    commonResponse.Error = "Get access token failed.";
+                    commonResponse.code = (long)MirrorResponseCode.LocalFailed;
+                    commonResponse.error = "Get access token failed.";
 
-                    string resStr = JsonConvert.SerializeObject(commonResponse);
+                    string resStr = JsonUtility.ToJson(commonResponse);
                     callBack(resStr);
                     yield break;
                 }
