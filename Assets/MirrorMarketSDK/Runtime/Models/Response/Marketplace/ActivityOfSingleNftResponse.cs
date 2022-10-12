@@ -36,7 +36,9 @@ namespace MirrorworldSDK.Models
 
         public List<NFTAttributeObj> attributes;
 
-        public List<string> listings;
+        public List<AuctionActivity> listings;
+
+        public string mintAddress;
     }
 
     [Serializable]
