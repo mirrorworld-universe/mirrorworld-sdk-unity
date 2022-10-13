@@ -29,8 +29,9 @@ namespace MirrorworldSDK.Models
 
         public WalletResponse wallet;
     }
-    
-    
+
+
+    [Serializable]
     public class WalletResponse
     {
         public long id;
