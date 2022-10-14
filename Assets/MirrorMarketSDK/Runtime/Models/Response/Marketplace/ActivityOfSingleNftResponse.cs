@@ -36,7 +36,7 @@ namespace MirrorworldSDK.Models
 
         public List<NFTAttributeObj> attributes;
 
-        public List<AuctionActivity> listings;
+        public List<Listing> listings;
 
         public string mintAddress;
     }
@@ -78,52 +78,90 @@ namespace MirrorworldSDK.Models
     [Serializable]
     public class AuctionActivity
     {
-        public long id { get; set; }
+        public long id;
 
-        public string mintAddress { get; set; }
+        public string mintAddress;
 
-        public string txSignature { get; set; }
+        public string txSignature;
 
-        public decimal amount { get; set; }
+        public decimal amount;
 
-        public string receiptType { get; set; }
+        public string receiptType;
 
-        public decimal tokenPrice { get; set; }
+        public decimal tokenPrice;
 
-        public DateTime? blockTimeCreated { get; set; }
+        public DateTime? blockTimeCreated;
 
-        public DateTime? blockTimeCanceled { get; set; }
+        public DateTime? blockTimeCanceled;
 
-        public string tradeState { get; set; }
+        public string tradeState;
 
-        public string auctionHouseAddress { get; set; }
+        public string auctionHouseAddress;
 
-        public string sellerAddress { get; set; }
+        public string sellerAddress;
 
-        public string buyerAddress { get; set; }
+        public string buyerAddress;
 
-        public string metadata { get; set; }
+        public string metadata;
 
-        public DateTime? blockTime { get; set; }
+        public DateTime? blockTime;
     }
 
     [Serializable]
     public class TokenTransfer
     {
-        public long id { get; set; }
+        public long id;
 
-        public string mintAddress { get; set; }
+        public string mintAddress;
 
-        public string txSignature { get; set; }
+        public string txSignature;
 
-        public object fromWalletAddress { get; set; }
+        public object fromWalletAddress;
 
-        public string toWalletAddress { get; set; }
+        public string toWalletAddress;
 
-        public long amount { get; set; }
+        public long amount;
 
-        public DateTime blockTime { get; set; }
+        public DateTime blockTime;
 
-        public long slot { get; set; }
+        public long slot;
+    }
+
+    [Serializable]
+    public class Listing
+    {
+
+        public long id;
+
+        public string tradeState;
+
+        public string seller;
+
+        public string metadata;
+
+        public string purchaseId;
+
+        public float price;
+
+        public float tokenSize;
+
+        public string createdAt;
+
+        public string canceledAt;
+
+        public AuctionHouse auctionHouse;
+    }
+
+    [Serializable]
+    public class AuctionHouse
+    {
+
+        public string address;
+
+        public string authority;
+
+        public string treasuryMint;
+
+        public float sellerFeeBasisPoints;
     }
 }
