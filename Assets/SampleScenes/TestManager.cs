@@ -181,7 +181,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnListNFT")
         {
             SetInfoPanel("ListNFT", "mint address", "price", null, null, "ListNFT", "ListNFT", ()=> {
-                decimal price = decimal.Parse(v2);
+                float price = float.Parse(v2);
                 MirrorSDK.ListNFT(v1,price,Confirmation.Default,(res)=> {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
@@ -191,7 +191,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnListUpdate")
         {
             SetInfoPanel("UpdateNFTListing", "mint address", null, null, null, "UpdateNFTListing", "UpdateNFTListing", ()=> {
-                decimal price = decimal.Parse(v2);
+                float price = float.Parse(v2);
                 MirrorSDK.UpdateNFTListing(v1,price, Confirmation.Default, (res) =>
                 {
                     var body = JsonUtility.ToJson(res);
@@ -202,7 +202,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnListCancel")
         {
             SetInfoPanel("CancelNFTListing", "mint address", null, null, null, "CancelNFTListing", "CancelNFTListing", ()=> {
-                decimal price = decimal.Parse(v2);
+                float price = float.Parse(v2);
                 MirrorSDK.CancelNFTListing(v1, price, Confirmation.Default, (res) =>
                 {
                     var body = JsonUtility.ToJson(res);
@@ -213,7 +213,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnBuyNFT")
         {
             SetInfoPanel("BuyNFT", "mint address", null, null, null, "BuyNFT", "BuyNFT", ()=> {
-                decimal price = decimal.Parse(v2);
+                float price = float.Parse(v2);
                 MirrorSDK.BuyNFT(v1,price,(res)=> {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
@@ -241,7 +241,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnGetWalletTransactions")
         {
             SetInfoPanel("GetWalletTransactions", "number", "next_before", null, null, "GetWalletTransactions", "GetWalletTransactions", ()=> {
-                decimal price = decimal.Parse(v1);
+                float price = float.Parse(v1);
                 MirrorSDK.GetWalletTransactions(price,v2,(res)=> {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);

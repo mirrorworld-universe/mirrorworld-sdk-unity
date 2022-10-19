@@ -13,7 +13,7 @@ namespace MirrorworldSDK.Models
 
         public string mint_address;
 
-        public decimal price;
+        public float price;
 
         public string seller_address;
 

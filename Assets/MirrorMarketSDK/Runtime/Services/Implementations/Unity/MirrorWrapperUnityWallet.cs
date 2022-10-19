@@ -31,7 +31,7 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void GetWalletTransactions(decimal number,string nextBefore, Action<CommonResponse<TransferTokenResponse>> action)
+        public void GetWalletTransactions(float number,string nextBefore, Action<CommonResponse<TransferTokenResponse>> action)
         {
             string url = GetAPIRoot() + urlGetWalletTransaction + "?limit=" + number + "&next_before=" + nextBefore;
 

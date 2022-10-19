@@ -46,6 +46,19 @@ namespace MirrorworldSDK.Wrapper
             if (javaSDKInstance != null) javaSDKInstance.Call("SetDebug", useDebug);
         }
 
+        public void AndroidSetLogoutCallback(Action logoutAction)
+        {
+            if (javaSDKInstance == null)
+            {
+                LogFlow("Must call InitSDK function first.");
+                return;
+            }
+            javaSDKInstance.Call("setLogoutCallback",new MSimpleCallback(()=> {
+                ClearUnitySDKCache();
+                logoutAction();
+            }));
+        }
+
         public void AndroidStartLogin()
         {
             if (javaSDKInstance == null)
@@ -118,7 +131,7 @@ namespace MirrorworldSDK.Wrapper
             javaSDKInstance.Call("OpenSellPage", mintAddress,image,name);
         }
 
-        public void AndroidOpenMarket(List<string> collections)
+        public void AndroidOpenMarket()
         {
             if (javaSDKInstance == null)
             {
@@ -126,7 +139,7 @@ namespace MirrorworldSDK.Wrapper
                 return;
             }
 
-            javaSDKInstance.Call("OpenMarket", collections);
+            javaSDKInstance.Call("openMarket");
         }
     }
 }

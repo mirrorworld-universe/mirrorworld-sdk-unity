@@ -33,7 +33,7 @@ namespace Tests
                     TestLog("GetWalletTokens success!");
                     i++;
                 });
-                decimal number = 1;
+                float number = 1;
                 string nextBefore = "nextBefore";
                 MirrorSDK.GetWalletTransactions(number,nextBefore,(tokenRes) => {
                     TestLog("GetWalletTransactions success!");
@@ -186,10 +186,10 @@ namespace Tests
 
                         MirrorSDK.MintNFT(subCollection, nftName, symbol, url, Confirmation.Finalized, (nftRes) => {
                             string nftAddress = nftRes.data.mint_address;
-                            decimal price = (decimal)1.1f;
+                            float price = (float)1.1f;
 
                             MirrorSDK.ListNFT(nftAddress, price, Confirmation.Finalized, (listRes) => {
-                                decimal newPrice = (decimal)1.2f;
+                                float newPrice = (float)1.2f;
 
                                 MirrorSDK.UpdateNFTListing(nftAddress, newPrice, Confirmation.Finalized, (updateRes) => {
 

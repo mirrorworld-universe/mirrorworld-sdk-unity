@@ -20,7 +20,7 @@ namespace MirrorworldSDK.Models
     {
         public string name;
 
-        public decimal sellerFeeBasisPoints;
+        public float sellerFeeBasisPoints;
 
         public string updateAuthorityAddress;
 
@@ -48,7 +48,7 @@ namespace MirrorworldSDK.Models
 
         public bool verified;
 
-        public decimal share;
+        public float share;
     }
 
     [Serializable]
@@ -84,11 +84,11 @@ namespace MirrorworldSDK.Models
 
         public string txSignature;
 
-        public decimal amount;
+        public float amount;
 
         public string receiptType;
 
-        public decimal tokenPrice;
+        public float tokenPrice;
 
         public DateTime? blockTimeCreated;
 

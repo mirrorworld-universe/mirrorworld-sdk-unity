@@ -145,6 +145,27 @@ public class MirrorSDK : MonoBehaviour
     }
 
 
+    //open login ui
+    public static void SetLogoutCallback(Action action)
+    {
+        MirrorWrapper.Instance.LogFlow("SetLogoutCallback.");
+
+#if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
+
+        MirrorWrapper.Instance.LogFlow("SetLogoutCallback only implemented on native.");
+
+#elif UNITY_ANDROID && !(UNITY_EDITOR)
+
+            MirrorWrapper.Instance.LogFlow("SetLogoutCallback in android...");
+
+            MirrorWrapper.Instance.AndroidSetLogoutCallback(action);
+
+#elif UNITY_IOS && !(UNITY_EDITOR)
+
+            MirrorWrapper.Instance.LogFlow("IOS is not implemented");
+#endif
+    }
+
     public static void LoginWithEmail(string emailAddress, string password, Action<CommonResponse<LoginResponse>> callBack)
     {
         MirrorWrapper.Instance.LoginWithEmail(emailAddress, password, callBack);
@@ -236,22 +257,22 @@ public class MirrorSDK : MonoBehaviour
         MirrorWrapper.Instance.FetchNftsByUpdateAuthorities(updateAuthorityAddresses, action);
     }
 
-    public static void ListNFT(string mintAddress, decimal price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
+    public static void ListNFT(string mintAddress, float price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
     {
         MirrorWrapper.Instance.ListNFT(mintAddress, price, confirmation, callBack);
     }
 
-    public static void CancelNFTListing(string mintAddress, decimal price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
+    public static void CancelNFTListing(string mintAddress, float price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
     {
         MirrorWrapper.Instance.CancelNFTListing(mintAddress, price, confirmation, callBack);
     }
 
-    public static void UpdateNFTListing(string mintAddress, decimal price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
+    public static void UpdateNFTListing(string mintAddress, float price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
     {
         MirrorWrapper.Instance.UpdateNFTListing(mintAddress, price, confirmation, callBack);
     }
 
-    public static void BuyNFT(string mintAddress, decimal price, Action<CommonResponse<ListingResponse>> callBack)
+    public static void BuyNFT(string mintAddress, float price, Action<CommonResponse<ListingResponse>> callBack)
     {
         MirrorWrapper.Instance.BuyNFT(mintAddress, price, callBack);
     }
@@ -268,7 +289,7 @@ public class MirrorSDK : MonoBehaviour
     {
         MirrorWrapper.Instance.GetWalletTokens(action);
     }
-    public static void GetWalletTransactions(decimal number, string nextBefore, Action<CommonResponse<TransferTokenResponse>> action)
+    public static void GetWalletTransactions(float number, string nextBefore, Action<CommonResponse<TransferTokenResponse>> action)
     {
         MirrorWrapper.Instance.GetWalletTransactions(number, nextBefore, action);
     }
@@ -341,25 +362,27 @@ public class MirrorSDK : MonoBehaviour
             MirrorWrapper.Instance.LogFlow("Unknown platform!");
         }
     }
-    //public static void OpenMarketPage(List<string> collections)
-    //{
-    //    if (Utils.IsEditor())
-    //    {
-    //        MirrorWrapper.Instance.LogFlow("Not supported.");
-    //    }
-    //    else if (Application.platform == RuntimePlatform.Android)
-    //    {
-    //        MirrorWrapper.Instance.AndroidOpenMarket(collections);
-    //    }
-    //    else if (Application.platform == RuntimePlatform.IPhonePlayer)
-    //    {
-    //        MirrorWrapper.Instance.LogFlow("Not supported.");
-    //    }
-    //    else
-    //    {
-    //        MirrorWrapper.Instance.LogFlow("Unknown platform!");
-    //    }
-    //}
+
+    public static void OpenMarketPage()
+    {
+        if (MirrorUtils.IsEditor())
+        {
+            MirrorWrapper.Instance.DebugOpenMarketPage();
+        }
+        else if (Application.platform == RuntimePlatform.Android)
+        {
+            MirrorWrapper.Instance.AndroidOpenMarket();
+        }
+        else if (Application.platform == RuntimePlatform.IPhonePlayer)
+        {
+            MirrorWrapper.Instance.LogFlow("Not supported.");
+        }
+        else
+        {
+            MirrorWrapper.Instance.LogFlow("Unknown platform!");
+        }
+    }
+
     //public static void OpenTransferPage(string mintAddress, string image, string name)
     //{
     //    if (Utils.IsEditor())

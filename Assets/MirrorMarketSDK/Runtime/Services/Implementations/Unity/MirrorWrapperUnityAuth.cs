@@ -117,7 +117,7 @@ namespace MirrorworldSDK.Wrapper
 
                 CommonResponse<UserResponse> responseBody = JsonUtility.FromJson<CommonResponse<UserResponse>>(response);
 
-                if(responseBody.data != null)
+                if(responseBody.code == (long)MirrorResponseCode.Success)
                 {
                     SaveCurrentUser(responseBody.data);
                 }

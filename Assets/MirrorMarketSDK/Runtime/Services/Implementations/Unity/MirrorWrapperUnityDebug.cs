@@ -110,6 +110,22 @@ namespace MirrorworldSDK.Wrapper
             });
         }
 
+        public void DebugOpenMarketPage()
+        {
+            IsLoggedIn((isLogged) => {
+                if (isLogged)
+                {
+                    string url = GetMarketRoot() + "?auth=" +accessToken;
+                    LogFlow("Will open third browser..." + url);
+                    Application.OpenURL(url);
+                }
+                else
+                {
+                    LogFlow("Please login first.");
+                }
+            });
+        }
+
         public LoginResponse GetFakeLoginResponse()
         {
             if(accessToken == null || accessToken == "")
