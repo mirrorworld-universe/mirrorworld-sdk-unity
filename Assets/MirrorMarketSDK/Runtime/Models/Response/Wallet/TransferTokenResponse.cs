@@ -1,9 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿
+using System;
 
 namespace MirrorworldSDK.Models
 {
+    [Serializable]
     public class TransferTokenResponse
     {
-        [JsonProperty("tx_signature")] public string TxSignature;
+        public string tx_signature;
     }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidBuild.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidBuild.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/launcher/AndroidBuild.launcher.iml" filepath="$PROJECT_DIR$/.idea/modules/launcher/AndroidBuild.launcher.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/launcher/AndroidBuild.launcher.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/launcher/AndroidBuild.launcher.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/launcher/AndroidBuild.launcher.main.iml" filepath="$PROJECT_DIR$/.idea/modules/launcher/AndroidBuild.launcher.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/launcher/AndroidBuild.launcher.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/launcher/AndroidBuild.launcher.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/unityLibrary/AndroidBuild.unityLibrary.iml" filepath="$PROJECT_DIR$/.idea/modules/unityLibrary/AndroidBuild.unityLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/unityLibrary/AndroidBuild.unityLibrary.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/unityLibrary/AndroidBuild.unityLibrary.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/unityLibrary/AndroidBuild.unityLibrary.main.iml" filepath="$PROJECT_DIR$/.idea/modules/unityLibrary/AndroidBuild.unityLibrary.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/unityLibrary/AndroidBuild.unityLibrary.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/unityLibrary/AndroidBuild.unityLibrary.unitTest.iml" />
+    </modules>
+  </component>
+</project>

@@ -33,7 +33,7 @@ namespace Tests
                     TestLog("GetWalletTokens success!");
                     i++;
                 });
-                decimal number = 1;
+                float number = 1;
                 string nextBefore = "nextBefore";
                 MirrorSDK.GetWalletTransactions(number,nextBefore,(tokenRes) => {
                     TestLog("GetWalletTransactions success!");
@@ -91,7 +91,7 @@ namespace Tests
                 MirrorSDK.TransferSol(amount, anotherWallet,Confirmation.Finalized,(transRes)=> {
                
                     TestLog("TransferSol success!");
-                    string signature = transRes.Data.TxSignature;
+                    string signature = transRes.data.tx_signature;
                     i++;
 
                     //MirrorSDK.GetWalletTransactionsBySignatrue(signature,(getTransRes)=> {
@@ -127,23 +127,23 @@ namespace Tests
                 {
                     TestLog("CreateVerifiedCollection success!");
                     i--;
-                    string parentCollection = topRes.Data.MintAddress;
+                    string parentCollection = topRes.data.mint_address;
                     string subName = "SubUnitySDKCollection";
 
                     MirrorSDK.CreateVerifiedSubCollection(parentCollection,subName, symbol,url, Confirmation.Finalized, (subRes)=> {
                         TestLog("CreateVerifiedSubCollection success!");
                         i--;
-                        if(subRes.Code != (long)MirrorResponseCode.Success)
+                        if(subRes.code != (long)MirrorResponseCode.Success)
                         {
-                            TestLog(subRes.Error);
+                            TestLog(subRes.error);
                         }
-                        string subCollection = subRes.Data.MintAddress;
+                        string subCollection = subRes.data.mint_address;
                         string nftName = "UnitySDKTestNFT";
 
                         MirrorSDK.MintNFT(subCollection, nftName, symbol, url, Confirmation.Finalized, (nftRes) => {
                             TestLog("MintNFT success!");
                             i--;
-                            string nftAddress = nftRes.Data.MintAddress;
+                            string nftAddress = nftRes.data.mint_address;
 
                             MirrorSDK.TransferNFT(nftAddress, anotherWallet,(transRes)=> {
                                 TestLog("TransferNFT success!");
@@ -177,19 +177,19 @@ namespace Tests
 
                 MirrorSDK.CreateVerifiedCollection(name, symbol, url, Confirmation.Finalized, (topRes) =>
                 {
-                    string parentCollection = topRes.Data.MintAddress;
+                    string parentCollection = topRes.data.mint_address;
                     string subName = "SubUnitySDKCollection2";
 
                     MirrorSDK.CreateVerifiedSubCollection(parentCollection, subName, symbol, url, Confirmation.Finalized, (subRes) => {
-                        string subCollection = subRes.Data.MintAddress;
+                        string subCollection = subRes.data.mint_address;
                         string nftName = "UnitySDKTestNFT2";
 
                         MirrorSDK.MintNFT(subCollection, nftName, symbol, url, Confirmation.Finalized, (nftRes) => {
-                            string nftAddress = nftRes.Data.MintAddress;
-                            decimal price = (decimal)1.1f;
+                            string nftAddress = nftRes.data.mint_address;
+                            float price = (float)1.1f;
 
                             MirrorSDK.ListNFT(nftAddress, price, Confirmation.Finalized, (listRes) => {
-                                decimal newPrice = (decimal)1.2f;
+                                float newPrice = (float)1.2f;
 
                                 MirrorSDK.UpdateNFTListing(nftAddress, newPrice, Confirmation.Finalized, (updateRes) => {
 
@@ -220,28 +220,28 @@ namespace Tests
                 MirrorSDK.CreateVerifiedCollection(name, symbol, url, Confirmation.Finalized, (topRes) =>
                 {
                     TestLog("CreateVerifiedCollection success!");
-                    string parentCollection = topRes.Data.MintAddress;
+                    string parentCollection = topRes.data.mint_address;
                     string subName = "SubUnitySDKCollection3";
 
                     i++;
                     MirrorSDK.CreateVerifiedSubCollection(parentCollection, subName, symbol, url, Confirmation.Finalized, (subRes) => {
                         TestLog("CreateVerifiedSubCollection success!");
-                        string subCollection = subRes.Data.MintAddress;
+                        string subCollection = subRes.data.mint_address;
                         string nftName = "UnitySDKTestNFT3";
 
                         i++;
                         MirrorSDK.MintNFT(subCollection, nftName, symbol, url, Confirmation.Finalized, (nftRes) => {
                             TestLog("MintNFT success!");
-                            string nftAddress = nftRes.Data.MintAddress;
-                            string nftCreator = nftRes.Data.CreatorAddress;
-                            string nftAuthAddress = nftRes.Data.UpdateAuthority;
+                            string nftAddress = nftRes.data.mint_address;
+                            string nftCreator = nftRes.data.creator_address;
+                            string nftAuthAddress = nftRes.data.update_authority;
 
                             List<string> mintAddressList = new List<string>();
                             mintAddressList.Add(nftAddress);
 
                             MirrorSDK.FetchNFTsByMintAddress(mintAddressList, (fetchRes) => {
-                                TestLog("FetchNFTsByMintAddress result "+fetchRes.Code);
-                                if (fetchRes.Code != (long)MirrorResponseCode.Success)
+                                TestLog("FetchNFTsByMintAddress result "+fetchRes.code);
+                                if (fetchRes.code != (long)MirrorResponseCode.Success)
                                 {
                                     LogAssert.Expect(LogType.Assert,"FetchNFTsByMintAddress failed!");
                                 }
@@ -249,8 +249,8 @@ namespace Tests
                             });
 
                             MirrorSDK.GetNFTDetails(nftAddress,(fetchRes)=> {
-                                TestLog("GetNFTDetails result " + fetchRes.Code);
-                                if (fetchRes.Code != (long)MirrorResponseCode.Success)
+                                TestLog("GetNFTDetails result " + fetchRes.code);
+                                if (fetchRes.code != (long)MirrorResponseCode.Success)
                                 {
                                     LogAssert.Expect(LogType.Assert, "GetNFTDetails failed!");
                                 }
@@ -259,8 +259,8 @@ namespace Tests
 
 
                             MirrorSDK.GetActivityOfSingleNFT(subCollection, (fetchRes) =>{
-                                TestLog("GetActivityOfSingleNFT result " + fetchRes.Code);
-                                if (fetchRes.Code != (long)MirrorResponseCode.Success)
+                                TestLog("GetActivityOfSingleNFT result " + fetchRes.code);
+                                if (fetchRes.code != (long)MirrorResponseCode.Success)
                                 {
                                     LogAssert.Expect(LogType.Assert, "GetActivityOfSingleNFT failed!");
                                 }
@@ -312,7 +312,7 @@ namespace Tests
 
             bool debugMode = true;
 
-            MirrorEnv environment = MirrorEnv.Staging;
+            MirrorEnv environment = MirrorEnv.StagingDevNet;
 
             MirrorSDK.InitSDK(apiKey, sdkObject, debugMode, environment);
         }

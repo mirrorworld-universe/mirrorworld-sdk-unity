@@ -1,8 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
-using Newtonsoft.Json;
+﻿
+using System;
 
+[Serializable]
 public class BaseWeb3Request
 {
-    [JsonProperty("confirmation")] public string Confirmation;
+    public string confirmation;
 }

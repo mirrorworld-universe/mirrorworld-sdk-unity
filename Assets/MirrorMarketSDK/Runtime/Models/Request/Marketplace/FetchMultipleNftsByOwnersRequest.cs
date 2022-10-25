@@ -1,14 +1,15 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MirrorworldSDK.Models
 {
+    [Serializable]
     public class FetchMultipleNftsByOwnersRequest
     {
-        [JsonProperty("owners")] public List<string> Owners;
+        public List<string> owners;
 
-        [JsonProperty("limit")] public long Limit;
+        public long limit;
 
-        [JsonProperty("offset")] public long Offset;
+        public long offset;
     }
 }

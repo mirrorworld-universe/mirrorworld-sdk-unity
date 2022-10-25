@@ -1,13 +1,15 @@
-using Newtonsoft.Json;
+
+using System;
 
 namespace MirrorworldSDK.Models
 {
+    [Serializable]
     public class LoginResponse
     {
-        [JsonProperty("access_token")] public string AccessToken;
+        public string access_token;
 
-        [JsonProperty("refresh_token")] public string RefreshToken;
+        public string refresh_token;
 
-        [JsonProperty("user")] public UserResponse UserResponse;
+        public UserResponse user;
     }
 }

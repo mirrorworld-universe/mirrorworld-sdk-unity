@@ -1,7 +1,7 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using MirrorworldSDK;
-using Newtonsoft.Json;
+
 using TMPro;
 using UnityEngine;
 
@@ -43,7 +43,7 @@ public class TestManager : MonoBehaviour
         GameObject mirrorObj = new GameObject("MirrorSDK", typeof(MirrorSDK));
         string apiKey = "your api key";
         bool debugMode = true;
-        MirrorEnv environment = MirrorEnv.Staging;
+        MirrorEnv environment = MirrorEnv.StagingDevNet;
 
         MirrorSDK.InitSDK(apiKey, mirrorObj, debugMode, environment);
     }
@@ -51,7 +51,7 @@ public class TestManager : MonoBehaviour
     public void OnBtnLoginClicked()
     {
         MirrorSDK.StartLogin((isSuccess)=> {
-            Debug.Log("Login result:" + isSuccess);
+            Debug.Log("Login result:" + isSuccess.ToString());
         });
     }
 
@@ -62,6 +62,8 @@ public class TestManager : MonoBehaviour
 
         ClearLog();
         PrintLog("wait to call...");
+
+        bool notOpenDetail = false;
 
         if (btnName == "BtnSetApiKey")
         {
@@ -80,7 +82,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("FetchUser", "email", null, null, null, "FetchUser", "FetchUser",()=> {
                 MirrorSDK.FetchUser(v1,(res)=> {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -89,7 +91,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("GetWallet",null,null,null,null, "GetWallet", "Get wallet",()=> {
                 MirrorSDK.GetWallet((res)=> {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -98,7 +100,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("GetNFTDetails", "mint address", null, null, null, "GetNFTDetails", "GetNFTDetails",()=> {
                 MirrorSDK.GetNFTDetails(v1,(res)=> {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -109,7 +111,7 @@ public class TestManager : MonoBehaviour
                 List<string> list = new List<string>();
                 list.Add(v1);
                 MirrorSDK.FetchNFTsByMintAddress(list, (res) => {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -121,7 +123,7 @@ public class TestManager : MonoBehaviour
                 list.Add(v1);
 
                 MirrorSDK.FetchNFTsByCreatorAddresses(list, (res) => {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -133,7 +135,7 @@ public class TestManager : MonoBehaviour
                 list.Add(v1);
 
                 MirrorSDK.FetchNFTsByUpdateAuthorities(list, (res) => {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -143,7 +145,7 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("IsLoggedIn", null, null, null, null, "IsLoggedIn", "IsLoggedIn", () =>
             {
                 MirrorSDK.IsLoggedIn((res)=> {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             }
@@ -153,7 +155,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("CreateVerifiedCollection", "name", "symbol", "url", null, "CreateVerifiedCollection", "CreateVerifiedCollection", () => {
                 MirrorSDK.CreateVerifiedCollection(v1, v2, v3, null, (res) => {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 }); }
                 );
@@ -162,7 +164,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("MintNFT",  "parent collection", "name", "symbol", "url", "MintNFT", "MintNFT",()=> {
                 MirrorSDK.MintNFT(v1,v2,v3,v4,null, (res) => {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -171,7 +173,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("CreateVerifiedSubCollection", "parent collection", "name", "symbol", "url", "CreateVerifiedSubCollection", "CreateVerifiedSubCollection",()=> {
                 MirrorSDK.CreateVerifiedSubCollection(v1,v2,v3,v4,null,(res)=>{
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -179,9 +181,9 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnListNFT")
         {
             SetInfoPanel("ListNFT", "mint address", "price", null, null, "ListNFT", "ListNFT", ()=> {
-                decimal price = decimal.Parse(v2);
+                float price = float.Parse(v2);
                 MirrorSDK.ListNFT(v1,price,Confirmation.Default,(res)=> {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -189,10 +191,10 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnListUpdate")
         {
             SetInfoPanel("UpdateNFTListing", "mint address", null, null, null, "UpdateNFTListing", "UpdateNFTListing", ()=> {
-                decimal price = decimal.Parse(v2);
+                float price = float.Parse(v2);
                 MirrorSDK.UpdateNFTListing(v1,price, Confirmation.Default, (res) =>
                 {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -200,10 +202,10 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnListCancel")
         {
             SetInfoPanel("CancelNFTListing", "mint address", null, null, null, "CancelNFTListing", "CancelNFTListing", ()=> {
-                decimal price = decimal.Parse(v2);
+                float price = float.Parse(v2);
                 MirrorSDK.CancelNFTListing(v1, price, Confirmation.Default, (res) =>
                 {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -211,9 +213,9 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnBuyNFT")
         {
             SetInfoPanel("BuyNFT", "mint address", null, null, null, "BuyNFT", "BuyNFT", ()=> {
-                decimal price = decimal.Parse(v2);
+                float price = float.Parse(v2);
                 MirrorSDK.BuyNFT(v1,price,(res)=> {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -222,7 +224,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("FetchNFTsByMintAddresses", "mint address", "to wallet", null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses",()=> {
                 MirrorSDK.TransferNFT(v1,v2,(res)=> {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -231,7 +233,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("GetWalletTokens", null, null, null, null, "GetWalletTokens", "GetWalletTokens", ()=> {
                 MirrorSDK.GetWalletTokens((res)=> {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -239,9 +241,9 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnGetWalletTransactions")
         {
             SetInfoPanel("GetWalletTransactions", "number", "next_before", null, null, "GetWalletTransactions", "GetWalletTransactions", ()=> {
-                decimal price = decimal.Parse(v1);
+                float price = float.Parse(v1);
                 MirrorSDK.GetWalletTransactions(price,v2,(res)=> {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -251,7 +253,7 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("GetWalletTransactionsBySignatrue", "signature", null, null, null, "GetWalletTransactionsBySignatrue", "GetWalletTransactionsBySignatrue", ()=> {
                 MirrorSDK.GetWalletTransactionsBySignatrue(v1, (res) =>
                 {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -261,7 +263,7 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("TransferSol", "amount", "public key", null, null, "TransferSol", "TransferSol", ()=> {
                 ulong price = ulong.Parse(v1);
                 MirrorSDK.TransferSol(price, v2,Confirmation.Default,(res)=> {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
@@ -271,14 +273,44 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("FetchNFTsByMintAddresses", "amount", "public key", null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses",()=> {
                 ulong price = ulong.Parse(v1);
                 MirrorSDK.TransferSPLToken(price,v2,(res)=> {
-                    var body = JsonConvert.SerializeObject(res);
+                    var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
         }
+        else if (btnName == "BtnOpenWallet")
+        {
+            notOpenDetail = true;
+            MirrorSDK.OpenWalletPage();
+        }
+        else if (btnName == "BtnTransferPage")
+        {
+            notOpenDetail = true;
+            //MirrorSDK.OpenTransferPage("", "http://metadata-assets.mirrorworld.fun/mirror_jump/images/Mythical_Astronautcal.png", "TestSellNFT");
+        }
+        else if (btnName == "BtnOpenManage")
+        {
+            notOpenDetail = true;
+            //MirrorSDK.OpenNFTManagePage("", "http://metadata-assets.mirrorworld.fun/mirror_jump/images/Mythical_Astronautcal.png", "TestSellNFT",1.1);
+        }
+        else if (btnName == "BtnOpenSell")
+        {
+            notOpenDetail = true;
+            //MirrorSDK.OpenSellPage("", "http://metadata-assets.mirrorworld.fun/mirror_jump/images/Mythical_Astronautcal.png","TestSellNFT");
+        }
+        else if (btnName == "BtnOpenMarket")
+        {
+            notOpenDetail = true;
+            List<string> collections = new List<string>();
+            collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
+            //MirrorSDK.OpenMarketPage(collections);
+        }
 
-        apiInfo.SetActive(true);
-        apiList.SetActive(false);
+        if (!notOpenDetail)
+        {
+            apiInfo.SetActive(true);
+            apiList.SetActive(false);
+        }
     }
 
     private void SetInfoPanel(string apiName,string hint1,string hint2,string hint3,string hint4,string btnText,string content,Action action)

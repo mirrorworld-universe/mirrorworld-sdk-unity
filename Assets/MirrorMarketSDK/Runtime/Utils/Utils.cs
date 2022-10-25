@@ -1,10 +1,11 @@
 
 using MirrorworldSDK.Models;
+using UnityEngine;
 using UnityEngine.Networking;
 
 namespace MirrorworldSDK
 {
-    public static class Utils
+    public static class MirrorUtils
     {
         public static bool debugEditor = false;
         public static bool debugIOS = false;
@@ -13,12 +14,12 @@ namespace MirrorworldSDK
         {
             return new CommonResponse<TData>()
             {
-                Data = default(TData),
-                Code = 0,
-                Status = "fail",
-                Message = message,
-                Error = error,
-                HttpStatusCode = httpStatusCode
+                data = default(TData),
+                code = 0,
+                status = "fail",
+                message = message,
+                error = error,
+                http_status_code = httpStatusCode
         
             };
         }
@@ -46,6 +47,13 @@ namespace MirrorworldSDK
         public static void SetRefreshToken(UnityWebRequest req,string refreshToken)
         {
             req.SetRequestHeader("x-refresh-token", refreshToken);
+        }
+
+        public static bool IsEditor()
+        {
+            return Application.platform == RuntimePlatform.LinuxEditor ||
+                Application.platform == RuntimePlatform.OSXEditor ||
+                Application.platform == RuntimePlatform.WindowsEditor;
         }
     }
 }

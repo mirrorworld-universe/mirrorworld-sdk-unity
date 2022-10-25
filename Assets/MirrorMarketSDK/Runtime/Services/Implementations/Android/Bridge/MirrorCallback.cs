@@ -8,7 +8,7 @@ namespace MirrorworldSDK.Wrapper
         private Action<string> action;
 
         //android接口包名不能出错：com.example.android.PluginCallback
-        public MirrorCallback(Action<string> action) : base("com.mirror.sdk.MirrorCallback")
+        public MirrorCallback(Action<string> action) : base("com.mirror.sdk.listener.universal.MirrorCallback")
         {
             this.action = action;
         }

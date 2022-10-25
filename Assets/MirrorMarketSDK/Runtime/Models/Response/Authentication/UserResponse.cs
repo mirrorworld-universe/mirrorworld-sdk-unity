@@ -1,48 +1,49 @@
 using System;
-using Newtonsoft.Json;
 
 namespace MirrorworldSDK.Models
 {
+    [Serializable]
     public class UserResponse
     {
-        [JsonProperty("id")] public long Id;
+        public long id;
 
-        [JsonProperty("eth_address")] public string EthAddress;
+        public string eth_address;
 
-        [JsonProperty("sol_address")] public string SolAddress;
+        public string sol_address;
 
-        [JsonProperty("email")] public string Email;
+        public string email;
 
-        [JsonProperty("email_verified")] public bool EmailVerified;
+        public bool email_verified;
 
-        [JsonProperty("username")] public string Username;
+        public string username;
 
-        [JsonProperty("main_user_id")] public long? MainUserId;
+        public long? main_user_id;
 
-        [JsonProperty("allow_spend")] public bool AllowSpend;
+        public bool allow_spend;
 
-        [JsonProperty("createdAt")] public DateTime? CreatedAt;
+        public DateTime? createdAt;
 
-        [JsonProperty("updatedAt")] public DateTime? UpdatedAt;
+        public DateTime? updatedAt;
 
-        [JsonProperty("is_subaccount")] public bool IsSubAccount;
+        public bool is_subaccount;
 
-        [JsonProperty("wallet")] public WalletResponse Wallet;
+        public WalletResponse wallet;
     }
-    
-    
+
+
+    [Serializable]
     public class WalletResponse
     {
-        [JsonProperty("id")] public long Id;
+        public long id;
 
-        [JsonProperty("user_id")] public long UserId;
+        public long user_id;
 
-        [JsonProperty("sol_address")] public string SolAddress;
+        public string sol_address;
 
-        [JsonProperty("eth_address")] public string EthAddress;
+        public string eth_address;
 
-        [JsonProperty("createdAt")] public DateTime? CreatedAt;
+        public DateTime? createdAt;
 
-        [JsonProperty("updatedAt")] public DateTime? UpdatedAt;
+        public DateTime? updatedAt;
     }
 }

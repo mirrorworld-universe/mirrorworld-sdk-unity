@@ -1,33 +1,21 @@
-using Newtonsoft.Json;
+
+using System;
 
 namespace MirrorworldSDK.Models
 {
+    [Serializable]
     public class CommonResponse<T>
     {
-        [JsonProperty("data")] public T Data;
+        public T data;
 
-        [JsonProperty("code")] public long Code;
+        public long code;
 
-        [JsonProperty("error")] public string Error;
+        public string error;
 
-        [JsonProperty("status")] public string Status;
+        public string status;
 
-        [JsonProperty("message")] public string Message;
+        public string message;
 
-        [JsonProperty("http_status_code")] public long HttpStatusCode;
-
-        // public static CommonResponse<TData> CustomErrorResponse<TData>(long httpStatusCode, string error, string message)
-        // {
-        //     return new CommonResponse<TData>()
-        //     {
-        //         Data = default(TData),
-        //         Code = 0,
-        //         Status = "fail",
-        //         Message = message,
-        //         Error = error,
-        //         HttpStatusCode = httpStatusCode
-        //
-        //     };
-        // }
+        public long http_status_code;
     }
 }

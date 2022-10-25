@@ -8,7 +8,7 @@ namespace MirrorworldSDK.Interfaces
     {
         public void GetWalletTokens(Action<CommonResponse<WalletTokenResponse>> action);
 
-        public void GetWalletTransactions(decimal number, string nextBefore, Action<CommonResponse<TransferTokenResponse>> action);
+        public void GetWalletTransactions(float number, string nextBefore, Action<CommonResponse<TransferTokenResponse>> action);
 
         public void GetWalletTransactionsBySignatrue(string signature, Action<CommonResponse<TransferTokenResponse>> action);
 

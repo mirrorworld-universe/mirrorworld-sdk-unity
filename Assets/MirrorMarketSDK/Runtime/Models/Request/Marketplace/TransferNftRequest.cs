@@ -1,11 +1,14 @@
-﻿using Newtonsoft.Json;
+﻿
+
+using System;
 
 namespace MirrorworldSDK.Models
 {
+    [Serializable]
     public class TransferNftRequest
     {
-        [JsonProperty("mint_address")] public string MintAddress;
+        public string mint_address;
 
-        [JsonProperty("to_wallet_address")] public string ToWalletAddress;
+        public string to_wallet_address;
     }
 }

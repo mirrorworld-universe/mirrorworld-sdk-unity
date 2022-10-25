@@ -1,0 +1,10 @@
+R_DEF: Internal format may change without notice
+local
+string FreeformWindowOrientation_landscape
+string FreeformWindowOrientation_portrait
+string FreeformWindowSize_maximize
+string FreeformWindowSize_phone
+string FreeformWindowSize_tablet
+style BaseUnityTheme
+style UnityThemeSelector
+style UnityThemeSelector.Translucent

@@ -1,143 +1,167 @@
 using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace MirrorworldSDK.Models
 {
-
+    [Serializable]
     public class SingleNFTResponse
     {
-        [JsonProperty("nft")] public SingleNFTResponseObj nft;
+        public SingleNFTResponseObj nft;
     }
 
+    [Serializable]
     public class MultipleNFTsResponse
     {
-        [JsonProperty("nfts")] public List<SingleNFTResponseObj> nfts;
+        public List<SingleNFTResponseObj> nfts;
     }
 
+    [Serializable]
     public class SingleNFTResponseObj
     {
-        [JsonProperty("name")] public string name;
+        public string name;
 
-        [JsonProperty("sellerFeeBasisPoints")] public decimal sellerFeeBasisPoints;
+        public float sellerFeeBasisPoints;
 
-        [JsonProperty("updateAuthorityAddress")] public string updateAuthorityAddress;
+        public string updateAuthorityAddress;
 
-        [JsonProperty("description")] public string description;
+        public string description;
 
-        [JsonProperty("image")] public string image;
+        public string image;
 
-        [JsonProperty("externalUrl")] public string externalUrl;
+        public string externalUrl;
 
-        [JsonProperty("creators")] public List<NFTCreatorObj> creators;
+        public List<NFTCreatorObj> creators;
 
-        [JsonProperty("owner")] public NFTOwnerObj owner;
+        public NFTOwnerObj owner;
 
-        [JsonProperty("attributes")] public List<NFTAttributeObj> attributes;
+        public List<NFTAttributeObj> attributes;
 
-        [JsonProperty("listings")] public List<string> listings;
+        public List<Listing> listings;
+
+        public string mintAddress;
     }
 
+    [Serializable]
     public class NFTCreatorObj
     {
-        [JsonProperty("address")] public string address;
+        public string address;
 
-        [JsonProperty("verified")] public bool verified;
+        public bool verified;
 
-        [JsonProperty("share")] public decimal share;
+        public float share;
     }
 
+    [Serializable]
     public class NFTAttributeObj
     {
-        [JsonProperty("trait_type")] public string trait_type;
+        public string trait_type;
 
-        [JsonProperty("value")] public string value;
+        public string value;
     }
 
+    [Serializable]
     public class NFTOwnerObj
     {
-        [JsonProperty("address")] public string address;
+        public string address;
     }
 
+    [Serializable]
     public class ActivityOfSingleNftResponse
     {
-        [JsonProperty("mintAddress")] public string MintAddress;
+        public string mintAddress;
 
-        [JsonProperty("auctionActivities")] public List<AuctionActivity> AuctionActivities;
+        public List<AuctionActivity> auctionActivities;
 
-        [JsonProperty("tokenTransfers")]
-        public List<TokenTransfer> TokenTransfers { get; set; }
+        public List<TokenTransfer> tokenTransfers { get; set; }
     }
 
+    [Serializable]
     public class AuctionActivity
     {
-        [JsonProperty("id")]
-        public long Id { get; set; }
+        public long id;
 
-        [JsonProperty("mintAddress")]
-        public string MintAddress { get; set; }
+        public string mintAddress;
 
-        [JsonProperty("txSignature")]
-        public string TxSignature { get; set; }
+        public string txSignature;
 
-        [JsonProperty("amount")]
-        public decimal Amount { get; set; }
+        public float amount;
 
-        [JsonProperty("receiptType")]
-        public string ReceiptType { get; set; }
+        public string receiptType;
 
-        [JsonProperty("tokenPrice")]
-        public decimal TokenPrice { get; set; }
+        public float tokenPrice;
 
-        [JsonProperty("blockTimeCreated")]
-        public DateTime? BlockTimeCreated { get; set; }
+        public DateTime? blockTimeCreated;
 
-        [JsonProperty("blockTimeCanceled")]
-        public DateTime? BlockTimeCanceled { get; set; }
+        public DateTime? blockTimeCanceled;
 
-        [JsonProperty("tradeState")]
-        public string TradeState { get; set; }
+        public string tradeState;
 
-        [JsonProperty("auctionHouseAddress")]
-        public string AuctionHouseAddress { get; set; }
+        public string auctionHouseAddress;
 
-        [JsonProperty("sellerAddress")]
-        public string SellerAddress { get; set; }
+        public string sellerAddress;
 
-        [JsonProperty("buyerAddress")]
-        public string BuyerAddress { get; set; }
+        public string buyerAddress;
 
-        [JsonProperty("metadata")]
-        public string Metadata { get; set; }
+        public string metadata;
 
-        [JsonProperty("blockTime")]
-        public DateTime? BlockTime { get; set; }
+        public DateTime? blockTime;
     }
 
+    [Serializable]
     public class TokenTransfer
     {
-        [JsonProperty("id")]
-        public long Id { get; set; }
+        public long id;
 
-        [JsonProperty("mintAddress")]
-        public string MintAddress { get; set; }
+        public string mintAddress;
 
-        [JsonProperty("txSignature")]
-        public string TxSignature { get; set; }
+        public string txSignature;
 
-        [JsonProperty("fromWalletAddress")]
-        public object FromWalletAddress { get; set; }
+        public object fromWalletAddress;
 
-        [JsonProperty("toWalletAddress")]
-        public string ToWalletAddress { get; set; }
+        public string toWalletAddress;
 
-        [JsonProperty("amount")]
-        public long Amount { get; set; }
+        public long amount;
 
-        [JsonProperty("blockTime")]
-        public DateTime BlockTime { get; set; }
+        public DateTime blockTime;
 
-        [JsonProperty("slot")]
-        public long Slot { get; set; }
+        public long slot;
+    }
+
+    [Serializable]
+    public class Listing
+    {
+
+        public long id;
+
+        public string tradeState;
+
+        public string seller;
+
+        public string metadata;
+
+        public string purchaseId;
+
+        public float price;
+
+        public float tokenSize;
+
+        public string createdAt;
+
+        public string canceledAt;
+
+        public AuctionHouse auctionHouse;
+    }
+
+    [Serializable]
+    public class AuctionHouse
+    {
+
+        public string address;
+
+        public string authority;
+
+        public string treasuryMint;
+
+        public float sellerFeeBasisPoints;
     }
 }

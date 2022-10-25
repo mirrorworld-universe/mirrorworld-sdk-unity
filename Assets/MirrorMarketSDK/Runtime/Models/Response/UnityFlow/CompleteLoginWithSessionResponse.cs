@@ -1,10 +1,10 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace MirrorworldSDK.Models
 {
+    [Serializable]
     public class CompleteLoginWithSessionResponse
     {
-        [JsonProperty("session_token")] public string sessionToken;
+        public string session_token;
     }
 }

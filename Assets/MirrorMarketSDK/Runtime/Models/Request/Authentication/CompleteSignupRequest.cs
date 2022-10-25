@@ -1,13 +1,16 @@
-using Newtonsoft.Json;
+
+
+using System;
 
 namespace MirrorworldSDK.Models
 {
+    [Serializable]
     public class CompleteSignupRequest
     {
-        [JsonProperty("email")] public string Email;
+        public string email;
 
-        [JsonProperty("code")] public long Code;
+        public long code;
 
-        [JsonProperty("password")] public string Password;
+        public string password;
     }
 }

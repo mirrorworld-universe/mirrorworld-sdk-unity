@@ -52,8 +52,8 @@ namespace MirrorworldSDK.Wrapper
 
         private void SetLoginResponse(LoginResponse response)
         {
-            SaveStringToLocal(localKeyRefreshToken, response.RefreshToken);
-            accessToken = response.AccessToken;
+            SaveStringToLocal(localKeyRefreshToken, response.refresh_token);
+            accessToken = response.access_token;
         }
 
         public void LogFlow(string content)

@@ -1,25 +1,25 @@
-﻿using Newtonsoft.Json;
-
+﻿using System;
 namespace MirrorworldSDK.Models
 {
+    [Serializable]
     public class MintResponse
     {
-        [JsonProperty("mint_address")] public string MintAddress;
+        public string mint_address;
 
-        [JsonProperty("url")] public string Url;
+        public string url;
 
-        [JsonProperty("update_authority")] public string UpdateAuthority;
+        public string update_authority;
 
-        [JsonProperty("creator_address")] public string CreatorAddress;
+        public string creator_address;
 
-        [JsonProperty("name")] public string Name;
+        public string name;
 
-        [JsonProperty("symbol")] public string Symbol;
+        public string symbol;
 
-        [JsonProperty("collection")] public string Collection;
+        public string collection;
 
-        [JsonProperty("signature")] public string Signature;
+        public string signature;
 
-        [JsonProperty("status")] public string Status;
+        public string status;
     }
 }
