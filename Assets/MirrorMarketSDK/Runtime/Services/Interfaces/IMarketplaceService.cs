@@ -21,7 +21,7 @@ namespace MirrorworldSDK.Interfaces
         
         public void FetchNftsByUpdateAuthorities(List<string> updateAuthorities, Action<CommonResponse<MultipleNFTsResponse>> callBack);
         
-        public void GetNFTsOwnedByAddress(List<string> owners, Action<CommonResponse<MultipleNFTsResponse>> callBack);
+        public void GetNFTsOwnedByAddress(List<string> owners,long limit,long offset, Action<CommonResponse<MultipleNFTsResponse>> callBack);
         
         public void GetNFTDetails(string mintAddress, Action<CommonResponse<SingleNFTResponse>> callBack);
 
