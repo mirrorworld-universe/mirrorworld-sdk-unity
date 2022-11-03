@@ -97,7 +97,7 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void MintNft(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl,string confirmation, Action<CommonResponse<MintResponse>> callBack)
+        public void MintNft(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl,string confirmation, string mint_id,Action<CommonResponse<MintResponse>> callBack)
         {
             CreateNftRequest requestBody = new CreateNftRequest();
 
@@ -105,6 +105,8 @@ namespace MirrorworldSDK.Wrapper
             requestBody.symbol = collectionSymbol;
             requestBody.url = collectionInfoUrl;
             requestBody.collection_mint = parentCollection;
+            requestBody.mint_id = mint_id;
+
             if (confirmation != null) requestBody.confirmation = confirmation;
 
             var rawRequestBody = JsonUtility.ToJson(requestBody);

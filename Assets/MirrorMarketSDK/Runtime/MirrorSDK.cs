@@ -208,9 +208,9 @@ public class MirrorSDK : MonoBehaviour
 
     #region mint
 
-    public static void MintNFT(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, string confirmation, Action<CommonResponse<MintResponse>> callBack)
+    public static void MintNFT(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, string confirmation, string mint_id,Action<CommonResponse<MintResponse>> callBack)
     {
-        MirrorWrapper.Instance.MintNft(parentCollection, collectionName, collectionSymbol, collectionInfoUrl, confirmation, callBack);
+        MirrorWrapper.Instance.MintNft(parentCollection, collectionName, collectionSymbol, collectionInfoUrl, confirmation, mint_id, callBack);
     }
 
     public static void CreateVerifiedCollection(string collectionName, string collectionSymbol, string collectionInfoUrl, string confirmation, Action<CommonResponse<MintResponse>> callBack)

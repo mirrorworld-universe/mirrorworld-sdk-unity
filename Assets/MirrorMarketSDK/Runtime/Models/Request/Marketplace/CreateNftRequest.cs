@@ -16,5 +16,7 @@ namespace MirrorworldSDK.Models
         public string url;
 
         public string confirmation;
+
+        public string mint_id;
     }
 }

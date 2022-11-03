@@ -140,7 +140,7 @@ namespace Tests
                         string subCollection = subRes.data.mint_address;
                         string nftName = "UnitySDKTestNFT";
 
-                        MirrorSDK.MintNFT(subCollection, nftName, symbol, url, Confirmation.Finalized, (nftRes) => {
+                        MirrorSDK.MintNFT(subCollection, nftName, symbol, url, Confirmation.Finalized,"testid", (nftRes) => {
                             TestLog("MintNFT success!");
                             i--;
                             string nftAddress = nftRes.data.mint_address;
@@ -184,7 +184,7 @@ namespace Tests
                         string subCollection = subRes.data.mint_address;
                         string nftName = "UnitySDKTestNFT2";
 
-                        MirrorSDK.MintNFT(subCollection, nftName, symbol, url, Confirmation.Finalized, (nftRes) => {
+                        MirrorSDK.MintNFT(subCollection, nftName, symbol, url, Confirmation.Finalized, "testid", (nftRes) => {
                             string nftAddress = nftRes.data.mint_address;
                             float price = (float)1.1f;
 
@@ -230,7 +230,7 @@ namespace Tests
                         string nftName = "UnitySDKTestNFT3";
 
                         i++;
-                        MirrorSDK.MintNFT(subCollection, nftName, symbol, url, Confirmation.Finalized, (nftRes) => {
+                        MirrorSDK.MintNFT(subCollection, nftName, symbol, url, Confirmation.Finalized, "testid", (nftRes) => {
                             TestLog("MintNFT success!");
                             string nftAddress = nftRes.data.mint_address;
                             string nftCreator = nftRes.data.creator_address;

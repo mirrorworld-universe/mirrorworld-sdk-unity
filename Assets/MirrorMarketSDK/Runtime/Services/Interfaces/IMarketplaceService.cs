@@ -12,7 +12,7 @@ namespace MirrorworldSDK.Interfaces
         
         public void CreateVerifiedSubCollection(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, string confirmation, Action<CommonResponse<MintResponse>> callBack);
         
-        public void MintNft(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, string confirmation, Action<CommonResponse<MintResponse>> callBack);
+        public void MintNft(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, string confirmation,string mint_id, Action<CommonResponse<MintResponse>> callBack);
 
         //fetch
         public void FetchNFTsByMintAddresses(List<string> mintAddresses, Action<CommonResponse<MultipleNFTsResponse>> callBack);
