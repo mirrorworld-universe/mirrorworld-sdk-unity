@@ -248,5 +248,30 @@ namespace MirrorworldSDK.Wrapper
                 return Constant.UserRootStagingDevnet;
             }
         }
+
+        private string GetDebugLoginPageRoot()
+        {
+            if (environment == MirrorEnv.ProductionMainnet)
+            {
+                return Constant.urlDebugLoginUrlPreProductionMain;
+            }
+            else if (environment == MirrorEnv.ProductionDevnet)
+            {
+                return Constant.urlDebugLoginUrlPreProductionDev;
+            }
+            else if (environment == MirrorEnv.StagingDevNet)
+            {
+                return Constant.urlDebugLoginUrlPreStagingDev;
+            }
+            else if (environment == MirrorEnv.StagingMainNet)
+            {
+                return Constant.urlDebugLoginUrlPreStagingMain;
+            }
+            else
+            {
+                LogFlow("GetAuthRoot failed! env is:" + environment);
+                return Constant.urlDebugLoginUrlPreProductionDev;
+            }
+        }
     }
 }
