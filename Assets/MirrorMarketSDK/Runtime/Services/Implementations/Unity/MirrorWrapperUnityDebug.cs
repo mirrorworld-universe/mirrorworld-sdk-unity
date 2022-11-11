@@ -13,7 +13,6 @@ namespace MirrorworldSDK.Wrapper
         //url
         private readonly string urlStartLoginSession = "auth/token/start-session";
         private readonly string urlCompleteLoginWithSession = "auth/token/complete-session/";
-        private readonly string urlDebugLoginUrlPre = "https://auth-staging.mirrorworld.fun/login?session=";
 
         //flow
         private string debugSession = "";
@@ -72,7 +71,7 @@ namespace MirrorworldSDK.Wrapper
 
                     string session = responseBody.data.session_token;
 
-                    string url = urlDebugLoginUrlPre + session;
+                    string url = GetDebugLoginPageRoot() + session;
 
                     Application.OpenURL(url);
 

@@ -5,12 +5,12 @@ using System;
 namespace MirrorworldSDK.Models
 {
     [Serializable]
-    public class CancelNftListOnMarketplaceRequest
+    public class CancelNftListOnMarketplaceRequest:BaseWeb3Request
     {
         public string mint_address;
 
         public float price;
 
-        public string confirmation;
+        public string auction_house;
     }
 }

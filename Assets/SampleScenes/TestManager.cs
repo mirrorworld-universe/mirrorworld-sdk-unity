@@ -163,7 +163,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnMintNFT")
         {
             SetInfoPanel("MintNFT",  "parent collection", "name", "symbol", "url", "MintNFT", "MintNFT",()=> {
-                MirrorSDK.MintNFT(v1,v2,v3,v4,null, (res) => {
+                MirrorSDK.MintNFT(v1,v2,v3,v4,null, "testid", (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });

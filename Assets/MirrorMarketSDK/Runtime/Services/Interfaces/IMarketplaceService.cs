@@ -12,7 +12,7 @@ namespace MirrorworldSDK.Interfaces
         
         public void CreateVerifiedSubCollection(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, string confirmation, Action<CommonResponse<MintResponse>> callBack);
         
-        public void MintNft(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, string confirmation, Action<CommonResponse<MintResponse>> callBack);
+        public void MintNft(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, string confirmation,string mint_id, Action<CommonResponse<MintResponse>> callBack);
 
         //fetch
         public void FetchNFTsByMintAddresses(List<string> mintAddresses, Action<CommonResponse<MultipleNFTsResponse>> callBack);
@@ -21,19 +21,19 @@ namespace MirrorworldSDK.Interfaces
         
         public void FetchNftsByUpdateAuthorities(List<string> updateAuthorities, Action<CommonResponse<MultipleNFTsResponse>> callBack);
         
-        public void GetNFTsOwnedByAddress(List<string> owners, Action<CommonResponse<MultipleNFTsResponse>> callBack);
+        public void GetNFTsOwnedByAddress(List<string> owners,long limit,long offset, Action<CommonResponse<MultipleNFTsResponse>> callBack);
         
         public void GetNFTDetails(string mintAddress, Action<CommonResponse<SingleNFTResponse>> callBack);
 
         //list
-        public void ListNFT(string mintAddress, float price, string confirmation, Action<CommonResponse<ListingResponse>> callBack);
+        public void ListNFT(string mintAddress, float price,string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack);
         
-        public void UpdateNFTListing(string mintAddress, float price, string confirmation, Action<CommonResponse<ListingResponse>> callBack);
+        public void UpdateNFTListing(string mintAddress, float price, string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack);
         
-        public void CancelNFTListing(string mintAddress, float price, string confirmation, Action<CommonResponse<ListingResponse>> callBack);
+        public void CancelNFTListing(string mintAddress, float price, string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack);
 
         //buy
-        public void BuyNFT(string mintAddress, float price, Action<CommonResponse<ListingResponse>> callBack);
+        public void BuyNFT(string mintAddress, float price, string auction_house, Action<CommonResponse<ListingResponse>> callBack);
 
         //transfer
         public void TransferNFT(string mintAddress, string walletAddress, Action<CommonResponse<ListingResponse>> callBack);
