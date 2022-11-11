@@ -232,7 +232,7 @@ namespace MirrorworldSDK.Wrapper
             }
             else if (environment == MirrorEnv.ProductionDevnet)
             {
-                return Constant.UserRootStagingDevnet;
+                return Constant.UserRootProduction;
             }
             else if (environment == MirrorEnv.StagingDevNet)
             {
