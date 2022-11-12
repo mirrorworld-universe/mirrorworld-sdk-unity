@@ -120,7 +120,7 @@ namespace MirrorworldSDK.Wrapper
         }
 
         //Nessesary params
-        private void saveKeyParams(string accessToken,string refreshToken,UserResponse userResponse)
+        public void SaveKeyParams(string accessToken,string refreshToken,UserResponse userResponse)
         {
             this.accessToken = accessToken;
 

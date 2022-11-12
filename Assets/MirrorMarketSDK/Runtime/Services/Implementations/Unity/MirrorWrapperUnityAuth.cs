@@ -40,7 +40,7 @@ namespace MirrorworldSDK.Wrapper
             {
                 CommonResponse<LoginResponse> responseBody = JsonUtility.FromJson<CommonResponse<LoginResponse>>(rawResponseBody);
 
-                saveKeyParams(responseBody.data.access_token, responseBody.data.refresh_token, responseBody.data.user);
+                SaveKeyParams(responseBody.data.access_token, responseBody.data.refresh_token, responseBody.data.user);
 
                 callBack(responseBody);
             }));
@@ -95,7 +95,7 @@ namespace MirrorworldSDK.Wrapper
             {
                 LogFlow("GetAccessToken success");
 
-                saveKeyParams(responseBody.data.access_token, responseBody.data.refresh_token, responseBody.data.user);
+                SaveKeyParams(responseBody.data.access_token, responseBody.data.refresh_token, responseBody.data.user);
             }
             else
             {

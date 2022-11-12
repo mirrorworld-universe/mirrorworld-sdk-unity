@@ -131,7 +131,7 @@ public class MirrorSDK : MonoBehaviour
                 }, action);
             }
         });
-
+        MirrorWrapper.iOSLoginAction = action;
 #elif UNITY_ANDROID && !(UNITY_EDITOR)
 
             MirrorWrapper.Instance.LogFlow("Start login in android...");
@@ -140,7 +140,10 @@ public class MirrorSDK : MonoBehaviour
 
 #elif UNITY_IOS && !(UNITY_EDITOR)
 
-            MirrorWrapper.Instance.LogFlow("IOS is not implemented");
+        MirrorWrapper.Instance.LogFlow("Start login in iOS...");
+        LoginCallback handler = new LoginCallback(iOSloginCallback);
+        IntPtr fp = Marshal.GetFunctionPointerForDelegate(handler);
+        StartLogin (fp);
 #endif
     }
 
@@ -376,7 +379,7 @@ public class MirrorSDK : MonoBehaviour
         }
         else if (Application.platform == RuntimePlatform.IPhonePlayer)
         {
-            MirrorWrapper.Instance.LogFlow("Not supported.");
+            MirrorWrapper.OpenWallet();
         }
         else
         {

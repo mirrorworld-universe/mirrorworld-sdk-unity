@@ -81,7 +81,7 @@ namespace MirrorworldSDK.Wrapper
 
                 LoginResponse responseBody = JsonUtility.FromJson<LoginResponse>(resultString);
 
-                saveKeyParams(responseBody.access_token, responseBody.refresh_token, responseBody.user);
+                SaveKeyParams(responseBody.access_token, responseBody.refresh_token, responseBody.user);
 
                 callback(responseBody);
             }));
