@@ -3,7 +3,7 @@ namespace MirrorworldSDK
     public static class Constant
     {
         //production main
-        public static readonly string AuthRootProduction = "https://auth-staging.mirrorworld.fun/";
+        public static readonly string AuthRootProduction = "https://auth.mirrorworld.fun/";
         public static readonly string UserRootProduction = "https://api.mirrorworld.fun/v1/";
         public static string ApiRootProduction = "https://api.mirrorworld.fun/v1/mainnet/";
         public static string MarketRootProduction = "https://jump-devnet.mirrorworld.fun";
@@ -11,7 +11,7 @@ namespace MirrorworldSDK
 
         //production devnet
         public static string urlDebugLoginUrlPreProductionDev = "https://auth.mirrorworld.fun/login?session=";
-        public static readonly string AuthRootProductionDev = "https://auth-staging.mirrorworld.fun/";
+        public static readonly string AuthRootProductionDev = "https://auth.mirrorworld.fun/";
         public static readonly string UserRootProductionDev = "https://api.mirrorworld.fun/v1/";
         public static string ApiRootProductionDev = "https://api.mirrorworld.fun/v1/devnet/";
         public static string MarketRootProductionDev = "https://jump-devnet.mirrorworld.fun";
