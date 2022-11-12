@@ -1,0 +1,11 @@
+framework module MirrorWorldSDK {
+  umbrella header "MirrorWorldSDK-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module MirrorWorldSDK.Swift {
+  header "MirrorWorldSDK-Swift.h"
+  requires objc
+}
