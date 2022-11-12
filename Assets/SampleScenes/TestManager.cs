@@ -50,8 +50,8 @@ public class TestManager : MonoBehaviour
 
     public void OnBtnLoginClicked()
     {
-        MirrorSDK.StartLogin((isSuccess)=> {
-            Debug.Log("Login result:" + isSuccess.ToString());
+        MirrorSDK.StartLogin((loginResponse)=> {
+            Debug.Log("Login result:" + loginResponse.ToString());
         });
     }
 

@@ -149,9 +149,9 @@ public class MirrorSDK : MonoBehaviour
 
 
     //open login ui
-    public static void SetLogoutCallback(Action action)
+    public static void SetWalletLogoutCallback(Action action)
     {
-        MirrorWrapper.Instance.LogFlow("SetLogoutCallback.");
+        MirrorWrapper.Instance.LogFlow("SetWalletLogoutCallback.");
 
 #if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
 
