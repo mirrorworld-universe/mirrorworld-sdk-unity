@@ -38,6 +38,20 @@ namespace MirrorworldSDK.Wrapper
 
         [DllImport("__Internal")]
         public static extern void OpenWallet();
+
+        //wallet logout callback
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void iOSWalletLoginCallback(string resultString);
+
+        [MonoPInvokeCallback(typeof(iOSWalletLoginCallback))]
+        static void iOSWalletLogoutCallback()
+        {
+            MirrorWrapper.Instance.LogFlow("iOSWalletLogoutCallback");
+        }
+
+        [DllImport("__Internal")]
+        static extern void SetWalletLogoutCallback(IntPtr iOSWalletLogoutCallback);
     }
 }
     
