@@ -168,6 +168,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.DefaultCompany.MirrorSDK
     Standalone: com.DefaultCompany.MirrorSDK
+    iPhone: com.DefaultCompany.MirrorSDK
   buildNumber:
     Standalone: 0
     iPhone: 0

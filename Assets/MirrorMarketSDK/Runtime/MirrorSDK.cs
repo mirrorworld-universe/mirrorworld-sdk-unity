@@ -16,7 +16,7 @@ public class MirrorSDK : MonoBehaviour
     [Tooltip("Open debug mode")]
     public bool debugMode = false;
     [Tooltip("runtime environment")]
-    public MirrorEnv environment = MirrorEnv.StagingDevNet;
+    public MirrorEnvPublic environment = MirrorEnvPublic.ProductionDevnet;
 
     [Tooltip("Temp Attr")]
     public string debugEmail = "";
@@ -31,7 +31,7 @@ public class MirrorSDK : MonoBehaviour
             return;
         }
 
-        InitSDK(apiKey, gameObject, debugMode, environment);
+        InitSDK(apiKey, gameObject, debugMode, (MirrorEnv)environment);
 
 #if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
         MirrorWrapper.Instance.SetDebugEmail(debugEmail);
