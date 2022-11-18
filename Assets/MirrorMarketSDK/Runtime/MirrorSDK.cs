@@ -174,6 +174,11 @@ public class MirrorSDK : MonoBehaviour
         MirrorWrapper.Instance.LoginWithEmail(emailAddress, password, callBack);
     }
 
+    public static void Logout(Action logoutAction)
+    {
+        MirrorWrapper.Instance.Logout(logoutAction);
+    }
+
     public static void GetWallet(Action<UserResponse> callback)
     {
         UserResponse user = MirrorWrapper.Instance.GetCurrentUser();
@@ -406,63 +411,5 @@ public class MirrorSDK : MonoBehaviour
             MirrorWrapper.Instance.LogFlow("Unknown platform!");
         }
     }
-
-    //public static void OpenTransferPage(string mintAddress, string image, string name)
-    //{
-    //    if (Utils.IsEditor())
-    //    {
-    //        MirrorWrapper.Instance.LogFlow("Not supported.");
-    //    }
-    //    else if (Application.platform == RuntimePlatform.Android)
-    //    {
-    //        MirrorWrapper.Instance.AndroidOpenTransferPage(mintAddress, image, name);
-    //    }
-    //    else if (Application.platform == RuntimePlatform.IPhonePlayer)
-    //    {
-    //        MirrorWrapper.Instance.LogFlow("Not supported.");
-    //    }
-    //    else
-    //    {
-    //        MirrorWrapper.Instance.LogFlow("Unknown platform!");
-    //    }
-    //}
-    //public static void OpenSellPage(string mintAddress, string image, string name)
-    //{
-    //    if (Utils.IsEditor())
-    //    {
-    //        MirrorWrapper.Instance.LogFlow("Not supported.");
-    //    }
-    //    else if (Application.platform == RuntimePlatform.Android)
-    //    {
-    //        MirrorWrapper.Instance.AndroidOpenSellPage(mintAddress, image, name);
-    //    }
-    //    else if (Application.platform == RuntimePlatform.IPhonePlayer)
-    //    {
-    //        MirrorWrapper.Instance.LogFlow("Not supported.");
-    //    }
-    //    else
-    //    {
-    //        MirrorWrapper.Instance.LogFlow("Unknown platform!");
-    //    }
-    //}
-    //public static void OpenNFTManagePage(string mintAddress, string image, string name, double price)
-    //{
-    //    if (Utils.IsEditor())
-    //    {
-    //        MirrorWrapper.Instance.LogFlow("Not supported.");
-    //    }
-    //    else if (Application.platform == RuntimePlatform.Android)
-    //    {
-    //        MirrorWrapper.Instance.AndroidOpenNFTManagePage(mintAddress, image, name, price);
-    //    }
-    //    else if (Application.platform == RuntimePlatform.IPhonePlayer)
-    //    {
-    //        MirrorWrapper.Instance.LogFlow("Not supported.");
-    //    }
-    //    else
-    //    {
-    //        MirrorWrapper.Instance.LogFlow("Unknown platform!");
-    //    }
-    //}
     #endregion
 }

@@ -15,6 +15,7 @@ namespace MirrorworldSDK.Wrapper
         private readonly string urlRefreshToken = "auth/refresh-token";
         private readonly string urlGetCurrentUser = "auth/me";
         private readonly string urlQueryUser = "auth/user";
+        private readonly string urlLogout = "auth/logout";
 
         public void GetCurrentUserInfo(Action<CommonResponse<UserResponse>> callBack)
         {
@@ -43,6 +44,16 @@ namespace MirrorworldSDK.Wrapper
                 SaveKeyParams(responseBody.data.access_token, responseBody.data.refresh_token, responseBody.data.user);
 
                 callBack(responseBody);
+            }));
+        }
+
+        public void Logout(Action action)
+        {
+            string url = GetAuthRoot() + urlLogout;
+            monoBehaviour.StartCoroutine(CheckAndPost(url, null, (response) => {
+                //CommonResponse<UserResponse> responseBody = JsonUtility.FromJson<CommonResponse<UserResponse>>(response);
+                action();
+                ClearUnitySDKCache();
             }));
         }
 

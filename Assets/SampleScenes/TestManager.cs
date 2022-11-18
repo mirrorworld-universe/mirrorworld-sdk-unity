@@ -73,9 +73,15 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnGetAccessToken")
         {
-            SetInfoPanel("GetAccessToken", null, null, null, null, "GetAccessToken", "Get Access Token",()=> {
+            SetInfoPanel("GetAccessToken", null, null, null, null, "GetAccessToken", "Get Access Token", () => {
                 MirrorSDK.GetAccessToken();
                 PrintLog("Access token is secret,you can see the result in console.");
+            });
+        }
+        else if (btnName == "BtnLogout")
+        {
+            MirrorSDK.Logout(()=> {
+                PrintLog("Logout success");
             });
         }
         else if (btnName == "BtnQueryUser")
