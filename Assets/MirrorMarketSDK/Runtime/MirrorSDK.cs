@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using MirrorworldSDK;
 using MirrorworldSDK.Models;
 using MirrorworldSDK.UI;
 using MirrorworldSDK.Wrapper;
 using UnityEngine;
-
+using static MirrorworldSDK.Wrapper.MirrorWrapper;
 
 public class MirrorSDK : MonoBehaviour
 {
@@ -140,10 +141,10 @@ public class MirrorSDK : MonoBehaviour
 
 #elif UNITY_IOS && !(UNITY_EDITOR)
 
-        MirrorWrapper.Instance.LogFlow("Start login in iOS...");
-        LoginCallback handler = new LoginCallback(iOSloginCallback);
-        IntPtr fp = Marshal.GetFunctionPointerForDelegate(handler);
-        StartLogin (fp);
+            MirrorWrapper.Instance.LogFlow("Start login in iOS...");
+            LoginCallback handler = new LoginCallback(iOSloginCallback);
+            IntPtr fp = Marshal.GetFunctionPointerForDelegate(handler);
+            MirrorWrapper.StartLogin(fp);
 #endif
     }
 
