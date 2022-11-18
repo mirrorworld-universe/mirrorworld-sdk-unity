@@ -67,9 +67,9 @@ public class TestManager : MonoBehaviour
 
         if (btnName == "BtnSetApiKey")
         {
-            SetInfoPanel("SetApiKey", "api key", null, null, null, "SetApiKey", "Set Api Key",()=> {
-                MirrorSDK.SetAPIKey(v1);
-            });
+            //SetInfoPanel("SetApiKey", "api key", null, null, null, "SetApiKey", "Set Api Key",()=> {
+            //    MirrorSDK.SetAPIKey(v1);
+            //});
         }
         else if (btnName == "BtnGetAccessToken")
         {

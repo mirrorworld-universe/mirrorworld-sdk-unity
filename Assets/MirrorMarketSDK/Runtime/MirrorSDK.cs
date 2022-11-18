@@ -61,32 +61,33 @@ public class MirrorSDK : MonoBehaviour
 
 #elif (UNITY_IOS && !(UNITY_EDITOR))
 
-            MirrorWrapper.Instance.SetApiKey(apiKey);
+            MirrorWrapper.initSDK(apiKey);
 
             MirrorWrapper.Instance.LogFlow("Mirror SDK Inited.");
 #endif
 
+
     }
 
-    public static void SetAPIKey(string apiKey)
-    {
-#if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
+//    public static void SetAPIKey(string apiKey)
+//    {
+//#if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
 
-        MirrorWrapper.Instance.SetAPIKey(apiKey);
+//        MirrorWrapper.Instance.SetAPIKey(apiKey);
 
-#elif (UNITY_ANDROID && !(UNITY_EDITOR))
+//#elif (UNITY_ANDROID && !(UNITY_EDITOR))
 
-            MirrorWrapper.Instance.AndroidSetAPIKey(apiKey);
+//            MirrorWrapper.Instance.AndroidSetAPIKey(apiKey);
 
-            MirrorWrapper.Instance.SetAPIKey(apiKey);
+//            MirrorWrapper.Instance.SetAPIKey(apiKey);
 
-#elif (UNITY_IOS && !(UNITY_EDITOR))
+//#elif (UNITY_IOS && !(UNITY_EDITOR))
 
-            MirrorWrapper.Instance.SetApiKey(apiKey);
+//            MirrorWrapper.Instance.SetApiKey(apiKey);
 
-            MirrorWrapper.Instance.LogFlow("Mirror SDK Inited.");
-#endif
-    }
+//            MirrorWrapper.Instance.LogFlow("Mirror SDK Inited.");
+//#endif
+//    }
 
     //set if use debug mode
     public static void SetDebugMode(bool useDebug)
@@ -142,10 +143,11 @@ public class MirrorSDK : MonoBehaviour
 #elif UNITY_IOS && !(UNITY_EDITOR)
 
             MirrorWrapper.Instance.LogFlow("Start login in iOS...");
-            LoginCallback handler = new LoginCallback(iOSloginCallback);
+            LoginCallback handler = new LoginCallback(MirrorWrapper.iOSloginCallback);
             IntPtr fp = Marshal.GetFunctionPointerForDelegate(handler);
             MirrorWrapper.StartLogin(fp);
 #endif
+
     }
 
 

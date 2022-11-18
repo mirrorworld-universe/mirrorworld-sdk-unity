@@ -12,13 +12,13 @@ namespace MirrorworldSDK.Wrapper
         public static Action<LoginResponse> iOSLoginAction;
 
         [DllImport("__Internal")]
-        private static extern void initSDK(string apikey);
+        public static extern void initSDK(string apikey);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void LoginCallback(string resultString);
 
         [MonoPInvokeCallback(typeof(LoginCallback))]
-        static void iOSloginCallback(string resultStr)
+        public static void iOSloginCallback(string resultStr)
         {
             MirrorWrapper.Instance.LogFlow("iOSloginCallback:" + resultStr);
             if(iOSLoginAction != null)
@@ -34,7 +34,7 @@ namespace MirrorworldSDK.Wrapper
         }
 
         [DllImport("__Internal")]
-        static extern void StartLogin(IntPtr iOSloginCallback);
+        public static extern void StartLogin(IntPtr iOSloginCallback);
 
         [DllImport("__Internal")]
         public static extern void OpenWallet();
