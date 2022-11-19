@@ -255,8 +255,8 @@ using UInt = size_t;
 typedef SWIFT_ENUM(NSInteger, MWEnvironment, closed) {
   MWEnvironmentStagingDevNet = 0,
   MWEnvironmentStagingMainNet = 1,
-  MWEnvironmentDevNet = 2,
-  MWEnvironmentMainNet = 3,
+  MWEnvironmentMainNet = 2,
+  MWEnvironmentDevNet = 3,
 };
 
 @class NSString;
@@ -264,6 +264,15 @@ typedef SWIFT_ENUM(NSInteger, MWEnvironment, closed) {
 SWIFT_CLASS("_TtC14MirrorWorldSDK16MirrorAuthMoudle")
 @interface MirrorAuthMoudle : NSObject
 @property (nonatomic, copy) NSDictionary<NSString *, id> * _Nullable userInfo;
+/// logsOut
+/// \code
+///  *
+///
+/// \endcode
+- (void)loginOut:(void (^ _Nullable)(BOOL))finsh;
+- (void)CheckAuthenticated:(void (^ _Nullable)(BOOL))onBool;
+- (void)RefreshToken:(void (^ _Nullable)(BOOL))onBool;
+- (void)QueryUserWithEmail:(NSString * _Nonnull)email onUserFetched:(void (^ _Nullable)(NSString * _Nullable))onUserFetched onFetchFailed:(void (^ _Nullable)(NSInteger, NSString * _Nullable))onFetchFailed;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -345,8 +354,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) MirrorWorldS
 - (void)handleOpenWithUrl:(NSURL * _Nonnull)url;
 /// Checks whether the current user is logged in. You can use this function to judge whether a user needs to start login flow.
 - (void)CheckAuthenticated:(void (^ _Nullable)(BOOL))onBool;
-/// Open a webview which would show the wallet page.
-- (void)OpenWallet;
+- (void)OpenWalletOnLogout:(void (^ _Nonnull)(void))onLogout;
 /// Check user’s info, then we can get user’s base information such as wallet address and so on.
 - (void)QueryUserWithEmail:(NSString * _Nonnull)email onUserFetched:(void (^ _Nullable)(NSString * _Nullable))onUserFetched onFetchFailed:(void (^ _Nullable)(NSInteger, NSString * _Nullable))onFetchFailed;
 /// Get access token so that users can visit APIs.
@@ -398,8 +406,7 @@ SWIFT_CLASS("_TtC14MirrorWorldSDK22MirrorWorldSDKAuthData")
 
 SWIFT_CLASS("_TtC14MirrorWorldSDK20MirrorWorldSDKConfig")
 @interface MirrorWorldSDKConfig : NSObject
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 #endif
