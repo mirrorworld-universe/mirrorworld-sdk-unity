@@ -24,7 +24,7 @@ namespace MirrorworldSDK.Wrapper
         private string debugSession = "";
         private Action<LoginResponse> loginCb = null;
 
-        private Action walletLogoutAction;
+        public Action walletLogoutAction;
 
 
         public void SetDebugEmail(string email)

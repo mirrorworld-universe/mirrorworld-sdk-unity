@@ -288,7 +288,7 @@ public class TestManager : MonoBehaviour
         {
             notOpenDetail = true;
             MirrorSDK.OpenWalletPage(()=> {
-                MirrorWrapper.Instance.LogFlow("OpenWalletPage success.");
+                MirrorWrapper.Instance.LogFlow("Wallet logout callback runs!!");
             });
         }
         else if (btnName == "BtnTransferPage")
