@@ -12,12 +12,12 @@ namespace MirrorworldSDK.Wrapper
         public static Action<LoginResponse> iOSLoginAction;
 
         [DllImport("__Internal")]
-        public static extern void initSDK(int env,string apikey);
+        public static extern void IOSInitSDK(int env,string apikey);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void LoginCallback(string resultString);
+        public delegate void IOSLoginCallback(string resultString);
 
-        [MonoPInvokeCallback(typeof(LoginCallback))]
+        [MonoPInvokeCallback(typeof(IOSLoginCallback))]
         public static void iOSloginCallback(string resultStr)
         {
             MirrorWrapper.Instance.LogFlow("iOSloginCallback received:" + resultStr);
@@ -36,24 +36,24 @@ namespace MirrorworldSDK.Wrapper
         }
 
         [DllImport("__Internal")]
-        public static extern void StartLogin(IntPtr iOSloginCallback);
+        public static extern void IOSStartLogin(IntPtr iOSloginCallback);
 
-        [DllImport("__Internal")]
-        public static extern void OpenWallet();
+        // [DllImport("__Internal")]
+        // public static extern void OpenWallet();
 
-        //wallet logout callback
+       //wallet logout callback
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void iOSWalletLoginCallback(string resultString);
+     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+     public delegate void iOSWalletLogOutCallback(string resultString);
 
-        [MonoPInvokeCallback(typeof(iOSWalletLoginCallback))]
-        static void iOSWalletLogoutCallback()
+     [MonoPInvokeCallback(typeof(iOSWalletLogOutCallback))]
+     public static void iOSWalletCallBack (string resultStr)
         {
-            MirrorWrapper.Instance.LogFlow("iOSWalletLogoutCallback");
+        MirrorWrapper.Instance.LogFlow("iOS Wallet Logout:" + resultStr);
         }
 
         [DllImport("__Internal")]
-        static extern void SetWalletLogoutCallback(IntPtr iOSWalletLogoutCallback);
+    public static extern void  IOSOpenWallet (IntPtr iOSWalletCallBack);
+        }
     }
-}
-    
+        
