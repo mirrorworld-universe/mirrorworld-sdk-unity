@@ -31,7 +31,7 @@ public class MirrorSDK : MonoBehaviour
             MirrorWrapper.Instance.LogFlow("Please input an api key");
             return;
         }
-
+        Debug.Log("Unity apikey:"+apiKey);
         InitSDK(apiKey, gameObject, debugMode, (MirrorEnv)environment);
 
 #if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
@@ -63,7 +63,7 @@ public class MirrorSDK : MonoBehaviour
 
             // MirrorWrapper.initSDK(apiKey);
 
-            MirrorWrapper.initSDK((int)environment,apiKey);
+            MirrorWrapper.IOSInitSDK((int)environment,apiKey);
 
             MirrorWrapper.Instance.LogFlow("Mirror SDK Inited.");
 #endif
@@ -145,9 +145,9 @@ public class MirrorSDK : MonoBehaviour
 #elif UNITY_IOS && !(UNITY_EDITOR)
 
             MirrorWrapper.Instance.LogFlow("Start login in iOS...");
-            LoginCallback handler = new LoginCallback(MirrorWrapper.iOSloginCallback);
+            IOSLoginCallback handler = new IOSLoginCallback(MirrorWrapper.iOSloginCallback);
             IntPtr fp = Marshal.GetFunctionPointerForDelegate(handler);
-            MirrorWrapper.StartLogin(fp);
+            MirrorWrapper.IOSStartLogin(fp);
 #endif
 
     }
@@ -389,7 +389,10 @@ public class MirrorSDK : MonoBehaviour
         }
         else if (Application.platform == RuntimePlatform.IPhonePlayer)
         {
-            MirrorWrapper.OpenWallet();
+            //MirrorWrapper.OpenWallet();
+            iOSWalletLogOutCallback handler = new iOSWalletLogOutCallback(MirrorWrapper.iOSWalletCallBack);
+             IntPtr fp = Marshal.GetFunctionPointerForDelegate(handler);
+             MirrorWrapper.IOSOpenWallet (fp);
         }
         else
         {
