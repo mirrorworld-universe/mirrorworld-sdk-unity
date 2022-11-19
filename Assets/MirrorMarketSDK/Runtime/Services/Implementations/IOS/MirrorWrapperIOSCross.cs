@@ -20,10 +20,12 @@ namespace MirrorworldSDK.Wrapper
         [MonoPInvokeCallback(typeof(LoginCallback))]
         public static void iOSloginCallback(string resultStr)
         {
-            MirrorWrapper.Instance.LogFlow("iOSloginCallback:" + resultStr);
+            MirrorWrapper.Instance.LogFlow("iOSloginCallback received:" + resultStr);
             if(iOSLoginAction != null)
             {
                 LoginResponse responseBody = JsonUtility.FromJson<LoginResponse>(resultStr);
+                MirrorWrapper.Instance.LogFlow("iOSloginCallback parse result:" + responseBody.access_token);
+                MirrorWrapper.Instance.LogFlow("iOSloginCallback parse result:" + responseBody.refresh_token);
                 MirrorWrapper.Instance.SaveKeyParams(responseBody.access_token, responseBody.refresh_token, responseBody.user);
                 if(iOSLoginAction != null)
                 {

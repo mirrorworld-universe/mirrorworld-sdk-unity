@@ -135,7 +135,6 @@ public class MirrorSDK : MonoBehaviour
                 }, action);
             }
         });
-        MirrorWrapper.iOSLoginAction = action;
 #elif UNITY_ANDROID && !(UNITY_EDITOR)
 
             MirrorWrapper.Instance.LogFlow("Start login in android...");
@@ -144,6 +143,7 @@ public class MirrorSDK : MonoBehaviour
 
 #elif UNITY_IOS && !(UNITY_EDITOR)
 
+        MirrorWrapper.iOSLoginAction = action;
             MirrorWrapper.Instance.LogFlow("Start login in iOS...");
             LoginCallback handler = new LoginCallback(MirrorWrapper.iOSloginCallback);
             IntPtr fp = Marshal.GetFunctionPointerForDelegate(handler);
