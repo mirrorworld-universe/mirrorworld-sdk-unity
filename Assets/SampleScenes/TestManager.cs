@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MirrorworldSDK;
-
+using MirrorworldSDK.Wrapper;
 using TMPro;
 using UnityEngine;
 
@@ -287,7 +287,9 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnOpenWallet")
         {
             notOpenDetail = true;
-            MirrorSDK.OpenWalletPage();
+            MirrorSDK.OpenWalletPage(()=> {
+                MirrorWrapper.Instance.LogFlow("OpenWalletPage success.");
+            });
         }
         else if (btnName == "BtnTransferPage")
         {
