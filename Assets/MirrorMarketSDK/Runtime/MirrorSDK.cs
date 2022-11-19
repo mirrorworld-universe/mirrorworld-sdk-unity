@@ -61,7 +61,9 @@ public class MirrorSDK : MonoBehaviour
 
 #elif (UNITY_IOS && !(UNITY_EDITOR))
 
-            MirrorWrapper.initSDK(apiKey);
+            // MirrorWrapper.initSDK(apiKey);
+
+            MirrorWrapper.initSDK((int)environment,apiKey);
 
             MirrorWrapper.Instance.LogFlow("Mirror SDK Inited.");
 #endif

@@ -12,7 +12,7 @@ namespace MirrorworldSDK.Wrapper
         public static Action<LoginResponse> iOSLoginAction;
 
         [DllImport("__Internal")]
-        public static extern void initSDK(string apikey);
+        public static extern void initSDK(int env,string apikey);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void LoginCallback(string resultString);
