@@ -41,6 +41,7 @@ public class MirrorSDK : MonoBehaviour
 
     public static void InitSDK(string apiKey, GameObject gameObject, bool useDebug, MirrorEnv environment)
     {
+        environment = MirrorEnv.StagingDevNet;
         DontDestroyOnLoad(gameObject);
 
         MonoBehaviour monoBehaviour = gameObject.GetComponent<MonoBehaviour>();
