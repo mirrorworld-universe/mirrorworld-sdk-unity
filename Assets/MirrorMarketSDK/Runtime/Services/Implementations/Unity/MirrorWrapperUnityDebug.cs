@@ -24,6 +24,8 @@ namespace MirrorworldSDK.Wrapper
         private string debugSession = "";
         private Action<LoginResponse> loginCb = null;
 
+        private Action walletLogoutAction;
+
 
         public void SetDebugEmail(string email)
         {
@@ -101,9 +103,9 @@ namespace MirrorworldSDK.Wrapper
             return debugSession;
         }
 
-        public void DebugOpenWalletPage(Action walletLogoutAction)
+        public void DebugOpenWalletPage(Action walletCb)
         {
-            this.walletLogoutAction = walletLogoutAction;
+            walletLogoutAction = walletCb;
 
             IsLoggedIn((isLogged)=> {
                 if (isLogged) {
