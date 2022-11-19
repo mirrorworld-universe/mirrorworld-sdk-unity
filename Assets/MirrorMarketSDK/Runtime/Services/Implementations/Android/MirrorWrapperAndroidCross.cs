@@ -90,8 +90,10 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void AndroidOpenWallet()
+        public void AndroidOpenWallet(Action walletLogoutAction)
         {
+            AndroidSetLogoutCallback(walletLogoutAction);
+
             if (javaSDKInstance == null)
             {
                 LogFlow("Must call InitSDK function first.");

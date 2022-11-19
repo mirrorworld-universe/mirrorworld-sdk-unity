@@ -101,8 +101,10 @@ namespace MirrorworldSDK.Wrapper
             return debugSession;
         }
 
-        public void DebugOpenWalletPage()
+        public void DebugOpenWalletPage(Action walletLogoutAction)
         {
+            this.walletLogoutAction = walletLogoutAction;
+
             IsLoggedIn((isLogged)=> {
                 if (isLogged) {
                     string url = GetEntranceRoot() + apiKey;

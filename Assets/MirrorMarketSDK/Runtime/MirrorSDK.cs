@@ -375,15 +375,15 @@ public class MirrorSDK : MonoBehaviour
     #endregion
 
     #region market ui
-    public static void OpenWalletPage()
+    public static void OpenWalletPage(Action walletLogoutAction)
     {
         if (MirrorUtils.IsEditor())
         {
-            MirrorWrapper.Instance.DebugOpenWalletPage();
+            MirrorWrapper.Instance.DebugOpenWalletPage(walletLogoutAction);
         }
         else if (Application.platform == RuntimePlatform.Android)
         {
-            MirrorWrapper.Instance.AndroidOpenWallet();
+            MirrorWrapper.Instance.AndroidOpenWallet(walletLogoutAction);
         }
         else if (Application.platform == RuntimePlatform.IPhonePlayer)
         {
