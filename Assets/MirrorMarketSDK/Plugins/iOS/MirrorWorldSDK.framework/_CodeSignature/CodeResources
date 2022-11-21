@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/MirrorWorldSDK-Swift.h</key>
 		<data>
-		HYpPAFjZZYLvI602TPuDStHQIM8=
+		b5MpNAvdA7q9B9+1/fli+XTvbNE=
 		</data>
 		<key>Headers/MirrorWorldSDK-umbrella.h</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>Modules/MirrorWorldSDK.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		ba40Rup0Jnr2ADWQTlXy10dIo6s=
+		hPpHdGZGNm3/eTRvjtwMHi03R1s=
 		</data>
 		<key>Modules/MirrorWorldSDK.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -26,11 +26,11 @@
 		</data>
 		<key>Modules/MirrorWorldSDK.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		UrBDicHq4yjsTo/FFfYKvmcoNFY=
+		y6FGlItZZ80eEmAJbCL3RAEyUZ8=
 		</data>
 		<key>Modules/MirrorWorldSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		JaRSF4c3y4svjdAPXq6JE/KHF+8=
+		HtKUY+kDDokKKGhTkFLgX8/hpnc=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -43,11 +43,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			HYpPAFjZZYLvI602TPuDStHQIM8=
+			b5MpNAvdA7q9B9+1/fli+XTvbNE=
 			</data>
 			<key>hash2</key>
 			<data>
-			4jtOO5y+9QpZo9qMxRseEBnUaU0hqKic3qttAtfKEVQ=
+			Kd5HVf2A85Dt881V2DauCXSHnV98rgs4M0OeELjEMYg=
 			</data>
 		</dict>
 		<key>Headers/MirrorWorldSDK-umbrella.h</key>
@@ -65,11 +65,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			ba40Rup0Jnr2ADWQTlXy10dIo6s=
+			hPpHdGZGNm3/eTRvjtwMHi03R1s=
 			</data>
 			<key>hash2</key>
 			<data>
-			h+lKHay1Yd7Ga2PHuoPTsZUfQ8SkCXsRLUHggRkborc=
+			/r8T9U5NMrvvTkDAj5PNslaSbTNF8eocRuLUtbHiPk4=
 			</data>
 		</dict>
 		<key>Modules/MirrorWorldSDK.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
@@ -87,22 +87,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			UrBDicHq4yjsTo/FFfYKvmcoNFY=
+			y6FGlItZZ80eEmAJbCL3RAEyUZ8=
 			</data>
 			<key>hash2</key>
 			<data>
-			WXSsG2V51eAZ7xIh6aFSBPbJYTdT5c9k2niDYRZtdnU=
+			bW04sWDShM88RZHN3KPtA6DsO+R3Zc4FzOPJBuGUciw=
 			</data>
 		</dict>
 		<key>Modules/MirrorWorldSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			JaRSF4c3y4svjdAPXq6JE/KHF+8=
+			HtKUY+kDDokKKGhTkFLgX8/hpnc=
 			</data>
 			<key>hash2</key>
 			<data>
-			wR0ckeKVayIWeQzKaFtP3xgqxazRBMDr941LB/i9hs4=
+			k2zb0iHUX7qwbNLkggAZsRrlUw2BHkfbuQ9vjIHGa24=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
