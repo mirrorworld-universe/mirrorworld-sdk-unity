@@ -41,7 +41,6 @@ public class MirrorSDK : MonoBehaviour
 
     public static void InitSDK(string apiKey, GameObject gameObject, bool useDebug, MirrorEnv environment)
     {
-        environment = MirrorEnv.StagingDevNet;
         DontDestroyOnLoad(gameObject);
 
         MonoBehaviour monoBehaviour = gameObject.GetComponent<MonoBehaviour>();
@@ -71,26 +70,6 @@ public class MirrorSDK : MonoBehaviour
 
 
     }
-
-//    public static void SetAPIKey(string apiKey)
-//    {
-//#if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
-
-//        MirrorWrapper.Instance.SetAPIKey(apiKey);
-
-//#elif (UNITY_ANDROID && !(UNITY_EDITOR))
-
-//            MirrorWrapper.Instance.AndroidSetAPIKey(apiKey);
-
-//            MirrorWrapper.Instance.SetAPIKey(apiKey);
-
-//#elif (UNITY_IOS && !(UNITY_EDITOR))
-
-//            MirrorWrapper.Instance.SetApiKey(apiKey);
-
-//            MirrorWrapper.Instance.LogFlow("Mirror SDK Inited.");
-//#endif
-//    }
 
     //set if use debug mode
     public static void SetDebugMode(bool useDebug)
