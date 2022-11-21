@@ -1,4 +1,5 @@
 
+using System.Text.RegularExpressions;
 using MirrorworldSDK.Models;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -54,6 +55,15 @@ namespace MirrorworldSDK
             return Application.platform == RuntimePlatform.LinuxEditor ||
                 Application.platform == RuntimePlatform.OSXEditor ||
                 Application.platform == RuntimePlatform.WindowsEditor;
+        }
+
+        public static string GetNoSymbolString(string oriString)
+        {
+            const string regex = @"\\(u|x)[[a-z\d]{1,4}";
+
+            var sanitisedUserName = Regex.Replace(oriString, regex, string.Empty);
+
+            return sanitisedUserName;
         }
     }
 }

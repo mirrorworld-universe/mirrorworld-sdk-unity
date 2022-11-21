@@ -21,6 +21,7 @@ namespace MirrorworldSDK.Wrapper
         public static void iOSloginCallback(string resultStr)
         {
             MirrorWrapper.Instance.LogFlow("iOSloginCallback received:" + resultStr);
+            resultStr = MirrorUtils.GetNoSymbolString(resultStr);
             if (iOSLoginAction != null)
             {
                 LoginResponse responseBody = JsonUtility.FromJson<LoginResponse>(resultStr);
