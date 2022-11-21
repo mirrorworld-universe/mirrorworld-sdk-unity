@@ -155,25 +155,25 @@ public class MirrorSDK : MonoBehaviour
 
 
     //open login ui
-    public static void SetWalletLogoutCallback(Action action)
-    {
-        MirrorWrapper.Instance.LogFlow("SetWalletLogoutCallback.");
+//    public static void SetWalletLogoutCallback(Action action)
+//    {
+//        MirrorWrapper.Instance.LogFlow("SetWalletLogoutCallback.");
 
-#if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
+//#if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
 
-        MirrorWrapper.Instance.LogFlow("SetLogoutCallback only implemented on native.");
+//        MirrorWrapper.Instance.LogFlow("SetLogoutCallback only implemented on native.");
 
-#elif UNITY_ANDROID && !(UNITY_EDITOR)
+//#elif UNITY_ANDROID && !(UNITY_EDITOR)
 
-            MirrorWrapper.Instance.LogFlow("SetLogoutCallback in android...");
+//            MirrorWrapper.Instance.LogFlow("SetLogoutCallback in android...");
 
-            MirrorWrapper.Instance.AndroidSetLogoutCallback(action);
+//            MirrorWrapper.Instance.AndroidSetLogoutCallback(action);
 
-#elif UNITY_IOS && !(UNITY_EDITOR)
+//#elif UNITY_IOS && !(UNITY_EDITOR)
 
-            MirrorWrapper.Instance.LogFlow("IOS is not implemented");
-#endif
-    }
+//            MirrorWrapper.Instance.LogFlow("IOS is not implemented");
+//#endif
+//    }
 
     public static void LoginWithEmail(string emailAddress, string password, Action<CommonResponse<LoginResponse>> callBack)
     {
@@ -390,6 +390,7 @@ public class MirrorSDK : MonoBehaviour
         }
         else if (Application.platform == RuntimePlatform.IPhonePlayer)
         {
+            MirrorWrapper.Instance.walletLogoutAction = walletLogoutAction;
             //MirrorWrapper.OpenWallet();
             iOSWalletLogOutCallback handler = new iOSWalletLogOutCallback(MirrorWrapper.iOSWalletCallBack);
              IntPtr fp = Marshal.GetFunctionPointerForDelegate(handler);
