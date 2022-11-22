@@ -401,7 +401,7 @@ public class MirrorSDK : MonoBehaviour
         }
         else if (Application.platform == RuntimePlatform.IPhonePlayer)
         {
-            MirrorWrapper.Instance.LogFlow("Not supported.");
+            MirrorWrapper.IOSOpenMarketPlace();
         }
         else
         {

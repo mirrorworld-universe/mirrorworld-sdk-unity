@@ -58,6 +58,9 @@ namespace MirrorworldSDK.Wrapper
 
         [DllImport("__Internal")]
         public static extern void IOSOpenWallet(IntPtr iOSWalletCallBack);
+
+        [DllImport("__Internal")]
+        public static extern void IOSOpenMarketPlace();
     }
 }
         
