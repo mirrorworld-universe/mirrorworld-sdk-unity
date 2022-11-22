@@ -283,9 +283,11 @@ SWIFT_CLASS("_TtC14MirrorWorldSDK16MirrorAuthMoudle")
 @end
 
 
+@class UIViewController;
 
 SWIFT_CLASS("_TtC14MirrorWorldSDK23MirrorMarketplaceMoudle")
 @interface MirrorMarketplaceMoudle : MirrorBaseMoudle
+- (void)openMarketPlacePageWithController:(UIViewController * _Nullable)controller;
 - (void)MintNewCollectionWithName:(NSString * _Nonnull)name symbol:(NSString * _Nonnull)symbol url:(NSString * _Nonnull)url confirmation:(NSString * _Nonnull)confirmation seller_fee_basis_points:(NSInteger)seller_fee_basis_points onSuccess:(void (^ _Nullable)(NSString * _Nullable))onSuccess onFailed:(void (^ _Nullable)(NSInteger, NSString * _Nullable))onFailed;
 - (void)CreateVerifiedSubCollectionWithName:(NSString * _Nonnull)name collection_mint:(NSString * _Nonnull)collection_mint symbol:(NSString * _Nonnull)symbol url:(NSString * _Nonnull)url :(NSString * _Nonnull)confirmation onSuccess:(void (^ _Nullable)(NSString * _Nullable))onSuccess onFailed:(void (^ _Nullable)(NSInteger, NSString * _Nullable))onFailed;
 - (void)FetchSingleNFTWithMint_Address:(NSString * _Nonnull)mint_Address onSuccess:(void (^ _Nullable)(NSString * _Nullable))onSuccess onFailed:(void (^ _Nullable)(NSInteger, NSString * _Nullable))onFailed;
@@ -302,7 +304,6 @@ SWIFT_CLASS("_TtC14MirrorWorldSDK23MirrorMarketplaceMoudle")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@class UIViewController;
 
 SWIFT_CLASS("_TtC14MirrorWorldSDK18MirrorWalletMoudle")
 @interface MirrorWalletMoudle : MirrorBaseMoudle
@@ -357,6 +358,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) MirrorWorldS
 /// Checks whether the current user is logged in. You can use this function to judge whether a user needs to start login flow.
 - (void)CheckAuthenticated:(void (^ _Nullable)(BOOL))onBool;
 - (void)OpenWalletOnLogout:(void (^ _Nonnull)(void))onLogout;
+- (void)openMarketPlacePage;
 /// Check user’s info, then we can get user’s base information such as wallet address and so on.
 - (void)QueryUserWithEmail:(NSString * _Nonnull)email onUserFetched:(void (^ _Nullable)(NSString * _Nullable))onUserFetched onFetchFailed:(void (^ _Nullable)(NSInteger, NSString * _Nullable))onFetchFailed;
 /// Get access token so that users can visit APIs.
