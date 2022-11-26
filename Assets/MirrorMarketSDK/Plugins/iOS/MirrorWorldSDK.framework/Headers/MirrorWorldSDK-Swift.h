@@ -343,6 +343,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) MirrorWorldS
 @property (nonatomic, strong) MirrorWorldLog * _Nonnull sdkLog;
 @property (nonatomic, strong) MirrorWorldHandleProtocol * _Nonnull sdkProtol;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (NSString * _Nonnull)Version SWIFT_WARN_UNUSED_RESULT;
+- (void)setDebug:(BOOL)debug;
 /// init SDK
 - (void)initSDKWithEnv:(enum MWEnvironment)env apiKey:(NSString * _Nonnull)apiKey SWIFT_METHOD_FAMILY(none);
 /// init SDK
