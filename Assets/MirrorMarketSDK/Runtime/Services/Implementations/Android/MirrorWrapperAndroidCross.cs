@@ -100,12 +100,14 @@ namespace MirrorworldSDK.Wrapper
                 return;
             }
 
-            javaSDKInstance.Call("OpenWallet", new MirrorCallback((resultString) => {
+            javaSDKInstance.Call("OpenWallet");
 
-                LoginResponse responseBody = JsonUtility.FromJson<LoginResponse>(resultString);
+            //javaSDKInstance.Call("OpenWallet", new MirrorCallback((resultString) => {
 
-                SaveKeyParams(responseBody.access_token, responseBody.refresh_token, responseBody.user);
-            }));
+            //    LoginResponse responseBody = JsonUtility.FromJson<LoginResponse>(resultString);
+
+            //    SaveKeyParams(responseBody.access_token, responseBody.refresh_token, responseBody.user);
+            //}));
         }
 
         public void AndroidOpenTransferPage(string minAddress, string image, string name)
