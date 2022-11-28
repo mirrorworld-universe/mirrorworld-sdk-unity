@@ -130,6 +130,12 @@ namespace MirrorworldSDK.Wrapper
 
             UpdateRefreshToken(refreshToken);
         }
+        public void SaveKeyParams(string accessToken, string refreshToken)
+        {
+            this.accessToken = accessToken;
+
+            UpdateRefreshToken(refreshToken);
+        }
 
         private void SaveCurrentUser(UserResponse userResponse)
         {

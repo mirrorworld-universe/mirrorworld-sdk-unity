@@ -140,28 +140,6 @@ public class MirrorSDK : MonoBehaviour
 
     }
 
-
-    //open login ui
-//    public static void SetWalletLogoutCallback(Action action)
-//    {
-//        MirrorWrapper.Instance.LogFlow("SetWalletLogoutCallback.");
-
-//#if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
-
-//        MirrorWrapper.Instance.LogFlow("SetLogoutCallback only implemented on native.");
-
-//#elif UNITY_ANDROID && !(UNITY_EDITOR)
-
-//            MirrorWrapper.Instance.LogFlow("SetLogoutCallback in android...");
-
-//            MirrorWrapper.Instance.AndroidSetLogoutCallback(action);
-
-//#elif UNITY_IOS && !(UNITY_EDITOR)
-
-//            MirrorWrapper.Instance.LogFlow("IOS is not implemented");
-//#endif
-//    }
-
     public static void LoginWithEmail(string emailAddress, string password, Action<CommonResponse<LoginResponse>> callBack)
     {
         MirrorWrapper.Instance.LoginWithEmail(emailAddress, password, callBack);
