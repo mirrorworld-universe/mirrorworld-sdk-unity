@@ -359,7 +359,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) MirrorWorldS
 - (void)handleOpenWithUrl:(NSURL * _Nonnull)url;
 /// Checks whether the current user is logged in. You can use this function to judge whether a user needs to start login flow.
 - (void)CheckAuthenticated:(void (^ _Nullable)(BOOL))onBool;
-- (void)OpenWalletOnLogout:(void (^ _Nonnull)(void))onLogout;
+- (void)OpenWalletOnLogout:(void (^ _Nonnull)(void))onLogout loginSuccess:(void (^ _Nonnull)(NSDictionary<NSString *, id> * _Nullable))loginSuccess;
 - (void)openMarketPlacePage;
 /// Check user’s info, then we can get user’s base information such as wallet address and so on.
 - (void)QueryUserWithEmail:(NSString * _Nonnull)email onUserFetched:(void (^ _Nullable)(NSString * _Nullable))onUserFetched onFetchFailed:(void (^ _Nullable)(NSInteger, NSString * _Nullable))onFetchFailed;

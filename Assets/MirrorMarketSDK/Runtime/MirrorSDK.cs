@@ -380,8 +380,12 @@ public class MirrorSDK : MonoBehaviour
             MirrorWrapper.Instance.walletLogoutAction = walletLogoutAction;
             //MirrorWrapper.OpenWallet();
             iOSWalletLogOutCallback handler = new iOSWalletLogOutCallback(MirrorWrapper.iOSWalletCallBack);
-             IntPtr fp = Marshal.GetFunctionPointerForDelegate(handler);
-             MirrorWrapper.IOSOpenWallet (fp);
+            IntPtr fp = Marshal.GetFunctionPointerForDelegate(handler);
+
+            iOSWalletLoginTokenCallback handler2 = new iOSWalletLoginTokenCallback(MirrorWrapper.iOSWalletLoginCallback);
+            IntPtr fp2 = Marshal.GetFunctionPointerForDelegate(handler2);
+
+            MirrorWrapper.IOSOpenWallet(fp, fp2);
         }
         else
         {

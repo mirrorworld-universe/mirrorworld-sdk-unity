@@ -56,8 +56,26 @@ namespace MirrorworldSDK.Wrapper
             }
         }
 
+        //--
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void iOSWalletLoginTokenCallback(string resultString);
+
+        [MonoPInvokeCallback(typeof(iOSWalletLoginTokenCallback))]
+        public static void iOSWalletLoginCallback(string resultStr)
+        {
+            MirrorWrapper.Instance.LogFlow("iOSWallet - loginCallback received:" + resultStr);
+            LoginResponse responseBody = JsonUtility.FromJson<LoginResponse>(resultStr);
+            MirrorWrapper.Instance.LogFlow("iOSWallet - loginCallback parse result:" + responseBody.access_token);
+            MirrorWrapper.Instance.LogFlow("iOSWallet - loginCallback parse result:" + responseBody.refresh_token);
+
+            MirrorWrapper.Instance.SaveKeyParams(responseBody.access_token, responseBody.refresh_token, responseBody.user);
+
+        }
+        //--
+
         [DllImport("__Internal")]
-        public static extern void IOSOpenWallet(IntPtr iOSWalletCallBack);
+        public static extern void IOSOpenWallet(IntPtr iOSWalletCallBack, IntPtr iOSWalletLoginCallback);
+
 
         [DllImport("__Internal")]
         public static extern void IOSOpenMarketPlace();
