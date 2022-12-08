@@ -270,6 +270,7 @@ SWIFT_CLASS("_TtC14MirrorWorldSDK16MirrorBaseMoudle")
 SWIFT_CLASS("_TtC14MirrorWorldSDK16MirrorAuthMoudle")
 @interface MirrorAuthMoudle : MirrorBaseMoudle
 @property (nonatomic, copy) NSDictionary<NSString *, id> * _Nullable userInfo;
+- (void)GetAccessTokenWithCallBack:(void (^ _Nullable)(NSString * _Nonnull))callBack;
 /// logsOut
 /// \code
 ///  *
@@ -296,12 +297,30 @@ SWIFT_CLASS("_TtC14MirrorWorldSDK23MirrorMarketplaceMoudle")
 - (void)ListNFTWithMint_address:(NSString * _Nonnull)mint_address price:(double)price confirmation:(NSString * _Nonnull)confirmation onSuccess:(void (^ _Nullable)(NSString * _Nullable))onSuccess onFailed:(void (^ _Nullable)(NSInteger, NSString * _Nullable))onFailed;
 - (void)UpdateNFTListingWithMint_address:(NSString * _Nonnull)mint_address price:(double)price confirmation:(NSString * _Nonnull)confirmation onSuccess:(void (^ _Nullable)(NSString * _Nullable))onSuccess onFailed:(void (^ _Nullable)(NSInteger, NSString * _Nullable))onFailed;
 - (void)CancelNFTListingWithMint_address:(NSString * _Nonnull)mint_address price:(double)price onSuccess:(void (^ _Nullable)(NSString * _Nullable))onSuccess onFailed:(void (^ _Nullable)(NSInteger, NSString * _Nullable))onFailed;
-- (void)FetchNFTsByMintAddressesWithMint_address:(NSString * _Nonnull)mint_address onSuccess:(void (^ _Nullable)(NSString * _Nullable))onSuccess onFailed:(void (^ _Nullable)(NSInteger, NSString * _Nullable))onFailed;
+- (void)FetchNFTsByMintAddressesWithMint_addresses:(NSArray<NSString *> * _Nonnull)mint_addresses onSuccess:(void (^ _Nullable)(NSString * _Nullable))onSuccess onFailed:(void (^ _Nullable)(NSInteger, NSString * _Nullable))onFailed;
 - (void)FetchNFTsByCreatorAddressesWithCreators:(NSArray<NSString *> * _Nonnull)creators limit:(double)limit offset:(double)offset onSuccess:(void (^ _Nullable)(NSString * _Nullable))onSuccess onFailed:(void (^ _Nullable)(NSInteger, NSString * _Nullable))onFailed;
 - (void)FetchNFTsByUpdateAuthoritiesWithUpdate_authorities:(NSArray<NSString *> * _Nonnull)update_authorities limit:(double)limit offset:(double)offset onSuccess:(void (^ _Nullable)(NSString * _Nullable))onSuccess onFailed:(void (^ _Nullable)(NSInteger, NSString * _Nullable))onFailed;
 - (void)FetchNFTsByOwnerAddressWithOwners:(NSArray<NSString *> * _Nonnull)owners limit:(double)limit offset:(double)offset onSuccess:(void (^ _Nullable)(NSString * _Nullable))onSuccess onFailed:(void (^ _Nullable)(NSInteger, NSString * _Nullable))onFailed;
 - (void)BuyNFTWithMint_address:(NSString * _Nonnull)mint_address price:(double)price onSuccess:(void (^ _Nullable)(NSString * _Nullable))onSuccess onFailed:(void (^ _Nullable)(NSInteger, NSString * _Nullable))onFailed;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC14MirrorWorldSDK26MirrorSecurityVerification")
+@interface MirrorSecurityVerification : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC14MirrorWorldSDK14MirrorUIConfig")
+@interface MirrorUIConfig : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@property (nonatomic, readonly, strong) UIViewController * _Nullable baseViewContoller;
+@end
+
+
+@interface MirrorUIConfig (SWIFT_EXTENSION(MirrorWorldSDK))
++ (UIViewController * _Nullable)getBaseViewController SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -332,6 +351,7 @@ SWIFT_CLASS("_TtC14MirrorWorldSDK18MirrorWorldNetWork")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+
 @class MirrorWorldSDKConfig;
 @class NSURL;
 
@@ -340,16 +360,15 @@ SWIFT_CLASS("_TtC14MirrorWorldSDK14MirrorWorldSDK")
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) MirrorWorldSDK * _Nonnull share;)
 + (MirrorWorldSDK * _Nonnull)share SWIFT_WARN_UNUSED_RESULT;
 @property (nonatomic, strong) MirrorWorldSDKConfig * _Nonnull sdkConfig;
-@property (nonatomic, strong) MirrorWorldLog * _Nonnull sdkLog;
 @property (nonatomic, strong) MirrorWorldHandleProtocol * _Nonnull sdkProtol;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (NSString * _Nonnull)Version SWIFT_WARN_UNUSED_RESULT;
 - (void)setDebug:(BOOL)debug;
 /// init SDK
-- (void)initSDKWithEnv:(enum MWEnvironment)env apiKey:(NSString * _Nonnull)apiKey SWIFT_METHOD_FAMILY(none);
+- (BOOL)initSDKWithEnv:(enum MWEnvironment)env apiKey:(NSString * _Nonnull)apiKey SWIFT_METHOD_FAMILY(none) SWIFT_WARN_UNUSED_RESULT;
 /// init SDK
 /// config: MirrorWorldSDKConfig
-- (void)initSDKWithConfig:(MirrorWorldSDKConfig * _Nonnull)config SWIFT_METHOD_FAMILY(none);
+- (BOOL)initSDKWithConfig:(MirrorWorldSDKConfig * _Nonnull)config SWIFT_METHOD_FAMILY(none) SWIFT_WARN_UNUSED_RESULT;
 /// Calling this api would popup a dialog, user can finish login flow on it. In which dialog, user can login with third method like google, twitter. Or he can login with his email which registered on our website.
 /// baseController： baseController will present of SFSafariViewController
 - (void)StartLoginOnSuccess:(void (^ _Nonnull)(NSDictionary<NSString *, id> * _Nullable))onSuccess onFail:(void (^ _Nonnull)(void))onFail;
@@ -387,7 +406,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) MirrorWorldS
 - (void)UpdateNFTListingWithMint_address:(NSString * _Nonnull)mint_address price:(double)price confirmation:(NSString * _Nonnull)confirmation onSuccess:(void (^ _Nullable)(NSString * _Nullable))onSuccess onFailed:(void (^ _Nullable)(NSInteger, NSString * _Nullable))onFailed;
 /// Cancel listing of NFT.
 - (void)CancelNFTListingWithMint_address:(NSString * _Nonnull)mint_address price:(double)price onSuccess:(void (^ _Nullable)(NSString * _Nullable))onSuccess onFailed:(void (^ _Nullable)(NSInteger, NSString * _Nullable))onFailed;
-- (void)FetchNFTsByMintAddressesWithMint_address:(NSString * _Nonnull)mint_address onSuccess:(void (^ _Nullable)(NSString * _Nullable))onSuccess onFailed:(void (^ _Nullable)(NSInteger, NSString * _Nullable))onFailed;
+- (void)FetchNFTsByMintAddressesWithMint_addresses:(NSArray<NSString *> * _Nonnull)mint_addresses onSuccess:(void (^ _Nullable)(NSString * _Nullable))onSuccess onFailed:(void (^ _Nullable)(NSInteger, NSString * _Nullable))onFailed;
 /// Get a collection of NFT by creator addresses.
 - (void)FetchNFTsByCreatorAddressesWithCreators:(NSArray<NSString *> * _Nonnull)creators limit:(double)limit offset:(double)offset onSuccess:(void (^ _Nullable)(NSString * _Nullable))onSuccess onFailed:(void (^ _Nullable)(NSInteger, NSString * _Nullable))onFailed;
 /// Get a collection of NFT by authority addresses.
@@ -399,11 +418,11 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) MirrorWorldS
 @end
 
 
-
-
 @interface MirrorWorldSDK (SWIFT_EXTENSION(MirrorWorldSDK))
 + (UIViewController * _Nullable)getBaseViewController SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 SWIFT_CLASS("_TtC14MirrorWorldSDK22MirrorWorldSDKAuthData")

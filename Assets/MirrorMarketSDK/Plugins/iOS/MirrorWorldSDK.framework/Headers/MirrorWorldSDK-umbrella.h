@@ -10,6 +10,8 @@
 #endif
 #endif
 
+//#import "MirrorWorldSDK/MirrorWorldSDK-Swift.h"
+//#import "MirrorWorldSDK-Swift.h"
 
 FOUNDATION_EXPORT double MirrorWorldSDKVersionNumber;
 FOUNDATION_EXPORT const unsigned char MirrorWorldSDKVersionString[];
