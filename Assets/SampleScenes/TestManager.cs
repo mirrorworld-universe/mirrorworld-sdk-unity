@@ -38,16 +38,6 @@ public class TestManager : MonoBehaviour
         
     }
 
-    public void OnBtnInitClicked()
-    {
-        GameObject mirrorObj = new GameObject("MirrorSDK", typeof(MirrorSDK));
-        string apiKey = "your api key";
-        bool debugMode = true;
-        MirrorEnv environment = MirrorEnv.StagingDevNet;
-
-        MirrorSDK.InitSDK(apiKey, mirrorObj, debugMode, environment);
-    }
-
     public void OnBtnLoginClicked()
     {
         MirrorSDK.StartLogin((loginResponse)=> {
