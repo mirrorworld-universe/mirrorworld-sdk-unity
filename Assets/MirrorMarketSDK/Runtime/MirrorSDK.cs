@@ -42,12 +42,12 @@ public class MirrorSDK : MonoBehaviour
     public static void InitSDK(string apiKey, GameObject gameObject, bool useDebug, MirrorEnv environment)
     {
         //Test
-        //environment = MirrorEnv.StagingDevNet;
+        environment = MirrorEnv.StagingDevNet;
 
-        if (environment == MirrorEnv.StagingDevNet || environment == MirrorEnv.StagingMainNet)
-        {
-            Debug.LogError("Environment error!");
-        }
+        //if (environment == MirrorEnv.StagingDevNet || environment == MirrorEnv.StagingMainNet)
+        //{
+        //    Debug.LogError("Environment error!");
+        //}
 
         DontDestroyOnLoad(gameObject);
 
@@ -55,21 +55,15 @@ public class MirrorSDK : MonoBehaviour
 
         MirrorWrapper.Instance.InitSDK(monoBehaviour, environment, apiKey, useDebug);
 
-        MirrorWrapper.Instance.SetAPIKey(apiKey);
-
         MirrorWrapper.Instance.SetDebug(useDebug);
 
 #if (UNITY_ANDROID && !(UNITY_EDITOR))
 
-            MirrorWrapper.Instance.AndroidInitSDK(environment);
-
-            MirrorWrapper.Instance.AndroidSetAPIKey(apiKey);
+            MirrorWrapper.Instance.AndroidInitSDK(apiKey,environment);
             
             MirrorWrapper.Instance.AndroidSetDebug(useDebug);
 
 #elif (UNITY_IOS && !(UNITY_EDITOR))
-
-            // MirrorWrapper.initSDK(apiKey);
 
             MirrorWrapper.IOSInitSDK((int)environment,apiKey);
 
@@ -79,7 +73,10 @@ public class MirrorSDK : MonoBehaviour
 
     }
 
-    //set if use debug mode
+    /// <summary>
+    /// Set if use debug mode
+    /// </summary>
+    /// <param name="useDebug"></param>
     public static void SetDebugMode(bool useDebug)
     {
         MirrorWrapper.Instance.SetDebug(useDebug);
@@ -94,7 +91,11 @@ public class MirrorSDK : MonoBehaviour
 #endif
     }
 
-    //open login ui
+
+    /// <summary>
+    /// Open login page.
+    /// </summary>
+    /// <param name="action"></param>
     public static void StartLogin(Action<LoginResponse> action)
     {
         MirrorWrapper.Instance.LogFlow("Start login logic...");
@@ -140,6 +141,12 @@ public class MirrorSDK : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Login with email,this email must registed.
+    /// </summary>
+    /// <param name="emailAddress"></param>
+    /// <param name="password"></param>
+    /// <param name="callBack"></param>
     public static void LoginWithEmail(string emailAddress, string password, Action<CommonResponse<LoginResponse>> callBack)
     {
         MirrorWrapper.Instance.LoginWithEmail(emailAddress, password, callBack);
@@ -285,11 +292,11 @@ public class MirrorSDK : MonoBehaviour
     #endregion
 
     #region Wallet
-    public static void GetWalletTokens(Action<CommonResponse<WalletTokenResponse>> action)
+    public static void GetTokens(Action<CommonResponse<WalletTokenResponse>> action)
     {
         MirrorWrapper.Instance.GetWalletTokens(action);
     }
-    public static void GetWalletTransactions(float number, string nextBefore, Action<CommonResponse<TransferTokenResponse>> action)
+    public static void GetTransactions(float number, string nextBefore, Action<CommonResponse<TransferTokenResponse>> action)
     {
         MirrorWrapper.Instance.GetWalletTransactions(number, nextBefore, action);
     }

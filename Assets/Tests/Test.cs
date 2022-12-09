@@ -29,13 +29,13 @@ namespace Tests
             MirrorSDK.LoginWithEmail(testEmail,testPw,(loginRes)=> {
                 TestLog("LoginWithEmail success!");
                 i++;
-                MirrorSDK.GetWalletTokens((tokenRes)=> {
+                MirrorSDK.GetTokens((tokenRes)=> {
                     TestLog("GetWalletTokens success!");
                     i++;
                 });
                 float number = 1;
                 string nextBefore = "nextBefore";
-                MirrorSDK.GetWalletTransactions(number,nextBefore,(tokenRes) => {
+                MirrorSDK.GetTransactions(number,nextBefore,(tokenRes) => {
                     TestLog("GetWalletTransactions success!");
                     i++;
                 });
