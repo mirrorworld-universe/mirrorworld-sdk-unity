@@ -4,7 +4,7 @@ namespace MirrorworldSDK.Wrapper
 {
     public partial class MirrorWrapper
     {
-
+        //private Action walletLogoutAction;
     }
 }
 #endif

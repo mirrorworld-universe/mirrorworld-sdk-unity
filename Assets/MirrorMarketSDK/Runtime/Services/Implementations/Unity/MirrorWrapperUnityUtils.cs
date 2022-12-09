@@ -76,8 +76,12 @@ namespace MirrorworldSDK.Wrapper
             MirrorUtils.SetApiKeyHeader(request, apiKey);
             MirrorUtils.SetAuthorizationHeader(request, accessToken);
 
-            byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(messageBody);
-            request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
+            if(messageBody != null && messageBody != "")
+            {
+                byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(messageBody);
+                request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
+            }
+            
             request.downloadHandler = new DownloadHandlerBuffer();
 
             yield return request.SendWebRequest();
@@ -120,7 +124,13 @@ namespace MirrorworldSDK.Wrapper
         }
 
         //Nessesary params
-        private void saveKeyParams(string accessToken,string refreshToken,UserResponse userResponse)
+        public void SaveKeyParams(string accessToken,string refreshToken,UserResponse userResponse)
+        {
+            this.accessToken = accessToken;
+
+            UpdateRefreshToken(refreshToken);
+        }
+        public void SaveKeyParams(string accessToken, string refreshToken)
         {
             this.accessToken = accessToken;
 

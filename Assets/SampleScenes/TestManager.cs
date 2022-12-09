@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MirrorworldSDK;
-
+using MirrorworldSDK.Wrapper;
 using TMPro;
 using UnityEngine;
 
@@ -38,20 +38,10 @@ public class TestManager : MonoBehaviour
         
     }
 
-    public void OnBtnInitClicked()
-    {
-        GameObject mirrorObj = new GameObject("MirrorSDK", typeof(MirrorSDK));
-        string apiKey = "your api key";
-        bool debugMode = true;
-        MirrorEnv environment = MirrorEnv.StagingDevNet;
-
-        MirrorSDK.InitSDK(apiKey, mirrorObj, debugMode, environment);
-    }
-
     public void OnBtnLoginClicked()
     {
-        MirrorSDK.StartLogin((isSuccess)=> {
-            Debug.Log("Login result:" + isSuccess.ToString());
+        MirrorSDK.StartLogin((loginResponse)=> {
+            Debug.Log("Login result:" + loginResponse.ToString());
         });
     }
 
@@ -67,15 +57,21 @@ public class TestManager : MonoBehaviour
 
         if (btnName == "BtnSetApiKey")
         {
-            SetInfoPanel("SetApiKey", "api key", null, null, null, "SetApiKey", "Set Api Key",()=> {
-                MirrorSDK.SetAPIKey(v1);
-            });
+            //SetInfoPanel("SetApiKey", "api key", null, null, null, "SetApiKey", "Set Api Key",()=> {
+            //    MirrorSDK.SetAPIKey(v1);
+            //});
         }
         else if (btnName == "BtnGetAccessToken")
         {
-            SetInfoPanel("GetAccessToken", null, null, null, null, "GetAccessToken", "Get Access Token",()=> {
+            SetInfoPanel("GetAccessToken", null, null, null, null, "GetAccessToken", "Get Access Token", () => {
                 MirrorSDK.GetAccessToken();
                 PrintLog("Access token is secret,you can see the result in console.");
+            });
+        }
+        else if (btnName == "BtnLogout")
+        {
+            MirrorSDK.Logout(()=> {
+                PrintLog("Logout success");
             });
         }
         else if (btnName == "BtnQueryUser")
@@ -281,7 +277,9 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnOpenWallet")
         {
             notOpenDetail = true;
-            MirrorSDK.OpenWalletPage();
+            MirrorSDK.OpenWalletPage(()=> {
+                MirrorWrapper.Instance.LogFlow("Wallet logout callback runs!!");
+            });
         }
         else if (btnName == "BtnTransferPage")
         {
