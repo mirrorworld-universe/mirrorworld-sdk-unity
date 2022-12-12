@@ -189,15 +189,6 @@ public class TestManager : MonoBehaviour
                 });
             });
         }
-        else if (btnName == "BtnCreateSubCollection")
-        {
-            SetInfoPanel("CreateVerifiedSubCollection", "parent collection", "name", "symbol", "url", "CreateVerifiedSubCollection", "CreateVerifiedSubCollection",()=> {
-                MirrorSDK.CreateVerifiedSubCollection(v1,v2,v3,v4,null,(res)=>{
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
-                });
-            });
-        }
         else if (btnName == "BtnListNFT")
         {
             SetInfoPanel("ListNFT", "mint address", "price", null, null, "ListNFT", "ListNFT", ()=> {
