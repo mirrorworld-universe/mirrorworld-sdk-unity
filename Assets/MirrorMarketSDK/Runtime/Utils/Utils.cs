@@ -45,9 +45,17 @@ namespace MirrorworldSDK
             req.SetRequestHeader("Content-Type", "application/json");
         }
 
-        public static void SetRefreshToken(UnityWebRequest req,string refreshToken)
+        public static void SetRefreshToken(UnityWebRequest req, string refreshToken)
         {
             req.SetRequestHeader("x-refresh-token", refreshToken);
+        }
+
+        public static void SetXAuthToken(UnityWebRequest req, string authToken)
+        {
+            if(authToken != "" && authToken != null)
+            {
+                req.SetRequestHeader("x-authorization-token", authToken);
+            }
         }
 
         public static bool IsEditor()

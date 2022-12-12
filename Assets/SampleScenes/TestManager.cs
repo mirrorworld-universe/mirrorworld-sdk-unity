@@ -290,9 +290,10 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnTransferSPLToken")
         {
-            SetInfoPanel("FetchNFTsByMintAddresses", "amount", "public key", null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses",()=> {
+            SetInfoPanel("TransferSPLToken", "amount", "public key", "amount", "mint_address", "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses",()=> {
                 ulong price = ulong.Parse(v1);
-                MirrorSDK.TransferSPLToken(price,v2,(res)=> {
+                int decimals = int.Parse(v3);
+                MirrorSDK.TransferSPLToken(v4, decimals, price,v2,(res)=> {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });

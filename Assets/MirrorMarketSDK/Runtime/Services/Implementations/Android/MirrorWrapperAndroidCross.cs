@@ -14,7 +14,8 @@ namespace MirrorworldSDK.Wrapper
     {
         private AndroidBridgeUtils bridgeUtils = new AndroidBridgeUtils();
 
-        AndroidJavaClass javaClass;
+        AndroidJavaClass javaMirrorWorld;
+        AndroidJavaObject mirrorSDKInstance;
 
         public void AndroidInitSDK(string apiKey,MirrorEnv env)
         {
@@ -22,16 +23,11 @@ namespace MirrorworldSDK.Wrapper
             {
                 AndroidJavaClass jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
                 AndroidJavaObject jo = jc.GetStatic<AndroidJavaObject>("currentActivity");
-                //AndroidJavaClass javaClass = new AndroidJavaClass("com.mirror.sdk3.MirrorSDK");
-                //AndroidJavaObject javaObject = javaClass.CallStatic<AndroidJavaObject>("getInstance", jo);
-                //javaObject.Call("InitSDK");
 
-                //AndroidJavaClass javaClass = new AndroidJavaClass("com.mirror.sdk.MirrorSDK");
-                //javaSDKInstance = javaClass.CallStatic<AndroidJavaObject>("getInstance");
-                //javaSDKInstance.Call("InitSDK", jo, bridgeUtils.GetAndroidMirrorEnv(env));
+                javaMirrorWorld = new AndroidJavaClass("com.mirror.sdk.MirrorWorld");
+                javaMirrorWorld.CallStatic("initMirrorWorld", jo, apiKey,bridgeUtils.GetAndroidMirrorEnv(env));
 
-                javaClass = new AndroidJavaClass("com.mirror.sdk.MirrorWorld");
-                javaClass.CallStatic("initMirrorWorld", jo, apiKey,bridgeUtils.GetAndroidMirrorEnv(env));
+                AndroidSetAuthTokenCallback();
             }
             else
             {
@@ -39,20 +35,41 @@ namespace MirrorworldSDK.Wrapper
             }
         }
 
+        public void AndroidSetAuthTokenCallback()
+        {
+            AndroidJavaClass jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            AndroidJavaObject jo = jc.GetStatic<AndroidJavaObject>("currentActivity");
+            //AndroidJavaClass javaClass = new AndroidJavaClass("com.mirror.sdk3.MirrorSDK");
+            //AndroidJavaObject javaObject = javaClass.CallStatic<AndroidJavaObject>("getInstance", jo);
+            //javaObject.Call("InitSDK");
+
+            AndroidJavaClass javaClass = new AndroidJavaClass("com.mirror.sdk.MirrorSDK");
+            mirrorSDKInstance = javaClass.CallStatic<AndroidJavaObject>("getInstance");
+            mirrorSDKInstance.Call("setAuthTokenCallback", new MirrorCallback((xAuthToken) => {
+                LogFlow("Android update xAuthToken to:"+xAuthToken);
+                authToken = xAuthToken;
+                if(approveFinalAction != null)
+                {
+                    approveFinalAction();
+                    approveFinalAction = null;
+                }
+            }));
+        }
+
         public void AndroidSetDebug(bool useDebug)
         {
-            if (javaClass != null) javaClass.CallStatic("setDebug", useDebug);
+            if (javaMirrorWorld != null) javaMirrorWorld.CallStatic("setDebug", useDebug);
         }
 
         public void AndroidSetLogoutCallback(Action logoutAction)
         {
-            if (javaClass == null)
+            if (javaMirrorWorld == null)
             {
                 LogFlow("Must call InitSDK function first.");
 
                 return;
             }
-            javaClass.CallStatic("setLogoutCallback",new MSimpleCallback(()=> {
+            javaMirrorWorld.CallStatic("setLogoutCallback",new MSimpleCallback(()=> {
 
                 ClearUnitySDKCache();
 
@@ -62,13 +79,13 @@ namespace MirrorworldSDK.Wrapper
 
         public void AndroidStartLogin(Action<LoginResponse> callback)
         {
-            if (javaClass == null)
+            if (javaMirrorWorld == null)
             {
                 LogFlow("Must call InitSDK function first.");
                 return;
             }
 
-            javaClass.CallStatic("startLogin", new MirrorCallback((resultString)=> {
+            javaMirrorWorld.CallStatic("startLogin", new MirrorCallback((resultString)=> {
 
                 LoginResponse responseBody = JsonUtility.FromJson<LoginResponse>(resultString);
 
@@ -82,13 +99,13 @@ namespace MirrorworldSDK.Wrapper
         {
             //AndroidSetLogoutCallback(walletLogoutAction);
 
-            if (javaClass == null)
+            if (javaMirrorWorld == null)
             {
                 LogFlow("Must call InitSDK function first.");
                 return;
             }
 
-            javaClass.CallStatic("openWallet", new MirrorCallback((resultString) => {
+            javaMirrorWorld.CallStatic("openWallet", new MirrorCallback((resultString) => {
 
                 LoginResponse responseBody = JsonUtility.FromJson<LoginResponse>(resultString);
 
@@ -100,13 +117,18 @@ namespace MirrorworldSDK.Wrapper
 
         public void AndroidOpenMarket()
         {
-            if (javaClass == null)
+            if (javaMirrorWorld == null)
             {
                 LogFlow("Must call InitSDK function first.");
                 return;
             }
 
-            javaClass.CallStatic("openMarket");
+            javaMirrorWorld.CallStatic("openMarket");
+        }
+
+        public void AndroidOpenUrl(string url)
+        {
+            mirrorSDKInstance.Call("openUrl", url);
         }
     }
 }
