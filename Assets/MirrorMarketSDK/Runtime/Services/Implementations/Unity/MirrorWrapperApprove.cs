@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System;
 using MirrorworldSDK.Models;
 
+using System.Runtime.InteropServices;
+
 namespace MirrorworldSDK.Wrapper
 {
     public partial class MirrorWrapper
@@ -156,6 +158,11 @@ namespace MirrorworldSDK.Wrapper
 #elif (UNITY_IOS && !(UNITY_EDITOR))
 
             IOSOpenUrl(url);
+
+            IOSSecurityAuthCallback handler = new IOSSecurityAuthCallback(IOSGetSecurityAuthToken);
+            IntPtr fp = Marshal.GetFunctionPointerForDelegate(handler);
+            MirrorWrapper.IOSOpenUrlSetCallBack(fp);
+
 #endif
         }
 
