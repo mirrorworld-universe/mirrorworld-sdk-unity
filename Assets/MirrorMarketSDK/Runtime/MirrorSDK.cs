@@ -217,6 +217,11 @@ public class MirrorSDK : MonoBehaviour
         requestParams.name = nFTName;
         requestParams.symbol = nFTSymbol;
         requestParams.url = nFTJsonUrl;
+
+        if (confirmation == null || confirmation == "")
+        {
+            confirmation = Confirmation.Confirmed;
+        }
         requestParams.confirmation = confirmation;
 
         MirrorWrapper.Instance.GetSecurityToken<ApproveMintNFT>(MirrorSafeOptType.MintNFT,"mint nft", requestParams,()=> {
