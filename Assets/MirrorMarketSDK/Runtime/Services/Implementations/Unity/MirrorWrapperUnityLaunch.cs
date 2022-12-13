@@ -14,7 +14,7 @@ namespace MirrorworldSDK.Wrapper
 
         private string accessToken = "";
         private string refreshToken = "";
-        private string authToken = "";
+        public string authToken = "";
         private UserResponse tmpUser = null;
 
         //logic

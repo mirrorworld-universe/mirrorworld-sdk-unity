@@ -11,7 +11,7 @@ namespace MirrorworldSDK.Wrapper
         /// <summary>
         /// Used for the final action of this approving
         /// </summary>
-        private Action approveFinalAction;
+        public Action approveFinalAction;
 
         private readonly string urlActionRequest = "auth/actions/request";
         private readonly string urlActionAPPROVE = "approve/";
@@ -155,6 +155,7 @@ namespace MirrorworldSDK.Wrapper
 
 #elif (UNITY_IOS && !(UNITY_EDITOR))
 
+            IOSOpenUrl(url);
 #endif
         }
 

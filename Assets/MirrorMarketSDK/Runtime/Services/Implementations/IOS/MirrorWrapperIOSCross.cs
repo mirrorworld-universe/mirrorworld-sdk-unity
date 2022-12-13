@@ -79,6 +79,29 @@ namespace MirrorworldSDK.Wrapper
 
         [DllImport("__Internal")]
         public static extern void IOSOpenMarketPlace();
+
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void IOSSecurityAuthCallback(string resultString);
+
+        /// <summary>
+        /// Pass the approve token and run callback.
+        /// </summary>
+        /// <param name="xAuthToken"></param>
+        [MonoPInvokeCallback(typeof(IOSSecurityAuthCallback))]
+        public static void IOSGetSecurityAuthToken(string xAuthToken)
+        {
+            MirrorWrapper.Instance.LogFlow("Android update xAuthToken to:" + xAuthToken);
+            MirrorWrapper.Instance.authToken = xAuthToken;
+            if (MirrorWrapper.Instance.approveFinalAction != null)
+            {
+                MirrorWrapper.Instance.approveFinalAction();
+                MirrorWrapper.Instance.approveFinalAction = null;
+            }
+        }
+
+        [DllImport("__Internal")]
+        public static extern void IOSOpenUrl(string url);
     }
 }
         
