@@ -26,7 +26,7 @@ namespace MirrorworldSDK.Interfaces
         public void GetNFTDetails(string mintAddress, Action<CommonResponse<SingleNFTResponse>> callBack);
 
         //list
-        public void ListNFT(string mintAddress, float price,string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack);
+        public void ListNFT(string mintAddress, double price,string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack);
         
         public void UpdateNFTListing(string mintAddress, float price, string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack);
         

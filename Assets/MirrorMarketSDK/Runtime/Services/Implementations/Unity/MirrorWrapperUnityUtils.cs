@@ -75,8 +75,9 @@ namespace MirrorworldSDK.Wrapper
             MirrorUtils.SetAcceptHeader(request);
             MirrorUtils.SetApiKeyHeader(request, apiKey);
             MirrorUtils.SetAuthorizationHeader(request, accessToken);
+            MirrorUtils.SetXAuthToken(request,authToken);
 
-            if(messageBody != null && messageBody != "")
+            if (messageBody != null && messageBody != "")
             {
                 byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(messageBody);
                 request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
@@ -101,6 +102,7 @@ namespace MirrorworldSDK.Wrapper
             MirrorUtils.SetAcceptHeader(request);
             MirrorUtils.SetApiKeyHeader(request, apiKey);
             MirrorUtils.SetAuthorizationHeader(request, accessToken);
+            MirrorUtils.SetXAuthToken(request, authToken);
 
             request.downloadHandler = new DownloadHandlerBuffer();
 

@@ -35,4 +35,21 @@ namespace MirrorworldSDK
         public static string Confirmed = "confirmed";
         public static string Processed = "processed";
     }
+
+    public class MirrorSafeOptType
+    {
+        public static string MintNFT = "mint_nft";
+        public static string TransferSol = "transfer_sol";
+        public static string TransferSPLToken = "transfer_spl_token";
+        public static string CreateCollection = "create_collection";
+        public static string ListNFT = "list_nft";
+        public static string BuyNFT = "buy_nft";
+        public static string CancelListing = "cancel_listing";
+        public static string UpdateListing = "update_listing";
+        public static string TransferNFT = "transfer_nft";
+        public static string CreateMarketplace = "create_marketplace";
+        public static string UpdateMarketplace = "update_marketplace";
+        public static string Interaction = "interaction";
+    }
+
 }
