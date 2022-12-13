@@ -102,6 +102,10 @@ namespace MirrorworldSDK.Wrapper
 
         [DllImport("__Internal")]
         public static extern void IOSOpenUrl(string url);
+
+        [DllImport("__Internal")]
+        public static extern void IOSOpenUrlSetCallBack(IntPtr IOSGetSecurityAuthToken);
+
     }
 }
         
