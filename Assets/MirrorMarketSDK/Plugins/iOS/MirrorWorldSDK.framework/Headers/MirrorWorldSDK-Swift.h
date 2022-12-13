@@ -311,6 +311,18 @@ SWIFT_CLASS("_TtC14MirrorWorldSDK26MirrorSecurityVerification")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class MirrorWorldSDKConfig;
+
+SWIFT_CLASS("_TtC14MirrorWorldSDK32MirrorSecurityVerificationShared")
+@interface MirrorSecurityVerificationShared : NSObject
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) MirrorSecurityVerificationShared * _Nonnull share;)
++ (MirrorSecurityVerificationShared * _Nonnull)share SWIFT_WARN_UNUSED_RESULT;
+- (void)openWebPage:(NSString * _Nonnull)urlString;
+- (void)getApproveCallBackWithFinish:(void (^ _Nonnull)(NSString * _Nullable, NSString * _Nullable))finish;
+- (void)getSecurityTokenWithParams:(NSDictionary<NSString *, id> * _Nonnull)params config:(MirrorWorldSDKConfig * _Nullable)config :(void (^ _Nonnull)(BOOL, NSString * _Nullable))finish;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 
 SWIFT_CLASS("_TtC14MirrorWorldSDK14MirrorUIConfig")
 @interface MirrorUIConfig : NSObject
@@ -352,7 +364,6 @@ SWIFT_CLASS("_TtC14MirrorWorldSDK18MirrorWorldNetWork")
 @end
 
 
-@class MirrorWorldSDKConfig;
 @class NSURL;
 
 SWIFT_CLASS("_TtC14MirrorWorldSDK14MirrorWorldSDK")
@@ -418,10 +429,10 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) MirrorWorldS
 @end
 
 
+
 @interface MirrorWorldSDK (SWIFT_EXTENSION(MirrorWorldSDK))
 + (UIViewController * _Nullable)getBaseViewController SWIFT_WARN_UNUSED_RESULT;
 @end
-
 
 
 
