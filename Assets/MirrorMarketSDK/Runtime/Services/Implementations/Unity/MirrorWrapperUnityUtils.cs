@@ -79,6 +79,7 @@ namespace MirrorworldSDK.Wrapper
 
             if (messageBody != null && messageBody != "")
             {
+                LogFlow("Post:"+ messageBody);
                 byte[] rawRequestBodyToSend = new System.Text.UTF8Encoding().GetBytes(messageBody);
                 request.uploadHandler = new UploadHandlerRaw(rawRequestBodyToSend);
             }

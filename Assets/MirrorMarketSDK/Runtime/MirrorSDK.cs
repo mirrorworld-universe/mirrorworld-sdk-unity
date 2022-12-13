@@ -41,20 +41,28 @@ public class MirrorSDK : MonoBehaviour
 
     public static void InitSDK(string apiKey, GameObject gameObject, bool useDebug, MirrorEnv environment)
     {
-        ApproveTransferSPLToken apiParams = new ApproveTransferSPLToken();
-        apiParams.amount = 123;
-        apiParams.to_publickey = "to_publickey";
-        apiParams.decimals = 6;
-        apiParams.token_mint = "token_mint";
+        //CreateNftRequest requestBody = new CreateNftRequest();
 
-        CommonApprove<ApproveTransferSPLToken> jsonObject = new CommonApprove<ApproveTransferSPLToken>();
-        jsonObject.type = MirrorSafeOptType.TransferSPLToken;
-        jsonObject.message = "test";
-        jsonObject.value = "0";
-        jsonObject.paramsPlaceHolder = apiParams;
-        MirrorWrapper.Instance.HandleValue<ApproveTransferSPLToken>(jsonObject, apiParams);
+        //requestBody.name = "aaa";
+        //requestBody.symbol = "aaafb";
+        //requestBody.url = "urlsafds";
+        //requestBody.collection_mint = "zxcvsdfjsaksdfsd";
+        //requestBody.mint_id = null;
+        //Debug.Log("final value is:" + JsonUtility.ToJson(requestBody));
 
-        Debug.Log("final value is:"+ jsonObject.value);
+        //ApproveTransferSPLToken apiParams = new ApproveTransferSPLToken();
+        //apiParams.amount = 123;
+        //apiParams.to_publickey = "to_publickey";
+        //apiParams.decimals = 6;
+        //apiParams.token_mint = "token_mint";
+
+        //CommonApprove<ApproveTransferSPLToken> jsonObject = new CommonApprove<ApproveTransferSPLToken>();
+        //jsonObject.type = MirrorSafeOptType.TransferSPLToken;
+        //jsonObject.message = "test";
+        //jsonObject.value = "0";
+        //MirrorWrapper.Instance.HandleValue(jsonObject, apiParams);
+        //jsonObject.paramsPlaceHolder = apiParams;
+        //Debug.Log("final value is:" + JsonUtility.ToJson(jsonObject));
 
 
         //Test

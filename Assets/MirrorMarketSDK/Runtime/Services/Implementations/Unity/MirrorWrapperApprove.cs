@@ -24,7 +24,7 @@ namespace MirrorworldSDK.Wrapper
                 return;
             }
             approveFinalAction = callback;
-            RequestActionAuthorization(type,message, request);
+            RequestActionAuthorization<T>(type,message, request);
         }
 
         public string GetActionRoot()
