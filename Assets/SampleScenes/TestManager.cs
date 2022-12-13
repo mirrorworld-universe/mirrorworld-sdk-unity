@@ -174,7 +174,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnCreateCollection")
         {
             SetInfoPanel("CreateVerifiedCollection", "name", "symbol", "url", null, "CreateVerifiedCollection", "CreateVerifiedCollection", () => {
-                MirrorSDK.CreateVerifiedCollection(v1, v2, v3, null, (res) => {
+                MirrorSDK.CreateVerifiedCollection(v1, v2, v3,200, null, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 }); }

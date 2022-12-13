@@ -123,7 +123,7 @@ namespace Tests
                 string symbol = "UnitySDK";
                 string url = "https://mirror-nft.s3.us-west-2.amazonaws.com/assets/111.json";
 
-                MirrorSDK.CreateVerifiedCollection(name, symbol, url,Confirmation.Finalized, (topRes) =>
+                MirrorSDK.CreateVerifiedCollection(name, symbol, url,200,Confirmation.Finalized, (topRes) =>
                 {
                     TestLog("CreateVerifiedCollection success!");
                     i--;
@@ -163,7 +163,7 @@ namespace Tests
                 string symbol = "UnitySDK";
                 string url = "https://mirror-nft.s3.us-west-2.amazonaws.com/assets/111.json";
 
-                MirrorSDK.CreateVerifiedCollection(name, symbol, url, Confirmation.Finalized, (topRes) =>
+                MirrorSDK.CreateVerifiedCollection(name, symbol, url, 200,Confirmation.Finalized, (topRes) =>
                 {
                     string parentCollection = topRes.data.mint_address;
                     string subName = "SubUnitySDKCollection2";

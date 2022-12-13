@@ -16,7 +16,7 @@ namespace MirrorworldSDK.Wrapper
         private readonly string urlActionRequest = "auth/actions/request";
         private readonly string urlActionAPPROVE = "approve/";
 
-        public void GetSecurityToken(string type, string message, Dictionary<string, string> request, Action callback)
+        public void GetSecurityToken<T>(string type, string message, T request, Action callback)
         {
             if(apiKey == "" || accessToken == "" || refreshToken == "")
             {
@@ -52,20 +52,22 @@ namespace MirrorworldSDK.Wrapper
             }
         }
 
-        public void RequestActionAuthorization(string type, string message, Dictionary<string, string> requestPrams)
+        public void RequestActionAuthorization<T>(string type, string message, T requestPrams)
         {
-            Dictionary<string, string> jsonObject = new Dictionary<string, string>();
-            jsonObject.Add("type", type);
-            jsonObject.Add("message", message);
-            jsonObject.Add("value", "0");
-            jsonObject.Add("params", JsonUtility.ToJson(requestPrams));
-            HandleValue(jsonObject, requestPrams);
+            CommonApprove<T> jsonObject = new CommonApprove<T>();
+            jsonObject.type = type;
+            jsonObject.message = message;
+            jsonObject.value = "0";
+            jsonObject.paramsPlaceHolder = requestPrams;
+            HandleValue<T>(jsonObject, requestPrams);
 
             string data = JsonUtility.ToJson(jsonObject);
+            data = data.Replace("paramsPlaceHolder", "params");
+
             LogFlow("unity request auth data" + data);
 
             string url = GetActionRoot() + urlActionRequest;
-            monoBehaviour.StartCoroutine(CheckAndPost(url, null, (result) => {
+            monoBehaviour.StartCoroutine(CheckAndPost(url, data, (result) => {
                 LogFlow("requestActionAuthorization result:" + result);
                 CommonResponse<ActionAuthResponse> response = JsonUtility.FromJson<CommonResponse<ActionAuthResponse>>(result);
                 if (response.code == (long)MirrorResponseCode.Success)
@@ -79,35 +81,44 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void HandleValue(Dictionary<string,string> approveRequest, Dictionary<string, string> apiParams)
+        public void HandleValue<T>(CommonApprove<T> approveRequest, T apiParams)
         {
-            string amountObj = null;
-            if(apiParams.ContainsKey("amount")){
-                amountObj = apiParams["amount"];
-            }
+            bool haveAmountParam = false;
+            ulong amountObj = 9;
+            int decimalsObj = -100;
+            bool havePriceParam = false;
+            double priceObj = 0;
 
-            string priceObj = null;
-            if(apiParams.ContainsKey("price")) {
-                priceObj = apiParams["price"];
-            }
-
-            int decimals = -100;
-            if (apiParams.ContainsKey("decimals"))
+            if (apiParams.GetType() == typeof(ApproveListNFT))
             {
-                string decimalsObj = apiParams["decimals"];
-                decimals = int.Parse(decimalsObj);
+                ApproveListNFT approveListNFT = apiParams as ApproveListNFT;
+                priceObj = approveListNFT.price;
+                havePriceParam = true;
+            }
+            else if (apiParams.GetType() == typeof(ApproveTransferSOL))
+            {
+                ApproveTransferSOL approveTransferSOL = apiParams as ApproveTransferSOL;
+                amountObj = approveTransferSOL.amount;
+                haveAmountParam = true;
+            }
+            else if (apiParams.GetType() == typeof(ApproveTransferSPLToken))
+            {
+                ApproveTransferSPLToken approveTransferSOL = apiParams as ApproveTransferSPLToken;
+                amountObj = approveTransferSOL.amount;
+                decimalsObj = approveTransferSOL.decimals;
+                haveAmountParam = true;
             }
 
-            float valueValue = 0;
+            double valueValue = 0;
             int valueCount = 0;
-            if (amountObj != null)
+            if (haveAmountParam)
             {
-                valueValue = float.Parse(amountObj);
+                valueValue = amountObj;
                 valueCount++;
             }
-            if (priceObj != null)
+            if (havePriceParam)
             {
-                valueValue = float.Parse(priceObj);
+                valueValue = priceObj;
                 valueCount++;
             }
 
@@ -122,25 +133,11 @@ namespace MirrorworldSDK.Wrapper
                 return;
             }
 
-            if (decimals == -100)
-            {
-                decimals = 9;
-            }
+            double dec = Math.Pow(10, decimalsObj);
+            double v = valueValue / dec;
+            string strNeed = string.Format("{0:F" + decimalsObj + "}", v);
 
-            string valueKey = "value";
-            if (approveRequest.ContainsKey(valueKey))
-            {
-                approveRequest.Remove(valueKey);
-                double dec = Math.Pow(10, decimals);
-                double v = valueValue / dec;
-                string strNeed = string.Format("{0:F"+ decimals + "}", v);
-
-                approveRequest.Add(valueKey, strNeed);
-            }
-            else
-            {
-                LogFlow("No value param when approving!");
-            }
+            approveRequest.value = strNeed;
         }
 
         public void OpenApprovePage(string actionUUID)
