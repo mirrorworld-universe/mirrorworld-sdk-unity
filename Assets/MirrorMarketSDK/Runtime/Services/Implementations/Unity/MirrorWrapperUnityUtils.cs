@@ -69,6 +69,8 @@ namespace MirrorworldSDK.Wrapper
 
         private IEnumerator Post(string url, string messageBody, Action<string> callBack)
         {
+            messageBody = RemoveNull(messageBody);
+
             UnityWebRequest request = new UnityWebRequest(url, "POST");
 
             MirrorUtils.SetContentTypeHeader(request);
@@ -114,6 +116,19 @@ namespace MirrorworldSDK.Wrapper
             request.Dispose();
 
             callBack(rawResponseBody);
+        }
+
+        private string RemoveNull(string requestDataStr)
+        {
+            if(requestDataStr == null || requestDataStr == "")
+            {
+                return requestDataStr;
+            }
+
+            LogFlow("Handle data string:"+requestDataStr);
+            string result = JsonAttrRemover.RemoveEmptyAttr(requestDataStr);
+            LogFlow("Handle data string result:" + result);
+            return result;
         }
 
         private void SaveStringToLocal(string key, string value)

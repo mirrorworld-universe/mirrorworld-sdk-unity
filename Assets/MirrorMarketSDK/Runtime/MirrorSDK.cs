@@ -41,14 +41,17 @@ public class MirrorSDK : MonoBehaviour
 
     public static void InitSDK(string apiKey, GameObject gameObject, bool useDebug, MirrorEnv environment)
     {
-        //CreateNftRequest requestBody = new CreateNftRequest();
+        CreateNftRequest requestBody = new CreateNftRequest();
 
-        //requestBody.name = "aaa";
-        //requestBody.symbol = "aaafb";
-        //requestBody.url = "urlsafds";
-        //requestBody.collection_mint = "zxcvsdfjsaksdfsd";
-        //requestBody.mint_id = null;
-        //Debug.Log("final value is:" + JsonUtility.ToJson(requestBody));
+        requestBody.name = "";
+        requestBody.symbol = "aaafb";
+        requestBody.url = "urlsafds";
+        requestBody.collection_mint = "";
+        //requestBody.mint_id = "";
+        string finalstr = JsonUtility.ToJson(requestBody);
+        Debug.Log("final value is1:" + finalstr);
+        finalstr = JsonAttrRemover.RemoveEmptyAttr(finalstr);
+        Debug.Log("final value is:" + finalstr);
 
         //ApproveTransferSPLToken apiParams = new ApproveTransferSPLToken();
         //apiParams.amount = 123;
