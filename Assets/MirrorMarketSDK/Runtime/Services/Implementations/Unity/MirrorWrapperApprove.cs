@@ -78,7 +78,7 @@ namespace MirrorworldSDK.Wrapper
                 }
                 else
                 {
-                    //                    if(callback != null) callback("");
+                    LogFlow("requestActionAuthorization failed.");
                 }
             }));
         }

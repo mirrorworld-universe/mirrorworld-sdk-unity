@@ -281,7 +281,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnTransferSPLToken")
         {
-            SetInfoPanel("TransferSPLToken", "amount", "public key", "amount", "mint_address", "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses",()=> {
+            SetInfoPanel("TransferSPLToken", "amount", "public key", "amount", "mint_address", "Transfer", "Transfer", ()=> {
                 ulong price = ulong.Parse(v1);
                 int decimals = int.Parse(v3);
                 MirrorSDK.TransferSPLToken(v4, decimals, price,v2,(res)=> {
