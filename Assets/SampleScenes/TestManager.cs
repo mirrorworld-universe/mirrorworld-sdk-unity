@@ -224,7 +224,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnBuyNFT")
         {
-            SetInfoPanel("BuyNFT", "mint address", null, null, null, "BuyNFT", "BuyNFT", ()=> {
+            SetInfoPanel("BuyNFT", "mint address", "Price", null, null, "BuyNFT", "BuyNFT", ()=> {
                 float price = float.Parse(v2);
                 MirrorSDK.BuyNFT(v1,price,(res)=> {
                     var body = JsonUtility.ToJson(res);

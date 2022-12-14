@@ -306,7 +306,7 @@ public class MirrorSDK : MonoBehaviour
 
     public static void CancelNFTListing(string mintAddress, float price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
     {
-        MirrorWrapper.Instance.CancelNFTListing(mintAddress, price, "", confirmation, callBack);
+        MirrorSDK.CancelNFTListing(mintAddress, price, "", confirmation, callBack);
     }
 
     public static void CancelNFTListing(string mint_address, float price, string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
@@ -324,7 +324,7 @@ public class MirrorSDK : MonoBehaviour
 
     public static void UpdateNFTListing(string mintAddress, float price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
     {
-        MirrorWrapper.Instance.UpdateNFTListing(mintAddress, price, "", confirmation, callBack);
+        MirrorSDK.UpdateNFTListing(mintAddress, price, "", confirmation, callBack);
     }
 
 
@@ -343,7 +343,7 @@ public class MirrorSDK : MonoBehaviour
 
     public static void BuyNFT(string mintAddress, float price, Action<CommonResponse<ListingResponse>> callBack)
     {
-        MirrorWrapper.Instance.BuyNFT(mintAddress, price, callBack);
+        MirrorSDK.BuyNFT(mintAddress, price, "", callBack);
     }
 
     public static void BuyNFT(string mint_address, float price, string auction_house, Action<CommonResponse<ListingResponse>> callBack)
