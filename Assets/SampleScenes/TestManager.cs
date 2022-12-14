@@ -201,7 +201,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnListUpdate")
         {
-            SetInfoPanel("UpdateNFTListing", "mint address", null, null, null, "UpdateNFTListing", "UpdateNFTListing", ()=> {
+            SetInfoPanel("UpdateNFTListing", "mint address", "price", null, null, "UpdateNFTListing", "UpdateNFTListing", ()=> {
                 float price = float.Parse(v2);
                 MirrorSDK.UpdateNFTListing(v1,price, Confirmation.Default, (res) =>
                 {
@@ -212,7 +212,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnListCancel")
         {
-            SetInfoPanel("CancelNFTListing", "mint address", null, null, null, "CancelNFTListing", "CancelNFTListing", ()=> {
+            SetInfoPanel("CancelNFTListing", "mint address", "price", null, null, "CancelNFTListing", "CancelNFTListing", ()=> {
                 float price = float.Parse(v2);
                 MirrorSDK.CancelNFTListing(v1, price, Confirmation.Default, (res) =>
                 {

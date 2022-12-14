@@ -41,17 +41,17 @@ public class MirrorSDK : MonoBehaviour
 
     public static void InitSDK(string apiKey, GameObject gameObject, bool useDebug, MirrorEnv environment)
     {
-        CreateNftRequest requestBody = new CreateNftRequest();
+        //CreateNftRequest requestBody = new CreateNftRequest();
 
-        requestBody.name = "";
-        requestBody.symbol = "aaafb";
-        requestBody.url = "urlsafds";
-        requestBody.collection_mint = "";
-        //requestBody.mint_id = "";
-        string finalstr = JsonUtility.ToJson(requestBody);
-        Debug.Log("final value is1:" + finalstr);
-        finalstr = JsonAttrRemover.RemoveEmptyAttr(finalstr);
-        Debug.Log("final value is:" + finalstr);
+        //requestBody.name = "";
+        //requestBody.symbol = "aaafb";
+        //requestBody.url = "urlsafds";
+        //requestBody.collection_mint = "";
+        ////requestBody.mint_id = "";
+        //string finalstr = JsonUtility.ToJson(requestBody);
+        //Debug.Log("final value is1:" + finalstr);
+        //finalstr = JsonAttrRemover.RemoveEmptyAttr(finalstr);
+        //Debug.Log("final value is:" + finalstr);
 
         //ApproveTransferSPLToken apiParams = new ApproveTransferSPLToken();
         //apiParams.amount = 123;
@@ -290,7 +290,7 @@ public class MirrorSDK : MonoBehaviour
 
     public static void ListNFT(string mintAddress, float price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
     {
-        MirrorWrapper.Instance.ListNFT(mintAddress, price, confirmation, callBack);
+        MirrorSDK.ListNFT(mintAddress, price, "", confirmation, callBack);
     }
 
     public static void ListNFT(string mint_address, double price, string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
@@ -308,7 +308,7 @@ public class MirrorSDK : MonoBehaviour
 
     public static void CancelNFTListing(string mintAddress, float price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
     {
-        MirrorWrapper.Instance.CancelNFTListing(mintAddress, price, confirmation, callBack);
+        MirrorWrapper.Instance.CancelNFTListing(mintAddress, price, "", confirmation, callBack);
     }
 
     public static void CancelNFTListing(string mint_address, float price, string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
@@ -326,7 +326,7 @@ public class MirrorSDK : MonoBehaviour
 
     public static void UpdateNFTListing(string mintAddress, float price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
     {
-        MirrorWrapper.Instance.UpdateNFTListing(mintAddress, price, confirmation, callBack);
+        MirrorWrapper.Instance.UpdateNFTListing(mintAddress, price, "", confirmation, callBack);
     }
 
 
