@@ -86,8 +86,8 @@ namespace MirrorworldSDK.Wrapper
         public void HandleValue<T>(CommonApprove<T> approveRequest, T apiParams)
         {
             bool haveAmountParam = false;
-            ulong amountObj = 9;
-            int decimalsObj = -100;
+            ulong amountObj = 0;
+            int decimalsObj = 9;
             bool havePriceParam = false;
             double priceObj = 0;
 

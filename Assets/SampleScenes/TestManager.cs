@@ -90,6 +90,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnLogout")
         {
+            notOpenDetail = true;
             MirrorSDK.Logout(()=> {
                 PrintLog("Logout success");
             });

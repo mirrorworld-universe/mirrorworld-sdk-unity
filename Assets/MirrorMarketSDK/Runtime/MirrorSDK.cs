@@ -53,19 +53,17 @@ public class MirrorSDK : MonoBehaviour
         //finalstr = JsonAttrRemover.RemoveEmptyAttr(finalstr);
         //Debug.Log("final value is:" + finalstr);
 
-        //ApproveTransferSPLToken apiParams = new ApproveTransferSPLToken();
-        //apiParams.amount = 123;
-        //apiParams.to_publickey = "to_publickey";
-        //apiParams.decimals = 6;
-        //apiParams.token_mint = "token_mint";
+        ApproveListNFT apiParams = new ApproveListNFT();
+        apiParams.mint_address = "zxlkjkasdfasdf";
+        apiParams.price = 1;
 
-        //CommonApprove<ApproveTransferSPLToken> jsonObject = new CommonApprove<ApproveTransferSPLToken>();
-        //jsonObject.type = MirrorSafeOptType.TransferSPLToken;
-        //jsonObject.message = "test";
-        //jsonObject.value = "0";
-        //MirrorWrapper.Instance.HandleValue(jsonObject, apiParams);
-        //jsonObject.paramsPlaceHolder = apiParams;
-        //Debug.Log("final value is:" + JsonUtility.ToJson(jsonObject));
+        CommonApprove<ApproveListNFT> jsonObject = new CommonApprove<ApproveListNFT>();
+        jsonObject.type = MirrorSafeOptType.TransferSPLToken;
+        jsonObject.message = "test";
+        jsonObject.value = "0";
+        MirrorWrapper.Instance.HandleValue(jsonObject, apiParams);
+        jsonObject.paramsPlaceHolder = apiParams;
+        Debug.Log("final value is:" + JsonUtility.ToJson(jsonObject));
 
 
         //Test
