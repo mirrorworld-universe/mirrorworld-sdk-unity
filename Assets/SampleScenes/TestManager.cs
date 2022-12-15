@@ -193,7 +193,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnListNFT")
         {
             SetInfoPanel("ListNFT", "mint address", "price", null, null, "ListNFT", "ListNFT", ()=> {
-                float price = float.Parse(v2);
+                float price = PrecisionUtil.StrToFloat(v2);
                 MirrorSDK.ListNFT(v1,price,Confirmation.Default,(res)=> {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
@@ -203,7 +203,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnListUpdate")
         {
             SetInfoPanel("UpdateNFTListing", "mint address", "price", null, null, "UpdateNFTListing", "UpdateNFTListing", ()=> {
-                float price = float.Parse(v2);
+                float price = PrecisionUtil.StrToFloat(v2);
                 MirrorSDK.UpdateNFTListing(v1,price, Confirmation.Default, (res) =>
                 {
                     var body = JsonUtility.ToJson(res);
@@ -214,7 +214,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnListCancel")
         {
             SetInfoPanel("CancelNFTListing", "mint address", "price", null, null, "CancelNFTListing", "CancelNFTListing", ()=> {
-                float price = float.Parse(v2);
+                float price = PrecisionUtil.StrToFloat(v2);
                 MirrorSDK.CancelNFTListing(v1, price, Confirmation.Default, (res) =>
                 {
                     var body = JsonUtility.ToJson(res);
@@ -225,7 +225,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnBuyNFT")
         {
             SetInfoPanel("BuyNFT", "mint address", "Price", null, null, "BuyNFT", "BuyNFT", ()=> {
-                float price = float.Parse(v2);
+                float price = PrecisionUtil.StrToFloat(v2);
                 MirrorSDK.BuyNFT(v1,price,(res)=> {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
@@ -253,7 +253,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnGetTransactions")
         {
             SetInfoPanel("GetWalletTransactions", "number", "next_before", null, null, "GetWalletTransactions", "GetWalletTransactions", ()=> {
-                float price = float.Parse(v1);
+                float price = PrecisionUtil.StrToFloat(v1);
                 MirrorSDK.GetTransactions(price,v2,(res)=> {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
@@ -273,7 +273,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnTransferSol")
         {
             SetInfoPanel("TransferSol", "amount", "public key", null, null, "TransferSol", "TransferSol", ()=> {
-                ulong price = ulong.Parse(v1);
+                ulong price = PrecisionUtil.StrToULong(v1);
                 MirrorSDK.TransferSol(price, v2,Confirmation.Default,(res)=> {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
@@ -283,8 +283,8 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnTransferSPLToken")
         {
             SetInfoPanel("TransferSPLToken", "amount", "public key", "amount", "mint_address", "Transfer", "Transfer", ()=> {
-                ulong price = ulong.Parse(v1);
-                int decimals = int.Parse(v3);
+                ulong price = PrecisionUtil.StrToULong(v1);
+                int decimals = PrecisionUtil.StrToInt(v3);
                 MirrorSDK.TransferSPLToken(v4, decimals, price,v2,(res)=> {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);

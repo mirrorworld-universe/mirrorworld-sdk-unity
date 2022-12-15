@@ -291,7 +291,7 @@ public class MirrorSDK : MonoBehaviour
         MirrorSDK.ListNFT(mintAddress, price, "", confirmation, callBack);
     }
 
-    public static void ListNFT(string mint_address, double price, string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
+    public static void ListNFT(string mint_address, float price, string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
     {
         ApproveListNFT requestParams = new ApproveListNFT();
         requestParams.mint_address = mint_address;
@@ -394,16 +394,16 @@ public class MirrorSDK : MonoBehaviour
             MirrorWrapper.Instance.TransferSol(amount, to_publickey, confirmation, callBack);
         });
     }
-    public static void TransferSPLToken(string tokenMint,int decimals,ulong amount, string to_publickey, Action<CommonResponse<TransferTokenResponse>> callBack)
+    public static void TransferSPLToken(string token_mint, int decimals,ulong amount, string to_publickey, Action<CommonResponse<TransferTokenResponse>> callBack)
     {
         ApproveTransferSPLToken requestParams = new ApproveTransferSPLToken();
         requestParams.to_publickey = to_publickey;
         requestParams.amount = amount;
-        requestParams.token_mint = tokenMint;
+        requestParams.token_mint = token_mint;
         requestParams.decimals = decimals;
 
         MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.TransferSPLToken, "transfer spl token", requestParams, () => {
-            MirrorWrapper.Instance.TransferSPLToken(amount, to_publickey, callBack);
+            MirrorWrapper.Instance.TransferSPLToken(token_mint,decimals,amount,to_publickey,callBack);
         });
     }
     #endregion

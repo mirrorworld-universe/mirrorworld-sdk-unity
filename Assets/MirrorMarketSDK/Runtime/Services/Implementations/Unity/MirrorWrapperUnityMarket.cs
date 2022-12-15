@@ -206,7 +206,7 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void ListNFT(string mintAddress, double price, string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
+        public void ListNFT(string mintAddress, float price, string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
         {
             ListNftOnMarketplaceRequest requestBody = new ListNftOnMarketplaceRequest();
 

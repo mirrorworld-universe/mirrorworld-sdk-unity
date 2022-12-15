@@ -81,15 +81,19 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void TransferSPLToken(ulong amout, string publicKey, Action<CommonResponse<TransferTokenResponse>> callBack)
+        public void TransferSPLToken(string token_mint, int decimals, ulong amount, string to_publickey, Action<CommonResponse<TransferTokenResponse>> callBack)
         {
             string url = GetAPIRoot() + urlTransferTokenToAnotherAddress;
 
             TransferTokenRequest requestBody = new TransferTokenRequest();
 
-            requestBody.amount = amout;
+            requestBody.amount = amount;
 
-            requestBody.to_publickey = publicKey;
+            requestBody.to_publickey = to_publickey;
+
+            requestBody.decimals = decimals;
+
+            requestBody.token_mint = token_mint;
 
             var rawRequestBody = JsonUtility.ToJson(requestBody);
 
