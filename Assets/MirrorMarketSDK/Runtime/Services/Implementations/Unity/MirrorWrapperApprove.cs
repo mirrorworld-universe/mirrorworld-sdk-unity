@@ -89,12 +89,12 @@ namespace MirrorworldSDK.Wrapper
             ulong amountObj = 0;
             int decimalsObj = 9;
             bool havePriceParam = false;
-            double priceObj = 0;
+            float priceObj = 0;
 
             if (apiParams.GetType() == typeof(ApproveListNFT))
             {
                 ApproveListNFT approveListNFT = apiParams as ApproveListNFT;
-                priceObj = approveListNFT.price;
+                priceObj = PrecisionUtil.StrToFloat(approveListNFT.price);
                 havePriceParam = true;
             }
             else if (apiParams.GetType() == typeof(ApproveTransferSOL))

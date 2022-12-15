@@ -55,7 +55,7 @@ public class MirrorSDK : MonoBehaviour
 
         ApproveListNFT apiParams = new ApproveListNFT();
         apiParams.mint_address = "zxlkjkasdfasdf";
-        apiParams.price = 1;
+        apiParams.price = "0.1";
 
         CommonApprove<ApproveListNFT> jsonObject = new CommonApprove<ApproveListNFT>();
         jsonObject.type = MirrorSafeOptType.TransferSPLToken;
@@ -295,7 +295,7 @@ public class MirrorSDK : MonoBehaviour
     {
         ApproveListNFT requestParams = new ApproveListNFT();
         requestParams.mint_address = mint_address;
-        requestParams.price = price;
+        requestParams.price = price.ToString();
         requestParams.confirmation = confirmation;
         requestParams.auction_house = auction_house;
 
@@ -313,7 +313,7 @@ public class MirrorSDK : MonoBehaviour
     {
         ApproveListNFT requestParams = new ApproveListNFT();
         requestParams.mint_address = mint_address;
-        requestParams.price = price;
+        requestParams.price = price.ToString();
         requestParams.confirmation = confirmation;
         requestParams.auction_house = auction_house;
 
@@ -332,7 +332,7 @@ public class MirrorSDK : MonoBehaviour
     {
         ApproveListNFT requestParams = new ApproveListNFT();
         requestParams.mint_address = mint_address;
-        requestParams.price = price;
+        requestParams.price = price.ToString();
         requestParams.confirmation = confirmation;
         requestParams.auction_house = auction_house;
 
@@ -350,7 +350,7 @@ public class MirrorSDK : MonoBehaviour
     {
         ApproveListNFT requestParams = new ApproveListNFT();
         requestParams.mint_address = mint_address;
-        requestParams.price = price;
+        requestParams.price = price.ToString();
         requestParams.auction_house = auction_house;
 
         MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.BuyNFT, "buy nft", requestParams, () => {
