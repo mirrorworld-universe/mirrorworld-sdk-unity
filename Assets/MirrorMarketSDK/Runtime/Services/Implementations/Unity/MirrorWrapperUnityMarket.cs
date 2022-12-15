@@ -214,7 +214,7 @@ namespace MirrorworldSDK.Wrapper
 
             requestBody.confirmation = confirmation;
 
-            requestBody.price = price;
+            requestBody.price = price.ToString();
 
             requestBody.auction_house = auction_house;
 
@@ -244,7 +244,7 @@ namespace MirrorworldSDK.Wrapper
 
             requestBody.mint_address = mintAddress;
 
-            requestBody.price = price;
+            requestBody.price = price.ToString();
 
             requestBody.auction_house = auction_house;
 
@@ -276,7 +276,7 @@ namespace MirrorworldSDK.Wrapper
 
             requestBody.mint_address = mintAddress;
 
-            requestBody.price = price;
+            requestBody.price = price.ToString();
 
             requestBody.auction_house = auction_house;
 
@@ -331,7 +331,7 @@ namespace MirrorworldSDK.Wrapper
 
             requestBody.mint_address = mintAddress;
 
-            requestBody.price = price;
+            requestBody.price = price.ToString();
 
             requestBody.auction_house = auction_house;
 

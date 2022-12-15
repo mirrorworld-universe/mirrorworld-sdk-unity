@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MirrorworldSDK;
+using MirrorworldSDK.Models;
 using MirrorworldSDK.Wrapper;
 using TMPro;
 using UnityEngine;
@@ -226,6 +227,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("BuyNFT", "mint address", "Price", null, null, "BuyNFT", "BuyNFT", ()=> {
                 float price = PrecisionUtil.StrToFloat(v2);
+                Debug.Log("price:"+ price);
                 MirrorSDK.BuyNFT(v1,price,(res)=> {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
