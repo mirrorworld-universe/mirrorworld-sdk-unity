@@ -96,6 +96,8 @@ namespace MirrorworldSDK.Wrapper
                 ApproveListNFT approveListNFT = apiParams as ApproveListNFT;
                 priceObj = PrecisionUtil.StrToFloat(approveListNFT.price);
                 havePriceParam = true;
+                approveRequest.value = approveListNFT.price;
+                return;
             }
             else if (apiParams.GetType() == typeof(ApproveTransferSOL))
             {

@@ -5,6 +5,28 @@ namespace MirrorworldSDK
 {
     public class PrecisionUtil
     {
+        public static double StrToDouble(object FloatString)
+        {
+            double result;
+            if (FloatString != null)
+            {
+                if (double.TryParse(FloatString.ToString(), out result))
+                {
+                    Debug.Log("parse:" + FloatString + " r:" + result);
+                    return result;
+                }
+                else
+                {
+                    return (float)0.00;
+                }
+            }
+            else
+            {
+                return (float)0.00;
+            }
+        }
+
+
         public static float StrToFloat(object FloatString)
         {
             float result;

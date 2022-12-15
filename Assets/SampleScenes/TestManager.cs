@@ -194,7 +194,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnListNFT")
         {
             SetInfoPanel("ListNFT", "mint address", "price", null, null, "ListNFT", "ListNFT", ()=> {
-                float price = PrecisionUtil.StrToFloat(v2);
+                double price = PrecisionUtil.StrToDouble(v2);
                 MirrorSDK.ListNFT(v1,price,Confirmation.Default,(res)=> {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
@@ -204,7 +204,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnListUpdate")
         {
             SetInfoPanel("UpdateNFTListing", "mint address", "price", null, null, "UpdateNFTListing", "UpdateNFTListing", ()=> {
-                float price = PrecisionUtil.StrToFloat(v2);
+                double price = PrecisionUtil.StrToDouble(v2);
                 MirrorSDK.UpdateNFTListing(v1,price, Confirmation.Default, (res) =>
                 {
                     var body = JsonUtility.ToJson(res);
@@ -215,7 +215,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnListCancel")
         {
             SetInfoPanel("CancelNFTListing", "mint address", "price", null, null, "CancelNFTListing", "CancelNFTListing", ()=> {
-                float price = PrecisionUtil.StrToFloat(v2);
+                double price = PrecisionUtil.StrToDouble(v2);
                 MirrorSDK.CancelNFTListing(v1, price, Confirmation.Default, (res) =>
                 {
                     var body = JsonUtility.ToJson(res);
@@ -226,7 +226,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnBuyNFT")
         {
             SetInfoPanel("BuyNFT", "mint address", "Price", null, null, "BuyNFT", "BuyNFT", ()=> {
-                float price = PrecisionUtil.StrToFloat(v2);
+                double price = PrecisionUtil.StrToDouble(v2);
                 Debug.Log("price:"+ price);
                 MirrorSDK.BuyNFT(v1,price,(res)=> {
                     var body = JsonUtility.ToJson(res);

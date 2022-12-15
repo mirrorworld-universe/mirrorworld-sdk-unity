@@ -53,17 +53,17 @@ public class MirrorSDK : MonoBehaviour
         //finalstr = JsonAttrRemover.RemoveEmptyAttr(finalstr);
         //Debug.Log("final value is:" + finalstr);
 
-        ApproveListNFT apiParams = new ApproveListNFT();
-        apiParams.mint_address = "zxlkjkasdfasdf";
-        apiParams.price = "0.1";
+        //ApproveListNFT apiParams = new ApproveListNFT();
+        //apiParams.mint_address = "zxlkjkasdfasdf";
+        //apiParams.price = "0.1";
 
-        CommonApprove<ApproveListNFT> jsonObject = new CommonApprove<ApproveListNFT>();
-        jsonObject.type = MirrorSafeOptType.TransferSPLToken;
-        jsonObject.message = "test";
-        jsonObject.value = "0";
-        MirrorWrapper.Instance.HandleValue(jsonObject, apiParams);
-        jsonObject.paramsPlaceHolder = apiParams;
-        Debug.Log("final value is:" + JsonUtility.ToJson(jsonObject));
+        //CommonApprove<ApproveListNFT> jsonObject = new CommonApprove<ApproveListNFT>();
+        //jsonObject.type = MirrorSafeOptType.TransferSPLToken;
+        //jsonObject.message = "test";
+        //jsonObject.value = "0";
+        //MirrorWrapper.Instance.HandleValue(jsonObject, apiParams);
+        //jsonObject.paramsPlaceHolder = apiParams;
+        //Debug.Log("final value is:" + JsonUtility.ToJson(jsonObject));
 
 
         //Test
@@ -286,12 +286,12 @@ public class MirrorSDK : MonoBehaviour
         MirrorWrapper.Instance.FetchNftsByUpdateAuthorities(updateAuthorityAddresses, action);
     }
 
-    public static void ListNFT(string mintAddress, float price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
+    public static void ListNFT(string mintAddress, double price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
     {
         MirrorSDK.ListNFT(mintAddress, price, "", confirmation, callBack);
     }
 
-    public static void ListNFT(string mint_address, float price, string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
+    public static void ListNFT(string mint_address, double price, string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
     {
         ApproveListNFT requestParams = new ApproveListNFT();
         requestParams.mint_address = mint_address;
@@ -304,12 +304,12 @@ public class MirrorSDK : MonoBehaviour
         });
     }
 
-    public static void CancelNFTListing(string mintAddress, float price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
+    public static void CancelNFTListing(string mintAddress, double price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
     {
         MirrorSDK.CancelNFTListing(mintAddress, price, "", confirmation, callBack);
     }
 
-    public static void CancelNFTListing(string mint_address, float price, string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
+    public static void CancelNFTListing(string mint_address, double price, string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
     {
         ApproveListNFT requestParams = new ApproveListNFT();
         requestParams.mint_address = mint_address;
@@ -322,13 +322,13 @@ public class MirrorSDK : MonoBehaviour
         });
     }
 
-    public static void UpdateNFTListing(string mintAddress, float price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
+    public static void UpdateNFTListing(string mintAddress, double price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
     {
         MirrorSDK.UpdateNFTListing(mintAddress, price, "", confirmation, callBack);
     }
 
 
-    public static void UpdateNFTListing(string mint_address, float price, string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
+    public static void UpdateNFTListing(string mint_address, double price, string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
     {
         ApproveListNFT requestParams = new ApproveListNFT();
         requestParams.mint_address = mint_address;
@@ -341,12 +341,12 @@ public class MirrorSDK : MonoBehaviour
         });
     }
 
-    public static void BuyNFT(string mintAddress, float price, Action<CommonResponse<ListingResponse>> callBack)
+    public static void BuyNFT(string mintAddress, double price, Action<CommonResponse<ListingResponse>> callBack)
     {
         MirrorSDK.BuyNFT(mintAddress, price, "", callBack);
     }
 
-    public static void BuyNFT(string mint_address, float price, string auction_house, Action<CommonResponse<ListingResponse>> callBack)
+    public static void BuyNFT(string mint_address, double price, string auction_house, Action<CommonResponse<ListingResponse>> callBack)
     {
         ApproveListNFT requestParams = new ApproveListNFT();
         requestParams.mint_address = mint_address;
@@ -376,7 +376,7 @@ public class MirrorSDK : MonoBehaviour
     {
         MirrorWrapper.Instance.GetWalletTokens(action);
     }
-    public static void GetTransactions(float number, string nextBefore, Action<CommonResponse<TransferTokenResponse>> action)
+    public static void GetTransactions(double number, string nextBefore, Action<CommonResponse<TransferTokenResponse>> action)
     {
         MirrorWrapper.Instance.GetWalletTransactions(number, nextBefore, action);
     }
