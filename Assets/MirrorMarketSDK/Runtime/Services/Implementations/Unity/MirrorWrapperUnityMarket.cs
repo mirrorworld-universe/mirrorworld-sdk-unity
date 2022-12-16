@@ -331,7 +331,7 @@ namespace MirrorworldSDK.Wrapper
 
             requestBody.mint_address = mintAddress;
 
-            requestBody.price = price.ToString();
+            requestBody.price = price;
 
             requestBody.auction_house = auction_house;
 
