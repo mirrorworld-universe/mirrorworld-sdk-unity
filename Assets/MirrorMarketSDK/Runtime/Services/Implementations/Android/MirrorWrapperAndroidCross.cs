@@ -25,7 +25,7 @@ namespace MirrorworldSDK.Wrapper
                 AndroidJavaObject jo = jc.GetStatic<AndroidJavaObject>("currentActivity");
 
                 javaMirrorWorld = new AndroidJavaClass("com.mirror.sdk.MirrorWorld");
-                javaMirrorWorld.CallStatic("initMirrorWorld", jo, apiKey,bridgeUtils.GetAndroidMirrorEnv(env));
+                javaMirrorWorld.CallStatic("initMirrorWorld", jo, apiKey,(int)env);
 
                 AndroidSetAuthTokenCallback();
             }

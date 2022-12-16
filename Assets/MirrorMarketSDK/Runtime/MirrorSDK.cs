@@ -32,7 +32,12 @@ public class MirrorSDK : MonoBehaviour
             return;
         }
         Debug.Log("Unity apikey:"+apiKey);
-        InitSDK(apiKey, gameObject, debugMode, (MirrorEnv)environment);
+        MirrorEnv env = MirrorEnv.ProductionDevnet;
+        if(environment == MirrorEnvPublic.ProductionMainnet)
+        {
+            env = MirrorEnv.ProductionMainnet;
+        }
+        InitSDK(apiKey, gameObject, debugMode, env);
 
 #if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
         MirrorWrapper.Instance.SetDebugEmail(debugEmail);
@@ -41,6 +46,7 @@ public class MirrorSDK : MonoBehaviour
 
     public static void InitSDK(string apiKey, GameObject gameObject, bool useDebug, MirrorEnv environment)
     {
+        Debug.Log("env:"+ environment);
         //CreateNftRequest requestBody = new CreateNftRequest();
 
         //requestBody.name = "";
@@ -67,12 +73,12 @@ public class MirrorSDK : MonoBehaviour
 
 
         //Test
-        environment = MirrorEnv.StagingDevNet;
+        //environment = MirrorEnv.StagingDevNet;
 
-        //if (environment == MirrorEnv.StagingDevNet || environment == MirrorEnv.StagingMainNet)
-        //{
-        //    Debug.LogError("Environment error!");
-        //}
+        if (environment == MirrorEnv.StagingDevNet || environment == MirrorEnv.StagingMainNet)
+        {
+            Debug.LogError("Environment error!");
+        }
 
         DontDestroyOnLoad(gameObject);
 
