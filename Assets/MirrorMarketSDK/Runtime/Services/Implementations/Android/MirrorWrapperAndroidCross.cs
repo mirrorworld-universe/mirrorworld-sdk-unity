@@ -14,21 +14,20 @@ namespace MirrorworldSDK.Wrapper
     {
         private AndroidBridgeUtils bridgeUtils = new AndroidBridgeUtils();
 
-        private AndroidJavaObject javaSDKInstance;
+        AndroidJavaClass javaMirrorWorld;
+        AndroidJavaObject mirrorSDKInstance;
 
-        public void AndroidInitSDK(MirrorEnv env)
+        public void AndroidInitSDK(string apiKey,MirrorEnv env)
         {
             if (Application.platform == RuntimePlatform.Android)
             {
                 AndroidJavaClass jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
                 AndroidJavaObject jo = jc.GetStatic<AndroidJavaObject>("currentActivity");
-                //AndroidJavaClass javaClass = new AndroidJavaClass("com.mirror.sdk3.MirrorSDK");
-                //AndroidJavaObject javaObject = javaClass.CallStatic<AndroidJavaObject>("getInstance", jo);
-                //javaObject.Call("InitSDK");
 
-                AndroidJavaClass javaClass = new AndroidJavaClass("com.mirror.sdk.MirrorSDK");
-                javaSDKInstance = javaClass.CallStatic<AndroidJavaObject>("getInstance");
-                javaSDKInstance.Call("InitSDK", jo, bridgeUtils.GetAndroidMirrorEnv(env));
+                javaMirrorWorld = new AndroidJavaClass("com.mirror.sdk.MirrorWorld");
+                javaMirrorWorld.CallStatic("initMirrorWorld", jo, apiKey,(int)env);
+
+                AndroidSetAuthTokenCallback();
             }
             else
             {
@@ -36,110 +35,100 @@ namespace MirrorworldSDK.Wrapper
             }
         }
 
-        public void AndroidSetAPIKey(string key)
+        public void AndroidSetAuthTokenCallback()
         {
-            if (javaSDKInstance != null) javaSDKInstance.Call("SetApiKey", key);
+            AndroidJavaClass jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            AndroidJavaObject jo = jc.GetStatic<AndroidJavaObject>("currentActivity");
+            //AndroidJavaClass javaClass = new AndroidJavaClass("com.mirror.sdk3.MirrorSDK");
+            //AndroidJavaObject javaObject = javaClass.CallStatic<AndroidJavaObject>("getInstance", jo);
+            //javaObject.Call("InitSDK");
+
+            AndroidJavaClass javaClass = new AndroidJavaClass("com.mirror.sdk.MirrorSDK");
+            mirrorSDKInstance = javaClass.CallStatic<AndroidJavaObject>("getInstance");
+            mirrorSDKInstance.Call("setAuthTokenCallback", new MirrorCallback((xAuthToken) => {
+                LogFlow("Android update xAuthToken to:"+xAuthToken);
+                authToken = xAuthToken;
+                if(approveFinalAction != null)
+                {
+                    approveFinalAction();
+                    approveFinalAction = null;
+                }
+            }));
         }
 
         public void AndroidSetDebug(bool useDebug)
         {
-            if (javaSDKInstance != null) javaSDKInstance.Call("SetDebug", useDebug);
+            if (javaMirrorWorld != null) javaMirrorWorld.CallStatic("setDebug", useDebug);
         }
 
         public void AndroidSetLogoutCallback(Action logoutAction)
         {
-            if (javaSDKInstance == null)
+            if (javaMirrorWorld == null)
             {
                 LogFlow("Must call InitSDK function first.");
+
                 return;
             }
-            javaSDKInstance.Call("setLogoutCallback",new MSimpleCallback(()=> {
+            javaMirrorWorld.CallStatic("setLogoutCallback",new MSimpleCallback(()=> {
+
                 ClearUnitySDKCache();
+
                 logoutAction();
             }));
         }
 
-        public void AndroidStartLogin()
-        {
-            if (javaSDKInstance == null)
-            {
-                LogFlow("Must call InitSDK function first.");
-                return;
-            }
-            javaSDKInstance.Call("StartLogin");
-        }
-
         public void AndroidStartLogin(Action<LoginResponse> callback)
         {
-            if (javaSDKInstance == null)
+            if (javaMirrorWorld == null)
             {
                 LogFlow("Must call InitSDK function first.");
                 return;
             }
 
-            javaSDKInstance.Call("StartLogin", new MirrorCallback((resultString)=> {
+            javaMirrorWorld.CallStatic("startLogin", new MirrorCallback((resultString)=> {
 
                 LoginResponse responseBody = JsonUtility.FromJson<LoginResponse>(resultString);
 
-                saveKeyParams(responseBody.access_token, responseBody.refresh_token, responseBody.user);
+                SaveKeyParams(responseBody.access_token, responseBody.refresh_token, responseBody.user);
 
                 callback(responseBody);
             }));
         }
 
-        public void AndroidOpenWallet()
+        public void AndroidOpenWallet(Action walletLogoutAction)
         {
-            if (javaSDKInstance == null)
+            //AndroidSetLogoutCallback(walletLogoutAction);
+
+            if (javaMirrorWorld == null)
             {
                 LogFlow("Must call InitSDK function first.");
                 return;
             }
 
-            javaSDKInstance.Call("OpenWallet");
-        }
+            javaMirrorWorld.CallStatic("openWallet", new MirrorCallback((resultString) => {
 
-        public void AndroidOpenTransferPage(string minAddress, string image, string name)
-        {
-            if (javaSDKInstance == null)
-            {
-                LogFlow("Must call InitSDK function first.");
-                return;
-            }
+                LoginResponse responseBody = JsonUtility.FromJson<LoginResponse>(resultString);
 
-            javaSDKInstance.Call("OpenTransferPage", minAddress, image, name);
-        }
+                SaveKeyParams(responseBody.access_token, responseBody.refresh_token, responseBody.user);
 
-        public void AndroidOpenNFTManagePage(string minAddress, string image, string name, double price)
-        {
-            if (javaSDKInstance == null)
-            {
-                LogFlow("Must call InitSDK function first.");
-                return;
-            }
-
-            javaSDKInstance.Call("OpenNFTManagePage", minAddress, image,name,price);
-        }
-
-        public void AndroidOpenSellPage(string mintAddress,string image,string name)
-        {
-            if (javaSDKInstance == null)
-            {
-                LogFlow("Must call InitSDK function first.");
-                return;
-            }
-
-            javaSDKInstance.Call("OpenSellPage", mintAddress,image,name);
+                walletLogoutAction();
+            }));
         }
 
         public void AndroidOpenMarket()
         {
-            if (javaSDKInstance == null)
+            if (javaMirrorWorld == null)
             {
                 LogFlow("Must call InitSDK function first.");
                 return;
             }
 
-            javaSDKInstance.Call("openMarket");
+            javaMirrorWorld.CallStatic("openMarket");
+        }
+
+        public void AndroidOpenUrl(string url)
+        {
+            mirrorSDKInstance.Call("openUrl", url);
         }
     }
 }

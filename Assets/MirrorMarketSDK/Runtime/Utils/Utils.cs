@@ -1,4 +1,5 @@
 
+using System.Text.RegularExpressions;
 using MirrorworldSDK.Models;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -44,9 +45,17 @@ namespace MirrorworldSDK
             req.SetRequestHeader("Content-Type", "application/json");
         }
 
-        public static void SetRefreshToken(UnityWebRequest req,string refreshToken)
+        public static void SetRefreshToken(UnityWebRequest req, string refreshToken)
         {
             req.SetRequestHeader("x-refresh-token", refreshToken);
+        }
+
+        public static void SetXAuthToken(UnityWebRequest req, string authToken)
+        {
+            if(authToken != "" && authToken != null)
+            {
+                req.SetRequestHeader("x-authorization-token", authToken);
+            }
         }
 
         public static bool IsEditor()
@@ -54,6 +63,15 @@ namespace MirrorworldSDK
             return Application.platform == RuntimePlatform.LinuxEditor ||
                 Application.platform == RuntimePlatform.OSXEditor ||
                 Application.platform == RuntimePlatform.WindowsEditor;
+        }
+
+        public static string GetNoSymbolString(string oriString)
+        {
+            const string regex = @"\\(u|x)[[a-z\d]{1,4}";
+
+            var sanitisedUserName = Regex.Replace(oriString, regex, string.Empty);
+
+            return sanitisedUserName;
         }
     }
 }

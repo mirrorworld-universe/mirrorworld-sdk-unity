@@ -8,7 +8,7 @@ namespace MirrorworldSDK.Models
     {
         public string mint_address;
 
-        public float price;
+        public string price;
 
         public string auction_house;
     }

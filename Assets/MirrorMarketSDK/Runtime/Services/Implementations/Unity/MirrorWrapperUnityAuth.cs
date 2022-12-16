@@ -15,6 +15,7 @@ namespace MirrorworldSDK.Wrapper
         private readonly string urlRefreshToken = "auth/refresh-token";
         private readonly string urlGetCurrentUser = "auth/me";
         private readonly string urlQueryUser = "auth/user";
+        private readonly string urlLogout = "auth/logout";
 
         public void GetCurrentUserInfo(Action<CommonResponse<UserResponse>> callBack)
         {
@@ -40,9 +41,19 @@ namespace MirrorworldSDK.Wrapper
             {
                 CommonResponse<LoginResponse> responseBody = JsonUtility.FromJson<CommonResponse<LoginResponse>>(rawResponseBody);
 
-                saveKeyParams(responseBody.data.access_token, responseBody.data.refresh_token, responseBody.data.user);
+                SaveKeyParams(responseBody.data.access_token, responseBody.data.refresh_token, responseBody.data.user);
 
                 callBack(responseBody);
+            }));
+        }
+
+        public void Logout(Action action)
+        {
+            string url = GetAuthRoot() + urlLogout;
+            monoBehaviour.StartCoroutine(CheckAndPost(url, null, (response) => {
+                //CommonResponse<UserResponse> responseBody = JsonUtility.FromJson<CommonResponse<UserResponse>>(response);
+                action();
+                ClearUnitySDKCache();
             }));
         }
 
@@ -95,7 +106,7 @@ namespace MirrorworldSDK.Wrapper
             {
                 LogFlow("GetAccessToken success");
 
-                saveKeyParams(responseBody.data.access_token, responseBody.data.refresh_token, responseBody.data.user);
+                SaveKeyParams(responseBody.data.access_token, responseBody.data.refresh_token, responseBody.data.user);
             }
             else
             {
@@ -114,6 +125,8 @@ namespace MirrorworldSDK.Wrapper
             string url = GetAuthRoot() + urlGetCurrentUser;
 
             monoBehaviour.StartCoroutine(CheckAndGet(url, null, (response) => {
+
+                LogFlow("IsLoggedIn result:"+ response);
 
                 CommonResponse<UserResponse> responseBody = JsonUtility.FromJson<CommonResponse<UserResponse>>(response);
 

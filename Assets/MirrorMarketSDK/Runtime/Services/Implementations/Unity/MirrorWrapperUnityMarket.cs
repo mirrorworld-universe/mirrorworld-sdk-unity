@@ -106,10 +106,10 @@ namespace MirrorworldSDK.Wrapper
             requestBody.url = collectionInfoUrl;
             requestBody.collection_mint = parentCollection;
             requestBody.mint_id = mint_id;
+            requestBody.confirmation = confirmation;
+            string rawRequestBody = JsonUtility.ToJson(requestBody);
 
-            if (confirmation != null) requestBody.confirmation = confirmation;
-
-            var rawRequestBody = JsonUtility.ToJson(requestBody);
+            CreateNftRequestNoMintID requestBodyNoMintID = new CreateNftRequestNoMintID();
 
             string url = GetAPIRoot() + urlMintNFTCollection;
 
@@ -206,7 +206,7 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void ListNFT(string mintAddress, float price, string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
+        public void ListNFT(string mintAddress, double price, string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
         {
             ListNftOnMarketplaceRequest requestBody = new ListNftOnMarketplaceRequest();
 
@@ -214,7 +214,7 @@ namespace MirrorworldSDK.Wrapper
 
             requestBody.confirmation = confirmation;
 
-            requestBody.price = price;
+            requestBody.price = price.ToString();
 
             requestBody.auction_house = auction_house;
 
@@ -238,13 +238,13 @@ namespace MirrorworldSDK.Wrapper
             ListNFT(mintAddress, price, "", confirmation, callBack);
         }
 
-        public void UpdateNFTListing(string mintAddress, float price,string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
+        public void UpdateNFTListing(string mintAddress, double price,string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
         {
             ListNftOnMarketplaceRequest requestBody = new ListNftOnMarketplaceRequest();
 
             requestBody.mint_address = mintAddress;
 
-            requestBody.price = price;
+            requestBody.price = price.ToString();
 
             requestBody.auction_house = auction_house;
 
@@ -270,7 +270,7 @@ namespace MirrorworldSDK.Wrapper
             UpdateNFTListing(mintAddress, price, "", confirmation, callBack);
         }
 
-        public void CancelNFTListing(string mintAddress, float price,string auction_house,string confirmation, Action<CommonResponse<ListingResponse>> callBack)
+        public void CancelNFTListing(string mintAddress, double price,string auction_house,string confirmation, Action<CommonResponse<ListingResponse>> callBack)
         {
             CancelNftListOnMarketplaceRequest requestBody = new CancelNftListOnMarketplaceRequest();
 
@@ -297,7 +297,7 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void CancelNFTListing(string mintAddress, float price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
+        public void CancelNFTListing(string mintAddress, double price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
         {
             CancelNFTListing(mintAddress, price, "", confirmation, callBack);
         }
@@ -325,7 +325,7 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void BuyNFT(string mintAddress, float price,string auction_house, Action<CommonResponse<ListingResponse>> callBack)
+        public void BuyNFT(string mintAddress, double price,string auction_house, Action<CommonResponse<ListingResponse>> callBack)
         {
             BuyNftOnMarketplaceRequest requestBody = new BuyNftOnMarketplaceRequest();
 

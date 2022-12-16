@@ -14,6 +14,7 @@ namespace MirrorworldSDK.Wrapper
 
         private string accessToken = "";
         private string refreshToken = "";
+        public string authToken = "";
         private UserResponse tmpUser = null;
 
         //logic
@@ -40,8 +41,9 @@ namespace MirrorworldSDK.Wrapper
             this.debugMode = debugMode;
         }
 
-        public void SetAPIKey(string apiKey)
+        private void SetAPIKey(string apiKey)
         {
+            LogFlow("Set unity sdk api key"+apiKey);
             this.apiKey = apiKey;
         }
 

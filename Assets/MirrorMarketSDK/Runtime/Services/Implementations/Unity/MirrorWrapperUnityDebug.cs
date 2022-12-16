@@ -7,16 +7,25 @@ namespace MirrorworldSDK.Wrapper
 {
     public partial class MirrorWrapper : IUnityDebugService
     {
-        //keep
+        /**
+         * Email used in Unity Editor login flow
+         */
         public string debugEmail = "";
 
-        //url
+        /**
+         * API only used in Editor login flow
+         */
         private readonly string urlStartLoginSession = "auth/token/start-session";
         private readonly string urlCompleteLoginWithSession = "auth/token/complete-session/";
 
-        //flow
+        /**
+         * Stuff temp
+         */
         private string debugSession = "";
         private Action<LoginResponse> loginCb = null;
+
+        public Action walletLogoutAction;
+
 
         public void SetDebugEmail(string email)
         {
@@ -31,7 +40,7 @@ namespace MirrorworldSDK.Wrapper
 
                 CommonResponse<LoginResponse> responseBody = JsonUtility.FromJson<CommonResponse<LoginResponse>>(rawResponseBody);
 
-                saveKeyParams(responseBody.data.access_token, responseBody.data.refresh_token, responseBody.data.user);
+                SaveKeyParams(responseBody.data.access_token, responseBody.data.refresh_token, responseBody.data.user);
 
                 action(responseBody);
 
@@ -94,8 +103,10 @@ namespace MirrorworldSDK.Wrapper
             return debugSession;
         }
 
-        public void DebugOpenWalletPage()
+        public void DebugOpenWalletPage(Action walletCb)
         {
+            walletLogoutAction = walletCb;
+
             IsLoggedIn((isLogged)=> {
                 if (isLogged) {
                     string url = GetEntranceRoot() + apiKey;
