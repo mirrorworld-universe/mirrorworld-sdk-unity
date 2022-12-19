@@ -456,12 +456,15 @@ public class MirrorSDK : MonoBehaviour
         {
             MirrorWrapper.Instance.DebugOpenWalletPage(walletLogoutAction);
         }
-        else if (Application.platform == RuntimePlatform.Android)
+        else
         {
-            MirrorWrapper.Instance.AndroidOpenWallet(walletLogoutAction);
-        }
-        else if (Application.platform == RuntimePlatform.IPhonePlayer)
-        {
+
+#if (UNITY_ANDROID && !(UNITY_EDITOR))
+
+             MirrorWrapper.Instance.AndroidOpenWallet(walletLogoutAction);
+
+#elif (UNITY_IOS && !(UNITY_EDITOR))
+
             MirrorWrapper.Instance.walletLogoutAction = walletLogoutAction;
             //MirrorWrapper.OpenWallet();
             iOSWalletLogOutCallback handler = new iOSWalletLogOutCallback(MirrorWrapper.iOSWalletCallBack);
@@ -471,10 +474,7 @@ public class MirrorSDK : MonoBehaviour
             IntPtr fp2 = Marshal.GetFunctionPointerForDelegate(handler2);
 
             MirrorWrapper.IOSOpenWallet(fp, fp2);
-        }
-        else
-        {
-            MirrorWrapper.Instance.LogFlow("Unknown platform!");
+#endif
         }
     }
 
@@ -484,17 +484,16 @@ public class MirrorSDK : MonoBehaviour
         {
             MirrorWrapper.Instance.DebugOpenMarketPage();
         }
-        else if (Application.platform == RuntimePlatform.Android)
-        {
-            MirrorWrapper.Instance.AndroidOpenMarket();
-        }
-        else if (Application.platform == RuntimePlatform.IPhonePlayer)
-        {
-            MirrorWrapper.IOSOpenMarketPlace();
-        }
         else
         {
-            MirrorWrapper.Instance.LogFlow("Unknown platform!");
+#if (UNITY_ANDROID && !(UNITY_EDITOR))
+
+             MirrorWrapper.Instance.AndroidOpenMarket();
+
+#elif (UNITY_IOS && !(UNITY_EDITOR))
+
+            MirrorWrapper.IOSOpenMarketPlace();
+#endif
         }
     }
     #endregion
