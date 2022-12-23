@@ -307,6 +307,59 @@ public class TestManager : MonoBehaviour
             collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
             //MirrorSDK.OpenMarketPage(collections);
         }
+        else if (btnName == "BtnGetCollectionFilterInfo")
+        {
+            //MirrorSDK.
+        }
+        else if (btnName == "BtnOpenMarket")
+        {
+            notOpenDetail = true;
+            List<string> collections = new List<string>();
+            collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
+            //MirrorSDK.OpenMarketPage(collections);
+        }
+        else if (btnName == "BtnOpenMarket")
+        {
+            notOpenDetail = true;
+            List<string> collections = new List<string>();
+            collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
+            //MirrorSDK.OpenMarketPage(collections);
+        }
+        else if (btnName == "BtnOpenMarket")
+        {
+            notOpenDetail = true;
+            List<string> collections = new List<string>();
+            collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
+            //MirrorSDK.OpenMarketPage(collections);
+        }
+        else if (btnName == "BtnOpenMarket")
+        {
+            notOpenDetail = true;
+            List<string> collections = new List<string>();
+            collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
+            //MirrorSDK.OpenMarketPage(collections);
+        }
+        else if (btnName == "BtnOpenMarket")
+        {
+            notOpenDetail = true;
+            List<string> collections = new List<string>();
+            collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
+            //MirrorSDK.OpenMarketPage(collections);
+        }
+        else if (btnName == "BtnOpenMarket")
+        {
+            notOpenDetail = true;
+            List<string> collections = new List<string>();
+            collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
+            //MirrorSDK.OpenMarketPage(collections);
+        }
+        else if (btnName == "BtnOpenMarket")
+        {
+            notOpenDetail = true;
+            List<string> collections = new List<string>();
+            collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
+            //MirrorSDK.OpenMarketPage(collections);
+        }
 
         if (!notOpenDetail)
         {

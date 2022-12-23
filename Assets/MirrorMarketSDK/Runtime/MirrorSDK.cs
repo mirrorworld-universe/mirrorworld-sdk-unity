@@ -73,7 +73,7 @@ public class MirrorSDK : MonoBehaviour
 
 
         //Test
-        //environment = MirrorEnv.StagingDevNet;
+        environment = MirrorEnv.StagingDevNet;
 
         if (environment == MirrorEnv.StagingDevNet || environment == MirrorEnv.StagingMainNet)
         {
@@ -495,6 +495,41 @@ public class MirrorSDK : MonoBehaviour
             MirrorWrapper.IOSOpenMarketPlace();
 #endif
         }
+    }
+    #endregion
+
+    #region market ui apis
+    public static void GetCollectionFilterInfo(string collection, Action<CommonResponse<GetCollectionFilterInfoResponse>> callBack)
+    {
+        MirrorWrapper.Instance.GetCollectionFilterInfo(collection,callBack);
+    }
+    public static void GetNFTInfo(string mintAddress, Action<string> callBack)
+    {
+        MirrorWrapper.Instance.GetNFTInfo(mintAddress, callBack);
+    }
+    public static void GetCollectionFilterInfo(List<string> collections, Action<CommonResponse<GetCollectionInfoResponse>> callback)
+    {
+        MirrorWrapper.Instance.GetCollectionInfo(collections, callback);
+    }
+    public static void GetNFTEvents(string mintAddress, int page, int pageSize, Action<CommonResponse<GetNFTEventsResponse>> callback)
+    {
+        MirrorWrapper.Instance.GetNFTEvents(mintAddress, page, pageSize, callback);
+    }
+    public static void SearchNFTs(List<string> collections, string searchString, Action<CommonResponse<SearchNFTsRequest>> callback)
+    {
+        MirrorWrapper.Instance.SearchNFTs(collections, searchString, callback);
+    }
+    public static void RecommendSearchNFT(List<string> collections, Action<CommonResponse<List<MirrorMarketNFTObj>>> callback)
+    {
+        MirrorWrapper.Instance.RecommendSearchNFT(collections, callback);
+    }
+    public static void GetNFTs(string collection, int page, int pageSize, string orderByString, bool desc, List<GetNFTsRequestFilter> filters, Action<CommonResponse<GetNFTEventsResponse>> callback)
+    {
+        MirrorWrapper.Instance.GetNFTs(collection, page, pageSize, orderByString,desc, filters,callback);
+    }
+    public static void GetNFTRealPrice(string price, int fee, Action<CommonResponse<GetNFTRealPriceResponse>> callback)
+    {
+        MirrorWrapper.Instance.GetNFTRealPrice(price,fee, callback);
     }
     #endregion
 }
