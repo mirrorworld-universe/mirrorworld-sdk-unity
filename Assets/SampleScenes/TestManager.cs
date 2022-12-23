@@ -309,56 +309,103 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnGetCollectionFilterInfo")
         {
-            //MirrorSDK.
+            SetInfoPanel("GetCollectionFilterInfo", "collection", null, null, null, "Get", "Get collection filter info", () => {
+                string collection = v1;
+                MirrorSDK.GetCollectionFilterInfo(v1, (res) => {
+                    var body = JsonUtility.ToJson(res);
+                    PrintLog("result:" + body);
+                });
+            });
         }
-        else if (btnName == "BtnOpenMarket")
+        else if (btnName == "BtnGetNFTInfo")
         {
-            notOpenDetail = true;
-            List<string> collections = new List<string>();
-            collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
-            //MirrorSDK.OpenMarketPage(collections);
+            SetInfoPanel("GetNFTInfo", "mint address", null, null, null, "Get", "Get NFT info", () => {
+                string mintAddress = v1;
+
+                MirrorSDK.GetNFTInfo(mintAddress, (res) => {
+                    PrintLog("result:" + res);
+                });
+            });
         }
-        else if (btnName == "BtnOpenMarket")
+        else if (btnName == "BtnGetCollectionInfo")
         {
-            notOpenDetail = true;
-            List<string> collections = new List<string>();
-            collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
-            //MirrorSDK.OpenMarketPage(collections);
+            SetInfoPanel("GetCollectionInfo", "collection", null, null, null, "Get", "Get collection info", () => {
+                string collection1 = v1;
+                List<string> collections = new List<string>();
+                collections.Add(collection1);
+
+                MirrorSDK.GetCollectionInfo(collections, (res) => {
+                    var body = JsonUtility.ToJson(res);
+                    PrintLog("result:" + body);
+                });
+            });
         }
-        else if (btnName == "BtnOpenMarket")
+        else if (btnName == "BtnGetNFTEvents")
         {
-            notOpenDetail = true;
-            List<string> collections = new List<string>();
-            collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
-            //MirrorSDK.OpenMarketPage(collections);
+            SetInfoPanel("GetNFTEvents", "mint address", "page", "page size", null, "Get", "Get NFT events", () => {
+                string mintAddress = v1;
+                int page = int.Parse(v2);
+                int pageSize = int.Parse(v3);
+
+                MirrorSDK.GetNFTEvents(mintAddress,page,pageSize, (res) => {
+                    var body = JsonUtility.ToJson(res);
+                    PrintLog("result:" + body);
+                });
+            });
         }
-        else if (btnName == "BtnOpenMarket")
+        else if (btnName == "BtnSearchNFTs")
         {
-            notOpenDetail = true;
-            List<string> collections = new List<string>();
-            collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
-            //MirrorSDK.OpenMarketPage(collections);
+            SetInfoPanel("SearchNFTs", "collection 1", "search string", null, null, "Search", "Search NFTs", () => {
+                string collection1 = v1;
+                List<string> collections = new List<string>();
+                collections.Add(collection1);
+                string searchString = v2;
+
+                MirrorSDK.SearchNFTs(collections, searchString, (res) => {
+                    var body = JsonUtility.ToJson(res);
+                    PrintLog("result:" + body);
+                });
+            });
         }
-        else if (btnName == "BtnOpenMarket")
+        else if (btnName == "BtnRecommendSearchNFTs")
         {
-            notOpenDetail = true;
-            List<string> collections = new List<string>();
-            collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
-            //MirrorSDK.OpenMarketPage(collections);
+            SetInfoPanel("RecommendSearchNFT", "collection 1", null, null, null, "Search", "Recommend search NFTs", () => {
+                string collection1 = v1;
+                List<string> collections = new List<string>();
+                collections.Add(collection1);
+
+                MirrorSDK.RecommendSearchNFT(collections, (res) => {
+                    var body = JsonUtility.ToJson(res);
+                    PrintLog("result:" + body);
+                });
+            });
         }
-        else if (btnName == "BtnOpenMarket")
+        else if (btnName == "BtnGetNFTs")
         {
-            notOpenDetail = true;
-            List<string> collections = new List<string>();
-            collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
-            //MirrorSDK.OpenMarketPage(collections);
+            SetInfoPanel("GetNFTs", "collection", "page", "page size", "orderByString", "Get", "Get NFTs", () => {
+                string collection = v1;
+                int page = int.Parse(v2);
+                int pageSize = int.Parse(v3);
+                string orderByString = v4;
+                bool desc = true;
+
+                MirrorSDK.GetNFTs(collection,page,pageSize, orderByString,desc,null,(res) => {
+                    var body = JsonUtility.ToJson(res);
+                    PrintLog("result:" + body);
+                });
+            });
         }
-        else if (btnName == "BtnOpenMarket")
+        else if (btnName == "BtnGetNFTRealPrice")
         {
-            notOpenDetail = true;
-            List<string> collections = new List<string>();
-            collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
-            //MirrorSDK.OpenMarketPage(collections);
+            SetInfoPanel("GetNFTRealPrice", "collection", "fee", null, null, "Get", "Get NFT real price.", () => {
+                string price = v1;
+                int fee = int.Parse(v2);
+
+                MirrorSDK.GetNFTRealPrice(price, fee, (res) => {
+                    var body = JsonUtility.ToJson(res);
+                    PrintLog("result:" + body);
+                });
+            });
         }
 
         if (!notOpenDetail)

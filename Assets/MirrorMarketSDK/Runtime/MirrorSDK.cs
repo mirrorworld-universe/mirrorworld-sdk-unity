@@ -507,7 +507,7 @@ public class MirrorSDK : MonoBehaviour
     {
         MirrorWrapper.Instance.GetNFTInfo(mintAddress, callBack);
     }
-    public static void GetCollectionFilterInfo(List<string> collections, Action<CommonResponse<GetCollectionInfoResponse>> callback)
+    public static void GetCollectionInfo(List<string> collections, Action<CommonResponse<GetCollectionInfoResponse>> callback)
     {
         MirrorWrapper.Instance.GetCollectionInfo(collections, callback);
     }
