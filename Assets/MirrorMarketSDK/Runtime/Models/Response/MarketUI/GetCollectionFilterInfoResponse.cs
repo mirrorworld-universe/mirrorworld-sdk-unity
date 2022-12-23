@@ -9,6 +9,7 @@ namespace MirrorworldSDK.Models
     public class GetCollectionFilterInfoResponse
     {
         public string collection;
+
         public List<FilterInfo> filter_info;
     }
 }

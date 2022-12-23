@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MirrorworldSDK.Models;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -99,6 +100,22 @@ namespace MirrorworldSDK.Wrapper
 
         private IEnumerator Get(string url, Dictionary<string,string> requestParams, Action<string> callBack)
         {
+            if(requestParams != null && requestParams.Count != 0)
+            {
+                string paramsString = "";
+                for (int i = 0; i < requestParams.Count; i++)
+                {
+                    var item = requestParams.ElementAt(i);
+                    if (i != 0)
+                    {
+                        paramsString += "&";
+                    }
+                    paramsString += item.Key + "=" + item.Value;
+                }
+                url = url + "?" + paramsString;
+            }
+            LogFlow("Get url:" + url);
+
             UnityWebRequest request = new UnityWebRequest(url, "GET");
 
             MirrorUtils.SetContentTypeHeader(request);
