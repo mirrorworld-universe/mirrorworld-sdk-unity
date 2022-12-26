@@ -126,7 +126,7 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void GetNFTs(string collection, int page, int pageSize, string orderByString, bool desc, List<GetNFTsRequestFilter> filters, Action<CommonResponse<GetNFTEventsResponse>> callback)
+        public void GetNFTs(string collection, int page, int pageSize, string orderByString, bool desc, List<GetNFTsRequestFilter> filters, Action<CommonResponse<GetNFTsResponse>> callback)
         {
             GetNFTsRequest requestBody = new GetNFTsRequest();
 
@@ -150,7 +150,9 @@ namespace MirrorworldSDK.Wrapper
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
 
-                CommonResponse<GetNFTEventsResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetNFTEventsResponse>>(response);
+                LogFlow("GetNFTs response:" + response);
+
+                CommonResponse <GetNFTsResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetNFTsResponse>>(response);
 
                 callback(responseBody);
 

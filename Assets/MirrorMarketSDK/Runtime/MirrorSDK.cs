@@ -523,7 +523,7 @@ public class MirrorSDK : MonoBehaviour
     {
         MirrorWrapper.Instance.RecommendSearchNFT(collections, callback);
     }
-    public static void GetNFTs(string collection, int page, int pageSize, string orderByString, bool desc, List<GetNFTsRequestFilter> filters, Action<CommonResponse<GetNFTEventsResponse>> callback)
+    public static void GetNFTs(string collection, int page, int pageSize, string orderByString, bool desc, List<GetNFTsRequestFilter> filters, Action<CommonResponse<GetNFTsResponse>> callback)
     {
         MirrorWrapper.Instance.GetNFTs(collection, page, pageSize, orderByString,desc, filters,callback);
     }
