@@ -404,7 +404,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnGetNFTRealPrice")
         {
-            SetInfoPanel("GetNFTRealPrice", "collection", "fee", null, null, "Get", "Get NFT real price.", () => {
+            SetInfoPanel("GetNFTRealPrice", "price", "fee", null, null, "Get", "Get NFT real price.", () => {
                 string price = v1;
                 int fee = int.Parse(v2);
 
