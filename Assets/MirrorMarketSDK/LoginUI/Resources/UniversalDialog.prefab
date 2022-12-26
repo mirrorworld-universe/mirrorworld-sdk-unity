@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7908016322012244938}
   - component: {fileID: 8146798280468594652}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 580, y: 200}
+  m_SizeDelta: {x: 580, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7908016322012244938
 CanvasRenderer:
@@ -68,7 +68,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 22
+    m_FontSize: 26
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -78,8 +78,8 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: Have you finished the login flow?
+    m_LineSpacing: 1.6
+  m_Text: Have you finished the login flow?Have you finished the login flow?
 --- !u!1 &1928300903549846893
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,7 +92,6 @@ GameObject:
   - component: {fileID: 2770690524054375892}
   - component: {fileID: 1715684154895676841}
   - component: {fileID: 3089098471064724947}
-  - component: {fileID: 4146945063080033781}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -121,7 +120,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 600, y: 400}
+  m_SizeDelta: {x: 600, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2770690524054375892
 CanvasRenderer:
@@ -187,19 +186,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &4146945063080033781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1928300903549846893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 068481265a9f244449beaacf2a1862b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  contentText: {fileID: 7023439314902139204}
 --- !u!1 &2413327736234408713
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,9 +308,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4146945063080033781}
-        m_TargetAssemblyTypeName: LoginDialog, MirrorworldSDK
-        m_MethodName: OnBtnCalcelClicked
+      - m_Target: {fileID: 4849400943585722605}
+        m_TargetAssemblyTypeName: UniversalDialog, MirrorworldSDK
+        m_MethodName: OnBtnNoClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -371,7 +357,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 600, y: 200}
+  m_SizeDelta: {x: 600, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5231057368243933150
 CanvasRenderer:
@@ -718,9 +704,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4146945063080033781}
-        m_TargetAssemblyTypeName: LoginDialog, MirrorworldSDK
-        m_MethodName: OnBtnLoggedClicked
+      - m_Target: {fileID: 4849400943585722605}
+        m_TargetAssemblyTypeName: UniversalDialog, MirrorworldSDK
+        m_MethodName: OnBtnYesClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -742,7 +728,7 @@ GameObject:
   - component: {fileID: 769404808248519108}
   - component: {fileID: 7023439314902139204}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -902,8 +888,9 @@ GameObject:
   - component: {fileID: 9027981404672334788}
   - component: {fileID: 9027981404672334789}
   - component: {fileID: 9027981404672334786}
+  - component: {fileID: 4849400943585722605}
   m_Layer: 5
-  m_Name: DialogCanvas
+  m_Name: UniversalDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -992,3 +979,21 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4849400943585722605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9027981404672334784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f683a9c11e4f49478db64e671e8924f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleText: {fileID: 7023439314902139204}
+  contentText: {fileID: 8146798280468594652}
+  btnYesText: {fileID: 8727732454594533809}
+  btnNoText: {fileID: 3420884151102373109}
+  btnYes: {fileID: 2613045962974577750}
+  btnNo: {fileID: 7985859200163314870}

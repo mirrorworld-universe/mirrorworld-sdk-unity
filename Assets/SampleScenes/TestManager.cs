@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MirrorworldSDK;
 using MirrorworldSDK.Models;
+using MirrorworldSDK.UI;
 using MirrorworldSDK.Wrapper;
 using TMPro;
 using UnityEngine;
@@ -53,7 +54,13 @@ public class TestManager : MonoBehaviour
         {
             notOpenDetail = true;
             MirrorSDK.StartLogin((loginResponse) => {
-                Debug.Log("Login result:" + loginResponse.ToString());
+                Debug.Log("Login result:" + JsonUtility.ToJson(loginResponse));
+                MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
+                GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("UniversalDialog", monoBehaviour.transform);
+                UniversalDialog dialog = dialogCanvas.GetComponent<UniversalDialog>();
+                dialog.Init("Login","You have finished login flow before,login success in a silent way.","Got It","",()=> {
+                    dialog.DestroyDialog();
+                },null);
             });
         }
         else if (btnName == "BtnEmailLogin")
