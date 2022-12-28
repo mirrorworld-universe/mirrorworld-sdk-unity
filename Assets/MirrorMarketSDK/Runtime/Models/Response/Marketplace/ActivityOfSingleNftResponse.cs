@@ -34,10 +34,18 @@ namespace MirrorworldSDK.Models
 
         public NFTOwnerObj owner;
 
+        public NFTCollection collection;
+
         public List<NFTAttributeObj> attributes;
 
         public List<Listing> listings;
 
+        public string mintAddress;
+    }
+
+    [Serializable]
+    public class NFTCollection
+    {
         public string mintAddress;
     }
 

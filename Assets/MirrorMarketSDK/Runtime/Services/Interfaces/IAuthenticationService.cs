@@ -8,6 +8,8 @@ namespace MirrorworldSDK.Interfaces
     {
         public void IsLoggedIn(Action<bool> action);
 
+        public void GuestLogin(Action<LoginResponse> action);
+
         public void LoginWithEmail(string emailAddress, string password, Action<CommonResponse<LoginResponse>> callBack);
         
         //public IEnumerator LoginWithGoogle(LoginWithGoogleRequest requestBody, Action<CommonResponse<LoginResponse>> callBack);

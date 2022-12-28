@@ -240,7 +240,7 @@ public class MirrorSDK : MonoBehaviour
         requestParams.confirmation = confirmation;
 
         MirrorWrapper.Instance.GetSecurityToken<ApproveMintNFT>(MirrorSafeOptType.MintNFT,"mint nft", requestParams,()=> {
-            MirrorWrapper.Instance.MintNft(parentCollection, nFTName, nFTSymbol, nFTJsonUrl, confirmation, mint_id, callBack);
+            MirrorWrapper.Instance.MintNFT(parentCollection, nFTName, nFTSymbol, nFTJsonUrl, confirmation, mint_id, callBack);
         });
     }
 
@@ -478,21 +478,21 @@ public class MirrorSDK : MonoBehaviour
         }
     }
 
-    public static void OpenMarketPage()
+    public static void OpenMarketPage(string marketUrl)
     {
         if (MirrorUtils.IsEditor())
         {
-            MirrorWrapper.Instance.DebugOpenMarketPage();
+            MirrorWrapper.Instance.DebugOpenMarketPage(marketUrl);
         }
         else
         {
 #if (UNITY_ANDROID && !(UNITY_EDITOR))
 
-             MirrorWrapper.Instance.AndroidOpenMarket();
+             MirrorWrapper.Instance.AndroidOpenMarket(marketUrl);
 
 #elif (UNITY_IOS && !(UNITY_EDITOR))
 
-            MirrorWrapper.IOSOpenMarketPlace();
+            MirrorWrapper.IOSOpenMarketPlace(marketUrl);
 #endif
         }
     }
