@@ -115,7 +115,7 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void AndroidOpenMarket(string marketUrl)
+        public void AndroidOpenMarket(string url)
         {
             if (javaMirrorWorld == null)
             {
@@ -123,9 +123,9 @@ namespace MirrorworldSDK.Wrapper
                 return;
             }
 
-            LogFlow("Unity try to open market with url:" + marketUrl);
+            LogFlow("Unity try to open market with url:" + url);
 
-            javaMirrorWorld.CallStatic("openMarket", marketUrl);
+            javaMirrorWorld.CallStatic("openMarketWithWholeUrl", url);
         }
     }
 }

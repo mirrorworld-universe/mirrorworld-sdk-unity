@@ -244,6 +244,13 @@ namespace MirrorworldSDK.Wrapper
             }
         }
 
+        public string GetMarketUrl(string marketRoot)
+        {
+            string url = marketRoot + "?auth=" + accessToken;
+
+            return url;
+        }
+
         private string GetMarketRoot()
         {
             if (environment == MirrorEnv.ProductionMainnet)

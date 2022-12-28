@@ -480,19 +480,21 @@ public class MirrorSDK : MonoBehaviour
 
     public static void OpenMarketPage(string marketUrl)
     {
+        string url = Instance.GetMarketUrl(marketUrl);
+
         if (MirrorUtils.IsEditor())
         {
-            MirrorWrapper.Instance.DebugOpenMarketPage(marketUrl);
+            MirrorWrapper.Instance.DebugOpenMarketPage(url);
         }
         else
         {
 #if (UNITY_ANDROID && !(UNITY_EDITOR))
 
-             MirrorWrapper.Instance.AndroidOpenMarket(marketUrl);
+             MirrorWrapper.Instance.AndroidOpenMarket(url);
 
 #elif (UNITY_IOS && !(UNITY_EDITOR))
 
-            MirrorWrapper.IOSOpenMarketPlace(marketUrl);
+            MirrorWrapper.IOSOpenMarketPlace(url);
 #endif
         }
     }

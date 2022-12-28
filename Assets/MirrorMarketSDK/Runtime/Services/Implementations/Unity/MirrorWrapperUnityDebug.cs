@@ -120,12 +120,11 @@ namespace MirrorworldSDK.Wrapper
             });
         }
 
-        public void DebugOpenMarketPage(string marketUrl)
+        public void DebugOpenMarketPage(string url)
         {
             IsLoggedIn((isLogged) => {
                 if (isLogged)
                 {
-                    string url = marketUrl + "?auth=" +accessToken;
                     LogFlow("Will open third browser..." + url);
                     Application.OpenURL(url);
                 }
