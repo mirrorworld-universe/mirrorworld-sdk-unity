@@ -54,6 +54,7 @@ public class TestManager : MonoBehaviour
         {
             notOpenDetail = true;
             MirrorSDK.StartLogin((loginResponse) => {
+#if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
                 Debug.Log("Login result:" + JsonUtility.ToJson(loginResponse));
                 MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
                 GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("UniversalDialog", monoBehaviour.transform);
@@ -61,6 +62,7 @@ public class TestManager : MonoBehaviour
                 dialog.Init("Login","You have finished login flow before,login success in a silent way.","Got It","",()=> {
                     dialog.DestroyDialog();
                 },null);
+#endif
             });
         }
         else if (btnName == "BtnEmailLogin")

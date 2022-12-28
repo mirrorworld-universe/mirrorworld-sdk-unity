@@ -192,6 +192,13 @@ namespace MirrorworldSDK.Wrapper
                 return "https://auth.mirrorworld.fun/";
             }
         }
+
+        public void AndroidOpenUrl(string url)
+        {
+            mirrorSDKInstance.Call("openUrl", url);
+            javaMirrorWorld.CallStatic("openMarket", url);
+        }
+
     }
 }
     

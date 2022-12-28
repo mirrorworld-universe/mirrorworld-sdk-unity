@@ -107,9 +107,9 @@ namespace MirrorworldSDK.Wrapper
 
             javaMirrorWorld.CallStatic("openWallet", new MirrorCallback((resultString) => {
 
-                LoginResponse responseBody = JsonUtility.FromJson<LoginResponse>(resultString);
+                //LoginResponse responseBody = JsonUtility.FromJson<LoginResponse>(resultString);
 
-                SaveKeyParams(responseBody.access_token, responseBody.refresh_token, responseBody.user);
+                //SaveKeyParams(responseBody.access_token, responseBody.refresh_token, responseBody.user);
 
                 walletLogoutAction();
             }));
