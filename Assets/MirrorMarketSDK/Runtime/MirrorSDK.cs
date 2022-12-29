@@ -205,9 +205,9 @@ public class MirrorSDK : MonoBehaviour
         }
     }
 
-    public static void GetAccessToken()
+    public static void GetAccessToken(Action<bool> action)
     {
-        MirrorWrapper.Instance.GetAccessToken();
+        MirrorWrapper.Instance.GetAccessToken(action);
     }
 
     public static void FetchUser(string email, Action<CommonResponse<UserResponse>> callback)

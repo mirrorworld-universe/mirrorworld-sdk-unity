@@ -94,8 +94,9 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnGetAccessToken")
         {
             SetInfoPanel("GetAccessToken", null, null, null, null, "GetAccessToken", "Get Access Token", () => {
-                MirrorSDK.GetAccessToken();
-                PrintLog("Access token is secret,you can see the result in console.");
+                MirrorSDK.GetAccessToken((isSuccess)=> {
+                    PrintLog("Access token is secret,you can see the result in console."+ isSuccess);
+                });
             });
         }
         else if (btnName == "BtnLogout")

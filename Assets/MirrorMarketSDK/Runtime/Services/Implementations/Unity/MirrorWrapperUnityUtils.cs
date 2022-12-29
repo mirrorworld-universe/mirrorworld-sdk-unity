@@ -23,7 +23,7 @@ namespace MirrorworldSDK.Wrapper
             if (accessToken == "")
             {
                 LogFlow("No access token,try to get one...");
-                yield return monoBehaviour.StartCoroutine(DoGetAccessToken());
+                yield return monoBehaviour.StartCoroutine(DoGetAccessToken(null));
                 if (accessToken == "")
                 {
                     LogFlow("Get access token failed.");
@@ -51,7 +51,7 @@ namespace MirrorworldSDK.Wrapper
             if (accessToken == "")
             {
                 LogFlow("No access token,try to get one...");
-                yield return monoBehaviour.StartCoroutine(DoGetAccessToken());
+                yield return monoBehaviour.StartCoroutine(DoGetAccessToken(null));
                 if (accessToken == "")
                 {
                     LogFlow("Get access token failed.");

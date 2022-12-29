@@ -20,7 +20,7 @@ namespace MirrorworldSDK.Interfaces
 
         public void GetCurrentUserInfo(Action<CommonResponse<UserResponse>> callBack);
 
-        public void GetAccessToken();
+        public void GetAccessToken(Action<bool> action);
         
         public void FetchUser(string email, Action<CommonResponse<UserResponse>> callBack);
     }
