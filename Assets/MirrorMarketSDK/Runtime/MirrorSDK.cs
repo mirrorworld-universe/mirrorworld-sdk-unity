@@ -527,7 +527,7 @@ public class MirrorSDK : MonoBehaviour
     }
     public static void GetNFTs(string collection, int page, int pageSize, string orderByString, bool desc, List<GetNFTsRequestFilter> filters, Action<CommonResponse<GetNFTsResponse>> callback)
     {
-        MirrorWrapper.Instance.GetNFTs(collection, page, pageSize, orderByString,desc, filters,callback);
+        MirrorWrapper.Instance.GetNFTsByUnabridgedParams(collection, page, pageSize, orderByString,desc, filters,callback);
     }
     public static void GetNFTRealPrice(string price, int fee, Action<CommonResponse<GetNFTRealPriceResponse>> callback)
     {

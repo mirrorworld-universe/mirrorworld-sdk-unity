@@ -126,7 +126,7 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void GetNFTs(string collection, int page, int pageSize, string orderByString, bool desc, List<GetNFTsRequestFilter> filters, Action<CommonResponse<GetNFTsResponse>> callback)
+        public void GetNFTsByUnabridgedParams(string collection, int page, int pageSize, string orderByString, bool desc, List<GetNFTsRequestFilter> filters, Action<CommonResponse<GetNFTsResponse>> callback)
         {
             GetNFTsRequest requestBody = new GetNFTsRequest();
 
