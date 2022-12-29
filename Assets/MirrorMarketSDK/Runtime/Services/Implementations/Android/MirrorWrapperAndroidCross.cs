@@ -125,7 +125,18 @@ namespace MirrorworldSDK.Wrapper
 
             LogFlow("Unity try to open market with url:" + url);
 
-            javaMirrorWorld.CallStatic("openMarketWithWholeUrl", url);
+            AndroidOpenUrl(url);
+        }
+
+        public void AndroidOpenUrl(string url)
+        {
+            if (javaMirrorWorld == null)
+            {
+                LogFlow("Must call InitSDK function first.");
+                return;
+            }
+
+            javaMirrorWorld.CallStatic("openUrl", url);
         }
     }
 }

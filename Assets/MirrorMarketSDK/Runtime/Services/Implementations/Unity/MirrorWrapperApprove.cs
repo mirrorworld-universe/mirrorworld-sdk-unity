@@ -193,12 +193,6 @@ namespace MirrorworldSDK.Wrapper
             }
         }
 
-        public void AndroidOpenUrl(string url)
-        {
-            mirrorSDKInstance.Call("openUrl", url);
-            javaMirrorWorld.CallStatic("openMarket", url);
-        }
-
     }
 }
     
