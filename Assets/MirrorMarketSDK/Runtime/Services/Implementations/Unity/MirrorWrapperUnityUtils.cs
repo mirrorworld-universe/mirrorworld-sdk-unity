@@ -251,6 +251,13 @@ namespace MirrorworldSDK.Wrapper
             return url;
         }
 
+        public string GetWalletUrl()
+        {
+            String url = GetEntranceRoot() + "jwt?key=" + accessToken;
+
+            return url;
+        }
+
         private string GetMarketRoot()
         {
             if (environment == MirrorEnv.ProductionMainnet)

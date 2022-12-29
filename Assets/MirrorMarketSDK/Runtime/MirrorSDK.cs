@@ -452,6 +452,8 @@ public class MirrorSDK : MonoBehaviour
     #region market ui
     public static void OpenWalletPage(Action walletLogoutAction)
     {
+        string walletUrl = Instance.GetWalletUrl();
+
         if (MirrorUtils.IsEditor())
         {
             MirrorWrapper.Instance.DebugOpenWalletPage(walletLogoutAction);
@@ -461,7 +463,7 @@ public class MirrorSDK : MonoBehaviour
 
 #if (UNITY_ANDROID && !(UNITY_EDITOR))
 
-             MirrorWrapper.Instance.AndroidOpenWallet(walletLogoutAction);
+             MirrorWrapper.Instance.AndroidOpenWallet(walletUrl, walletLogoutAction);
 
 #elif (UNITY_IOS && !(UNITY_EDITOR))
 

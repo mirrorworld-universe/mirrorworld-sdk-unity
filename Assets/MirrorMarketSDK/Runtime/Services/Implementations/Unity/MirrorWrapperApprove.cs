@@ -151,7 +151,7 @@ namespace MirrorworldSDK.Wrapper
                 LogWarn("uuid from server is null!");
                 return;
             }
-            string url = GetActionRootWithoutVersion() + urlActionAPPROVE + actionUUID + "?useSchemeRedirect=true";
+            string url = GetActionRootWithoutVersion() + urlActionAPPROVE + actionUUID;
 
 #if (UNITY_ANDROID && !(UNITY_EDITOR))
 

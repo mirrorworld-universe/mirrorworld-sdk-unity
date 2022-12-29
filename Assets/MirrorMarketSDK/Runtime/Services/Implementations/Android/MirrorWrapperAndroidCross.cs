@@ -95,7 +95,7 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void AndroidOpenWallet(Action walletLogoutAction)
+        public void AndroidOpenWallet(string url,Action walletLogoutAction)
         {
             //AndroidSetLogoutCallback(walletLogoutAction);
 
@@ -105,7 +105,7 @@ namespace MirrorworldSDK.Wrapper
                 return;
             }
 
-            javaMirrorWorld.CallStatic("openWallet", new MirrorCallback((resultString) => {
+            javaMirrorWorld.CallStatic("openWallet", url, new MirrorCallback((resultString) => {
 
                 //LoginResponse responseBody = JsonUtility.FromJson<LoginResponse>(resultString);
 
