@@ -54,6 +54,9 @@ namespace MirrorworldSDK.Wrapper
                     approveFinalAction = null;
                 }
             }));
+            AndroidSetConstantLoginCb((loginResponse)=> {
+                SaveKeyParams(loginResponse.access_token,loginResponse.refresh_token);
+            });
         }
 
         public void AndroidSetDebug(bool useDebug)
@@ -97,8 +100,6 @@ namespace MirrorworldSDK.Wrapper
 
         public void AndroidOpenWallet(string url,Action walletLogoutAction)
         {
-            //AndroidSetLogoutCallback(walletLogoutAction);
-
             if (javaMirrorWorld == null)
             {
                 LogFlow("Must call InitSDK function first.");
@@ -106,11 +107,6 @@ namespace MirrorworldSDK.Wrapper
             }
 
             javaMirrorWorld.CallStatic("openWallet", url, new MirrorCallback((resultString) => {
-
-                //LoginResponse responseBody = JsonUtility.FromJson<LoginResponse>(resultString);
-
-                //SaveKeyParams(responseBody.access_token, responseBody.refresh_token, responseBody.user);
-
                 walletLogoutAction();
             }));
         }
@@ -137,6 +133,29 @@ namespace MirrorworldSDK.Wrapper
             }
 
             javaMirrorWorld.CallStatic("openUrl", url);
+        }
+
+        public void AndroidSetConstantLoginCb(Action<LoginResponse> action)
+        {
+            if (mirrorSDKInstance == null)
+            {
+                LogFlow("Must call InitSDK function first.");
+                return;
+            }
+
+            mirrorSDKInstance.Call("setConstantLoginStringCallback", new MirrorCallback((resultString) => {
+
+                LoginResponse responseBody = JsonUtility.FromJson<LoginResponse>(resultString);
+
+                SaveKeyParams(responseBody.access_token, responseBody.refresh_token, responseBody.user);
+
+                if (action != null)
+                {
+                    LogFlow("Constant login callback runs.");
+
+                    action(responseBody);
+                }
+            }));
         }
     }
 }

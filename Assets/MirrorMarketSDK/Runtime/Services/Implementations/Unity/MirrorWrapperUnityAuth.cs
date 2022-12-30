@@ -77,6 +77,7 @@ namespace MirrorworldSDK.Wrapper
                 if (refreshToken == "")
                 {
                     LogFlow("Try to get access token but there is no refresh token local.Seems logic is wrong.");
+                    action(false);
                     yield break;
                 }
             }
@@ -84,6 +85,7 @@ namespace MirrorworldSDK.Wrapper
             if (apiKey == "")
             {
                 LogFlow("Try to get access token but there is no api key.Seems logic is wrong.");
+                action(false);
                 yield break;
             }
 
