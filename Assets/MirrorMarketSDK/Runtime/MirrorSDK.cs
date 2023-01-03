@@ -524,7 +524,7 @@ public class MirrorSDK : MonoBehaviour
             iOSWalletLoginTokenCallback handler2 = new iOSWalletLoginTokenCallback(MirrorWrapper.iOSWalletLoginCallback);
             IntPtr fp2 = Marshal.GetFunctionPointerForDelegate(handler2);
 
-            MirrorWrapper.IOSOpenWallet(fp, fp2);
+            MirrorWrapper.IOSOpenWallet(walletUrl, fp, fp2);
 #endif
         }
     }

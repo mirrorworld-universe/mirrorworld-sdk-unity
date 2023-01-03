@@ -75,11 +75,11 @@ namespace MirrorworldSDK.Wrapper
         //--
 
         [DllImport("__Internal")]
-        public static extern void IOSOpenWallet(IntPtr iOSWalletCallBack, IntPtr iOSWalletLoginCallback);
+        public static extern void IOSOpenWallet(string walletUrl, IntPtr iOSWalletCallBack, IntPtr iOSWalletLoginCallback);
 
 
         [DllImport("__Internal")]
-        public static extern void IOSOpenMarketPlace();
+        public static extern void IOSOpenMarketPlace(string marketUrl);
 
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
