@@ -50,18 +50,31 @@ public class TestManager : MonoBehaviour
 
         bool notOpenDetail = false;
 
-        if (btnName == "BtnStartLogin")
+        Action approveFinished = () => {
+            MirrorWrapper.Instance.LogFlow("Approve finished!");
+        };
+
+        if (btnName == "BtnClearCache")
+        {
+            notOpenDetail = true;
+            PlayerPrefs.DeleteAll();
+            MirrorWrapper.Instance.LogFlow("Cleared local storage.");
+        }
+        else if (btnName == "BtnStartLogin")
         {
             notOpenDetail = true;
             MirrorSDK.StartLogin((loginResponse) => {
 #if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
                 Debug.Log("Login result:" + JsonUtility.ToJson(loginResponse));
-                MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
-                GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("UniversalDialog", monoBehaviour.transform);
-                UniversalDialog dialog = dialogCanvas.GetComponent<UniversalDialog>();
-                dialog.Init("Login","You have finished login flow before,login success in a silent way.","Got It","",()=> {
-                    dialog.DestroyDialog();
-                },null);
+                if (MirrorWrapper.Instance.debugSilentLoginSuccess)
+                {
+                    MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
+                    GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("UniversalDialog", monoBehaviour.transform);
+                    UniversalDialog dialog = dialogCanvas.GetComponent<UniversalDialog>();
+                    dialog.Init("Login", "You have finished login flow before,login success in a silent way.", "Got It", "", () => {
+                        dialog.DestroyDialog();
+                    }, null);
+                }
 #endif
             });
         }
@@ -186,7 +199,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnCreateCollection")
         {
             SetInfoPanel("CreateVerifiedCollection", "name", "symbol", "url", null, "CreateVerifiedCollection", "CreateVerifiedCollection", () => {
-                MirrorSDK.CreateVerifiedCollection(v1, v2, v3,200, null, (res) => {
+                MirrorSDK.CreateVerifiedCollection(v1, v2, v3,200, null, approveFinished,(res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 }); }
@@ -195,7 +208,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnMintNFT")
         {
             SetInfoPanel("MintNFT",  "parent collection", "name", "symbol", "url", "MintNFT", "MintNFT",()=> {
-                MirrorSDK.MintNFT(v1,v2,v3,v4,null, null, (res) => {
+                MirrorSDK.MintNFT(v1,v2,v3,v4,null, null, approveFinished,(res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
@@ -205,7 +218,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("ListNFT", "mint address", "price", null, null, "ListNFT", "ListNFT", ()=> {
                 double price = PrecisionUtil.StrToDouble(v2);
-                MirrorSDK.ListNFT(v1,price,Confirmation.Default,(res)=> {
+                MirrorSDK.ListNFT(v1,price,Confirmation.Default, approveFinished,(res)=> {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
@@ -215,7 +228,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("UpdateNFTListing", "mint address", "price", null, null, "UpdateNFTListing", "UpdateNFTListing", ()=> {
                 double price = PrecisionUtil.StrToDouble(v2);
-                MirrorSDK.UpdateNFTListing(v1,price, Confirmation.Default, (res) =>
+                MirrorSDK.UpdateNFTListing(v1,price, Confirmation.Default, approveFinished,(res) =>
                 {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
@@ -226,7 +239,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("CancelNFTListing", "mint address", "price", null, null, "CancelNFTListing", "CancelNFTListing", ()=> {
                 double price = PrecisionUtil.StrToDouble(v2);
-                MirrorSDK.CancelNFTListing(v1, price, Confirmation.Default, (res) =>
+                MirrorSDK.CancelNFTListing(v1, price, Confirmation.Default, approveFinished,(res) =>
                 {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
@@ -238,7 +251,7 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("BuyNFT", "mint address", "Price", null, null, "BuyNFT", "BuyNFT", ()=> {
                 double price = PrecisionUtil.StrToDouble(v2);
                 Debug.Log("price:"+ price);
-                MirrorSDK.BuyNFT(v1,price,(res)=> {
+                MirrorSDK.BuyNFT(v1,price, approveFinished,(res)=> {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
@@ -286,7 +299,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("TransferSol", "amount", "public key", null, null, "TransferSol", "TransferSol", ()=> {
                 ulong price = PrecisionUtil.StrToULong(v1);
-                MirrorSDK.TransferSol(price, v2,Confirmation.Default,(res)=> {
+                MirrorSDK.TransferSol(price, v2,Confirmation.Default, approveFinished,(res)=> {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
@@ -297,7 +310,7 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("TransferSPLToken", "amount", "public key", "amount", "mint_address", "Transfer", "Transfer", ()=> {
                 ulong price = PrecisionUtil.StrToULong(v1);
                 int decimals = PrecisionUtil.StrToInt(v3);
-                MirrorSDK.TransferSPLToken(v4, decimals, price,v2,(res)=> {
+                MirrorSDK.TransferSPLToken(v4, decimals, price,v2, approveFinished,(res)=> {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
