@@ -545,7 +545,7 @@ public class MirrorSDK : MonoBehaviour
 
 #elif (UNITY_IOS && !(UNITY_EDITOR))
 
-            MirrorWrapper.Instance.IOSOpenMarketPlace(url);
+            MirrorWrapper.IOSOpenMarketPlace(url);
 #endif
         }
     }
