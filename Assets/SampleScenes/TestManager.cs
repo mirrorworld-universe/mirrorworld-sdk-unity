@@ -58,24 +58,45 @@ public class TestManager : MonoBehaviour
         {
             notOpenDetail = true;
             PlayerPrefs.DeleteAll();
+            MirrorWrapper.Instance.ClearUnitySDKCache();
             MirrorWrapper.Instance.LogFlow("Cleared local storage.");
         }
         else if (btnName == "BtnStartLogin")
         {
             notOpenDetail = true;
             MirrorSDK.StartLogin((loginResponse) => {
-#if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
                 Debug.Log("Login result:" + JsonUtility.ToJson(loginResponse));
-                if (MirrorWrapper.Instance.debugSilentLoginSuccess)
+            });
+        }
+        else if (btnName == "BtnAutoLogin")
+        {
+            notOpenDetail = true;
+
+            MirrorWrapper.Instance.LogFlow("Try to login with locally storage...");
+
+            MirrorSDK.IsLoggedIn((logged) =>
+            {
+                if (logged)
                 {
-                    MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
-                    GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("UniversalDialog", monoBehaviour.transform);
-                    UniversalDialog dialog = dialogCanvas.GetComponent<UniversalDialog>();
-                    dialog.Init("Login", "You have finished login flow before,login success in a silent way.", "Got It", "", () => {
+                    UniversalDialog dialog = null;
+                    dialog = ShowUniversalNotice("Auto Login Success.", "You can do auto login testing whenever your game is opened.", "Ok", "", ()=> {
                         dialog.DestroyDialog();
                     }, null);
                 }
-#endif
+                else
+                {
+                    UniversalDialog dialog = null;
+                    Action yesAction = () => {
+                        MirrorSDK.StartLogin((loginResponse)=> {
+                            MirrorWrapper.Instance.LogFlow("Login success!");
+                            dialog.DestroyDialog();
+                        });
+                    };
+                    Action noAction = () => {
+                        dialog.DestroyDialog();
+                    };
+                    dialog = ShowUniversalNotice("Auto Login Failed.","You must call 'StartLogin' first.","StartLogin","Cancel",yesAction,noAction);
+                }
             });
         }
         else if (btnName == "BtnEmailLogin")
@@ -526,5 +547,14 @@ public class TestManager : MonoBehaviour
         if (originStr.Length == 0) return originStr;
         originStr = originStr.Substring(0, originStr.Length-1);
         return originStr;
+    }
+
+    private UniversalDialog ShowUniversalNotice(string title, string content, string yesText, string noText, Action yesAction, Action noAction)
+    {
+        MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
+        GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("UniversalDialog", monoBehaviour.transform);
+        UniversalDialog dialog = dialogCanvas.GetComponent<UniversalDialog>();
+        dialog.Init(title,content,yesText,noText,yesAction,noAction);
+        return dialog;
     }
 }

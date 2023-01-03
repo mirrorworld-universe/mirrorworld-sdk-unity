@@ -149,11 +149,16 @@ namespace MirrorworldSDK.Wrapper
             if (actionUUID == "")
             {
                 LogWarn("uuid from server is null!");
+
                 return;
             }
             string url = GetActionRootWithoutVersion() + urlActionAPPROVE + actionUUID + "?token=SOL&value=" + value;
 
-#if (UNITY_ANDROID && !(UNITY_EDITOR))
+#if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
+
+            //Application.OpenURL(url);
+
+#elif (UNITY_ANDROID && !(UNITY_EDITOR))
 
             AndroidOpenUrl(url);
 

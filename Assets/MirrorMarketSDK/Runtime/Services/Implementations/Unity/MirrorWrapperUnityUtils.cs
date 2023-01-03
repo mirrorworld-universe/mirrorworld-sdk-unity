@@ -188,10 +188,11 @@ namespace MirrorworldSDK.Wrapper
             SaveStringToLocal(localKeyRefreshToken, refreshToken);
         }
 
-        private void ClearUnitySDKCache()
+        public void ClearUnitySDKCache()
         {
+            refreshToken = "";
             accessToken = "";
-            SaveStringToLocal(localKeyRefreshToken,"");
+            SaveStringToLocal(localKeyRefreshToken, refreshToken);
         }
 
         private string GetAPIRoot()

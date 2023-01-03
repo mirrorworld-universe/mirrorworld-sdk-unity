@@ -135,30 +135,43 @@ public class MirrorSDK : MonoBehaviour
 
         MirrorWrapper.Instance.LogFlow("Start login in unity...");
 
-        MirrorWrapper.Instance.IsLoggedIn((logged)=> {
-            if (logged)
-            {
-                MirrorWrapper.Instance.debugSilentLoginSuccess = true;
+        MirrorWrapper.Instance.debugSilentLoginSuccess = false;
 
-                LoginResponse loginResponse = MirrorWrapper.Instance.GetFakeLoginResponse();
+        MirrorWrapper.Instance.GetLoginSession(MirrorWrapper.Instance.debugEmail, (startSuccess) =>
+        {
 
-                if (action != null) action(loginResponse);
-            }
-            else
-            {
-                MirrorWrapper.Instance.debugSilentLoginSuccess = false;
+            MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
 
-                MirrorWrapper.Instance.GetLoginSession(MirrorWrapper.Instance.debugEmail, (startSuccess) => {
+            GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("DialogCanvas", monoBehaviour.transform);
 
-                    MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
+            MirrorWrapper.Instance.LogFlow("Open login page result:" + startSuccess);
 
-                    GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("DialogCanvas", monoBehaviour.transform);
+        }, action);
 
-                    MirrorWrapper.Instance.LogFlow("Open login page result:" + startSuccess);
+        //MirrorWrapper.Instance.IsLoggedIn((logged)=> {
+        //    if (logged)
+        //    {
+        //        MirrorWrapper.Instance.debugSilentLoginSuccess = true;
 
-                }, action);
-            }
-        });
+        //        LoginResponse loginResponse = MirrorWrapper.Instance.GetFakeLoginResponse();
+
+        //        if (action != null) action(loginResponse);
+        //    }
+        //    else
+        //    {
+        //        MirrorWrapper.Instance.debugSilentLoginSuccess = false;
+
+        //        MirrorWrapper.Instance.GetLoginSession(MirrorWrapper.Instance.debugEmail, (startSuccess) => {
+
+        //            MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
+
+        //            GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("DialogCanvas", monoBehaviour.transform);
+
+        //            MirrorWrapper.Instance.LogFlow("Open login page result:" + startSuccess);
+
+        //        }, action);
+        //    }
+        //});
 #elif UNITY_ANDROID && !(UNITY_EDITOR)
 
             MirrorWrapper.Instance.LogFlow("Start login in android...");
