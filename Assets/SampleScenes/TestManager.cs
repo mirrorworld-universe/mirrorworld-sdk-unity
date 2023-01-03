@@ -349,7 +349,8 @@ public class TestManager : MonoBehaviour
             notOpenDetail = true;
             List<string> collections = new List<string>();
             collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
-            //MirrorSDK.OpenMarketPage(collections);
+        
+            MirrorSDK.OpenMarketPage("https://jump-devnet.mirrorworld.fun");
         }
         else if (btnName == "BtnGetCollectionFilterInfo")
         {

@@ -82,10 +82,12 @@ extern "C"
 
 extern "C"
 {
-    extern void IOSOpenMarketPlace(const char *url){
+    extern void IOSOpenMarketPlace(char *url){
         NSString *urlStr = [NSString stringWithFormat:@"%s",url];
+      
+        NSLog(@"iOS_MWSDK_LOG: - IOSOpenMarketPlace:%@",urlStr);
         [[MirrorWorldSDK share] openMarketPlacePageWithUrl:urlStr];
-        NSLog(@"iOS_MWSDK_LOG: - IOSOpenMarketPlace");
+        NSLog(@"iOS_MWSDK_LOG: - IOSOpenMarketPlace。");
     }
 }
 

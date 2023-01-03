@@ -31,7 +31,7 @@ extern "C"
 
 extern "C"
 {
-    extern void IOSOpenMarketPlace(const char *url);
+    extern void IOSOpenMarketPlace(char *url);
 }
 
 extern "C"

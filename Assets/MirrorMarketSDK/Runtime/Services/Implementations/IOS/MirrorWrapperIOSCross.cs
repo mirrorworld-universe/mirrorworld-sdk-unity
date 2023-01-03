@@ -79,7 +79,7 @@ namespace MirrorworldSDK.Wrapper
 
 
         [DllImport("__Internal")]
-        public static extern void IOSOpenMarketPlace(string marketUrl);
+        public static extern void IOSOpenMarketPlace(string url);
 
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
