@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if (UNITY_IOS && !(UNITY_EDITOR))
+using UnityEngine;
 using System.Collections;
 using System.Runtime.InteropServices;
 using AOT;
@@ -109,3 +110,4 @@ namespace MirrorworldSDK.Wrapper
     }
 }
         
+#endif

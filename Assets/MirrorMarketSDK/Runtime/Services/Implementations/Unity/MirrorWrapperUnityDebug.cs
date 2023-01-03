@@ -23,6 +23,7 @@ namespace MirrorworldSDK.Wrapper
          */
         private string debugSession = "";
         private Action<LoginResponse> loginCb = null;
+        public bool debugSilentLoginSuccess = false;
 
         public Action walletLogoutAction;
 
@@ -67,6 +68,7 @@ namespace MirrorworldSDK.Wrapper
             if(apiKey == "" || apiKey == Constant.SDKDefaultAPIKeyValue)
             {
                 LogFlow("No api key,please set it.");
+
                 return;
             }
 
@@ -120,12 +122,11 @@ namespace MirrorworldSDK.Wrapper
             });
         }
 
-        public void DebugOpenMarketPage()
+        public void DebugOpenMarketPage(string url)
         {
             IsLoggedIn((isLogged) => {
                 if (isLogged)
                 {
-                    string url = GetMarketRoot() + "?auth=" +accessToken;
                     LogFlow("Will open third browser..." + url);
                     Application.OpenURL(url);
                 }

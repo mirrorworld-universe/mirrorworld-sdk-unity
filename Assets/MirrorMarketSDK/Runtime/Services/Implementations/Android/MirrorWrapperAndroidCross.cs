@@ -25,7 +25,7 @@ namespace MirrorworldSDK.Wrapper
                 AndroidJavaObject jo = jc.GetStatic<AndroidJavaObject>("currentActivity");
 
                 javaMirrorWorld = new AndroidJavaClass("com.mirror.sdk.MirrorWorld");
-                javaMirrorWorld.CallStatic("initMirrorWorld", jo, apiKey,bridgeUtils.GetAndroidMirrorEnv(env));
+                javaMirrorWorld.CallStatic("initMirrorWorld", jo, apiKey,(int)env);
 
                 AndroidSetAuthTokenCallback();
             }
@@ -54,6 +54,9 @@ namespace MirrorworldSDK.Wrapper
                     approveFinalAction = null;
                 }
             }));
+            AndroidSetConstantLoginCb((loginResponse)=> {
+                SaveKeyParams(loginResponse.access_token,loginResponse.refresh_token);
+            });
         }
 
         public void AndroidSetDebug(bool useDebug)
@@ -95,40 +98,64 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void AndroidOpenWallet(Action walletLogoutAction)
+        public void AndroidOpenWallet(string url,Action walletLogoutAction)
         {
-            //AndroidSetLogoutCallback(walletLogoutAction);
-
             if (javaMirrorWorld == null)
             {
                 LogFlow("Must call InitSDK function first.");
                 return;
             }
 
-            javaMirrorWorld.CallStatic("openWallet", new MirrorCallback((resultString) => {
+            javaMirrorWorld.CallStatic("openWallet", url, new MirrorCallback((resultString) => {
+                walletLogoutAction();
+            }));
+        }
+
+        public void AndroidOpenMarket(string url)
+        {
+            if (javaMirrorWorld == null)
+            {
+                LogFlow("Must call InitSDK function first.");
+                return;
+            }
+
+            LogFlow("Unity try to open market with url:" + url);
+
+            AndroidOpenUrl(url);
+        }
+
+        public void AndroidOpenUrl(string url)
+        {
+            if (javaMirrorWorld == null)
+            {
+                LogFlow("Must call InitSDK function first.");
+                return;
+            }
+
+            javaMirrorWorld.CallStatic("openUrl", url);
+        }
+
+        public void AndroidSetConstantLoginCb(Action<LoginResponse> action)
+        {
+            if (mirrorSDKInstance == null)
+            {
+                LogFlow("Must call InitSDK function first.");
+                return;
+            }
+
+            mirrorSDKInstance.Call("setConstantLoginStringCallback", new MirrorCallback((resultString) => {
 
                 LoginResponse responseBody = JsonUtility.FromJson<LoginResponse>(resultString);
 
                 SaveKeyParams(responseBody.access_token, responseBody.refresh_token, responseBody.user);
 
-                walletLogoutAction();
+                if (action != null)
+                {
+                    LogFlow("Constant login callback runs.");
+
+                    action(responseBody);
+                }
             }));
-        }
-
-        public void AndroidOpenMarket()
-        {
-            if (javaMirrorWorld == null)
-            {
-                LogFlow("Must call InitSDK function first.");
-                return;
-            }
-
-            javaMirrorWorld.CallStatic("openMarket");
-        }
-
-        public void AndroidOpenUrl(string url)
-        {
-            mirrorSDKInstance.Call("openUrl", url);
         }
     }
 }

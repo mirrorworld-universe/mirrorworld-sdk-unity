@@ -12,7 +12,7 @@ namespace MirrorworldSDK
     public enum MirrorEnvPublic
     {
         ProductionMainnet = 2,
-        ProductionDevnet
+        ProductionDevnet = 3,
     }
 
     public enum EnvironmentVersion

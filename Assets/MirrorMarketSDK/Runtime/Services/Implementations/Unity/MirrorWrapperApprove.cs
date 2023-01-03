@@ -74,7 +74,7 @@ namespace MirrorworldSDK.Wrapper
                 CommonResponse<ActionAuthResponse> response = JsonUtility.FromJson<CommonResponse<ActionAuthResponse>>(result);
                 if (response.code == (long)MirrorResponseCode.Success)
                 {
-                    OpenApprovePage(response.data.uuid);
+                    OpenApprovePage(response.data.uuid, jsonObject.value);
                 }
                 else
                 {
@@ -144,16 +144,21 @@ namespace MirrorworldSDK.Wrapper
             approveRequest.value = strNeed;
         }
 
-        public void OpenApprovePage(string actionUUID)
+        public void OpenApprovePage(string actionUUID,string value)
         {
             if (actionUUID == "")
             {
                 LogWarn("uuid from server is null!");
+
                 return;
             }
-            string url = GetActionRootWithoutVersion() + urlActionAPPROVE + actionUUID + "?useSchemeRedirect=true";
+            string url = GetActionRootWithoutVersion() + urlActionAPPROVE + actionUUID + "?token=SOL&value=" + value;
 
-#if (UNITY_ANDROID && !(UNITY_EDITOR))
+#if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
+
+            //Application.OpenURL(url);
+
+#elif (UNITY_ANDROID && !(UNITY_EDITOR))
 
             AndroidOpenUrl(url);
 
@@ -192,6 +197,7 @@ namespace MirrorworldSDK.Wrapper
                 return "https://auth.mirrorworld.fun/";
             }
         }
+
     }
 }
     
