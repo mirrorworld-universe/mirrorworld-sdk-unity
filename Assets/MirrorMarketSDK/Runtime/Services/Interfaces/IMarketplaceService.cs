@@ -8,9 +8,9 @@ namespace MirrorworldSDK.Interfaces
     public interface IMarketplaceService
     {
         //create
-        public void CreateVerifiedCollection(string collectionName, string collectionSymbol, string collectionInfoUrl, string confirmation, Action<CommonResponse<MintResponse>> callBack);
+        public void CreateVerifiedCollection(string collectionName, string collectionSymbol, string collectionInfoUrl, int seller_fee_basis_points, string confirmation, Action<CommonResponse<MintResponse>> callBack);
         
-        public void CreateVerifiedSubCollection(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, string confirmation, Action<CommonResponse<MintResponse>> callBack);
+        //public void CreateVerifiedSubCollection(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, string confirmation, Action<CommonResponse<MintResponse>> callBack);
 
         public void MintNFT(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, string confirmation, string mint_id, Action<CommonResponse<MintResponse>> callBack);
 

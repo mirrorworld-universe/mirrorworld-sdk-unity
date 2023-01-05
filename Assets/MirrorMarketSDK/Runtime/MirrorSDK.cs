@@ -255,7 +255,7 @@ public class MirrorSDK : MonoBehaviour
             {
                 approveFinished();
             }
-            MirrorWrapper.Instance.CreateVerifiedCollection(collectionName, collectionSymbol, NFTDetailJson, confirmation, callBack);
+            MirrorWrapper.Instance.CreateVerifiedCollection(collectionName, collectionSymbol, NFTDetailJson, seller_fee_basis_points, confirmation, callBack);
         });
     }
 

@@ -53,14 +53,15 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void CreateVerifiedCollection(string collectionName, string collectionSymbol, string collectionInfoUrl, string confirmation, Action<CommonResponse<MintResponse>> callBack)
+        public void CreateVerifiedCollection(string collectionName, string collectionSymbol, string collectionInfoUrl,int seller_fee_basis_points, string confirmation, Action<CommonResponse<MintResponse>> callBack)
         {
             CreateCollectionRequest requestBody = new CreateCollectionRequest();
 
             requestBody.name = collectionName;
             requestBody.symbol = collectionSymbol;
             requestBody.url = collectionInfoUrl;
-            if(confirmation != null) requestBody.comfirmation = confirmation;
+            requestBody.seller_fee_basis_points = seller_fee_basis_points;
+            if (confirmation != null) requestBody.comfirmation = confirmation;
 
             var rawRequestBody = JsonUtility.ToJson(requestBody);
 
@@ -75,28 +76,28 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void CreateVerifiedSubCollection(string parentCollection,string collectionName, string collectionSymbol, string collectionInfoUrl,string confirmation, Action<CommonResponse<MintResponse>> callBack)
-        {
-            CreateSubCollectionRequest requestBody = new CreateSubCollectionRequest();
+        //public void CreateVerifiedSubCollection(string parentCollection,string collectionName, string collectionSymbol, string collectionInfoUrl,string confirmation, Action<CommonResponse<MintResponse>> callBack)
+        //{
+        //    CreateSubCollectionRequest requestBody = new CreateSubCollectionRequest();
 
-            requestBody.name = collectionName;
-            requestBody.symbol = collectionSymbol;
-            requestBody.url = collectionInfoUrl;
-            requestBody.collection_mint = parentCollection;
-            if (confirmation != null) requestBody.confirmation = confirmation;
+        //    requestBody.name = collectionName;
+        //    requestBody.symbol = collectionSymbol;
+        //    requestBody.url = collectionInfoUrl;
+        //    requestBody.collection_mint = parentCollection;
+        //    if (confirmation != null) requestBody.confirmation = confirmation;
 
-            var rawRequestBody = JsonUtility.ToJson(requestBody);
+        //    var rawRequestBody = JsonUtility.ToJson(requestBody);
 
-            string url = GetAPIRoot() + urlMintLowerLevelCollection;
+        //    string url = GetAPIRoot() + urlMintLowerLevelCollection;
 
-            monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
+        //    monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
 
-                CommonResponse<MintResponse> responseBody = JsonUtility.FromJson<CommonResponse<MintResponse>>(response);
+        //        CommonResponse<MintResponse> responseBody = JsonUtility.FromJson<CommonResponse<MintResponse>>(response);
 
-                callBack(responseBody);
+        //        callBack(responseBody);
 
-            }));
-        }
+        //    }));
+        //}
 
         public void MintNFT(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl,string confirmation, string mint_id,Action<CommonResponse<MintResponse>> callBack)
         {
