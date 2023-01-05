@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MirrorworldSDK.Wrapper;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,7 +31,8 @@ public class UniversalDialog : MonoBehaviour
 
     public void DestroyDialog()
     {
-        GameObject.DestroyImmediate(gameObject);
+        MirrorWrapper.Instance.LogFlow("Universal dialog destroied.");
+        GameObject.Destroy(gameObject);
     }
 
     public void OnBtnYesClicked()

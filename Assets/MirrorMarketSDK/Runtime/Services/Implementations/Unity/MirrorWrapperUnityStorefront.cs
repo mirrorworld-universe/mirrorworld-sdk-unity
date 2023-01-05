@@ -44,7 +44,7 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void GetCollectionInfo(List<string> collections, Action<CommonResponse<GetCollectionInfoResponse>> callback)
+        public void GetCollectionInfo(List<string> collections, Action<CommonResponse<List<GetCollectionInfoResponse>>> callback)
         {
             GetCollectionInfoRequest requestBody = new GetCollectionInfoRequest();
 
@@ -56,7 +56,7 @@ namespace MirrorworldSDK.Wrapper
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
 
-                CommonResponse<GetCollectionInfoResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetCollectionInfoResponse>>(response);
+                CommonResponse<List<GetCollectionInfoResponse>> responseBody = JsonUtility.FromJson<CommonResponse<List<GetCollectionInfoResponse>>>(response);
 
                 callback(responseBody);
 
@@ -86,7 +86,7 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void SearchNFTs(List<string> collections, string searchString, Action<CommonResponse<SearchNFTsRequest>> callback)
+        public void SearchNFTs(List<string> collections, string searchString, Action<CommonResponse<List<MirrorMarketNFTObj>>> callback)
         {
             SearchNFTsRequest requestBody = new SearchNFTsRequest();
 
@@ -100,7 +100,9 @@ namespace MirrorworldSDK.Wrapper
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
 
-                CommonResponse<SearchNFTsRequest> responseBody = JsonUtility.FromJson<CommonResponse<SearchNFTsRequest>>(response);
+                Debug.Log("SearchNFTs result:"+response);
+
+                CommonResponse <List<MirrorMarketNFTObj>> responseBody = JsonUtility.FromJson<CommonResponse<List<MirrorMarketNFTObj>>>(response);
 
                 callback(responseBody);
 

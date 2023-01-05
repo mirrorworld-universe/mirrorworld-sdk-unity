@@ -47,30 +47,6 @@ public class MirrorSDK : MonoBehaviour
     public static void InitSDK(string apiKey, GameObject gameObject, bool useDebug, MirrorEnv environment)
     {
         Debug.Log("env:"+ environment);
-        //CreateNftRequest requestBody = new CreateNftRequest();
-
-        //requestBody.name = "";
-        //requestBody.symbol = "aaafb";
-        //requestBody.url = "urlsafds";
-        //requestBody.collection_mint = "";
-        ////requestBody.mint_id = "";
-        //string finalstr = JsonUtility.ToJson(requestBody);
-        //Debug.Log("final value is1:" + finalstr);
-        //finalstr = JsonAttrRemover.RemoveEmptyAttr(finalstr);
-        //Debug.Log("final value is:" + finalstr);
-
-        //ApproveListNFT apiParams = new ApproveListNFT();
-        //apiParams.mint_address = "zxlkjkasdfasdf";
-        //apiParams.price = "0.1";
-
-        //CommonApprove<ApproveListNFT> jsonObject = new CommonApprove<ApproveListNFT>();
-        //jsonObject.type = MirrorSafeOptType.TransferSPLToken;
-        //jsonObject.message = "test";
-        //jsonObject.value = "0";
-        //MirrorWrapper.Instance.HandleValue(jsonObject, apiParams);
-        //jsonObject.paramsPlaceHolder = apiParams;
-        //Debug.Log("final value is:" + JsonUtility.ToJson(jsonObject));
-
 
         //Test
         environment = MirrorEnv.StagingDevNet;
@@ -265,12 +241,12 @@ public class MirrorSDK : MonoBehaviour
         });
     }
 
-    public static void CreateVerifiedCollection(string collectionName, string collectionSymbol, string collectionInfoUrl,int seller_fee_basis_points, string confirmation,Action approveFinished, Action<CommonResponse<MintResponse>> callBack)
+    public static void CreateVerifiedCollection(string collectionName, string collectionSymbol, string NFTDetailJson,int seller_fee_basis_points, string confirmation,Action approveFinished, Action<CommonResponse<MintResponse>> callBack)
     {
         ApproveCreateCollection requestParams = new ApproveCreateCollection();
         requestParams.name = collectionName;
         requestParams.symbol = collectionSymbol;
-        requestParams.url = collectionInfoUrl;
+        requestParams.url = NFTDetailJson;
         requestParams.confirmation = confirmation;
         requestParams.seller_fee_basis_points = seller_fee_basis_points;
 
@@ -279,7 +255,7 @@ public class MirrorSDK : MonoBehaviour
             {
                 approveFinished();
             }
-            MirrorWrapper.Instance.CreateVerifiedCollection(collectionName, collectionSymbol, collectionInfoUrl, confirmation, callBack);
+            MirrorWrapper.Instance.CreateVerifiedCollection(collectionName, collectionSymbol, NFTDetailJson, confirmation, callBack);
         });
     }
 
@@ -431,7 +407,7 @@ public class MirrorSDK : MonoBehaviour
     {
         MirrorWrapper.Instance.GetWalletTransactionsBySignatrue(signature, action);
     }
-    public static void TransferSol(ulong amount, string to_publickey, string confirmation,Action approveFinished, Action<CommonResponse<TransferSolResponse>> callBack)
+    public static void TransferSol(int amount, string to_publickey, string confirmation,Action approveFinished, Action<CommonResponse<TransferSolResponse>> callBack)
     {
         ApproveTransferSOL requestParams = new ApproveTransferSOL();
         requestParams.to_publickey = to_publickey;
@@ -563,7 +539,7 @@ public class MirrorSDK : MonoBehaviour
     {
         MirrorWrapper.Instance.GetNFTInfo(mintAddress, callBack);
     }
-    public static void GetCollectionInfo(List<string> collections, Action<CommonResponse<GetCollectionInfoResponse>> callback)
+    public static void GetCollectionInfo(List<string> collections, Action<CommonResponse<List<GetCollectionInfoResponse>>> callback)
     {
         MirrorWrapper.Instance.GetCollectionInfo(collections, callback);
     }
@@ -571,7 +547,7 @@ public class MirrorSDK : MonoBehaviour
     {
         MirrorWrapper.Instance.GetNFTEvents(mintAddress, page, pageSize, callback);
     }
-    public static void SearchNFTs(List<string> collections, string searchString, Action<CommonResponse<SearchNFTsRequest>> callback)
+    public static void SearchNFTs(List<string> collections, string searchString, Action<CommonResponse<List<MirrorMarketNFTObj>>> callback)
     {
         MirrorWrapper.Instance.SearchNFTs(collections, searchString, callback);
     }
@@ -579,7 +555,7 @@ public class MirrorSDK : MonoBehaviour
     {
         MirrorWrapper.Instance.RecommendSearchNFT(collections, callback);
     }
-    public static void GetNFTs(string collection, int page, int pageSize, string orderByString, bool desc, List<GetNFTsRequestFilter> filters, Action<CommonResponse<GetNFTsResponse>> callback)
+    public static void GetNFTsByUnabridgedParams(string collection, int page, int pageSize, string orderByString, bool desc, List<GetNFTsRequestFilter> filters, Action<CommonResponse<GetNFTsResponse>> callback)
     {
         MirrorWrapper.Instance.GetNFTsByUnabridgedParams(collection, page, pageSize, orderByString,desc, filters,callback);
     }

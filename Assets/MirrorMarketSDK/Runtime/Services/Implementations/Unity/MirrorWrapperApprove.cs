@@ -86,17 +86,14 @@ namespace MirrorworldSDK.Wrapper
         public void HandleValue<T>(CommonApprove<T> approveRequest, T apiParams)
         {
             bool haveAmountParam = false;
-            ulong amountObj = 0;
+            double amountObj = 0;
             int decimalsObj = 9;
-            bool havePriceParam = false;
-            float priceObj = 0;
 
             if (apiParams.GetType() == typeof(ApproveListNFT))
             {
                 ApproveListNFT approveListNFT = apiParams as ApproveListNFT;
-                priceObj = PrecisionUtil.StrToFloat(approveListNFT.price);
-                havePriceParam = true;
-                approveRequest.value = approveListNFT.price;
+                amountObj = PrecisionUtil.StrToFloat(approveListNFT.price);
+                haveAmountParam = true;
                 return;
             }
             else if (apiParams.GetType() == typeof(ApproveTransferSOL))
@@ -120,11 +117,8 @@ namespace MirrorworldSDK.Wrapper
                 valueValue = amountObj;
                 valueCount++;
             }
-            if (havePriceParam)
-            {
-                valueValue = priceObj;
-                valueCount++;
-            }
+            LogFlow("HandleValue valueValue:" + valueValue);
+            LogFlow("HandleValue decimalsObj:" + decimalsObj);
 
             if (valueCount == 0)
             {
@@ -137,10 +131,16 @@ namespace MirrorworldSDK.Wrapper
                 return;
             }
 
+            int digit = GetDigit(valueValue);
+            int totalDigit = digit + decimalsObj;
             double dec = Math.Pow(10, decimalsObj);
             double v = valueValue / dec;
-            string strNeed = string.Format("{0:F" + decimalsObj + "}", v);
+            string strNeed = string.Format("{0:F" + totalDigit + "}", v);
 
+            LogFlow("HandleValue v:" + v);
+            LogFlow("HandleValue totalDigit:" + totalDigit);
+            LogFlow("HandleValue dec:" + dec);
+            LogFlow("HandleValue strNeed:" + strNeed);
             approveRequest.value = strNeed;
         }
 
@@ -152,11 +152,12 @@ namespace MirrorworldSDK.Wrapper
 
                 return;
             }
-            string url = GetActionRootWithoutVersion() + urlActionAPPROVE + actionUUID + "?token=SOL&value=" + value;
+            string url = GetActionRootWithoutVersion() + urlActionAPPROVE + actionUUID;
 
 #if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
 
-            //Application.OpenURL(url);
+            //todo:need to add API to finish this flow.
+            Application.OpenURL(url);
 
 #elif (UNITY_ANDROID && !(UNITY_EDITOR))
 
@@ -196,6 +197,36 @@ namespace MirrorworldSDK.Wrapper
                 LogFlow("Unknown env:" + environment);
                 return "https://auth.mirrorworld.fun/";
             }
+        }
+
+        private int GetDigit(double number)
+        {
+            if(haveSmallDigit(number))
+            {
+                return 0;
+            }
+            for(int i = 1; i < 10; i++)
+            {
+                if(haveSmallDigit(number * Math.Pow(10, i)))
+                {
+                    return i;
+                }
+            }
+            return 10;
+        }
+
+        private bool haveSmallDigit(double number)
+        {
+            double pre = Math.Truncate(number);
+
+            double after = number - pre;
+
+            if(after == 0)
+            {
+                return true;
+            }
+
+            return false;
         }
 
     }

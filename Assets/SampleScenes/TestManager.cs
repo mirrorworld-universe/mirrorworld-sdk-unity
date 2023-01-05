@@ -219,8 +219,9 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnCreateCollection")
         {
-            SetInfoPanel("CreateVerifiedCollection", "name", "symbol", "url", null, "CreateVerifiedCollection", "CreateVerifiedCollection", () => {
-                MirrorSDK.CreateVerifiedCollection(v1, v2, v3,200, null, approveFinished,(res) => {
+            SetInfoPanel("CreateVerifiedCollection", "name", "symbol", "url", "seller fee basis points", "CreateVerifiedCollection", "CreateVerifiedCollection", () => {
+                int seller_fee_basis_points = (int)PrecisionUtil.StrToDouble(v4);
+                MirrorSDK.CreateVerifiedCollection(v1, v2, v3, seller_fee_basis_points, null, approveFinished,(res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 }); }
@@ -269,7 +270,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnBuyNFT")
         {
-            SetInfoPanel("BuyNFT", "mint address", "Price", null, null, "BuyNFT", "BuyNFT", ()=> {
+            SetInfoPanel("Buy NFT", "mint address", "Price", null, null, "BuyNFT", "BuyNFT", ()=> {
                 double price = PrecisionUtil.StrToDouble(v2);
                 Debug.Log("price:"+ price);
                 MirrorSDK.BuyNFT(v1,price, approveFinished,(res)=> {
@@ -280,7 +281,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnTransferNFT")
         {
-            SetInfoPanel("FetchNFTsByMintAddresses", "mint address", "to wallet", null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses",()=> {
+            SetInfoPanel("Transfer NFT", "mint address", "to wallet", null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses",()=> {
                 MirrorSDK.TransferNFT(v1,v2,(res)=> {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
@@ -289,7 +290,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnGetWalletTokens")
         {
-            SetInfoPanel("GetWalletTokens", null, null, null, null, "GetWalletTokens", "GetWalletTokens", ()=> {
+            SetInfoPanel("Get WalletTokens", null, null, null, null, "GetWalletTokens", "GetWalletTokens", ()=> {
                 MirrorSDK.GetTokens((res)=> {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
@@ -319,7 +320,16 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnTransferSol")
         {
             SetInfoPanel("TransferSol", "amount", "public key", null, null, "TransferSol", "TransferSol", ()=> {
-                ulong price = PrecisionUtil.StrToULong(v1);
+                if (v1.Contains('.'))
+                {
+                    int realAmout = (int)PrecisionUtil.StrToDouble(v1);
+                    UniversalDialog dialog = null;
+                    Action yesAction = () => {
+                        dialog.DestroyDialog();
+                    };
+                    dialog = ShowUniversalNotice("Tips","You can only transfer integer, so the transfer amount now is:"+ realAmout,"Got it","", yesAction,null);
+                }
+                int price = (int)PrecisionUtil.StrToDouble(v1);
                 MirrorSDK.TransferSol(price, v2,Confirmation.Default, approveFinished,(res)=> {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
@@ -434,7 +444,7 @@ public class TestManager : MonoBehaviour
                 string orderByString = v4;
                 bool desc = true;
 
-                MirrorSDK.GetNFTs(collection,page,pageSize, orderByString,desc,null,(res) => {
+                MirrorSDK.GetNFTsByUnabridgedParams(collection,page,pageSize, orderByString,desc,null,(res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
