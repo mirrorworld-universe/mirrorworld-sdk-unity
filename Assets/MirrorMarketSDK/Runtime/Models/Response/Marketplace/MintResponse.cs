@@ -18,6 +18,8 @@ namespace MirrorworldSDK.Models
 
         public string collection;
 
+        public string seller_fee_basis_points;
+
         public string signature;
 
         public string status;

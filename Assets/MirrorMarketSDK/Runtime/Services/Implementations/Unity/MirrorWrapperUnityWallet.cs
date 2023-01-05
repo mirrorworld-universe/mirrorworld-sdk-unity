@@ -31,7 +31,7 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void GetWalletTransactions(float number,string nextBefore, Action<CommonResponse<TransferTokenResponse>> action)
+        public void GetWalletTransactions(double number,string nextBefore, Action<CommonResponse<TransferTokenResponse>> action)
         {
             string url = GetAPIRoot() + urlGetWalletTransaction + "?limit=" + number + "&next_before=" + nextBefore;
 
@@ -56,13 +56,13 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void TransferSol(ulong amout, string publicKey,string confirmation, Action<CommonResponse<TransferSolResponse>> callBack)
+        public void TransferSol(int amount, string publicKey,string confirmation, Action<CommonResponse<TransferSolResponse>> callBack)
         {
             string url = GetAPIRoot() + urlTransferSolToAnotherAddress;
 
             TransferSolRequest requestBody = new TransferSolRequest();
 
-            requestBody.amount = amout;
+            requestBody.amount = amount;
 
             requestBody.to_publickey = publicKey;
 
@@ -81,15 +81,19 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void TransferSPLToken(ulong amout, string publicKey, Action<CommonResponse<TransferTokenResponse>> callBack)
+        public void TransferSPLToken(string token_mint, int decimals, ulong amount, string to_publickey, Action<CommonResponse<TransferTokenResponse>> callBack)
         {
             string url = GetAPIRoot() + urlTransferTokenToAnotherAddress;
 
             TransferTokenRequest requestBody = new TransferTokenRequest();
 
-            requestBody.amount = amout;
+            requestBody.amount = amount;
 
-            requestBody.to_publickey = publicKey;
+            requestBody.to_publickey = to_publickey;
+
+            requestBody.decimals = decimals;
+
+            requestBody.token_mint = token_mint;
 
             var rawRequestBody = JsonUtility.ToJson(requestBody);
 

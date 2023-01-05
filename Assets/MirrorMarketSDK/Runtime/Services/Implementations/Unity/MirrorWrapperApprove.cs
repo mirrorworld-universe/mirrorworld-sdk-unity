@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System;
 using MirrorworldSDK.Models;
 
+using System.Runtime.InteropServices;
+
 namespace MirrorworldSDK.Wrapper
 {
     public partial class MirrorWrapper
@@ -24,7 +26,7 @@ namespace MirrorworldSDK.Wrapper
                 return;
             }
             approveFinalAction = callback;
-            RequestActionAuthorization(type,message, request);
+            RequestActionAuthorization<T>(type,message, request);
         }
 
         public string GetActionRoot()
@@ -72,11 +74,11 @@ namespace MirrorworldSDK.Wrapper
                 CommonResponse<ActionAuthResponse> response = JsonUtility.FromJson<CommonResponse<ActionAuthResponse>>(result);
                 if (response.code == (long)MirrorResponseCode.Success)
                 {
-                    OpenApprovePage(response.data.uuid);
+                    OpenApprovePage(response.data.uuid, jsonObject.value);
                 }
                 else
                 {
-                    //                    if(callback != null) callback("");
+                    LogFlow("requestActionAuthorization failed.");
                 }
             }));
         }
@@ -84,16 +86,15 @@ namespace MirrorworldSDK.Wrapper
         public void HandleValue<T>(CommonApprove<T> approveRequest, T apiParams)
         {
             bool haveAmountParam = false;
-            ulong amountObj = 9;
-            int decimalsObj = -100;
-            bool havePriceParam = false;
-            double priceObj = 0;
+            double amountObj = 0;
+            int decimalsObj = 9;
 
             if (apiParams.GetType() == typeof(ApproveListNFT))
             {
                 ApproveListNFT approveListNFT = apiParams as ApproveListNFT;
-                priceObj = approveListNFT.price;
-                havePriceParam = true;
+                amountObj = PrecisionUtil.StrToFloat(approveListNFT.price);
+                haveAmountParam = true;
+                return;
             }
             else if (apiParams.GetType() == typeof(ApproveTransferSOL))
             {
@@ -116,11 +117,8 @@ namespace MirrorworldSDK.Wrapper
                 valueValue = amountObj;
                 valueCount++;
             }
-            if (havePriceParam)
-            {
-                valueValue = priceObj;
-                valueCount++;
-            }
+            LogFlow("HandleValue valueValue:" + valueValue);
+            LogFlow("HandleValue decimalsObj:" + decimalsObj);
 
             if (valueCount == 0)
             {
@@ -133,29 +131,46 @@ namespace MirrorworldSDK.Wrapper
                 return;
             }
 
+            int digit = GetDigit(valueValue);
+            int totalDigit = digit + decimalsObj;
             double dec = Math.Pow(10, decimalsObj);
             double v = valueValue / dec;
-            string strNeed = string.Format("{0:F" + decimalsObj + "}", v);
+            string strNeed = string.Format("{0:F" + totalDigit + "}", v);
 
+            LogFlow("HandleValue v:" + v);
+            LogFlow("HandleValue totalDigit:" + totalDigit);
+            LogFlow("HandleValue dec:" + dec);
+            LogFlow("HandleValue strNeed:" + strNeed);
             approveRequest.value = strNeed;
         }
 
-        public void OpenApprovePage(string actionUUID)
+        public void OpenApprovePage(string actionUUID,string value)
         {
             if (actionUUID == "")
             {
                 LogWarn("uuid from server is null!");
+
                 return;
             }
-            string url = GetActionRootWithoutVersion() + urlActionAPPROVE + actionUUID + "?useSchemeRedirect=true";
+            string url = GetActionRootWithoutVersion() + urlActionAPPROVE + actionUUID;
 
-#if (UNITY_ANDROID && !(UNITY_EDITOR))
+#if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
+
+            //todo:need to add API to finish this flow.
+            Application.OpenURL(url);
+
+#elif (UNITY_ANDROID && !(UNITY_EDITOR))
 
             AndroidOpenUrl(url);
 
 #elif (UNITY_IOS && !(UNITY_EDITOR))
 
             IOSOpenUrl(url);
+
+            IOSSecurityAuthCallback handler = new IOSSecurityAuthCallback(IOSGetSecurityAuthToken);
+            IntPtr fp = Marshal.GetFunctionPointerForDelegate(handler);
+            MirrorWrapper.IOSOpenUrlSetCallBack(fp);
+
 #endif
         }
 
@@ -183,6 +198,37 @@ namespace MirrorworldSDK.Wrapper
                 return "https://auth.mirrorworld.fun/";
             }
         }
+
+        private int GetDigit(double number)
+        {
+            if(haveSmallDigit(number))
+            {
+                return 0;
+            }
+            for(int i = 1; i < 10; i++)
+            {
+                if(haveSmallDigit(number * Math.Pow(10, i)))
+                {
+                    return i;
+                }
+            }
+            return 10;
+        }
+
+        private bool haveSmallDigit(double number)
+        {
+            double pre = Math.Truncate(number);
+
+            double after = number - pre;
+
+            if(after == 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }
     

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if (UNITY_IOS && !(UNITY_EDITOR))
+using UnityEngine;
 using System.Collections;
 using System.Runtime.InteropServices;
 using AOT;
@@ -74,11 +75,11 @@ namespace MirrorworldSDK.Wrapper
         //--
 
         [DllImport("__Internal")]
-        public static extern void IOSOpenWallet(IntPtr iOSWalletCallBack, IntPtr iOSWalletLoginCallback);
+        public static extern void IOSOpenWallet(string walletUrl, IntPtr iOSWalletCallBack, IntPtr iOSWalletLoginCallback);
 
 
         [DllImport("__Internal")]
-        public static extern void IOSOpenMarketPlace();
+        public static extern void IOSOpenMarketPlace(string url);
 
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -102,6 +103,11 @@ namespace MirrorworldSDK.Wrapper
 
         [DllImport("__Internal")]
         public static extern void IOSOpenUrl(string url);
+
+        [DllImport("__Internal")]
+        public static extern void IOSOpenUrlSetCallBack(IntPtr IOSGetSecurityAuthToken);
+
     }
 }
         
+#endif

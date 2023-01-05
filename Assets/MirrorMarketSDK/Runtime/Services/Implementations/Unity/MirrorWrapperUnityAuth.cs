@@ -16,6 +16,7 @@ namespace MirrorworldSDK.Wrapper
         private readonly string urlGetCurrentUser = "auth/me";
         private readonly string urlQueryUser = "auth/user";
         private readonly string urlLogout = "auth/logout";
+        private readonly string urlGuestLogin = "auth/guest-login";
 
         public void GetCurrentUserInfo(Action<CommonResponse<UserResponse>> callBack)
         {
@@ -27,6 +28,8 @@ namespace MirrorworldSDK.Wrapper
                 callBack(responseBody);
             }));
         }
+
+
 
         public void LoginWithEmail(string emailAddress, string password, Action<CommonResponse<LoginResponse>> callBack)
         {
@@ -66,7 +69,7 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public IEnumerator DoGetAccessToken()
+        public IEnumerator DoGetAccessToken(Action<bool> action)
         {
             if (refreshToken == "")
             {
@@ -74,6 +77,7 @@ namespace MirrorworldSDK.Wrapper
                 if (refreshToken == "")
                 {
                     LogFlow("Try to get access token but there is no refresh token local.Seems logic is wrong.");
+                    action(false);
                     yield break;
                 }
             }
@@ -81,6 +85,7 @@ namespace MirrorworldSDK.Wrapper
             if (apiKey == "")
             {
                 LogFlow("Try to get access token but there is no api key.Seems logic is wrong.");
+                action(false);
                 yield break;
             }
 
@@ -107,17 +112,27 @@ namespace MirrorworldSDK.Wrapper
                 LogFlow("GetAccessToken success");
 
                 SaveKeyParams(responseBody.data.access_token, responseBody.data.refresh_token, responseBody.data.user);
+
+                if(action != null)
+                {
+                    action(true);
+                }
             }
             else
             {
                 LogFlow("GetAccessToken failed: code:" + responseBody.code + " reason:" + responseBody.error);
+
+                if (action != null)
+                {
+                    action(false);
+                }
             }
 
         }
 
-        public void GetAccessToken()
+        public void GetAccessToken(Action<bool> action)
         {
-            monoBehaviour.StartCoroutine(DoGetAccessToken());
+            monoBehaviour.StartCoroutine(DoGetAccessToken(action));
         }
 
         public void IsLoggedIn(Action<bool> action)
@@ -137,6 +152,25 @@ namespace MirrorworldSDK.Wrapper
 
                 action(responseBody.code == (long)MirrorResponseCode.Success);
 
+            }));
+        }
+
+        public void GuestLogin(Action<LoginResponse> action)
+        {
+            string url = GetAuthRoot() + urlGuestLogin;
+
+            monoBehaviour.StartCoroutine(CheckAndGet(url, null, (response) => {
+
+                LogFlow("IsLoggedIn result:" + response);
+
+                CommonResponse<LoginResponse> responseBody = JsonUtility.FromJson<CommonResponse<LoginResponse>>(response);
+
+                if (responseBody.code == (long)MirrorResponseCode.Success)
+                {
+                    SaveCurrentUser(responseBody.data.user);
+
+                    action(responseBody.data);
+                }
             }));
         }
     }

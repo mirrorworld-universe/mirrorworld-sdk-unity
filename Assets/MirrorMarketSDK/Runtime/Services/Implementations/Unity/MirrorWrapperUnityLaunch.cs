@@ -47,6 +47,11 @@ namespace MirrorworldSDK.Wrapper
             this.apiKey = apiKey;
         }
 
+        public MirrorEnvPublic GetEnvironment()
+        {
+            return (MirrorEnvPublic)environment;
+        }
+
         public MonoBehaviour GetMonoBehaviour()
         {
             return monoBehaviour;

@@ -8,7 +8,7 @@ namespace MirrorworldSDK.Wrapper
     public class ApproveListNFT
     {
         public string mint_address;
-        public double price;
+        public string price;
         public string auction_house;
         public string confirmation;
     }
