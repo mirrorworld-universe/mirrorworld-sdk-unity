@@ -8,6 +8,6 @@ namespace MirrorworldSDK.Models
     {
         public string to_publickey;
 
-        public ulong amount;
+        public double amount;
     }
 }

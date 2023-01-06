@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MirrorworldSDK.Models;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -22,7 +23,7 @@ namespace MirrorworldSDK.Wrapper
             if (accessToken == "")
             {
                 LogFlow("No access token,try to get one...");
-                yield return monoBehaviour.StartCoroutine(DoGetAccessToken());
+                yield return monoBehaviour.StartCoroutine(DoGetAccessToken(null));
                 if (accessToken == "")
                 {
                     LogFlow("Get access token failed.");
@@ -50,7 +51,7 @@ namespace MirrorworldSDK.Wrapper
             if (accessToken == "")
             {
                 LogFlow("No access token,try to get one...");
-                yield return monoBehaviour.StartCoroutine(DoGetAccessToken());
+                yield return monoBehaviour.StartCoroutine(DoGetAccessToken(null));
                 if (accessToken == "")
                 {
                     LogFlow("Get access token failed.");
@@ -99,6 +100,22 @@ namespace MirrorworldSDK.Wrapper
 
         private IEnumerator Get(string url, Dictionary<string,string> requestParams, Action<string> callBack)
         {
+            if(requestParams != null && requestParams.Count != 0)
+            {
+                string paramsString = "";
+                for (int i = 0; i < requestParams.Count; i++)
+                {
+                    var item = requestParams.ElementAt(i);
+                    if (i != 0)
+                    {
+                        paramsString += "&";
+                    }
+                    paramsString += item.Key + "=" + item.Value;
+                }
+                url = url + "?" + paramsString;
+            }
+            LogFlow("Get url:" + url);
+
             UnityWebRequest request = new UnityWebRequest(url, "GET");
 
             MirrorUtils.SetContentTypeHeader(request);
@@ -171,10 +188,11 @@ namespace MirrorworldSDK.Wrapper
             SaveStringToLocal(localKeyRefreshToken, refreshToken);
         }
 
-        private void ClearUnitySDKCache()
+        public void ClearUnitySDKCache()
         {
+            refreshToken = "";
             accessToken = "";
-            SaveStringToLocal(localKeyRefreshToken,"");
+            SaveStringToLocal(localKeyRefreshToken, refreshToken);
         }
 
         private string GetAPIRoot()
@@ -225,6 +243,20 @@ namespace MirrorworldSDK.Wrapper
                 LogFlow("GetAuthRoot failed! env is:" + environment);
                 return Constant.UserRootStagingDevnet;
             }
+        }
+
+        public string GetMarketUrl(string marketRoot)
+        {
+            string url = marketRoot + "?auth=" + accessToken;
+
+            return url;
+        }
+
+        public string GetWalletUrl()
+        {
+            String url = GetEntranceRoot() + "jwt?key=" + accessToken;
+
+            return url;
         }
 
         private string GetMarketRoot()

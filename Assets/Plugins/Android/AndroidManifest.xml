@@ -4,6 +4,13 @@
     package="com.unity3d.player"
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET" />
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https"/>
+        </intent>
+    </queries>
     <application>
         <activity android:name="com.unity3d.player.UnityPlayerActivity"
                     android:launchMode="singleInstance"

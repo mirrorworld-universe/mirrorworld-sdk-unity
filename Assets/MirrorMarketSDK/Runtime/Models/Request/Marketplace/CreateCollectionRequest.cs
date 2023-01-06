@@ -14,5 +14,7 @@ namespace MirrorworldSDK.Models
         public string url;
 
         public string comfirmation;
+
+        public int seller_fee_basis_points;
     }
 }

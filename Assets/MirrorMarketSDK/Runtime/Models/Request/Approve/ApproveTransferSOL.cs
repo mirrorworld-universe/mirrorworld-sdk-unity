@@ -8,7 +8,7 @@ namespace MirrorworldSDK.Wrapper
     public class ApproveTransferSOL
     {
         public string to_publickey;
-        public ulong amount;
+        public double amount;
     }
 }
 
