@@ -49,7 +49,7 @@ public class MirrorSDK : MonoBehaviour
         Debug.Log("env:"+ environment);
 
         //Test
-        environment = MirrorEnv.StagingDevNet;
+        //environment = MirrorEnv.StagingDevNet;
 
         if (environment == MirrorEnv.StagingDevNet || environment == MirrorEnv.StagingMainNet)
         {
