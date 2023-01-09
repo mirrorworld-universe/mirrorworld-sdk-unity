@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/MirrorWorldSDK-Swift.h</key>
 		<data>
-		ZDwfYuNQAKLm0xW727HtcyatHkQ=
+		mIw61F3uRakh1XAONd3FYdNo0HA=
 		</data>
 		<key>Headers/MirrorWorldSDK-umbrella.h</key>
 		<data>
@@ -14,11 +14,15 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		SvMpSUDI+PXDWGqdufF8SEbx7JA=
+		i97BIWA1Z+hEBopyZISwHiKgc0I=
 		</data>
 		<key>Modules/MirrorWorldSDK.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		FWRAryp8t2CtvKrPcvAspjhzaGs=
+		hOAZZGmrSWu4bUb3pfX65G5UYDE=
+		</data>
+		<key>Modules/MirrorWorldSDK.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
+		<data>
+		d5RgThTdR+qTspvpelJuKxQM9xA=
 		</data>
 		<key>Modules/MirrorWorldSDK.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -26,11 +30,23 @@
 		</data>
 		<key>Modules/MirrorWorldSDK.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		AyAuXdAdBX+dHgHqI2/Uage7oyE=
+		vNCPbExbxJY/+ypP0SyhmovadQo=
 		</data>
 		<key>Modules/MirrorWorldSDK.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		cwmww/Co8lYUy9mv2Y1ZQtxYedA=
+		Hy96sl69Drkn11rzFExqddQqC78=
+		</data>
+		<key>Modules/MirrorWorldSDK.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
+		<data>
+		FSPnLbho3G+LL9smI3XgVOqBIQ4=
+		</data>
+		<key>Modules/MirrorWorldSDK.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
+		<data>
+		fzVY+MWdHzyv8OQ+xbIEIP1jY48=
+		</data>
+		<key>Modules/MirrorWorldSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
+		<data>
+		h0ulsN/bZVKCSC545Sx+51WBFRY=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -41,13 +57,21 @@
 	<dict>
 		<key>Headers/MirrorWorldSDK-Swift.h</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			mIw61F3uRakh1XAONd3FYdNo0HA=
+			</data>
 			<key>hash2</key>
 			<data>
-			zVhsZPfOSqR1e7vU2S59xDekJI7vQ2xITNjHONu8DnU=
+			hfzwoszYTgdNsvqn6ZkIr/vnQ52a9HZoQxAukOD8lZk=
 			</data>
 		</dict>
 		<key>Headers/MirrorWorldSDK-umbrella.h</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			gVKWdeCFPFBMM0h7qRZuIIdyjzU=
+			</data>
 			<key>hash2</key>
 			<data>
 			Nv82mPPIAnk3/3dfT4gaOjI9yXUyACjJIZIylj+Up74=
@@ -55,13 +79,32 @@
 		</dict>
 		<key>Modules/MirrorWorldSDK.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			hOAZZGmrSWu4bUb3pfX65G5UYDE=
+			</data>
 			<key>hash2</key>
 			<data>
-			ljAQk4YiPrgX/ee8irs63Ie3uJCRV5lvBcY2/GGt8Bc=
+			BFZZ54WGjai2y1jSnP8KVV0xKxd4swSnufYfS6eIHz8=
+			</data>
+		</dict>
+		<key>Modules/MirrorWorldSDK.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			d5RgThTdR+qTspvpelJuKxQM9xA=
+			</data>
+			<key>hash2</key>
+			<data>
+			Po3SmKVB+4hPNWEUh5cmemthh2fdzm2MXSAb3BmrpD8=
 			</data>
 		</dict>
 		<key>Modules/MirrorWorldSDK.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			FSPnLbho3G+LL9smI3XgVOqBIQ4=
+			</data>
 			<key>hash2</key>
 			<data>
 			KnRdWE4y6t4QM5zi5JDptPdHFgJy1Tku+7GLkZS2aNM=
@@ -69,20 +112,65 @@
 		</dict>
 		<key>Modules/MirrorWorldSDK.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			vNCPbExbxJY/+ypP0SyhmovadQo=
+			</data>
 			<key>hash2</key>
 			<data>
-			8F1WdWM8UTLAdTNQ1nF9Q+vSCmtJbaNZ1eQSfzd+uHM=
+			CF5YqlJ6glUCZj03iLSqhKs7EgTzLQrw2ilZakqMUFE=
 			</data>
 		</dict>
 		<key>Modules/MirrorWorldSDK.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			Hy96sl69Drkn11rzFExqddQqC78=
+			</data>
 			<key>hash2</key>
 			<data>
-			rj3DdWDESnLCwLBdD9zmESjb8nK3ROT0z0xNxG8Bh4s=
+			Ct9TuQ0n+ZOOb1sJCcPzWenj6INIw3Rq/ek8Tp68l0I=
+			</data>
+		</dict>
+		<key>Modules/MirrorWorldSDK.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			FSPnLbho3G+LL9smI3XgVOqBIQ4=
+			</data>
+			<key>hash2</key>
+			<data>
+			KnRdWE4y6t4QM5zi5JDptPdHFgJy1Tku+7GLkZS2aNM=
+			</data>
+		</dict>
+		<key>Modules/MirrorWorldSDK.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			fzVY+MWdHzyv8OQ+xbIEIP1jY48=
+			</data>
+			<key>hash2</key>
+			<data>
+			JosNylf+In8yHQex4NTb5/D8CnzGQL1/HD0TSuTUhVQ=
+			</data>
+		</dict>
+		<key>Modules/MirrorWorldSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			h0ulsN/bZVKCSC545Sx+51WBFRY=
+			</data>
+			<key>hash2</key>
+			<data>
+			yae7UA2tKRCCOCXkkVzX6/m0QdvHhShM4iofFZobX+g=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			zKfonpPoKjzQz7h1UpkFHkkvr84=
+			</data>
 			<key>hash2</key>
 			<data>
 			nRLwL40Z5/Kzjt91Fyh4pgZbgpcDrUpMZx12YudaCWw=
