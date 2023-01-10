@@ -254,7 +254,7 @@ namespace MirrorworldSDK.Wrapper
 
         public string GetWalletUrl()
         {
-            String url = GetEntranceRoot() + "jwt?key=" + accessToken;
+            string url = GetEntranceRoot() + "jwt?key=" + accessToken;
 
             return url;
         }

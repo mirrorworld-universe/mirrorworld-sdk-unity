@@ -137,10 +137,6 @@ namespace MirrorworldSDK.Wrapper
             double v = valueValue / dec;
             string strNeed = string.Format("{0:F" + totalDigit + "}", v);
 
-            LogFlow("HandleValue v:" + v);
-            LogFlow("HandleValue totalDigit:" + totalDigit);
-            LogFlow("HandleValue dec:" + dec);
-            LogFlow("HandleValue strNeed:" + strNeed);
             approveRequest.value = strNeed;
         }
 
@@ -152,7 +148,9 @@ namespace MirrorworldSDK.Wrapper
 
                 return;
             }
-            string url = GetActionRootWithoutVersion() + urlActionAPPROVE + actionUUID;
+            string url = GetActionRootWithoutVersion() + urlActionAPPROVE + actionUUID + "?key=" + accessToken;
+
+            LogFlow("Unity open approve url:"+url);
 
 #if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
 
