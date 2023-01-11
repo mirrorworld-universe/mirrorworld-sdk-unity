@@ -105,15 +105,14 @@ namespace MirrorworldSDK.Wrapper
             return debugSession;
         }
 
-        public void DebugOpenWalletPage(Action walletCb)
+        public void DebugOpenWalletPage(string walletUrl,Action walletCb)
         {
             walletLogoutAction = walletCb;
 
             IsLoggedIn((isLogged)=> {
                 if (isLogged) {
-                    string url = GetEntranceRoot() + apiKey;
-                    LogFlow("Will open third browser..."+url);
-                    Application.OpenURL(url);
+                    LogFlow("Will open third browser..."+ walletUrl);
+                    Application.OpenURL(walletUrl);
                 }
                 else
                 {

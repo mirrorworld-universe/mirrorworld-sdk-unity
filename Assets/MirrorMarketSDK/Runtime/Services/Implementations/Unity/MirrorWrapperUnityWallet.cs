@@ -25,6 +25,8 @@ namespace MirrorworldSDK.Wrapper
 
             monoBehaviour.StartCoroutine(CheckAndGet(url, null, (response) =>
             {
+                LogFlow("GetWalletTokens result:" + JsonUtility.ToJson(response));
+
                 CommonResponse<WalletTokenResponse> responseBody = JsonUtility.FromJson<CommonResponse<WalletTokenResponse>>(response);
 
                 action(responseBody);

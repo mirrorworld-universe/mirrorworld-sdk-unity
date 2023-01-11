@@ -49,7 +49,7 @@ public class MirrorSDK : MonoBehaviour
         Debug.Log("env:"+ environment);
 
         //Test
-        //environment = MirrorEnv.StagingDevNet;
+        environment = MirrorEnv.StagingDevNet;
 
         if (environment == MirrorEnv.StagingDevNet || environment == MirrorEnv.StagingMainNet)
         {
@@ -98,6 +98,10 @@ public class MirrorSDK : MonoBehaviour
 #endif
     }
 
+    public static void GuestLogin(Action<LoginResponse> action)
+    {
+        MirrorWrapper.Instance.GuestLogin(action);
+    }
 
     /// <summary>
     /// Open login page.
@@ -293,6 +297,16 @@ public class MirrorSDK : MonoBehaviour
         MirrorWrapper.Instance.FetchNftsByUpdateAuthorities(updateAuthorityAddresses, action);
     }
 
+    public static void UpdateNFTProperties(string mintAddress, string NFTName, string symbol, string updateAuthority, string NFTJsonUrl, int seller_fee_basis_points, string confirmation, Action<CommonResponse<MintResponse>> callBack)
+    {
+        Instance.UpdateNFTProperties(mintAddress,NFTName,symbol,updateAuthority,NFTJsonUrl,seller_fee_basis_points,confirmation,callBack);
+    }
+
+    public static void UpdateNFTProperties(string mintAddress, string NFTName, string symbol, string updateAuthority, string NFTJsonUrl, int seller_fee_basis_points, Action<CommonResponse<MintResponse>> callBack)
+    {
+        Instance.UpdateNFTProperties(mintAddress, NFTName, symbol, updateAuthority, NFTJsonUrl, seller_fee_basis_points, Confirmation.Confirmed, callBack);
+    }
+
     public static void ListNFT(string mintAddress, double price, string confirmation,Action approveFinished, Action<CommonResponse<ListingResponse>> callBack)
     {
         MirrorSDK.ListNFT(mintAddress, price, "", confirmation, approveFinished, callBack);
@@ -394,6 +408,19 @@ public class MirrorSDK : MonoBehaviour
 
     #endregion
 
+    #region Confirmation
+    public static void GetStatusOfTransactions(List<string> signatures, Action<CommonResponse<GetStatusOfTransactionsResponse>> callBack)
+    {
+        MirrorWrapper.Instance.GetStatusOfTransactions(signatures,callBack);
+    }
+
+    public static void GetStatusOfMintings(List<string> mintAddresses, Action<CommonResponse<GetStatusOfTransactionsResponse>> callBack)
+    {
+        MirrorWrapper.Instance.GetStatusOfMintings(mintAddresses,callBack);
+    }
+
+    #endregion
+
     #region Wallet
     public static void GetTokens(Action<CommonResponse<WalletTokenResponse>> action)
     {
@@ -481,7 +508,7 @@ public class MirrorSDK : MonoBehaviour
 
         if (MirrorUtils.IsEditor())
         {
-            MirrorWrapper.Instance.DebugOpenWalletPage(walletLogoutAction);
+            MirrorWrapper.Instance.DebugOpenWalletPage(walletUrl, walletLogoutAction);
         }
         else
         {

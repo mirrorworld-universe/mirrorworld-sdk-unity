@@ -357,7 +357,7 @@ namespace MirrorworldSDK.Wrapper
             BuyNFT(mintAddress, price, "", callBack);
         }
 
-        public void UpdateNFT(string mintAddress, string name, string symbol, string updateAuthority, string NFTJsonUrl, int seller_fee_basis_points, string confirmation, Action<CommonResponse<MintResponse>> callBack)
+        public void UpdateNFTProperties(string mintAddress, string name, string symbol, string updateAuthority, string NFTJsonUrl, int seller_fee_basis_points, string confirmation, Action<CommonResponse<MintResponse>> callBack)
         {
             UpdateNFTRequest requestBody = new UpdateNFTRequest();
 
