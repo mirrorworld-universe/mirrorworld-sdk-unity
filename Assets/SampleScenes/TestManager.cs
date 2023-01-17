@@ -305,7 +305,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnTransferNFT")
         {
             SetInfoPanel("Transfer NFT", "mint address", "to wallet", null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses",()=> {
-                MirrorSDK.TransferNFT(v1,v2,(res)=> {
+                MirrorSDK.TransferNFT(v1,v2,approveFinished, (res)=> {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });

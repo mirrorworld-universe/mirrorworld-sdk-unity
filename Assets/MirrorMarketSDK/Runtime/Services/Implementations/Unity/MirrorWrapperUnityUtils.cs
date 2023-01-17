@@ -164,6 +164,8 @@ namespace MirrorworldSDK.Wrapper
             this.accessToken = accessToken;
 
             UpdateRefreshToken(refreshToken);
+
+            SaveCurrentUser(userResponse);
         }
         public void SaveKeyParams(string accessToken, string refreshToken)
         {

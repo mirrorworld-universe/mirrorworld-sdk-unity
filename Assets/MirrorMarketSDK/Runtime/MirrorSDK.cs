@@ -222,7 +222,7 @@ public class MirrorSDK : MonoBehaviour
 
     #region mint
 
-    public static void MintNFT(string parentCollection, string nFTName, string nFTSymbol, string nFTJsonUrl, string confirmation, string mint_id,Action approveFinished,Action<CommonResponse<MintResponse>> callBack)
+    public static void MintNFT(string parentCollection, string nFTName, string nFTSymbol, string nFTJsonUrl, string confirmation, string mint_id, Action approveFinished, Action<CommonResponse<MintResponse>> callBack)
     {
         ApproveMintNFT requestParams = new ApproveMintNFT();
         requestParams.collection_mint = parentCollection;
@@ -236,8 +236,8 @@ public class MirrorSDK : MonoBehaviour
         }
         requestParams.confirmation = confirmation;
 
-        MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.MintNFT,"mint nft", requestParams,()=> {
-            if(approveFinished != null)
+        MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.MintNFT, "mint nft", requestParams, () => {
+            if (approveFinished != null)
             {
                 approveFinished();
             }
@@ -395,13 +395,17 @@ public class MirrorSDK : MonoBehaviour
         });
     }
 
-    public static void TransferNFT(string mint_address, string to_wallet_address, Action<CommonResponse<ListingResponse>> callBack)
+    public static void TransferNFT(string mint_address, string to_wallet_address,Action approveAction, Action<CommonResponse<ListingResponse>> callBack)
     {
         ApproveTransferNFT requestParams = new ApproveTransferNFT();
         requestParams.mint_address = mint_address;
         requestParams.to_wallet_address = to_wallet_address;
 
         MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.TransferNFT, "transfer nft", requestParams, () => {
+            if (approveFinished != null)
+            {
+                approveFinished();
+            }
             MirrorWrapper.Instance.TransferNFT(mint_address, to_wallet_address, callBack);
         });
     }

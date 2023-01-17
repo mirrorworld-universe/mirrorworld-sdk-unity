@@ -18,6 +18,16 @@ namespace MirrorworldSDK.Models
         public string confirmation;
 
         public string mint_id;
+
+        public MintPayment payment;
+    }
+
+    [Serializable]
+    public class MintPayment
+    {
+        public string receiver_wallet;
+
+        public double amount_sol;
     }
 
     [Serializable]

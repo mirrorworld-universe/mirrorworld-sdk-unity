@@ -76,28 +76,34 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        //public void CreateVerifiedSubCollection(string parentCollection,string collectionName, string collectionSymbol, string collectionInfoUrl,string confirmation, Action<CommonResponse<MintResponse>> callBack)
-        //{
-        //    CreateSubCollectionRequest requestBody = new CreateSubCollectionRequest();
+        public void MintNFT(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, string confirmation, string mint_id,string receiver_wallet, double amout_sol, Action<CommonResponse<MintResponse>> callBack)
+        {
+            CreateNftRequest requestBody = new CreateNftRequest();
 
-        //    requestBody.name = collectionName;
-        //    requestBody.symbol = collectionSymbol;
-        //    requestBody.url = collectionInfoUrl;
-        //    requestBody.collection_mint = parentCollection;
-        //    if (confirmation != null) requestBody.confirmation = confirmation;
+            requestBody.name = collectionName;
+            requestBody.symbol = collectionSymbol;
+            requestBody.url = collectionInfoUrl;
+            requestBody.collection_mint = parentCollection;
+            requestBody.mint_id = mint_id;
+            requestBody.confirmation = confirmation;
+            requestBody.payment = new MintPayment();
+            requestBody.payment.amount_sol = amout_sol;
+            requestBody.payment.receiver_wallet = receiver_wallet;
+            string rawRequestBody = JsonUtility.ToJson(requestBody);
 
-        //    var rawRequestBody = JsonUtility.ToJson(requestBody);
+            CreateNftRequestNoMintID requestBodyNoMintID = new CreateNftRequestNoMintID();
 
-        //    string url = GetAPIRoot() + urlMintLowerLevelCollection;
+            string url = GetAPIRoot() + urlMintNFTCollection;
 
-        //    monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
+            monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
 
-        //        CommonResponse<MintResponse> responseBody = JsonUtility.FromJson<CommonResponse<MintResponse>>(response);
+                LogFlow("MintNft result:" + response);
 
-        //        callBack(responseBody);
+                CommonResponse<MintResponse> responseBody = JsonUtility.FromJson<CommonResponse<MintResponse>>(response);
 
-        //    }));
-        //}
+                callBack(responseBody);
+            }));
+        }
 
         public void MintNFT(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl,string confirmation, string mint_id,Action<CommonResponse<MintResponse>> callBack)
         {
