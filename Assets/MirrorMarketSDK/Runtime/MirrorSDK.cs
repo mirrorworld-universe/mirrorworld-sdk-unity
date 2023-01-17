@@ -185,21 +185,29 @@ public class MirrorSDK : MonoBehaviour
         MirrorWrapper.Instance.Logout(logoutAction);
     }
 
-    public static void GetWallet(Action<UserResponse> callback)
+    public static string GetWallet()
     {
         UserResponse user = MirrorWrapper.Instance.GetCurrentUser();
-        if (user != null)
+        Debug.Log("MirrorSDK get wallet:" + user);
+        if(user == null)
         {
-            MirrorWrapper.Instance.LogFlow("Have old current user,use old data.");
-            callback(user);
+            return "";
         }
-        else
-        {
-            MirrorWrapper.Instance.LogFlow("No old current user,try to get data.");
-            MirrorWrapper.Instance.GetCurrentUserInfo((response) => {
-                callback(response.data);
-            });
-        }
+        return user.wallet.sol_address;
+
+        //UserResponse user = MirrorWrapper.Instance.GetCurrentUser();
+        //if (user != null)
+        //{
+        //    MirrorWrapper.Instance.LogFlow("Have old current user,use old data.");
+        //    callback(user);
+        //}
+        //else
+        //{
+        //    MirrorWrapper.Instance.LogFlow("No old current user,try to get data.");
+        //    MirrorWrapper.Instance.GetCurrentUserInfo((response) => {
+        //        callback(response.data);
+        //    });
+        //}
     }
 
     public static void GetAccessToken(Action<bool> action)
@@ -402,9 +410,9 @@ public class MirrorSDK : MonoBehaviour
         requestParams.to_wallet_address = to_wallet_address;
 
         MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.TransferNFT, "transfer nft", requestParams, () => {
-            if (approveFinished != null)
+            if (approveAction != null)
             {
-                approveFinished();
+                approveAction();
             }
             MirrorWrapper.Instance.TransferNFT(mint_address, to_wallet_address, callBack);
         });

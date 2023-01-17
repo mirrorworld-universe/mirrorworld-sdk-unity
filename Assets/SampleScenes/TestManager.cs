@@ -157,10 +157,11 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnGetWallet")
         {
             SetInfoPanel("GetWallet",null,null,null,null, "GetWallet", "Get wallet",()=> {
-                MirrorSDK.GetWallet((res)=> {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
-                });
+                //MirrorSDK.GetWallet((res)=> {
+                //    var body = JsonUtility.ToJson(res);
+                //    PrintLog("result:" + body);
+                //});
+                PrintLog("result:" + MirrorSDK.GetWallet());
             });
         }
         else if (btnName == "BtnGetNFTDetails")
