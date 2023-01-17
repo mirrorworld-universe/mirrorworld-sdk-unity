@@ -244,13 +244,14 @@ public class MirrorSDK : MonoBehaviour
         }
         requestParams.confirmation = confirmation;
 
-        MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.MintNFT, "mint nft", requestParams, () => {
-            if (approveFinished != null)
-            {
-                approveFinished();
-            }
-            MirrorWrapper.Instance.MintNFT(parentCollection, nFTName, nFTSymbol, nFTJsonUrl, confirmation, mint_id, callBack);
-        });
+        MirrorWrapper.Instance.MintNFT(parentCollection, nFTName, nFTSymbol, nFTJsonUrl, confirmation, mint_id, callBack);
+        //MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.MintNFT, "mint nft", requestParams, () => {
+        //    if (approveFinished != null)
+        //    {
+        //        approveFinished();
+        //    }
+        //    MirrorWrapper.Instance.MintNFT(parentCollection, nFTName, nFTSymbol, nFTJsonUrl, confirmation, mint_id,"",0, callBack);
+        //});
     }
 
     public static void CreateVerifiedCollection(string collectionName, string collectionSymbol, string NFTDetailJson,int seller_fee_basis_points, string confirmation,Action approveFinished, Action<CommonResponse<MintResponse>> callBack)

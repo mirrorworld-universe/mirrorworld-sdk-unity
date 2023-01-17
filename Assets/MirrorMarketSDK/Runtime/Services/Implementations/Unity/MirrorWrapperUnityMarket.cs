@@ -107,7 +107,7 @@ namespace MirrorworldSDK.Wrapper
 
         public void MintNFT(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl,string confirmation, string mint_id,Action<CommonResponse<MintResponse>> callBack)
         {
-            CreateNftRequest requestBody = new CreateNftRequest();
+            CreateNftRequestWithoutPayment requestBody = new CreateNftRequestWithoutPayment();
 
             requestBody.name = collectionName;
             requestBody.symbol = collectionSymbol;
@@ -116,6 +116,7 @@ namespace MirrorworldSDK.Wrapper
             requestBody.mint_id = mint_id;
             requestBody.confirmation = confirmation;
             string rawRequestBody = JsonUtility.ToJson(requestBody);
+            LogFlow("MintNFT request:" + rawRequestBody);
 
             CreateNftRequestNoMintID requestBodyNoMintID = new CreateNftRequestNoMintID();
 
