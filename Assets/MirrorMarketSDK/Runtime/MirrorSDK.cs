@@ -244,14 +244,34 @@ public class MirrorSDK : MonoBehaviour
         }
         requestParams.confirmation = confirmation;
 
-        MirrorWrapper.Instance.MintNFT(parentCollection, nFTName, nFTSymbol, nFTJsonUrl, confirmation, mint_id, callBack);
-        //MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.MintNFT, "mint nft", requestParams, () => {
-        //    if (approveFinished != null)
-        //    {
-        //        approveFinished();
-        //    }
-        //    MirrorWrapper.Instance.MintNFT(parentCollection, nFTName, nFTSymbol, nFTJsonUrl, confirmation, mint_id,"",0, callBack);
-        //});
+        MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.MintNFT, "mint nft", requestParams, () =>
+        {
+            if (approveFinished != null)
+            {
+                approveFinished();
+            }
+            MirrorWrapper.Instance.MintNFT(parentCollection, nFTName, nFTSymbol, nFTJsonUrl, confirmation, mint_id, "", 0, callBack);
+        });
+    }
+
+    public static void MintNFT(string parentCollection, string nFTName, string nFTSymbol, string nFTJsonUrl, string confirmation, string mint_id, string receiveWallet, double amountSol, Action<CommonResponse<MintResponse>> callBack)
+    {
+        ApproveMintNFT requestParams = new ApproveMintNFT();
+        requestParams.collection_mint = parentCollection;
+        requestParams.name = nFTName;
+        requestParams.symbol = nFTSymbol;
+        requestParams.url = nFTJsonUrl;
+
+        if (confirmation == null || confirmation == "")
+        {
+            confirmation = Confirmation.Confirmed;
+        }
+        requestParams.confirmation = confirmation;
+
+        MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.MintNFT, "mint nft", requestParams, () =>
+        {
+            MirrorWrapper.Instance.MintNFT(parentCollection, nFTName, nFTSymbol, nFTJsonUrl, confirmation, mint_id, receiveWallet, amountSol, callBack);
+        });
     }
 
     public static void CreateVerifiedCollection(string collectionName, string collectionSymbol, string NFTDetailJson,int seller_fee_basis_points, string confirmation,Action approveFinished, Action<CommonResponse<MintResponse>> callBack)
