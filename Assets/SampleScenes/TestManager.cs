@@ -68,6 +68,20 @@ public class TestManager : MonoBehaviour
                 Debug.Log("Login result:" + JsonUtility.ToJson(loginResponse));
             });
         }
+        else if (btnName == "BtnGuestLogin")
+        {
+            notOpenDetail = true;
+            MirrorSDK.GuestLogin((loginResponse) => {
+                Debug.Log("GuestLogin result:" + JsonUtility.ToJson(loginResponse));
+
+                UniversalDialog dialog = null;
+                dialog = ShowUniversalNotice("Guest Login","Guest login success! your account is :" + loginResponse.user.email,"OK",null,
+                ()=> {
+                    dialog.DestroyDialog();
+                },
+                null);
+            });
+        }
         else if (btnName == "BtnAutoLogin")
         {
             notOpenDetail = true;
@@ -143,10 +157,11 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnGetWallet")
         {
             SetInfoPanel("GetWallet",null,null,null,null, "GetWallet", "Get wallet",()=> {
-                MirrorSDK.GetWallet((res)=> {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
-                });
+                //MirrorSDK.GetWallet((res)=> {
+                //    var body = JsonUtility.ToJson(res);
+                //    PrintLog("result:" + body);
+                //});
+                PrintLog("result:" + MirrorSDK.GetWallet());
             });
         }
         else if (btnName == "BtnGetNFTDetails")
@@ -236,6 +251,15 @@ public class TestManager : MonoBehaviour
                 });
             });
         }
+        else if (btnName == "BtnUpdateNFTProperties")
+        {
+            SetInfoPanel("UpdateNFTProperties", "mint address", "name", "updateAuthority", "json url",  "MintNFT", "MintNFT", () => {
+                MirrorSDK.UpdateNFTProperties(v1, v2, "newsymbol", v3, v4 , 200, (res) => {
+                    var body = JsonUtility.ToJson(res);
+                    PrintLog("result:" + body);
+                });
+            });
+        }
         else if (btnName == "BtnListNFT")
         {
             SetInfoPanel("ListNFT", "mint address", "price", null, null, "ListNFT", "ListNFT", ()=> {
@@ -282,16 +306,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnTransferNFT")
         {
             SetInfoPanel("Transfer NFT", "mint address", "to wallet", null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses",()=> {
-                MirrorSDK.TransferNFT(v1,v2,(res)=> {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
-                });
-            });
-        }
-        else if (btnName == "BtnGetWalletTokens")
-        {
-            SetInfoPanel("Get WalletTokens", null, null, null, null, "GetWalletTokens", "GetWalletTokens", ()=> {
-                MirrorSDK.GetTokens((res)=> {
+                MirrorSDK.TransferNFT(v1,v2,approveFinished, (res)=> {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
@@ -314,6 +329,33 @@ public class TestManager : MonoBehaviour
                 {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
+                });
+            });
+        }
+        else if (btnName == "BtnGetStatusOfTransactions")
+        {
+            SetInfoPanel("GetStatusOfTransactions", "signature 1", "signature 2", null, null, "GetStatusOfTransactions", "GetStatusOfTransactions", () => {
+                List<string> signatures = new List<string>();
+                if (v1 != "") signatures.Add(v1);
+                if (v2 != "") signatures.Add(v2);
+
+                MirrorSDK.GetStatusOfTransactions(signatures, (res) =>
+                {
+                    var body = JsonUtility.ToJson(res);
+                    PrintLog("GetStatusOfTransactions result:" + body);
+                });
+            });
+        }
+        else if (btnName == "BtnGetStatusOfMintings")
+        {
+            SetInfoPanel("GetStatusOfMintings", "mint address 1", "mint address 2", null, null, "GetStatusOfMintings", "GetStatusOfMintings", () => {
+                List<string> mintAddresses = new List<string>();
+                if (v1 != "") mintAddresses.Add(v1);
+                if (v2 != "") mintAddresses.Add(v2);
+                MirrorSDK.GetStatusOfMintings(mintAddresses, (res) =>
+                {
+                    var body = JsonUtility.ToJson(res);
+                    PrintLog("GetStatusOfMintings result:" + body);
                 });
             });
         }

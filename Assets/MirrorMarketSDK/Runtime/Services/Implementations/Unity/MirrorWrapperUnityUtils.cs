@@ -57,7 +57,7 @@ namespace MirrorworldSDK.Wrapper
                     LogFlow("Get access token failed.");
                     CommonResponse<string> commonResponse = new CommonResponse<string>();
                     commonResponse.code = (long)MirrorResponseCode.LocalFailed;
-                    commonResponse.error = "Get access token failed.";
+                    commonResponse.error = "Unity:Get access token failed.";
 
                     string resStr = JsonUtility.ToJson(commonResponse);
                     callBack(resStr);
@@ -164,6 +164,8 @@ namespace MirrorworldSDK.Wrapper
             this.accessToken = accessToken;
 
             UpdateRefreshToken(refreshToken);
+
+            SaveCurrentUser(userResponse);
         }
         public void SaveKeyParams(string accessToken, string refreshToken)
         {
@@ -254,7 +256,7 @@ namespace MirrorworldSDK.Wrapper
 
         public string GetWalletUrl()
         {
-            String url = GetEntranceRoot() + "jwt?key=" + accessToken;
+            string url = GetEntranceRoot() + "jwt?key=" + accessToken;
 
             return url;
         }

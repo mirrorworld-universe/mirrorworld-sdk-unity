@@ -14,7 +14,7 @@ namespace MirrorworldSDK.Interfaces
 
         public void MintNFT(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, string confirmation, string mint_id, Action<CommonResponse<MintResponse>> callBack);
 
-        public void UpdateNFT(string mintAddress, string name, string symbol, string updateAuthority, string NFTJsonUrl,int seller_fee_basis_points, string confirmation, Action<CommonResponse<MintResponse>> callBack);
+        public void UpdateNFTProperties(string mintAddress, string name, string symbol, string updateAuthority, string NFTJsonUrl,int seller_fee_basis_points, string confirmation, Action<CommonResponse<MintResponse>> callBack);
 
         //fetch
         public void FetchNFTsByMintAddresses(List<string> mintAddresses, Action<CommonResponse<MultipleNFTsResponse>> callBack);

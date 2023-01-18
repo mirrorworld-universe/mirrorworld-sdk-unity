@@ -159,15 +159,15 @@ namespace MirrorworldSDK.Wrapper
         {
             string url = GetAuthRoot() + urlGuestLogin;
 
-            monoBehaviour.StartCoroutine(CheckAndGet(url, null, (response) => {
+            monoBehaviour.StartCoroutine(Get(url, null, (response) => {
 
-                LogFlow("IsLoggedIn result:" + response);
+                LogFlow("GuestLogin result:" + response);
 
                 CommonResponse<LoginResponse> responseBody = JsonUtility.FromJson<CommonResponse<LoginResponse>>(response);
 
                 if (responseBody.code == (long)MirrorResponseCode.Success)
                 {
-                    SaveCurrentUser(responseBody.data.user);
+                    SaveKeyParams(responseBody.data.access_token,responseBody.data.refresh_token,responseBody.data.user);
 
                     action(responseBody.data);
                 }

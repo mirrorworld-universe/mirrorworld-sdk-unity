@@ -76,30 +76,7 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        //public void CreateVerifiedSubCollection(string parentCollection,string collectionName, string collectionSymbol, string collectionInfoUrl,string confirmation, Action<CommonResponse<MintResponse>> callBack)
-        //{
-        //    CreateSubCollectionRequest requestBody = new CreateSubCollectionRequest();
-
-        //    requestBody.name = collectionName;
-        //    requestBody.symbol = collectionSymbol;
-        //    requestBody.url = collectionInfoUrl;
-        //    requestBody.collection_mint = parentCollection;
-        //    if (confirmation != null) requestBody.confirmation = confirmation;
-
-        //    var rawRequestBody = JsonUtility.ToJson(requestBody);
-
-        //    string url = GetAPIRoot() + urlMintLowerLevelCollection;
-
-        //    monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
-
-        //        CommonResponse<MintResponse> responseBody = JsonUtility.FromJson<CommonResponse<MintResponse>>(response);
-
-        //        callBack(responseBody);
-
-        //    }));
-        //}
-
-        public void MintNFT(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl,string confirmation, string mint_id,Action<CommonResponse<MintResponse>> callBack)
+        public void MintNFT(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, string confirmation, string mint_id,string receiver_wallet, double amout_sol, Action<CommonResponse<MintResponse>> callBack)
         {
             CreateNftRequest requestBody = new CreateNftRequest();
 
@@ -109,7 +86,37 @@ namespace MirrorworldSDK.Wrapper
             requestBody.collection_mint = parentCollection;
             requestBody.mint_id = mint_id;
             requestBody.confirmation = confirmation;
+            requestBody.payment = new MintPayment();
+            requestBody.payment.amount_sol = amout_sol;
+            requestBody.payment.receiver_wallet = receiver_wallet;
             string rawRequestBody = JsonUtility.ToJson(requestBody);
+
+            CreateNftRequestNoMintID requestBodyNoMintID = new CreateNftRequestNoMintID();
+
+            string url = GetAPIRoot() + urlMintNFTCollection;
+
+            monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
+
+                LogFlow("MintNft result:" + response);
+
+                CommonResponse<MintResponse> responseBody = JsonUtility.FromJson<CommonResponse<MintResponse>>(response);
+
+                callBack(responseBody);
+            }));
+        }
+
+        public void MintNFT(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl,string confirmation, string mint_id,Action<CommonResponse<MintResponse>> callBack)
+        {
+            CreateNftRequestWithoutPayment requestBody = new CreateNftRequestWithoutPayment();
+
+            requestBody.name = collectionName;
+            requestBody.symbol = collectionSymbol;
+            requestBody.url = collectionInfoUrl;
+            requestBody.collection_mint = parentCollection;
+            requestBody.mint_id = mint_id;
+            requestBody.confirmation = confirmation;
+            string rawRequestBody = JsonUtility.ToJson(requestBody);
+            LogFlow("MintNFT request:" + rawRequestBody);
 
             CreateNftRequestNoMintID requestBodyNoMintID = new CreateNftRequestNoMintID();
 
@@ -357,7 +364,7 @@ namespace MirrorworldSDK.Wrapper
             BuyNFT(mintAddress, price, "", callBack);
         }
 
-        public void UpdateNFT(string mintAddress, string name, string symbol, string updateAuthority, string NFTJsonUrl, int seller_fee_basis_points, string confirmation, Action<CommonResponse<MintResponse>> callBack)
+        public void UpdateNFTProperties(string mintAddress, string name, string symbol, string updateAuthority, string NFTJsonUrl, int seller_fee_basis_points, string confirmation, Action<CommonResponse<MintResponse>> callBack)
         {
             UpdateNFTRequest requestBody = new UpdateNFTRequest();
 
