@@ -1,22 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace MirrorworldSDK.Models
 {
+    [Serializable]
     public class WalletTokenResponse
     {
-        [JsonProperty("tokens")] public List<Token> Tokens;
+        public List<Token> tokens;
 
-        [JsonProperty("sol")] public ulong Sol;
+        public ulong sol;
     }
-    
-    
+
+
+    [Serializable]
     public class Token
     {
-        [JsonProperty("ata")] public string ATA;
+        public string ata;
 
-        [JsonProperty("mint")] public string Mint;
+        public string mint;
 
-        [JsonProperty("amount")] public ulong Amount;
+        public ulong amount;
+
+        public int decimals;
     }
 }

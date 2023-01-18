@@ -68,7 +68,7 @@ public class TestManager : MonoBehaviour
                 Debug.Log("Login result:" + JsonUtility.ToJson(loginResponse));
             });
         }
-        else if (btnName == "BtnStartLogin")
+        else if (btnName == "BtnGuestLogin")
         {
             notOpenDetail = true;
             MirrorSDK.GuestLogin((loginResponse) => {
@@ -253,7 +253,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnUpdateNFTProperties")
         {
-            SetInfoPanel("UpdateNFTProperties", "mint address", "name", "json url", "updateAuthority", "MintNFT", "MintNFT", () => {
+            SetInfoPanel("UpdateNFTProperties", "mint address", "name", "updateAuthority", "json url",  "MintNFT", "MintNFT", () => {
                 MirrorSDK.UpdateNFTProperties(v1, v2, "newsymbol", v3, v4 , 200, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);

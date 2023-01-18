@@ -57,7 +57,7 @@ namespace MirrorworldSDK.Wrapper
                     LogFlow("Get access token failed.");
                     CommonResponse<string> commonResponse = new CommonResponse<string>();
                     commonResponse.code = (long)MirrorResponseCode.LocalFailed;
-                    commonResponse.error = "Get access token failed.";
+                    commonResponse.error = "Unity:Get access token failed.";
 
                     string resStr = JsonUtility.ToJson(commonResponse);
                     callBack(resStr);
