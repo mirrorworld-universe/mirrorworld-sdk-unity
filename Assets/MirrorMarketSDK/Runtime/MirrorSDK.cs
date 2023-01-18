@@ -446,12 +446,12 @@ public class MirrorSDK : MonoBehaviour
     #endregion
 
     #region Confirmation
-    public static void GetStatusOfTransactions(List<string> signatures, Action<CommonResponse<GetStatusOfTransactionsResponse>> callBack)
+    public static void CheckStatusOfTransactions(List<string> signatures, Action<CommonResponse<GetStatusOfTransactionsResponse>> callBack)
     {
         MirrorWrapper.Instance.GetStatusOfTransactions(signatures,callBack);
     }
 
-    public static void GetStatusOfMintings(List<string> mintAddresses, Action<CommonResponse<GetStatusOfTransactionsResponse>> callBack)
+    public static void CheckStatusOfMinting(List<string> mintAddresses, Action<CommonResponse<GetStatusOfTransactionsResponse>> callBack)
     {
         MirrorWrapper.Instance.GetStatusOfMintings(mintAddresses,callBack);
     }
