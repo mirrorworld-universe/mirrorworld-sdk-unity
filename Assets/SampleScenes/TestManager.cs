@@ -254,7 +254,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnUpdateNFTProperties")
         {
             SetInfoPanel("UpdateNFTProperties", "mint address", "name", "updateAuthority", "json url",  "MintNFT", "MintNFT", () => {
-                MirrorSDK.UpdateNFTProperties(v1, v2, "newsymbol", v3, v4 , 200, (res) => {
+                MirrorSDK.UpdateNFTProperties(v1, v2, "newsymbol", v3, v4 , 200,approveFinished, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });

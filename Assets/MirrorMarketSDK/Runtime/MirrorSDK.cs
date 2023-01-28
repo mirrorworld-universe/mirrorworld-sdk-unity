@@ -49,7 +49,7 @@ public class MirrorSDK : MonoBehaviour
         Debug.Log("env:"+ environment);
 
         //Test
-        //environment = MirrorEnv.StagingDevNet;
+        environment = MirrorEnv.StagingDevNet;
 
         if (environment == MirrorEnv.StagingDevNet || environment == MirrorEnv.StagingMainNet)
         {
@@ -330,14 +330,42 @@ public class MirrorSDK : MonoBehaviour
         MirrorWrapper.Instance.FetchNftsByUpdateAuthorities(updateAuthorityAddresses, action);
     }
 
-    public static void UpdateNFTProperties(string mintAddress, string NFTName, string symbol, string updateAuthority, string NFTJsonUrl, int seller_fee_basis_points, string confirmation, Action<CommonResponse<MintResponse>> callBack)
+    public static void UpdateNFTProperties(string mintAddress, string NFTName, string symbol, string updateAuthority, string NFTJsonUrl, int seller_fee_basis_points, string confirmation,Action approveAction, Action<CommonResponse<MintResponse>> callBack)
     {
-        Instance.UpdateNFTProperties(mintAddress,NFTName,symbol,updateAuthority,NFTJsonUrl,seller_fee_basis_points,confirmation,callBack);
+        ApproveUpdateNFTProperties requestParams = new ApproveUpdateNFTProperties();
+        requestParams.mint_address = mintAddress;
+        requestParams.name = NFTName;
+        requestParams.confirmation = confirmation;
+        requestParams.symbol = symbol;
+        requestParams.seller_fee_basis_points = seller_fee_basis_points;
+        requestParams.update_authority = updateAuthority;
+
+        MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.UpdateNFT, "update nft", requestParams, () => {
+            if (approveAction != null)
+            {
+                approveAction();
+            }
+            Instance.UpdateNFTProperties(mintAddress, NFTName, symbol, updateAuthority, NFTJsonUrl, seller_fee_basis_points, confirmation, callBack);
+        });
     }
 
-    public static void UpdateNFTProperties(string mintAddress, string NFTName, string symbol, string updateAuthority, string NFTJsonUrl, int seller_fee_basis_points, Action<CommonResponse<MintResponse>> callBack)
+    public static void UpdateNFTProperties(string mintAddress, string NFTName, string symbol, string updateAuthority, string NFTJsonUrl, int seller_fee_basis_points,Action approveAction, Action<CommonResponse<MintResponse>> callBack)
     {
-        Instance.UpdateNFTProperties(mintAddress, NFTName, symbol, updateAuthority, NFTJsonUrl, seller_fee_basis_points, Confirmation.Confirmed, callBack);
+        ApproveUpdateNFTProperties requestParams = new ApproveUpdateNFTProperties();
+        requestParams.mint_address = mintAddress;
+        requestParams.name = NFTName;
+        requestParams.confirmation = Confirmation.Confirmed;
+        requestParams.symbol = symbol;
+        requestParams.seller_fee_basis_points = seller_fee_basis_points;
+        requestParams.update_authority = updateAuthority;
+
+        MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.UpdateNFT, "update nft", requestParams, () => {
+            if (approveAction != null)
+            {
+                approveAction();
+            }
+            Instance.UpdateNFTProperties(mintAddress, NFTName, symbol, updateAuthority, NFTJsonUrl, seller_fee_basis_points, Confirmation.Confirmed, callBack);
+        });
     }
 
     public static void ListNFT(string mintAddress, double price, string confirmation,Action approveFinished, Action<CommonResponse<ListingResponse>> callBack)
