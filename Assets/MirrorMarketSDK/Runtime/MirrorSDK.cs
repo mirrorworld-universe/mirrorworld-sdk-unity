@@ -250,7 +250,7 @@ public class MirrorSDK : MonoBehaviour
             {
                 approveFinished();
             }
-            MirrorWrapper.Instance.MintNFT(parentCollection, nFTName, nFTSymbol, nFTJsonUrl, confirmation, mint_id, "", 0, callBack);
+            MirrorWrapper.Instance.MintNFT(parentCollection, nFTName, nFTSymbol, nFTJsonUrl, confirmation, mint_id, callBack);
         });
     }
 

@@ -86,9 +86,13 @@ namespace MirrorworldSDK.Wrapper
             requestBody.collection_mint = parentCollection;
             requestBody.mint_id = mint_id;
             requestBody.confirmation = confirmation;
-            requestBody.payment = new MintPayment();
-            requestBody.payment.amount_sol = amout_sol;
-            requestBody.payment.receiver_wallet = receiver_wallet;
+            if(amout_sol != 0 && amout_sol != null && receiver_wallet != "" && receiver_wallet != null)
+            {
+                requestBody.payment = new MintPayment();
+                requestBody.payment.amount_sol = amout_sol;
+                requestBody.payment.receiver_wallet = receiver_wallet;
+            }
+            
             string rawRequestBody = JsonUtility.ToJson(requestBody);
 
             CreateNftRequestNoMintID requestBodyNoMintID = new CreateNftRequestNoMintID();
