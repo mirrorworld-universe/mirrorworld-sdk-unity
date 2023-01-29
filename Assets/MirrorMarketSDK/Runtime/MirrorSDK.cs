@@ -250,7 +250,7 @@ public class MirrorSDK : MonoBehaviour
             {
                 approveFinished();
             }
-            MirrorWrapper.Instance.MintNFT(parentCollection, nFTName, nFTSymbol, nFTJsonUrl, confirmation, mint_id, "", 0, callBack);
+            MirrorWrapper.Instance.MintNFT(parentCollection, nFTName, nFTSymbol, nFTJsonUrl, confirmation, mint_id, callBack);
         });
     }
 
@@ -330,14 +330,42 @@ public class MirrorSDK : MonoBehaviour
         MirrorWrapper.Instance.FetchNftsByUpdateAuthorities(updateAuthorityAddresses, action);
     }
 
-    public static void UpdateNFTProperties(string mintAddress, string NFTName, string symbol, string updateAuthority, string NFTJsonUrl, int seller_fee_basis_points, string confirmation, Action<CommonResponse<MintResponse>> callBack)
+    public static void UpdateNFTProperties(string mintAddress, string NFTName, string symbol, string updateAuthority, string NFTJsonUrl, int seller_fee_basis_points, string confirmation,Action approveAction, Action<CommonResponse<MintResponse>> callBack)
     {
-        Instance.UpdateNFTProperties(mintAddress,NFTName,symbol,updateAuthority,NFTJsonUrl,seller_fee_basis_points,confirmation,callBack);
+        ApproveUpdateNFTProperties requestParams = new ApproveUpdateNFTProperties();
+        requestParams.mint_address = mintAddress;
+        requestParams.name = NFTName;
+        requestParams.confirmation = confirmation;
+        requestParams.symbol = symbol;
+        requestParams.seller_fee_basis_points = seller_fee_basis_points;
+        requestParams.update_authority = updateAuthority;
+
+        MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.UpdateNFT, "update nft", requestParams, () => {
+            if (approveAction != null)
+            {
+                approveAction();
+            }
+            Instance.UpdateNFTProperties(mintAddress, NFTName, symbol, updateAuthority, NFTJsonUrl, seller_fee_basis_points, confirmation, callBack);
+        });
     }
 
-    public static void UpdateNFTProperties(string mintAddress, string NFTName, string symbol, string updateAuthority, string NFTJsonUrl, int seller_fee_basis_points, Action<CommonResponse<MintResponse>> callBack)
+    public static void UpdateNFTProperties(string mintAddress, string NFTName, string symbol, string updateAuthority, string NFTJsonUrl, int seller_fee_basis_points,Action approveAction, Action<CommonResponse<MintResponse>> callBack)
     {
-        Instance.UpdateNFTProperties(mintAddress, NFTName, symbol, updateAuthority, NFTJsonUrl, seller_fee_basis_points, Confirmation.Confirmed, callBack);
+        ApproveUpdateNFTProperties requestParams = new ApproveUpdateNFTProperties();
+        requestParams.mint_address = mintAddress;
+        requestParams.name = NFTName;
+        requestParams.confirmation = Confirmation.Confirmed;
+        requestParams.symbol = symbol;
+        requestParams.seller_fee_basis_points = seller_fee_basis_points;
+        requestParams.update_authority = updateAuthority;
+
+        MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.UpdateNFT, "update nft", requestParams, () => {
+            if (approveAction != null)
+            {
+                approveAction();
+            }
+            Instance.UpdateNFTProperties(mintAddress, NFTName, symbol, updateAuthority, NFTJsonUrl, seller_fee_basis_points, Confirmation.Confirmed, callBack);
+        });
     }
 
     public static void ListNFT(string mintAddress, double price, string confirmation,Action approveFinished, Action<CommonResponse<ListingResponse>> callBack)
@@ -446,12 +474,12 @@ public class MirrorSDK : MonoBehaviour
     #endregion
 
     #region Confirmation
-    public static void GetStatusOfTransactions(List<string> signatures, Action<CommonResponse<GetStatusOfTransactionsResponse>> callBack)
+    public static void CheckStatusOfTransactions(List<string> signatures, Action<CommonResponse<GetStatusOfTransactionsResponse>> callBack)
     {
         MirrorWrapper.Instance.GetStatusOfTransactions(signatures,callBack);
     }
 
-    public static void GetStatusOfMintings(List<string> mintAddresses, Action<CommonResponse<GetStatusOfTransactionsResponse>> callBack)
+    public static void CheckStatusOfMinting(List<string> mintAddresses, Action<CommonResponse<GetStatusOfTransactionsResponse>> callBack)
     {
         MirrorWrapper.Instance.GetStatusOfMintings(mintAddresses,callBack);
     }

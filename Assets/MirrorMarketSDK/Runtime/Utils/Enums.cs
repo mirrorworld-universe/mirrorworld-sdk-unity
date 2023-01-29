@@ -39,6 +39,7 @@ namespace MirrorworldSDK
     public class MirrorSafeOptType
     {
         public static string MintNFT = "mint_nft";
+        public static string UpdateNFT = "update_nft";
         public static string TransferSol = "transfer_sol";
         public static string TransferSPLToken = "transfer_spl_token";
         public static string CreateCollection = "create_collection";

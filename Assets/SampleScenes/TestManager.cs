@@ -254,7 +254,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnUpdateNFTProperties")
         {
             SetInfoPanel("UpdateNFTProperties", "mint address", "name", "updateAuthority", "json url",  "MintNFT", "MintNFT", () => {
-                MirrorSDK.UpdateNFTProperties(v1, v2, "newsymbol", v3, v4 , 200, (res) => {
+                MirrorSDK.UpdateNFTProperties(v1, v2, "newsymbol", v3, v4 , 200,approveFinished, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
@@ -339,7 +339,7 @@ public class TestManager : MonoBehaviour
                 if (v1 != "") signatures.Add(v1);
                 if (v2 != "") signatures.Add(v2);
 
-                MirrorSDK.GetStatusOfTransactions(signatures, (res) =>
+                MirrorSDK.CheckStatusOfTransactions(signatures, (res) =>
                 {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("GetStatusOfTransactions result:" + body);
@@ -352,7 +352,7 @@ public class TestManager : MonoBehaviour
                 List<string> mintAddresses = new List<string>();
                 if (v1 != "") mintAddresses.Add(v1);
                 if (v2 != "") mintAddresses.Add(v2);
-                MirrorSDK.GetStatusOfMintings(mintAddresses, (res) =>
+                MirrorSDK.CheckStatusOfMinting(mintAddresses, (res) =>
                 {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("GetStatusOfMintings result:" + body);
