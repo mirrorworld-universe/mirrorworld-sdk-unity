@@ -27,7 +27,10 @@ namespace MirrorworldSDK
 
         public static void SetAuthorizationHeader(UnityWebRequest req, string accessToken)
         {
-            req.SetRequestHeader("Authorization", "Bearer " + accessToken);
+            if (accessToken != "" && accessToken != null)
+            {
+                req.SetRequestHeader("Authorization", "Bearer " + accessToken);
+            }
         }
         
         public static void SetApiKeyHeader(UnityWebRequest req, string apiKey)

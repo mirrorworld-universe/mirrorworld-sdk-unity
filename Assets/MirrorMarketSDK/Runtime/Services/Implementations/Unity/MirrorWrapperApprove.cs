@@ -18,6 +18,16 @@ namespace MirrorworldSDK.Wrapper
         private readonly string urlActionRequest = "auth/actions/request";
         private readonly string urlActionAPPROVE = "approve/";
 
+        public void StartSecuirtyApprove<T>(string type, string message, T request, Action callback)
+        {
+
+#if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
+            callback();
+#else
+            GetSecurityToken(type,message,request,callback);
+#endif
+        }
+
         public void GetSecurityToken<T>(string type, string message, T request, Action callback)
         {
             if(apiKey == "" || accessToken == "" || refreshToken == "")

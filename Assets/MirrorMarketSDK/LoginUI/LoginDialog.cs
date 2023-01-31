@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using MirrorworldSDK;
+using MirrorworldSDK.UI;
+using MirrorworldSDK.Wrapper;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,9 +26,17 @@ public class LoginDialog : MonoBehaviour
         MirrorSDK.CompleteLoginWithSession((success)=>{
             if (success)
             {
-                contentText.text = "Login success!";
+                MirrorWrapper.Instance.LoginAsDeveloper((loginSuccess) => {
+                    contentText.text = "Login success!";
 
-                Destroy(gameObject);
+                    Destroy(gameObject);
+                    //MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
+                    //GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("UniversalDialog", monoBehaviour.transform);
+                    //UniversalDialog dialog = dialogCanvas.GetComponent<UniversalDialog>();
+                    //dialog.Init("Developer Login Success.", "You can do auto login testing whenever your game is opened.", "Ok", "", () => {
+                    //    dialog.DestroyDialog();
+                    //}, null);
+                });
             }
             else
             {

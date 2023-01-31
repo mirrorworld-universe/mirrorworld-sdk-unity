@@ -23,7 +23,6 @@ namespace MirrorworldSDK.Wrapper
          */
         private string debugSession = "";
         private Action<LoginResponse> loginCb = null;
-        public bool debugSilentLoginSuccess = false;
 
         public Action walletLogoutAction;
 

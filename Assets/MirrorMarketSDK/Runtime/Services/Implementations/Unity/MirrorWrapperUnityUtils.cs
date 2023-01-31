@@ -80,6 +80,10 @@ namespace MirrorworldSDK.Wrapper
             MirrorUtils.SetAuthorizationHeader(request, accessToken);
             MirrorUtils.SetXAuthToken(request,authToken);
 
+            //LogFlow("apiKey:" + apiKey);
+            //LogFlow("accessToken:" + accessToken);
+            //LogFlow("authToken:" + authToken);
+
             if (messageBody != null && messageBody != "")
             {
                 LogFlow("Post:"+ messageBody);
