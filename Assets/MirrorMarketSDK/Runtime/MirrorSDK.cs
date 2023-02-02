@@ -115,11 +115,8 @@ public class MirrorSDK : MonoBehaviour
 
         MirrorWrapper.Instance.LogFlow("Start login in unity...");
 
-        MirrorWrapper.Instance.debugSilentLoginSuccess = false;
-
         MirrorWrapper.Instance.GetLoginSession(MirrorWrapper.Instance.debugEmail, (startSuccess) =>
         {
-
             MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
 
             GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("DialogCanvas", monoBehaviour.transform);
@@ -127,31 +124,6 @@ public class MirrorSDK : MonoBehaviour
             MirrorWrapper.Instance.LogFlow("Open login page result:" + startSuccess);
 
         }, action);
-
-        //MirrorWrapper.Instance.IsLoggedIn((logged)=> {
-        //    if (logged)
-        //    {
-        //        MirrorWrapper.Instance.debugSilentLoginSuccess = true;
-
-        //        LoginResponse loginResponse = MirrorWrapper.Instance.GetFakeLoginResponse();
-
-        //        if (action != null) action(loginResponse);
-        //    }
-        //    else
-        //    {
-        //        MirrorWrapper.Instance.debugSilentLoginSuccess = false;
-
-        //        MirrorWrapper.Instance.GetLoginSession(MirrorWrapper.Instance.debugEmail, (startSuccess) => {
-
-        //            MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
-
-        //            GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("DialogCanvas", monoBehaviour.transform);
-
-        //            MirrorWrapper.Instance.LogFlow("Open login page result:" + startSuccess);
-
-        //        }, action);
-        //    }
-        //});
 #elif UNITY_ANDROID && !(UNITY_EDITOR)
 
             MirrorWrapper.Instance.LogFlow("Start login in android...");
@@ -244,7 +216,7 @@ public class MirrorSDK : MonoBehaviour
         }
         requestParams.confirmation = confirmation;
 
-        MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.MintNFT, "mint nft", requestParams, () =>
+        MirrorWrapper.Instance.StartSecuirtyApprove(MirrorSafeOptType.MintNFT, "mint nft", requestParams, () =>
         {
             if (approveFinished != null)
             {
@@ -268,7 +240,7 @@ public class MirrorSDK : MonoBehaviour
         }
         requestParams.confirmation = confirmation;
 
-        MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.MintNFT, "mint nft", requestParams, () =>
+        MirrorWrapper.Instance.StartSecuirtyApprove(MirrorSafeOptType.MintNFT, "mint nft", requestParams, () =>
         {
             if (approveFinished != null)
             {
@@ -287,7 +259,7 @@ public class MirrorSDK : MonoBehaviour
         requestParams.confirmation = confirmation;
         requestParams.seller_fee_basis_points = seller_fee_basis_points;
 
-        MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.CreateCollection, "create collection", requestParams, () => {
+        MirrorWrapper.Instance.StartSecuirtyApprove(MirrorSafeOptType.CreateCollection, "create collection", requestParams, () => {
             if(approveFinished != null)
             {
                 approveFinished();
@@ -340,7 +312,7 @@ public class MirrorSDK : MonoBehaviour
         requestParams.seller_fee_basis_points = seller_fee_basis_points;
         requestParams.update_authority = updateAuthority;
 
-        MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.UpdateNFT, "update nft", requestParams, () => {
+        MirrorWrapper.Instance.StartSecuirtyApprove(MirrorSafeOptType.UpdateNFT, "update nft", requestParams, () => {
             if (approveAction != null)
             {
                 approveAction();
@@ -359,7 +331,7 @@ public class MirrorSDK : MonoBehaviour
         requestParams.seller_fee_basis_points = seller_fee_basis_points;
         requestParams.update_authority = updateAuthority;
 
-        MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.UpdateNFT, "update nft", requestParams, () => {
+        MirrorWrapper.Instance.StartSecuirtyApprove(MirrorSafeOptType.UpdateNFT, "update nft", requestParams, () => {
             if (approveAction != null)
             {
                 approveAction();
@@ -381,7 +353,7 @@ public class MirrorSDK : MonoBehaviour
         requestParams.confirmation = confirmation;
         requestParams.auction_house = auction_house;
 
-        MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.ListNFT, "list nft", requestParams, () => {
+        MirrorWrapper.Instance.StartSecuirtyApprove(MirrorSafeOptType.ListNFT, "list nft", requestParams, () => {
             if(approveFinished != null)
             {
                 approveFinished();
@@ -403,7 +375,7 @@ public class MirrorSDK : MonoBehaviour
         requestParams.confirmation = confirmation;
         requestParams.auction_house = auction_house;
 
-        MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.CancelListing, "cancel list nft", requestParams, () => {
+        MirrorWrapper.Instance.StartSecuirtyApprove(MirrorSafeOptType.CancelListing, "cancel list nft", requestParams, () => {
             if(approveFinished != null)
             {
                 approveFinished();
@@ -426,7 +398,7 @@ public class MirrorSDK : MonoBehaviour
         requestParams.confirmation = confirmation;
         requestParams.auction_house = auction_house;
 
-        MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.UpdateListing, "update list nft", requestParams, () => {
+        MirrorWrapper.Instance.StartSecuirtyApprove(MirrorSafeOptType.UpdateListing, "update list nft", requestParams, () => {
             if(approveFinished != null)
             {
                 approveFinished();
@@ -447,7 +419,7 @@ public class MirrorSDK : MonoBehaviour
         requestParams.price = price.ToString();
         requestParams.auction_house = auction_house;
 
-        MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.BuyNFT, "buy nft", requestParams, () => {
+        MirrorWrapper.Instance.StartSecuirtyApprove(MirrorSafeOptType.BuyNFT, "buy nft", requestParams, () => {
             if(approveFinished != null)
             {
                 approveFinished();
@@ -462,7 +434,7 @@ public class MirrorSDK : MonoBehaviour
         requestParams.mint_address = mint_address;
         requestParams.to_wallet_address = to_wallet_address;
 
-        MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.TransferNFT, "transfer nft", requestParams, () => {
+        MirrorWrapper.Instance.StartSecuirtyApprove(MirrorSafeOptType.TransferNFT, "transfer nft", requestParams, () => {
             if (approveAction != null)
             {
                 approveAction();
@@ -505,7 +477,7 @@ public class MirrorSDK : MonoBehaviour
         requestParams.to_publickey = to_publickey;
         requestParams.amount = amount;
 
-        MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.TransferSol, "transfer sol", requestParams, () => {
+        MirrorWrapper.Instance.StartSecuirtyApprove(MirrorSafeOptType.TransferSol, "transfer sol", requestParams, () => {
             if(approveFinished != null)
             {
                 approveFinished();
@@ -521,7 +493,7 @@ public class MirrorSDK : MonoBehaviour
         requestParams.token_mint = token_mint;
         requestParams.decimals = decimals;
 
-        MirrorWrapper.Instance.GetSecurityToken(MirrorSafeOptType.TransferSPLToken, "transfer spl token", requestParams, () => {
+        MirrorWrapper.Instance.StartSecuirtyApprove(MirrorSafeOptType.TransferSPLToken, "transfer spl token", requestParams, () => {
             if(approveFinished != null)
             {
                 approveFinished();
