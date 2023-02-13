@@ -86,7 +86,7 @@ extern "C"
         NSString *urlStr = [NSString stringWithFormat:@"%s",url];
       
         NSLog(@"iOS_MWSDK_LOG: - IOSOpenMarketPlace:%@",urlStr);
-        [[MirrorWorldSDK share] openMarketPlacePageWithUrl:urlStr];
+        [[MirrorWorldSDK share] OpenMarketPlacePageWithUrl:urlStr];
         NSLog(@"iOS_MWSDK_LOG: - IOSOpenMarketPlace。");
     }
 }
