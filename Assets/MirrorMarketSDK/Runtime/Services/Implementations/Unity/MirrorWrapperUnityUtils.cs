@@ -17,28 +17,35 @@ namespace MirrorworldSDK.Wrapper
             if(apiKey == "")
             {
                 LogFlow("Please set apiKey first.");
+
                 yield break;
             }
 
             if (accessToken == "")
             {
                 LogFlow("No access token,try to get one...");
-                yield return monoBehaviour.StartCoroutine(DoGetAccessToken(null));
-                if (accessToken == "")
-                {
-                    LogFlow("Get access token failed.");
-                    yield break;
-                }
+                yield return monoBehaviour.StartCoroutine(DoGetAccessToken((isSuccess)=> {
+                    if (isSuccess)
+                    {
+                        monoBehaviour.StartCoroutine(Post(url, messageBody, callBack));
+                    }
+                    else
+                    {
+                        LogFlow("CheckAndPost: Get access token failed.");
+                        return;
+                    }
+                }));
             }
-
-            yield return Post(url,messageBody,callBack);
+            else
+            {
+                yield return Post(url, messageBody, callBack);
+            }
         }
 
         private IEnumerator CheckAndGet(string url, Dictionary<string, string> requestParams, Action<string> callBack)
         {
             if (apiKey == "")
             {
-                //LogFlow("Please set apiKey first.");
                 CommonResponse<string> commonResponse = new CommonResponse<string>();
                 commonResponse.code = (long)MirrorResponseCode.LocalFailed;
                 commonResponse.error = "Please set apiKey first.";
@@ -51,21 +58,27 @@ namespace MirrorworldSDK.Wrapper
             if (accessToken == "")
             {
                 LogFlow("No access token,try to get one...");
-                yield return monoBehaviour.StartCoroutine(DoGetAccessToken(null));
-                if (accessToken == "")
-                {
-                    LogFlow("Get access token failed.");
-                    CommonResponse<string> commonResponse = new CommonResponse<string>();
-                    commonResponse.code = (long)MirrorResponseCode.LocalFailed;
-                    commonResponse.error = "Unity:Get access token failed.";
+                yield return monoBehaviour.StartCoroutine(DoGetAccessToken((isSuccess)=> {
+                    if (isSuccess)
+                    {
+                        monoBehaviour.StartCoroutine(Get(url, requestParams, callBack));
+                    }
+                    else
+                    {
+                        LogFlow("CheckAndGet: Get access token failed.");
+                        CommonResponse<string> commonResponse = new CommonResponse<string>();
+                        commonResponse.code = (long)MirrorResponseCode.LocalFailed;
+                        commonResponse.error = "Unity:Get access token failed.";
 
-                    string resStr = JsonUtility.ToJson(commonResponse);
-                    callBack(resStr);
-                    yield break;
-                }
+                        string resStr = JsonUtility.ToJson(commonResponse);
+                        callBack(resStr);
+                    }
+                }));
             }
-
-            yield return Get(url, requestParams, callBack);
+            else
+            {
+                yield return Get(url, requestParams, callBack);
+            }
         }
 
         private IEnumerator Post(string url, string messageBody, Action<string> callBack)

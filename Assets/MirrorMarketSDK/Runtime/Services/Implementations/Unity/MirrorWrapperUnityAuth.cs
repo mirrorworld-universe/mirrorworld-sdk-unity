@@ -71,12 +71,18 @@ namespace MirrorworldSDK.Wrapper
 
         public IEnumerator DoGetAccessToken(Action<bool> action)
         {
+            if (action == null)
+            {
+                LogFlow("DoGetAccessToken action is null. Seems logic is wrong.");
+                yield break;
+            }
+
             if (refreshToken == "")
             {
                 refreshToken = GetStringFromLocal(localKeyRefreshToken);
                 if (refreshToken == "")
                 {
-                    LogFlow("Try to get access token but there is no refresh token local.Seems logic is wrong.");
+                    LogFlow("Try to get access token but there is no refresh token local. Maybe the cache is cleared. Please login again.");
                     action(false);
                     yield break;
                 }
@@ -84,7 +90,7 @@ namespace MirrorworldSDK.Wrapper
 
             if (apiKey == "")
             {
-                LogFlow("Try to get access token but there is no api key.Seems logic is wrong.");
+                LogFlow("Try to get access token but there is no api key, please set it first!");
                 action(false);
                 yield break;
             }
