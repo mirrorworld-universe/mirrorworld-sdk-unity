@@ -605,7 +605,7 @@ public class TestManager : MonoBehaviour
     private UniversalDialog ShowUniversalNotice(string title, string content, string yesText, string noText, Action yesAction, Action noAction)
     {
         MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
-        GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("UniversalDialog", monoBehaviour.transform);
+        GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("UniversalDialog", GameObject.Find("Canvas").transform);
         UniversalDialog dialog = dialogCanvas.GetComponent<UniversalDialog>();
         dialog.Init(title,content,yesText,noText,yesAction,noAction);
         return dialog;

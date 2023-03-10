@@ -119,7 +119,7 @@ public class MirrorSDK : MonoBehaviour
         {
             MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
 
-            GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("DialogCanvas", monoBehaviour.transform);
+            GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("DialogCanvas", GameObject.Find("Canvas").transform);
 
             MirrorWrapper.Instance.LogFlow("Open login page result:" + startSuccess);
 
