@@ -41,19 +41,11 @@ namespace MirrorworldSDK.Wrapper
 
         public string GetActionRoot()
         {
-            if (environment == MirrorEnv.StagingMainNet)
-            {
-                return "https://api-staging.mirrorworld.fun/v1/";
-            }
-            else if (environment == MirrorEnv.StagingDevNet)
-            {
-                return "https://api-staging.mirrorworld.fun/v1/";
-            }
-            else if (environment == MirrorEnv.ProductionDevnet)
+            if (environment == MirrorEnv.Devnet)
             {
                 return "https://api.mirrorworld.fun/v1/";
             }
-            else if (environment == MirrorEnv.ProductionMainnet)
+            else if (environment == MirrorEnv.Mainnet)
             {
                 return "https://api.mirrorworld.fun/v1/";
             }
@@ -184,19 +176,11 @@ namespace MirrorworldSDK.Wrapper
 
         public string GetActionRootWithoutVersion()
         {
-            if (environment == MirrorEnv.StagingMainNet)
-            {
-                return "https://auth-staging.mirrorworld.fun/";
-            }
-            else if (environment == MirrorEnv.StagingDevNet)
-            {
-                return "https://auth-staging.mirrorworld.fun/";
-            }
-            else if (environment == MirrorEnv.ProductionDevnet)
+            if (environment == MirrorEnv.Devnet)
             {
                 return "https://auth.mirrorworld.fun/";
             }
-            else if (environment == MirrorEnv.ProductionMainnet)
+            else if (environment == MirrorEnv.Mainnet)
             {
                 return "https://auth.mirrorworld.fun/";
             }

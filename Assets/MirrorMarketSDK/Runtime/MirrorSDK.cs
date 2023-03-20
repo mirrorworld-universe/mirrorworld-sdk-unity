@@ -32,10 +32,10 @@ public class MirrorSDK : MonoBehaviour
             return;
         }
         Debug.Log("Unity apikey:"+apiKey);
-        MirrorEnv env = MirrorEnv.ProductionDevnet;
+        MirrorEnv env = MirrorEnv.Devnet;
         if(environment == MirrorEnvPublic.ProductionMainnet)
         {
-            env = MirrorEnv.ProductionMainnet;
+            env = MirrorEnv.Mainnet;
         }
         InitSDK(apiKey, gameObject, debugMode, env);
 
@@ -47,14 +47,6 @@ public class MirrorSDK : MonoBehaviour
     public static void InitSDK(string apiKey, GameObject gameObject, bool useDebug, MirrorEnv environment)
     {
         Debug.Log("env:"+ environment);
-
-        //Test
-        //environment = MirrorEnv.StagingDevNet;
-
-        if (environment == MirrorEnv.StagingDevNet || environment == MirrorEnv.StagingMainNet)
-        {
-            Debug.LogError("Environment error!");
-        }
 
         DontDestroyOnLoad(gameObject);
 
@@ -76,8 +68,6 @@ public class MirrorSDK : MonoBehaviour
 
             MirrorWrapper.Instance.LogFlow("Mirror SDK Inited.");
 #endif
-
-
     }
 
     /// <summary>

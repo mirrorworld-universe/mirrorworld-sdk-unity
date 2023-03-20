@@ -13,19 +13,16 @@ public class TestManager : MonoBehaviour
     public GameObject apiList;
 
     public TextMeshProUGUI apiNameText;
-    public TextMeshProUGUI input1;
-    public TextMeshProUGUI input2;
-    public TextMeshProUGUI input3;
-    public TextMeshProUGUI input4;
-    public TextMeshProUGUI title1, title2, title3, title4;
-    public GameObject inputField1;
-    public GameObject inputField2;
-    public GameObject inputField3;
-    public GameObject inputField4;
     public TextMeshProUGUI btnText;
     public TextMeshProUGUI contentText;
+    public ParamCell cell1;
+    public ParamCell cell2;
+    public ParamCell cell3;
+    public ParamCell cell4;
+    public ParamCell cell5;
+    public ParamCell cell6;
 
-    private string v1, v2, v3, v4;
+    private string v1, v2, v3, v4, v5, v6;
     private Action clickAction;
     // Start is called before the first frame update
     void Start()
@@ -115,7 +112,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnEmailLogin")
         {
-            SetInfoPanel("LoginWithEmail", "email", "password", null, null, "Login", "Login with a registed email.", () => {
+            SetInfoPanel("LoginWithEmail", "email", "password", null, null, null, null, "Login", "Login with a registed email.", () => {
                 MirrorSDK.LoginWithEmail(v1,v2,(res)=> {
                     PrintLog("Login result:"+JsonUtility.ToJson(res));
                 });
@@ -123,7 +120,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnFetchUser")
         {
-            SetInfoPanel("FetchUser", "email", null, null, null, "FetchUser", "FetchUser", () => {
+            SetInfoPanel("FetchUser", "email", null, null, null, null, null, "FetchUser", "FetchUser", () => {
                 MirrorSDK.FetchUser(v1, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
@@ -132,7 +129,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnGetTokens")
         {
-            SetInfoPanel("GetWalletTokens", null, null, null, null, "Get", "Get your tokens", () => {
+            SetInfoPanel("GetWalletTokens", null, null, null, null, null, null, "Get", "Get your tokens", () => {
                 MirrorSDK.GetTokens((res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("Get tokens result:" + body);
@@ -141,7 +138,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnGetAccessToken")
         {
-            SetInfoPanel("GetAccessToken", null, null, null, null, "GetAccessToken", "Get Access Token", () => {
+            SetInfoPanel("GetAccessToken", null, null, null, null, null, null, "GetAccessToken", "Get Access Token", () => {
                 MirrorSDK.GetAccessToken((isSuccess)=> {
                     PrintLog("Access token is secret,you can see the result in console."+ isSuccess);
                 });
@@ -156,7 +153,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnGetWallet")
         {
-            SetInfoPanel("GetWallet",null,null,null,null, "GetWallet", "Get wallet",()=> {
+            SetInfoPanel("GetWallet",null,null,null,null, null, null, "GetWallet", "Get wallet",()=> {
                 //MirrorSDK.GetWallet((res)=> {
                 //    var body = JsonUtility.ToJson(res);
                 //    PrintLog("result:" + body);
@@ -166,7 +163,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnGetNFTDetails")
         {
-            SetInfoPanel("GetNFTDetails", "mint address", null, null, null, "GetNFTDetails", "GetNFTDetails", () => {
+            SetInfoPanel("GetNFTDetails", "mint address", null, null, null, null, null, "GetNFTDetails", "GetNFTDetails", () => {
                 MirrorSDK.GetNFTDetails(v1, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
@@ -175,7 +172,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnGetNFTsOwnedByAddress")
         {
-            SetInfoPanel("GetNFTOwnedByAddress", "owner address", "limit", "offset", null, "Get", "Get NFTs wwned by address", () => {
+            SetInfoPanel("GetNFTOwnedByAddress", "owner address", "limit", "offset", null, null, null, "Get", "Get NFTs wwned by address", () => {
                 List<string> owners = new List<string>();
                 owners.Add(v1);
                 long limit = long.Parse(v2);
@@ -189,7 +186,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnFetchNFTsByMint")
         {
-            SetInfoPanel("FetchNFTsByMintAddresses", "mint address", null, null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses",()=> {
+            SetInfoPanel("FetchNFTsByMintAddresses", "mint address", null, null, null, null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses",()=> {
                 List<string> list = new List<string>();
                 list.Add(v1);
                 MirrorSDK.FetchNFTsByMintAddress(list, (res) => {
@@ -200,7 +197,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnFetchNFTsByCreators")
         {
-            SetInfoPanel("FetchNFTsByCreatorAddresses", "creator address", null, null, null, "FetchNFTsByCreatorAddresses", "FetchNFTsByCreatorAddresses", () => {
+            SetInfoPanel("FetchNFTsByCreatorAddresses", "creator address", null, null, null, null, null, "FetchNFTsByCreatorAddresses", "FetchNFTsByCreatorAddresses", () => {
                 List<string> list = new List<string>();
                 list.Add(v1);
 
@@ -212,7 +209,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnFetchNFTsByAuthens")
         {
-            SetInfoPanel("FetchNFTsByUpdateAuthorities", "auth address", null, null, null, "FetchNFTsByUpdateAuthorities", "FetchNFTsByUpdateAuthorities", () => {
+            SetInfoPanel("FetchNFTsByUpdateAuthorities", "auth address", null, null, null, null, null, "FetchNFTsByUpdateAuthorities", "FetchNFTsByUpdateAuthorities", () => {
                 List<string> list = new List<string>();
                 list.Add(v1);
 
@@ -224,7 +221,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnIsLoggedIn")
         {
-            SetInfoPanel("IsLoggedIn", null, null, null, null, "IsLoggedIn", "IsLoggedIn", () =>
+            SetInfoPanel("IsLoggedIn", null, null, null, null, null, null, "IsLoggedIn", "IsLoggedIn", () =>
             {
                 MirrorSDK.IsLoggedIn((res)=> {
                     PrintLog("result:" + res);
@@ -234,7 +231,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnCreateCollection")
         {
-            SetInfoPanel("CreateVerifiedCollection", "name", "symbol", "url", "seller fee basis points", "CreateVerifiedCollection", "CreateVerifiedCollection", () => {
+            SetInfoPanel("CreateVerifiedCollection", "name", "symbol", "url", "seller fee basis points", null, null, "CreateVerifiedCollection", "CreateVerifiedCollection", () => {
                 int seller_fee_basis_points = (int)PrecisionUtil.StrToDouble(v4);
                 MirrorSDK.CreateVerifiedCollection(v1, v2, v3, seller_fee_basis_points, null, approveFinished,(res) => {
                     var body = JsonUtility.ToJson(res);
@@ -244,7 +241,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnMintNFT")
         {
-            SetInfoPanel("MintNFT",  "parent collection", "name", "symbol", "url", "MintNFT", "MintNFT",()=> {
+            SetInfoPanel("MintNFT",  "parent collection", "name", "symbol", "url", null, null, "MintNFT", "MintNFT",()=> {
                 MirrorSDK.MintNFT(v1,v2,v3,v4,null, null, approveFinished,(res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
@@ -253,7 +250,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnUpdateNFTProperties")
         {
-            SetInfoPanel("UpdateNFTProperties", "mint address", "name", "updateAuthority", "json url",  "MintNFT", "MintNFT", () => {
+            SetInfoPanel("UpdateNFTProperties", "mint address", "name", "updateAuthority", "json url", null, null,  "MintNFT", "MintNFT", () => {
                 MirrorSDK.UpdateNFTProperties(v1, v2, "newsymbol", v3, v4 , 200,approveFinished, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
@@ -262,7 +259,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnListNFT")
         {
-            SetInfoPanel("ListNFT", "mint address", "price", null, null, "ListNFT", "ListNFT", ()=> {
+            SetInfoPanel("ListNFT", "mint address", "price", null, null, null, null, "ListNFT", "ListNFT", ()=> {
                 double price = PrecisionUtil.StrToDouble(v2);
                 MirrorSDK.ListNFT(v1,price,Confirmation.Default, approveFinished,(res)=> {
                     var body = JsonUtility.ToJson(res);
@@ -272,7 +269,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnListUpdate")
         {
-            SetInfoPanel("UpdateNFTListing", "mint address", "price", null, null, "UpdateNFTListing", "UpdateNFTListing", ()=> {
+            SetInfoPanel("UpdateNFTListing", "mint address", "price", null, null, null, null, "UpdateNFTListing", "UpdateNFTListing", ()=> {
                 double price = PrecisionUtil.StrToDouble(v2);
                 MirrorSDK.UpdateNFTListing(v1,price, Confirmation.Default, approveFinished,(res) =>
                 {
@@ -283,7 +280,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnListCancel")
         {
-            SetInfoPanel("CancelNFTListing", "mint address", "price", null, null, "CancelNFTListing", "CancelNFTListing", ()=> {
+            SetInfoPanel("CancelNFTListing", "mint address", "price", null, null, null, null, "CancelNFTListing", "CancelNFTListing", ()=> {
                 double price = PrecisionUtil.StrToDouble(v2);
                 MirrorSDK.CancelNFTListing(v1, price, Confirmation.Default, approveFinished,(res) =>
                 {
@@ -294,7 +291,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnBuyNFT")
         {
-            SetInfoPanel("Buy NFT", "mint address", "Price", null, null, "BuyNFT", "BuyNFT", ()=> {
+            SetInfoPanel("Buy NFT", "mint address", "Price", null, null, null, null, "BuyNFT", "BuyNFT", ()=> {
                 double price = PrecisionUtil.StrToDouble(v2);
                 Debug.Log("price:"+ price);
                 MirrorSDK.BuyNFT(v1,price, approveFinished,(res)=> {
@@ -305,7 +302,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnTransferNFT")
         {
-            SetInfoPanel("Transfer NFT", "mint address", "to wallet", null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses",()=> {
+            SetInfoPanel("Transfer NFT", "mint address", "to wallet", null, null, null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses",()=> {
                 MirrorSDK.TransferNFT(v1,v2,approveFinished, (res)=> {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
@@ -314,7 +311,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnGetTransactions")
         {
-            SetInfoPanel("GetWalletTransactions", "number", "next_before", null, null, "GetWalletTransactions", "GetWalletTransactions", ()=> {
+            SetInfoPanel("GetWalletTransactions", "number", "next_before", null, null, null, null, "GetWalletTransactions", "GetWalletTransactions", ()=> {
                 float price = PrecisionUtil.StrToFloat(v1);
                 MirrorSDK.GetTransactions(price,v2,(res)=> {
                     var body = JsonUtility.ToJson(res);
@@ -324,7 +321,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnGetWalletTransactionsBySignatrue")
         {
-            SetInfoPanel("GetWalletTransactionsBySignatrue", "signature", null, null, null, "GetWalletTransactionsBySignatrue", "GetWalletTransactionsBySignatrue", ()=> {
+            SetInfoPanel("GetWalletTransactionsBySignatrue", "signature", null, null, null, null, null, "GetWalletTransactionsBySignatrue", "GetWalletTransactionsBySignatrue", ()=> {
                 MirrorSDK.GetWalletTransactionsBySignatrue(v1, (res) =>
                 {
                     var body = JsonUtility.ToJson(res);
@@ -334,7 +331,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnGetStatusOfTransactions")
         {
-            SetInfoPanel("GetStatusOfTransactions", "signature 1", "signature 2", null, null, "GetStatusOfTransactions", "GetStatusOfTransactions", () => {
+            SetInfoPanel("GetStatusOfTransactions", "signature 1", "signature 2", null, null, null, null, "GetStatusOfTransactions", "GetStatusOfTransactions", () => {
                 List<string> signatures = new List<string>();
                 if (v1 != "") signatures.Add(v1);
                 if (v2 != "") signatures.Add(v2);
@@ -348,7 +345,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnGetStatusOfMintings")
         {
-            SetInfoPanel("GetStatusOfMintings", "mint address 1", "mint address 2", null, null, "GetStatusOfMintings", "GetStatusOfMintings", () => {
+            SetInfoPanel("GetStatusOfMintings", "mint address 1", "mint address 2", null, null, null, null, "GetStatusOfMintings", "GetStatusOfMintings", () => {
                 List<string> mintAddresses = new List<string>();
                 if (v1 != "") mintAddresses.Add(v1);
                 if (v2 != "") mintAddresses.Add(v2);
@@ -361,7 +358,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnTransferSol")
         {
-            SetInfoPanel("TransferSol", "amount", "public key", null, null, "TransferSol", "TransferSol", ()=> {
+            SetInfoPanel("TransferSol", "amount", "public key", null, null, null, null, "TransferSol", "TransferSol", ()=> {
                 if (v1.Contains('.'))
                 {
                     int realAmout = (int)PrecisionUtil.StrToDouble(v1);
@@ -380,7 +377,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnTransferSPLToken")
         {
-            SetInfoPanel("TransferSPLToken", "amount", "public key", "amount", "mint_address", "Transfer", "Transfer", ()=> {
+            SetInfoPanel("TransferSPLToken", "amount", "public key", "amount", "mint_address", null, null, "Transfer", "Transfer", ()=> {
                 ulong price = PrecisionUtil.StrToULong(v1);
                 int decimals = PrecisionUtil.StrToInt(v3);
                 MirrorSDK.TransferSPLToken(v4, decimals, price,v2, approveFinished,(res)=> {
@@ -406,7 +403,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnGetCollectionFilterInfo")
         {
-            SetInfoPanel("GetCollectionFilterInfo", "collection", null, null, null, "Get", "Get collection filter info", () => {
+            SetInfoPanel("GetCollectionFilterInfo", "collection", null, null, null, null, null, "Get", "Get collection filter info", () => {
                 string collection = v1;
                 MirrorSDK.GetCollectionFilterInfo(v1, (res) => {
                     var body = JsonUtility.ToJson(res);
@@ -416,7 +413,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnGetNFTInfo")
         {
-            SetInfoPanel("GetNFTInfo", "mint address", null, null, null, "Get", "Get NFT info", () => {
+            SetInfoPanel("GetNFTInfo", "mint address", null, null, null, null, null, "Get", "Get NFT info", () => {
                 string mintAddress = v1;
 
                 MirrorSDK.GetNFTInfo(mintAddress, (res) => {
@@ -426,7 +423,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnGetCollectionInfo")
         {
-            SetInfoPanel("GetCollectionInfo", "collection", null, null, null, "Get", "Get collection info", () => {
+            SetInfoPanel("GetCollectionInfo", "collection", null, null, null, null, null, "Get", "Get collection info", () => {
                 string collection1 = v1;
                 List<string> collections = new List<string>();
                 collections.Add(collection1);
@@ -439,7 +436,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnGetNFTEvents")
         {
-            SetInfoPanel("GetNFTEvents", "mint address", "page", "page size", null, "Get", "Get NFT events", () => {
+            SetInfoPanel("GetNFTEvents", "mint address", "page", "page size", null, null, null, "Get", "Get NFT events", () => {
                 string mintAddress = v1;
                 int page = int.Parse(v2);
                 int pageSize = int.Parse(v3);
@@ -452,7 +449,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnSearchNFTs")
         {
-            SetInfoPanel("SearchNFTs", "collection 1", "search string", null, null, "Search", "Search NFTs", () => {
+            SetInfoPanel("SearchNFTs", "collection 1", "search string", null, null, null, null, "Search", "Search NFTs", () => {
                 string collection1 = v1;
                 List<string> collections = new List<string>();
                 collections.Add(collection1);
@@ -466,7 +463,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnRecommendSearchNFTs")
         {
-            SetInfoPanel("RecommendSearchNFT", "collection 1", null, null, null, "Search", "Recommend search NFTs", () => {
+            SetInfoPanel("RecommendSearchNFT", "collection 1", null, null, null, null, null, "Search", "Recommend search NFTs", () => {
                 string collection1 = v1;
                 List<string> collections = new List<string>();
                 collections.Add(collection1);
@@ -479,7 +476,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnGetNFTs")
         {
-            SetInfoPanel("GetNFTs", "collection", "page", "page size", "orderByString", "Get", "Get NFTs", () => {
+            SetInfoPanel("GetNFTs", "collection", "page", "page size", "orderByString", null, null, "Get", "Get NFTs", () => {
                 string collection = v1;
                 int page = int.Parse(v2);
                 int pageSize = int.Parse(v3);
@@ -494,7 +491,7 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == "BtnGetNFTRealPrice")
         {
-            SetInfoPanel("GetNFTRealPrice", "price", "fee", null, null, "Get", "Get NFT real price.", () => {
+            SetInfoPanel("GetNFTRealPrice", "price", "fee", null, null, null, null, "Get", "Get NFT real price.", () => {
                 string price = v1;
                 int fee = int.Parse(v2);
 
@@ -512,48 +509,56 @@ public class TestManager : MonoBehaviour
         }
     }
 
-    private void SetInfoPanel(string apiName,string hint1,string hint2,string hint3,string hint4,string btnText,string content,Action action)
+    private void SetInfoPanel(string apiName,string hint1,string hint2, string hint3, string hint4, string hint5,string hint6,string btnText,string content,Action action)
     {
         apiNameText.text = apiName;
         if(hint1 == null)
         {
-            inputField1.gameObject.SetActive(false);
+            cell1.Hide();
         }
         else
         {
-            inputField1.gameObject.SetActive(true);
-            input1.text = hint1;
-            title1.text = hint1;
+            cell1.Show(hint1,hint1);
         }
         if (hint2 == null)
         {
-            inputField2.gameObject.SetActive(false);
+            cell2.Hide();
         }
         else
         {
-            inputField2.gameObject.SetActive(true);
-            input2.text = hint2;
-            title2.text = hint2;
+            cell2.Show(hint2, hint2);
         }
         if (hint3 == null)
         {
-            inputField3.gameObject.SetActive(false);
+            cell3.Hide();
         }
         else
         {
-            inputField3.gameObject.SetActive(true);
-            input3.text = hint3;
-            title3.text = hint3;
+            cell3.Show(hint3, hint3);
         }
         if (hint4 == null)
         {
-            inputField4.gameObject.SetActive(false);
+            cell4.Hide();
         }
         else
         {
-            inputField4.gameObject.SetActive(true);
-            input4.text = hint4;
-            title4.text = hint4;
+            cell4.Show(hint4, hint4);
+        }
+        if (hint5 == null)
+        {
+            cell5.Hide();
+        }
+        else
+        {
+            cell5.Show(hint5, hint5);
+        }
+        if (hint6 == null)
+        {
+            cell6.Hide();
+        }
+        else
+        {
+            cell6.Show(hint6, hint6);
         }
         this.btnText.text = btnText;
         PrintLog(content);
@@ -585,14 +590,18 @@ public class TestManager : MonoBehaviour
 
     private void UpdateValues()
     {
-        v1 = input1.GetParsedText().Trim();
+        v1 = cell1.GetInput();
         v1 = SubLastChar(v1);
-        v2 = input2.GetParsedText().Trim();
+        v2 = cell2.GetInput();
         v2 = SubLastChar(v2);
-        v3 = input3.GetParsedText().Trim();
+        v3 = cell3.GetInput();
         v3 = SubLastChar(v3);
-        v4 = input4.GetParsedText().Trim();
+        v4 = cell4.GetInput();
         v4 = SubLastChar(v4);
+        v5 = cell5.GetInput();
+        v5 = SubLastChar(v5);
+        v6 = cell4.GetInput();
+        v6 = SubLastChar(v6);
     }
 
     private string SubLastChar(string originStr)
