@@ -9,19 +9,11 @@ namespace MirrorworldSDK.Wrapper
         {
             AndroidJavaObject androidEnv = GetAndroidMirrorEnv("StagingDevNet");
 
-            if (env == MirrorEnv.StagingDevNet)
-            {
-                androidEnv = GetAndroidMirrorEnv("StagingDevNet");
-            }
-            else if(env == MirrorEnv.StagingMainNet)
-            {
-                androidEnv = GetAndroidMirrorEnv("StagingMainNet");
-            }
-            else if (env == MirrorEnv.ProductionMainnet)
+            if (env == MirrorEnv.Mainnet)
             {
                 androidEnv = GetAndroidMirrorEnv("MainNet");
             }
-            else if (env == MirrorEnv.ProductionMainnet)
+            else if (env == MirrorEnv.Devnet)
             {
                 androidEnv = GetAndroidMirrorEnv("DevNet");
             }

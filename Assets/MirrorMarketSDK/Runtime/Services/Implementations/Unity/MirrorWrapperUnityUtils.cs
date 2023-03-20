@@ -216,21 +216,13 @@ namespace MirrorworldSDK.Wrapper
 
         private string GetAPIRoot()
         {
-            if(environment == MirrorEnv.ProductionMainnet)
+            if(environment == MirrorEnv.Mainnet)
             {
                 return Constant.ApiRootProduction;
             }
-            else if(environment == MirrorEnv.ProductionDevnet)
+            else if(environment == MirrorEnv.Devnet)
             {
                 return Constant.ApiRootProductionDev;
-            }
-            else if (environment == MirrorEnv.StagingDevNet)
-            {
-                return Constant.ApiRootStagingDevnet;
-            }
-            else if (environment == MirrorEnv.StagingMainNet)
-            {
-                return Constant.ApiRootStagingMainnet;
             }
             else
             {
@@ -241,21 +233,13 @@ namespace MirrorworldSDK.Wrapper
 
         private string GetEntranceRoot()
         {
-            if (environment == MirrorEnv.ProductionMainnet)
+            if (environment == MirrorEnv.Mainnet)
             {
                 return Constant.AuthRootProduction;
             }
-            else if (environment == MirrorEnv.ProductionDevnet)
+            else if (environment == MirrorEnv.Devnet)
             {
                 return Constant.AuthRootProductionDev;
-            }
-            else if (environment == MirrorEnv.StagingDevNet)
-            {
-                return Constant.AuthRootStagingDevnet;
-            }
-            else if (environment == MirrorEnv.StagingMainNet)
-            {
-                return Constant.AuthRootStagingMainnet;
             }
             else
             {
@@ -280,21 +264,13 @@ namespace MirrorworldSDK.Wrapper
 
         private string GetMarketRoot()
         {
-            if (environment == MirrorEnv.ProductionMainnet)
+            if (environment == MirrorEnv.Mainnet)
             {
                 return Constant.MarketRootProduction;
             }
-            else if (environment == MirrorEnv.ProductionDevnet)
+            else if (environment == MirrorEnv.Devnet)
             {
                 return Constant.MarketRootProductionDev;
-            }
-            else if (environment == MirrorEnv.StagingDevNet)
-            {
-                return Constant.MarketRootStagingDevnet;
-            }
-            else if (environment == MirrorEnv.StagingMainNet)
-            {
-                return Constant.MarketRootStagingMainnet;
             }
             else
             {
@@ -305,21 +281,13 @@ namespace MirrorworldSDK.Wrapper
 
         private string GetAuthRoot()
         {
-            if (environment == MirrorEnv.ProductionMainnet)
+            if (environment == MirrorEnv.Mainnet)
             {
                 return Constant.UserRootProduction;
             }
-            else if (environment == MirrorEnv.ProductionDevnet)
+            else if (environment == MirrorEnv.Devnet)
             {
                 return Constant.UserRootProduction;
-            }
-            else if (environment == MirrorEnv.StagingDevNet)
-            {
-                return Constant.UserRootStagingDevnet;
-            }
-            else if (environment == MirrorEnv.StagingMainNet)
-            {
-                return Constant.UserRootStagingMainnet;
             }
             else
             {
@@ -330,21 +298,13 @@ namespace MirrorworldSDK.Wrapper
 
         private string GetDebugLoginPageRoot()
         {
-            if (environment == MirrorEnv.ProductionMainnet)
+            if (environment == MirrorEnv.Mainnet)
             {
                 return Constant.urlDebugLoginUrlPreProductionMain;
             }
-            else if (environment == MirrorEnv.ProductionDevnet)
+            else if (environment == MirrorEnv.Devnet)
             {
                 return Constant.urlDebugLoginUrlPreProductionDev;
-            }
-            else if (environment == MirrorEnv.StagingDevNet)
-            {
-                return Constant.urlDebugLoginUrlPreStagingDev;
-            }
-            else if (environment == MirrorEnv.StagingMainNet)
-            {
-                return Constant.urlDebugLoginUrlPreStagingMain;
             }
             else
             {
