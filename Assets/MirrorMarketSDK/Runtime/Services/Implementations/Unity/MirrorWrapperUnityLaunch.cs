@@ -45,6 +45,11 @@ namespace MirrorworldSDK.Wrapper
             this.chain = chain;
         }
 
+        public MirrorChain GetChain()
+        {
+            return chain;
+        }
+
         public void SetDebug(bool debugMode)
         {
             this.debugMode = debugMode;
@@ -56,9 +61,9 @@ namespace MirrorworldSDK.Wrapper
             this.apiKey = apiKey;
         }
 
-        public MirrorEnvPublic GetEnvironment()
+        public MirrorEnv GetEnvironment()
         {
-            return (MirrorEnvPublic)environment;
+            return environment;
         }
 
         public MonoBehaviour GetMonoBehaviour()

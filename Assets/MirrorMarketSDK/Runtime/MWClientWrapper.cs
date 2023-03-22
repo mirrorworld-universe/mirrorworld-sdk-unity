@@ -64,6 +64,16 @@ public class MWClientWrapper
 #endif
     }
 
+    public static MirrorEnv GetEnv()
+    {
+        return MirrorWrapper.Instance.GetEnvironment();
+    }
+
+    public static MirrorChain GetChain()
+    {
+        return MirrorWrapper.Instance.GetChain();
+    }
+
     /// <summary>
     /// Guest login
     /// </summary>

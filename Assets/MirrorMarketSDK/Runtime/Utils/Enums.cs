@@ -16,6 +16,20 @@ namespace MirrorworldSDK
         SUI = 204,
     }
 
+    public enum MirrorService
+    {
+        AssetAuction,
+        AssetMint,
+        AssetNFT,
+        Metadata,
+        MetadataCollection,
+        MetadataNFT,
+        MetadataNFTSearch,
+        Marketplace,
+        Wallet,
+        Confirmation,
+    }
+
     public enum MirrorEnvPublic
     {
         ProductionMainnet = 2,
@@ -24,7 +38,8 @@ namespace MirrorworldSDK
 
     public enum EnvironmentVersion
     {
-        V1
+        V1,
+        V2
     }
 
     public enum MirrorResponseCode
