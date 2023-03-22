@@ -24,11 +24,21 @@ namespace MirrorworldSDK.Wrapper
 #if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
             callback();
 #else
-            GetSecurityToken(type,message,request,callback);
+            GetSecurityToken(type,"0",message,request,callback);
 #endif
         }
 
-        public void GetSecurityToken<T>(string type, string message, T request, Action callback)
+        public void StartSecuirtyApprove<T>(string type, string value, string message, T request, Action callback)
+        {
+
+#if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
+            callback();
+#else
+            GetSecurityToken(type,value,message,request,callback);
+#endif
+        }
+
+        public void GetSecurityToken<T>(string type, string value, string message, T request, Action callback)
         {
             if(apiKey == "" || accessToken == "" || refreshToken == "")
             {
@@ -36,7 +46,7 @@ namespace MirrorworldSDK.Wrapper
                 return;
             }
             approveFinalAction = callback;
-            RequestActionAuthorization<T>(type,message, request);
+            RequestActionAuthorization<T>(type,value,message, request);
         }
 
         public string GetActionRoot()
@@ -56,14 +66,22 @@ namespace MirrorworldSDK.Wrapper
             }
         }
 
-        public void RequestActionAuthorization<T>(string type, string message, T requestPrams)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="type"></param>Only a few API need this value
+        /// <param name="value"></param>
+        /// <param name="message"></param>
+        /// <param name="requestPrams"></param>
+        public void RequestActionAuthorization<T>(string type, string value, string message, T requestPrams)
         {
             CommonApprove<T> jsonObject = new CommonApprove<T>();
             jsonObject.type = type;
             jsonObject.message = message;
-            jsonObject.value = "0";
+            jsonObject.value = value;
             jsonObject.paramsPlaceHolder = requestPrams;
-            HandleValue<T>(jsonObject, requestPrams);
+            //HandleValue<T>(jsonObject, requestPrams);
 
             string data = JsonUtility.ToJson(jsonObject);
             data = data.Replace("paramsPlaceHolder", "params");

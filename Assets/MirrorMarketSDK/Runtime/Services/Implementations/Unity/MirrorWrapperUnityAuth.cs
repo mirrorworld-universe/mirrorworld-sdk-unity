@@ -60,7 +60,7 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void FetchUser(string email, Action<CommonResponse<UserResponse>> callBack)
+        public void QueryUser(string email, Action<CommonResponse<UserResponse>> callBack)
         {
             string url = GetAuthRoot() + urlQueryUser + "?email=" + email;
             monoBehaviour.StartCoroutine(CheckAndGet(url, null, (response) => {

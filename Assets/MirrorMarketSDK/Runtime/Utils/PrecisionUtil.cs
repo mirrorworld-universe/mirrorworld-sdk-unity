@@ -1,10 +1,63 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MirrorworldSDK.Wrapper;
+using System;
 
 namespace MirrorworldSDK
 {
     public class PrecisionUtil
     {
+        public static string GetApproveValue(double amount)
+        {
+            int decimals = 9;
+            int digit = GetDigit(amount);
+            int totalDigit = digit + decimals;
+            double dec = Math.Pow(10, decimals);
+            double v = amount / dec;
+            string strNeed = string.Format("{0:F" + totalDigit + "}", v);
+
+            return strNeed;
+        }
+
+        public static string GetApproveValue(double amount, int decimals)
+        {
+            int digit = GetDigit(amount);
+            int totalDigit = digit + decimals;
+            double dec = Math.Pow(10, decimals);
+            double v = amount / dec;
+            string strNeed = string.Format("{0:F" + totalDigit + "}", v);
+
+            return strNeed;
+        }
+
+        private static int GetDigit(double number)
+        {
+            if (haveSmallDigit(number))
+            {
+                return 0;
+            }
+            for (int i = 1; i < 10; i++)
+            {
+                if (haveSmallDigit(number * Math.Pow(10, i)))
+                {
+                    return i;
+                }
+            }
+            return 10;
+        }
+        private static bool haveSmallDigit(double number)
+        {
+            double pre = Math.Truncate(number);
+
+            double after = number - pre;
+
+            if (after == 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
         public static double StrToDouble(object FloatString)
         {
             double result;

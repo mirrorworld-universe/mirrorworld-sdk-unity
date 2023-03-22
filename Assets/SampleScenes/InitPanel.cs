@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MirrorworldSDK;
 using MirrorworldSDK.UI;
 using MirrorworldSDK.Wrapper;
 using TMPro;
@@ -9,42 +10,58 @@ using UnityEngine;
 public class InitPanel : MonoBehaviour
 {
     public TMP_Dropdown dropdown;
-    public TextMeshProUGUI inputAPIKey;
+
+    //Logic
+    public Action<MirrorChain> EnterNextPage;
 
     private int selectedChain;
-    // Start is called before the first frame update
-    void Start()
+
+    public void Show()
     {
-        
+        gameObject.SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Hide()
     {
-        
+        gameObject.SetActive(false);
     }
 
     public void OnOptionSelected()
     {
-        int value = dropdown.value;
-        MirrorWrapper.Instance.LogFlow("Select :"+value);
+        selectedChain = dropdown.value;
     }
 
     public void OnInitBtnClicked()
     {
-        string apiKey = inputAPIKey.GetParsedText().Trim();
-        if (apiKey == "")
+        MirrorChain chain = MirrorChain.Solana;
+
+        if(selectedChain == 0)
         {
-            ShowUniversalNotice("API Key","Please input API Key.","OK",null,null,null);
-            return;
+            chain = MirrorChain.Solana;
+        }
+        else if (selectedChain == 1)
+        {
+            chain = MirrorChain.Ethereum;
+        }
+        else if (selectedChain == 2)
+        {
+            chain = MirrorChain.Polygon;
+        }
+        else if (selectedChain == 3)
+        {
+            chain = MirrorChain.BNB;
+        }
+        else
+        {
+            Debug.LogError("MirrorSDK: unknwon selected item index:"+selectedChain);
         }
 
-        if(selectedChain == 1)
+        MirrorSDK.SetChain(chain);
+
+        if(EnterNextPage != null)
         {
-
+            EnterNextPage(chain);
         }
-
-        //MirrorSDK.InitSDK(apiKey,gameObject,true,MirrorworldSDK.MirrorEnv.Devnet);
     }
 
     private UniversalDialog ShowUniversalNotice(string title, string content, string yesText, string noText, Action yesAction, Action noAction)

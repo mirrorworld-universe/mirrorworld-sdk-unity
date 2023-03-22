@@ -18,6 +18,8 @@ public class MirrorSDK : MonoBehaviour
     public bool debugMode = false;
     [Tooltip("runtime environment")]
     public MirrorEnvPublic environment = MirrorEnvPublic.ProductionDevnet;
+    [Tooltip("Chain")]
+    public MirrorChain chain = MirrorChain.Solana;
 
     [Tooltip("Temp Attr")]
     public string debugEmail = "";
@@ -37,14 +39,14 @@ public class MirrorSDK : MonoBehaviour
         {
             env = MirrorEnv.Mainnet;
         }
-        InitSDK(apiKey, gameObject, debugMode, env);
+        InitSDK(apiKey, gameObject, chain, debugMode, env);
 
 #if (!(UNITY_IOS) || UNITY_EDITOR) && (!(UNITY_ANDROID) || UNITY_EDITOR)
         MirrorWrapper.Instance.SetDebugEmail(debugEmail);
 #endif
     }
 
-    public static void InitSDK(string apiKey, GameObject gameObject, bool useDebug, MirrorEnv environment)
+    public static void InitSDK(string apiKey, GameObject gameObject,MirrorChain chain, bool useDebug, MirrorEnv environment)
     {
         Debug.Log("env:"+ environment);
 
@@ -52,7 +54,7 @@ public class MirrorSDK : MonoBehaviour
 
         MonoBehaviour monoBehaviour = gameObject.GetComponent<MonoBehaviour>();
 
-        MirrorWrapper.Instance.InitSDK(monoBehaviour, environment, apiKey, useDebug);
+        MirrorWrapper.Instance.InitSDK(monoBehaviour, environment, chain, apiKey, useDebug);
 
         MirrorWrapper.Instance.SetDebug(useDebug);
 
@@ -68,6 +70,11 @@ public class MirrorSDK : MonoBehaviour
 
             MirrorWrapper.Instance.LogFlow("Mirror SDK Inited.");
 #endif
+    }
+
+    public static void SetChain(MirrorChain chain)
+    {
+        MirrorWrapper.Instance.SetChain(chain);
     }
 
     /// <summary>
@@ -179,7 +186,7 @@ public class MirrorSDK : MonoBehaviour
 
     public static void FetchUser(string email, Action<CommonResponse<UserResponse>> callback)
     {
-        MirrorWrapper.Instance.FetchUser(email, (response) =>
+        MirrorWrapper.Instance.QueryUser(email, (response) =>
         {
             callback(response);
         });
@@ -467,7 +474,9 @@ public class MirrorSDK : MonoBehaviour
         requestParams.to_publickey = to_publickey;
         requestParams.amount = amount;
 
-        MirrorWrapper.Instance.StartSecuirtyApprove(MirrorSafeOptType.TransferSol, "transfer sol", requestParams, () => {
+        string approveValue = PrecisionUtil.GetApproveValue(amount);
+
+        MirrorWrapper.Instance.StartSecuirtyApprove(MirrorSafeOptType.TransferSol,approveValue, "transfer sol", requestParams, () => {
             if(approveFinished != null)
             {
                 approveFinished();

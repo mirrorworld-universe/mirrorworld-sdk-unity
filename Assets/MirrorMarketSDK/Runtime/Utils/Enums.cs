@@ -7,6 +7,15 @@ namespace MirrorworldSDK
         Devnet
     }
 
+    public enum MirrorChain
+    {
+        Solana = 101,
+        Ethereum = 201,
+        Polygon = 202,
+        BNB = 203,
+        SUI = 204,
+    }
+
     public enum MirrorEnvPublic
     {
         ProductionMainnet = 2,

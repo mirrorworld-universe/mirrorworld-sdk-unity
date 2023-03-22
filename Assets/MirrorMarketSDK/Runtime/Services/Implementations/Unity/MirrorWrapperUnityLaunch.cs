@@ -11,6 +11,7 @@ namespace MirrorworldSDK.Wrapper
         private string apiKey = "";
         private bool debugMode = false;
         private MirrorEnv environment;
+        private MirrorChain chain;
 
         private string accessToken = "";
         private string refreshToken = "";
@@ -21,7 +22,7 @@ namespace MirrorworldSDK.Wrapper
         private MonoBehaviour monoBehaviour;
         private bool inited = false;
 
-        public void InitSDK(MonoBehaviour monoBehaviour,MirrorEnv environment,string apiKey,bool useDebug)
+        public void InitSDK(MonoBehaviour monoBehaviour,MirrorEnv environment,MirrorChain chain, string apiKey,bool useDebug)
         {
             if (inited)
             {
@@ -31,9 +32,17 @@ namespace MirrorworldSDK.Wrapper
             inited = true;
             this.environment = environment;
             this.monoBehaviour = monoBehaviour;
+            SetChain(chain);
             SetAPIKey(apiKey);
             SetDebug(useDebug);
             LogFlow("Unity wrapper inited.");
+        }
+
+        public void SetChain(MirrorChain chain)
+        {
+            LogFlow("Set chain to "+chain);
+
+            this.chain = chain;
         }
 
         public void SetDebug(bool debugMode)
