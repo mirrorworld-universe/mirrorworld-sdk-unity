@@ -216,7 +216,10 @@ namespace MirrorworldSDK
             requestParams.token_mint = token_mint;
             requestParams.decimals = decimals;
 
-            MirrorWrapper.Instance.StartSecuirtyApprove(MirrorSafeOptType.TransferSPLToken, "transfer spl token", requestParams, () => {
+
+            string approveValue = PrecisionUtil.GetApproveValue(amount,decimals);
+
+            MirrorWrapper.Instance.StartSecuirtyApprove(MirrorSafeOptType.TransferSPLToken, approveValue, "transfer spl token", requestParams, () => {
                 if (approveFinished != null)
                 {
                     approveFinished();
