@@ -9,67 +9,67 @@ namespace MirrorworldSDK.Wrapper
 {
     public partial class MirrorWrapper
     {
-        private readonly string urlGetCollectionFilterInfo = "marketplace/collection/filter_info";
-        private readonly string urlGetNFTInfo = "marketplace/nft/";
-        private readonly string urlGetCollectionInfo = "marketplace/collections";
-        private readonly string urlGetNFTEvents = "marketplace/nft/events";
+        private readonly string urlGetCollectionFilterInfo = "filter_info";
+        private readonly string urlGetNFTInfo = "nft/";
+        private readonly string urlGetCollectionInfo = "collections";
+        private readonly string urlGetNFTEvents = "events";
         private readonly string urlSearchNFT = "marketplace/nft/search";
-        private readonly string urlRecommendSearchNFT = "marketplace/nft/search/recommend";
-        private readonly string urlGetNFTs = "marketplace/nfts";
+        private readonly string urlRecommendSearchNFT = "recommend";
+        private readonly string urlGetNFTs = "nfts";
         private readonly string urlGetNFTRealPrice = "marketplace/nft/real_price";
 
         public void GetCollectionFilterInfo(Dictionary<string, string> requestParams, Action<string> callBack)
         {
-            string url = GetAuthRoot() + urlGetCollectionFilterInfo;
+            string url = UrlUtils.GetMirrorGetUrl(MirrorService.MetadataCollection) + "/" + urlGetCollectionFilterInfo;
 
             monoBehaviour.StartCoroutine(CheckAndGet(url, requestParams, callBack));
         }
 
         public void GetNFTInfo(string mintAddress, Action<string> callBack)
         {
-            string url = GetAuthRoot() + urlGetNFTInfo + "/" + mintAddress;
+            string url = UrlUtils.GetMirrorGetUrl(MirrorService.MetadataNFT) + "/" + mintAddress;
 
             monoBehaviour.StartCoroutine(CheckAndGet(url, null, callBack));
         }
 
         public void GetCollectionInfo(string rawRequestBody, Action<string> callback)
         {
-            string url = GetAuthRoot() + urlGetCollectionInfo;
+            string url = UrlUtils.GetMirrorPostUrl(MirrorService.MetadataCollection, urlGetCollectionInfo);
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, callback));
         }
 
         public void GetCollectionsSummary(string rawRequestBody, Action<string> callback)
         {
-            string url = GetAuthRoot() + urlGetCollectionInfo;
+            string url = UrlUtils.GetMirrorPostUrl(MirrorService.MetadataCollection, urlGetCollectionInfo);
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, callback));
         }
 
         public void GetNFTEvents(string rawRequestBody, Action<string> callback)
         {
-            string url = GetAuthRoot() + urlGetNFTEvents;
+            string url = UrlUtils.GetMirrorPostUrl(MirrorService.MetadataNFT, urlGetNFTEvents);
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, callback));
         }
 
         public void SearchNFTs(string rawRequestBody, Action<string> callback)
         {
-            string url = GetAuthRoot() + urlSearchNFT;
+            string url = UrlUtils.GetMirrorGetUrl(MirrorService.MetadataNFTSearch);
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, callback));
         }
 
         public void RecommendSearchNFT(string rawRequestBody, Action<string> callback)
         {
-            string url = GetAuthRoot() + urlRecommendSearchNFT;
+            string url = UrlUtils.GetMirrorPostUrl(MirrorService.MetadataNFTSearch, urlRecommendSearchNFT);
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, callback));
         }
 
         public void GetNFTsByUnabridgedParams(string rawRequestBody, Action<string> callback)
         {
-            string url = GetAuthRoot() + urlGetNFTs;
+            string url = UrlUtils.GetMirrorPostUrl(MirrorService.Metadata, urlGetNFTs);
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, callback));
         }

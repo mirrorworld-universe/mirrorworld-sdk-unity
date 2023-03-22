@@ -211,7 +211,7 @@ namespace MirrorworldSDK
             return finalUrl;
         }
 
-        public static string GetMirrorGetUrl(MirrorService serviceEnum, string apiPath)
+        public static string GetMirrorGetUrl(MirrorService serviceEnum)
         {
             MirrorChain chainEnum = MWClientWrapper.GetChain();
             MirrorEnv envEnum = MWClientWrapper.GetEnv();

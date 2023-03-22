@@ -8,9 +8,9 @@ namespace MirrorworldSDK.Wrapper
 {
     public partial class MirrorWrapper
     {
-        private readonly string urlCheckStatusOfTransactions = "solana/confirmation/transactions-status";
+        private readonly string urlSolAssetConfirmationTransactionStatus = "transactions-status";
 
-        private readonly string urlCheckStatusOfMinting = "solana/confirmation/mints-status";
+        private readonly string urlCheckStatusOfMinting = "mints-status";
 
         public void GetStatusOfTransactions(List<string> signatures, Action<string> callBack)
         {
@@ -20,7 +20,7 @@ namespace MirrorworldSDK.Wrapper
 
             string rawRequestBody = JsonUtility.ToJson(requestBody);
 
-            string url = GetAPIRoot() + urlCheckStatusOfTransactions;
+            string url = UrlUtils.GetMirrorPostUrl(MirrorService.Confirmation, urlSolAssetConfirmationTransactionStatus);
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) =>
             {
@@ -39,7 +39,7 @@ namespace MirrorworldSDK.Wrapper
 
             string rawRequestBody = JsonUtility.ToJson(requestBody);
 
-            string url = GetAPIRoot() + urlCheckStatusOfMinting;
+            string url = UrlUtils.GetMirrorPostUrl(MirrorService.Confirmation, urlCheckStatusOfMinting);
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) =>
             {
