@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace MirrorworldSDK.Wrapper
 {
-    public partial class MirrorWrapper : IMarketplaceService
+    public partial class MirrorWrapper
     {
         //fetch
         private readonly string urlFetchSingleNFT = "solana/nft/";
@@ -29,15 +29,13 @@ namespace MirrorworldSDK.Wrapper
         private readonly string urlBuyNFTOnTheMarketplace = "solana/marketplace/buy";
 
 
-        public void GetNFTDetails(string mintAddress, Action<CommonResponse<SingleNFTResponse>> callBack)
+        public void GetNFTDetails(string mintAddress, Action<string> callBack)
         {
             string url = GetAPIRoot() + urlFetchSingleNFT + mintAddress;
 
             monoBehaviour.StartCoroutine(CheckAndGet(url,null,(response)=> {
 
-                CommonResponse<SingleNFTResponse> responseBody = JsonUtility.FromJson<CommonResponse<SingleNFTResponse>>(response);
-
-                callBack(responseBody);
+                callBack(response);
             }));
         }
 
@@ -53,48 +51,19 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void CreateVerifiedCollection(string collectionName, string collectionSymbol, string collectionInfoUrl,int seller_fee_basis_points, string confirmation, Action<CommonResponse<MintResponse>> callBack)
+        public void CreateVerifiedCollection(string rawRequestBody, Action<string> callBack)
         {
-            CreateCollectionRequest requestBody = new CreateCollectionRequest();
-
-            requestBody.name = collectionName;
-            requestBody.symbol = collectionSymbol;
-            requestBody.url = collectionInfoUrl;
-            requestBody.seller_fee_basis_points = seller_fee_basis_points;
-            if (confirmation != null) requestBody.comfirmation = confirmation;
-
-            var rawRequestBody = JsonUtility.ToJson(requestBody);
-
             string url = GetAPIRoot() + urlCreateCollection;
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody,(response)=> {
 
-                CommonResponse<MintResponse> responseBody = JsonUtility.FromJson<CommonResponse<MintResponse>>(response);
-
-                callBack(responseBody);
+                callBack(response);
 
             }));
         }
 
-        public void MintNFT(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl, string confirmation, string mint_id,string receiver_wallet, double amout_sol, Action<CommonResponse<MintResponse>> callBack)
+        public void MintNFT(string rawRequestBody, Action<string> callBack)
         {
-            CreateNftRequest requestBody = new CreateNftRequest();
-
-            requestBody.name = collectionName;
-            requestBody.symbol = collectionSymbol;
-            requestBody.url = collectionInfoUrl;
-            requestBody.collection_mint = parentCollection;
-            requestBody.mint_id = mint_id;
-            requestBody.confirmation = confirmation;
-            if(amout_sol != 0 && amout_sol != null && receiver_wallet != "" && receiver_wallet != null)
-            {
-                requestBody.payment = new MintPayment();
-                requestBody.payment.amount_sol = amout_sol;
-                requestBody.payment.receiver_wallet = receiver_wallet;
-            }
-            
-            string rawRequestBody = JsonUtility.ToJson(requestBody);
-
             CreateNftRequestNoMintID requestBodyNoMintID = new CreateNftRequestNoMintID();
 
             string url = GetAPIRoot() + urlMintNFTCollection;
@@ -103,9 +72,7 @@ namespace MirrorworldSDK.Wrapper
 
                 LogFlow("MintNft result:" + response);
 
-                CommonResponse<MintResponse> responseBody = JsonUtility.FromJson<CommonResponse<MintResponse>>(response);
-
-                callBack(responseBody);
+                callBack(response);
             }));
         }
 
@@ -156,47 +123,20 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void FetchNFTsByMintAddresses(List<string> mintAddresses, Action<CommonResponse<MultipleNFTsResponse>> callBack)
+        public void FetchNFTsByMintAddresses(string rawRequestBody, Action<string> callBack)
         {
-            FetchMultipleNftsByMintAddressesRequest requestBody = new FetchMultipleNftsByMintAddressesRequest();
-
-            requestBody.mint_addresses = mintAddresses;
-
-            var rawRequestBody = JsonUtility.ToJson(requestBody);
-
             string url = GetAPIRoot() + urlFetchNFTsByMintAddresses;
 
-            monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response)=> {
-
-                CommonResponse<MultipleNFTsResponse> responseBody = JsonUtility.FromJson<CommonResponse<MultipleNFTsResponse>>(response);
-
-                //MultipleNFTsResponse nfts = responseBody.Data;
-
-                callBack(responseBody);
-            }));
+            monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, callBack));
         }
 
-        public void GetNFTsOwnedByAddress(List<string> owners,long limit,long offset, Action<CommonResponse<MultipleNFTsResponse>> callBack)
+        public void GetNFTsOwnedByAddress(string rawRequestBody, Action<string> callBack)
         {
-            FetchMultipleNftsByOwnersRequest requestBody = new FetchMultipleNftsByOwnersRequest();
-
-            requestBody.owners = owners;
-
-            requestBody.limit = limit;
-
-            requestBody.offset = offset;
-
-            var rawRequestBody = JsonUtility.ToJson(requestBody);
-
             string url = GetAPIRoot() + urlFetchMultiNFTsDataByOwnerAddresses;
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
 
-                CommonResponse<MultipleNFTsResponse> responseBody = JsonUtility.FromJson<CommonResponse<MultipleNFTsResponse>>(response);
-
-                //MultipleNFTsResponse nfts = responseBody.Data;
-
-                callBack(responseBody);
+                callBack(response);
             }));
         }
 
@@ -219,29 +159,15 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void ListNFT(string mintAddress, double price, string auction_house, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
+        public void ListNFT(string rawRequestBody, Action<string> callBack)
         {
-            ListNftOnMarketplaceRequest requestBody = new ListNftOnMarketplaceRequest();
-
-            requestBody.mint_address = mintAddress;
-
-            requestBody.confirmation = confirmation;
-
-            requestBody.price = price.ToString();
-
-            requestBody.auction_house = auction_house;
-
-            var rawRequestBody = JsonUtility.ToJson(requestBody);
-
             string url = GetAPIRoot() + urlListNFTOnTheMarketplace;
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
 
                 LogFlow("ListNFT result:" + response);
 
-                CommonResponse<ListingResponse> responseBody = JsonUtility.FromJson<CommonResponse<ListingResponse>>(response);
-
-                callBack(responseBody);
+                callBack(response);
 
             }));
         }
@@ -283,114 +209,62 @@ namespace MirrorworldSDK.Wrapper
             UpdateNFTListing(mintAddress, price, "", confirmation, callBack);
         }
 
-        public void CancelNFTListing(string mintAddress, double price,string auction_house,string confirmation, Action<CommonResponse<ListingResponse>> callBack)
+        public void CancelNFTListing(string rawRequestBody, Action<string> callBack)
         {
-            CancelNftListOnMarketplaceRequest requestBody = new CancelNftListOnMarketplaceRequest();
-
-            requestBody.mint_address = mintAddress;
-
-            requestBody.price = price;
-
-            requestBody.auction_house = auction_house;
-
-            requestBody.confirmation = confirmation;
-
-            var rawRequestBody = JsonUtility.ToJson(requestBody);
-
             string url = GetAPIRoot() + urlCancelListingOfNFTOnTheMarketplace;
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
 
                 LogFlow("CancelNFTListing result:" + response);
 
-                CommonResponse<ListingResponse> responseBody = JsonUtility.FromJson<CommonResponse<ListingResponse>>(response);
-
-                callBack(responseBody);
+                callBack(response);
 
             }));
         }
 
-        public void CancelNFTListing(string mintAddress, double price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
+        //public void CancelNFTListing(string mintAddress, double price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
+        //{
+        //    CancelNFTListing(mintAddress, price, "", confirmation, callBack);
+        //}
+
+        public void TransferNFT(string rawRequestBody, Action<string> callBack)
         {
-            CancelNFTListing(mintAddress, price, "", confirmation, callBack);
-        }
-
-        public void TransferNFT(string mintAddress, string walletAddress, Action<CommonResponse<ListingResponse>> callBack)
-        {
-            TransferNftRequest requestBody = new TransferNftRequest();
-
-            requestBody.mint_address = mintAddress;
-
-            requestBody.to_wallet_address = walletAddress;
-
-            var rawRequestBody = JsonUtility.ToJson(requestBody);
-
             string url = GetAPIRoot() + urlTransferNFTToAnotherSolanaWallet;
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
 
                 LogFlow("TransferNFT result:" + response);
 
-                CommonResponse<ListingResponse> responseBody = JsonUtility.FromJson<CommonResponse<ListingResponse>>(response);
-
-                callBack(responseBody);
+                callBack(response);
 
             }));
         }
 
-        public void BuyNFT(string mintAddress, double price,string auction_house, Action<CommonResponse<ListingResponse>> callBack)
+        public void BuyNFT(string rawRequestBody, Action<string> callBack)
         {
-            BuyNftOnMarketplaceRequest requestBody = new BuyNftOnMarketplaceRequest();
-
-            requestBody.mint_address = mintAddress;
-
-            requestBody.price = price;
-
-            requestBody.auction_house = auction_house;
-
-            var rawRequestBody = JsonUtility.ToJson(requestBody);
-
             string url = GetAPIRoot() + urlBuyNFTOnTheMarketplace;
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
 
-                LogFlow("BuyNFT result:"+response);
-
-                CommonResponse<ListingResponse> responseBody = JsonUtility.FromJson<CommonResponse<ListingResponse>>(response);
-
-                callBack(responseBody);
+                callBack(response);
 
             }));
         }
 
-        public void BuyNFT(string mintAddress, float price, Action<CommonResponse<ListingResponse>> callBack)
+        //public void BuyNFT(string mintAddress, float price, Action<CommonResponse<ListingResponse>> callBack)
+        //{
+        //    BuyNFT(mintAddress, price, "", callBack);
+        //}
+
+        public void UpdateNFTProperties(string rawRequestBody, Action<string> callBack)
         {
-            BuyNFT(mintAddress, price, "", callBack);
-        }
-
-        public void UpdateNFTProperties(string mintAddress, string name, string symbol, string updateAuthority, string NFTJsonUrl, int seller_fee_basis_points, string confirmation, Action<CommonResponse<MintResponse>> callBack)
-        {
-            UpdateNFTRequest requestBody = new UpdateNFTRequest();
-
-            requestBody.mint_address = mintAddress;
-            requestBody.name = name;
-            requestBody.symbol = symbol;
-            requestBody.update_authority = updateAuthority;
-            requestBody.url = NFTJsonUrl;
-            requestBody.seller_fee_basis_points = seller_fee_basis_points;
-            requestBody.confirmation = confirmation;
-            string rawRequestBody = JsonUtility.ToJson(requestBody);
-
-
             string url = GetAPIRoot() + urlUpdateNFT;
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
 
                 LogFlow("UpdateNFT result:" + response);
 
-                CommonResponse<MintResponse> responseBody = JsonUtility.FromJson<CommonResponse<MintResponse>>(response);
-
-                callBack(responseBody);
+                callBack(response);
             }));
         }
     }

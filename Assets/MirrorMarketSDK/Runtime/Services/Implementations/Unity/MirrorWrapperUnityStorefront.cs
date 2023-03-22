@@ -18,147 +18,60 @@ namespace MirrorworldSDK.Wrapper
         private readonly string urlGetNFTs = "marketplace/nfts";
         private readonly string urlGetNFTRealPrice = "marketplace/nft/real_price";
 
-        public void GetCollectionFilterInfo(string collection, Action<CommonResponse<GetCollectionFilterInfoResponse>> callBack)
+        public void GetCollectionFilterInfo(Dictionary<string, string> requestParams, Action<string> callBack)
         {
             string url = GetAuthRoot() + urlGetCollectionFilterInfo;
 
-            Dictionary<string, string> requestParams = new Dictionary<string, string>();
-
-            requestParams.Add("collection", collection);
-
-            monoBehaviour.StartCoroutine(CheckAndGet(url, requestParams, (response) => {
-
-                CommonResponse<GetCollectionFilterInfoResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetCollectionFilterInfoResponse>>(response);
-
-                callBack(responseBody);
-            }));
+            monoBehaviour.StartCoroutine(CheckAndGet(url, requestParams, callBack));
         }
 
         public void GetNFTInfo(string mintAddress, Action<string> callBack)
         {
             string url = GetAuthRoot() + urlGetNFTInfo + "/" + mintAddress;
 
-            monoBehaviour.StartCoroutine(CheckAndGet(url, null, (response) => {
-
-                callBack(response);
-            }));
+            monoBehaviour.StartCoroutine(CheckAndGet(url, null, callBack));
         }
 
-        public void GetCollectionInfo(List<string> collections, Action<CommonResponse<List<GetCollectionInfoResponse>>> callback)
+        public void GetCollectionInfo(string rawRequestBody, Action<string> callback)
         {
-            GetCollectionInfoRequest requestBody = new GetCollectionInfoRequest();
-
-            requestBody.collections = collections;
-
-            var rawRequestBody = JsonUtility.ToJson(requestBody);
-
             string url = GetAuthRoot() + urlGetCollectionInfo;
 
-            monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
-
-                CommonResponse<List<GetCollectionInfoResponse>> responseBody = JsonUtility.FromJson<CommonResponse<List<GetCollectionInfoResponse>>>(response);
-
-                callback(responseBody);
-
-            }));
+            monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, callback));
         }
 
-        public void GetNFTEvents(string mintAddress, int page, int pageSize, Action<CommonResponse<GetNFTEventsResponse>> callback)
+        public void GetCollectionsSummary(string rawRequestBody, Action<string> callback)
         {
-            GetNFTEventsRequest requestBody = new GetNFTEventsRequest();
+            string url = GetAuthRoot() + urlGetCollectionInfo;
 
-            requestBody.mint_address = mintAddress;
+            monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, callback));
+        }
 
-            requestBody.page = page;
-
-            requestBody.page_size = pageSize;
-
-            var rawRequestBody = JsonUtility.ToJson(requestBody);
-
+        public void GetNFTEvents(string rawRequestBody, Action<string> callback)
+        {
             string url = GetAuthRoot() + urlGetNFTEvents;
 
-            monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
-
-                CommonResponse<GetNFTEventsResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetNFTEventsResponse>>(response);
-
-                callback(responseBody);
-
-            }));
+            monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, callback));
         }
 
-        public void SearchNFTs(List<string> collections, string searchString, Action<CommonResponse<List<MirrorMarketNFTObj>>> callback)
+        public void SearchNFTs(string rawRequestBody, Action<string> callback)
         {
-            SearchNFTsRequest requestBody = new SearchNFTsRequest();
-
-            requestBody.collections = collections;
-
-            requestBody.search = searchString;
-
-            var rawRequestBody = JsonUtility.ToJson(requestBody);
-
             string url = GetAuthRoot() + urlSearchNFT;
 
-            monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
-
-                Debug.Log("SearchNFTs result:"+response);
-
-                CommonResponse <List<MirrorMarketNFTObj>> responseBody = JsonUtility.FromJson<CommonResponse<List<MirrorMarketNFTObj>>>(response);
-
-                callback(responseBody);
-
-            }));
+            monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, callback));
         }
 
-        public void RecommendSearchNFT(List<string> collections, Action<CommonResponse<List<MirrorMarketNFTObj>>> callback)
+        public void RecommendSearchNFT(string rawRequestBody, Action<string> callback)
         {
-            RecommendSearchNFTRequest requestBody = new RecommendSearchNFTRequest();
-
-            requestBody.collections = collections;
-
-            var rawRequestBody = JsonUtility.ToJson(requestBody);
-
             string url = GetAuthRoot() + urlRecommendSearchNFT;
 
-            monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
-
-                CommonResponse<List<MirrorMarketNFTObj>> responseBody = JsonUtility.FromJson<CommonResponse<List<MirrorMarketNFTObj>>>(response);
-
-                callback(responseBody);
-
-            }));
+            monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, callback));
         }
 
-        public void GetNFTsByUnabridgedParams(string collection, int page, int pageSize, string orderByString, bool desc, List<GetNFTsRequestFilter> filters, Action<CommonResponse<GetNFTsResponse>> callback)
+        public void GetNFTsByUnabridgedParams(string rawRequestBody, Action<string> callback)
         {
-            GetNFTsRequest requestBody = new GetNFTsRequest();
-
-            requestBody.collection = collection;
-
-            requestBody.page = page;
-
-            requestBody.page_size = pageSize;
-
-            requestBody.order = new GetNFTsRequestOrder();
-
-            requestBody.order.order_by = orderByString;
-
-            requestBody.order.desc = desc;
-
-            requestBody.filter = filters;
-
-            var rawRequestBody = JsonUtility.ToJson(requestBody);
-
             string url = GetAuthRoot() + urlGetNFTs;
 
-            monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
-
-                LogFlow("GetNFTs response:" + response);
-
-                CommonResponse <GetNFTsResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetNFTsResponse>>(response);
-
-                callback(responseBody);
-
-            }));
+            monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, callback));
         }
 
         public void GetNFTRealPrice(string price, int fee, Action<CommonResponse<GetNFTRealPriceResponse>> callback)
