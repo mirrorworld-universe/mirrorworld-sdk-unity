@@ -279,7 +279,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 22
+    m_FontSize: 28
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -327,7 +327,7 @@ RectTransform:
   - {fileID: 700816863717370093}
   - {fileID: 1220928048382325132}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -410,7 +410,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 068481265a9f244449beaacf2a1862b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  contentText: {fileID: 5162798519391895143}
+  titleText: {fileID: 5162798519391895143}
+  contentText: {fileID: 6328270927785263359}
 --- !u!1 &4780784458538566657
 GameObject:
   m_ObjectHideFlags: 0

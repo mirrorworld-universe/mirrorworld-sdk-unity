@@ -193,14 +193,14 @@ public class TestManager : MonoBehaviour
         else if (btnName == APINames.ClientStartLogin)
         {
             notOpenDetail = true;
-            MWSolana.StartLogin((loginResponse) => {
+            MirrorWorld.StartLogin((loginResponse) => {
                 Debug.Log("Login result:" + JsonUtility.ToJson(loginResponse));
             });
         }
         else if (btnName == APINames.ClientGuestLogin)
         {
             notOpenDetail = true;
-            MWSolana.GuestLogin((loginResponse) => {
+            MirrorWorld.GuestLogin((loginResponse) => {
                 Debug.Log("GuestLogin result:" + JsonUtility.ToJson(loginResponse));
 
                 UniversalDialog dialog = null;
@@ -214,7 +214,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == APINames.ClientLoginWithEmail)
         {
             SetInfoPanel("LoginWithEmail", "email", "password", null, null, null, null, "Login", "Login with a registed email.", () => {
-                MWSolana.LoginWithEmail(v1, v2, (res) => {
+                MirrorWorld.LoginWithEmail(v1, v2, (res) => {
                     PrintLog("Login result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -232,7 +232,7 @@ public class TestManager : MonoBehaviour
         if (btnName == APINames.ClientLogout)
         {
             notOpenDetail = true;
-            MWSolana.Logout(() => {
+            MirrorWorld.Logout(() => {
                 PrintLog("Logout success");
             });
         }
@@ -274,7 +274,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("IsLoggedIn", null, null, null, null, null, null, "IsLoggedIn", "IsLoggedIn", () =>
             {
-                MWSolana.IsLogged((res) => {
+                MirrorWorld.IsLogged((res) => {
                     PrintLog("result:" + res);
                 });
             }
@@ -432,7 +432,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == "BtnOpenWallet")
         {
             notOpenDetail = true;
-            MWSolana.OpenWallet(() => {
+            MirrorWorld.OpenWallet(() => {
                 MirrorWrapper.Instance.LogFlow("Wallet logout callback runs!!");
             });
         }
@@ -442,7 +442,7 @@ public class TestManager : MonoBehaviour
             List<string> collections = new List<string>();
             collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
 
-            MWSolana.OpenMarket("https://jump-devnet.mirrorworld.fun");
+            MirrorWorld.OpenMarket("https://jump-devnet.mirrorworld.fun");
         }
         else if (btnName == APINames.SolMetadataGetCollectionFiltersInfo)
         {
