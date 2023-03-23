@@ -14,6 +14,7 @@ namespace MirrorworldSDK.Wrapper
 
         private IEnumerator CheckAndPost(string url, string messageBody, Action<string> callBack)
         {
+            LogFlow("Try to post url:" + url);
             if(apiKey == "")
             {
                 LogFlow("Please set apiKey first.");
@@ -44,6 +45,7 @@ namespace MirrorworldSDK.Wrapper
 
         private IEnumerator CheckAndGet(string url, Dictionary<string, string> requestParams, Action<string> callBack)
         {
+            LogFlow("Try to get url:" + url);
             if (apiKey == "")
             {
                 CommonResponse<string> commonResponse = new CommonResponse<string>();

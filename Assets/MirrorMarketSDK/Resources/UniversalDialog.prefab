@@ -307,7 +307,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6373324526454817906}
         m_TargetAssemblyTypeName: UniversalDialog, MirrorworldSDK
         m_MethodName: OnBtnYesClicked
         m_Mode: 1
@@ -571,6 +571,7 @@ GameObject:
   - component: {fileID: 7052030029321752671}
   - component: {fileID: 5792185537175726114}
   - component: {fileID: 7885804156757407832}
+  - component: {fileID: 6373324526454817906}
   m_Layer: 5
   m_Name: UniversalDialog
   m_TagString: Untagged
@@ -594,7 +595,7 @@ RectTransform:
   - {fileID: 7551084874555083333}
   - {fileID: 8179241716884689700}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -665,6 +666,24 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &6373324526454817906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6731787275706194150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f683a9c11e4f49478db64e671e8924f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleText: {fileID: 2798683086967037135}
+  contentText: {fileID: 3936588591308137047}
+  btnYesText: {fileID: 4517547782052004922}
+  btnNoText: {fileID: 7554722035317432702}
+  btnYes: {fileID: 7200632233618528733}
+  btnNo: {fileID: 2989782163107733821}
 --- !u!1 &7409392680776001154
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,7 +806,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6373324526454817906}
         m_TargetAssemblyTypeName: UniversalDialog, MirrorworldSDK
         m_MethodName: OnBtnNoClicked
         m_Mode: 1

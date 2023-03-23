@@ -206,6 +206,7 @@ public class TestManager : MonoBehaviour
                 UniversalDialog dialog = null;
                 dialog = ShowUniversalNotice("Guest Login", "Guest login success! your account is :" + loginResponse.user.email, "OK", null,
                 () => {
+                    LogUtils.LogFlow("Click OK");
                     dialog.DestroyDialog();
                 },
                 null);
@@ -219,6 +220,14 @@ public class TestManager : MonoBehaviour
                 });
             });
         }
+        else if (btnName == APINames.ClientQueryUser)
+        {
+            SetInfoPanel("QueryUser", "email", null, null, null, null, null, "Query", "Query user info.", () => {
+                MirrorWorld.QueryUser(v1, (res) => {
+                    PrintLog("Query result:" + JsonUtility.ToJson(res));
+                });
+            });
+        }
         else if (btnName == APINames.SolWalletGetTokens)
         {
             SetInfoPanel("GetWalletTokens", null, null, null, null, null, null, "Get", "Get your tokens", () => {
@@ -228,12 +237,15 @@ public class TestManager : MonoBehaviour
                 });
             });
         }
-        else
-        if (btnName == APINames.ClientLogout)
+        else if (btnName == APINames.ClientLogout)
         {
             notOpenDetail = true;
             MirrorWorld.Logout(() => {
-                PrintLog("Logout success");
+                UniversalDialog dialog = null;
+                Action yesAction = () => {
+                    dialog.DestroyDialog();
+                };
+                dialog = ShowUniversalNotice("Logout", "Your logged account has logged out.", "Got it", "", yesAction, null);
             });
         }
         else if (btnName == APINames.SolAssetSearchQueryNFT)
@@ -429,14 +441,14 @@ public class TestManager : MonoBehaviour
                 });
             });
         }
-        else if (btnName == "BtnOpenWallet")
+        else if (btnName == APINames.ClientOpenWallet)
         {
             notOpenDetail = true;
             MirrorWorld.OpenWallet(() => {
                 MirrorWrapper.Instance.LogFlow("Wallet logout callback runs!!");
             });
         }
-        else if (btnName == "BtnOpenMarket")
+        else if (btnName == APINames.ClientOpenMarket)
         {
             notOpenDetail = true;
             List<string> collections = new List<string>();
