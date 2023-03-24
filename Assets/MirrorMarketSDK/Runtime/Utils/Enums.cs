@@ -3,8 +3,8 @@ namespace MirrorworldSDK
 {
     public enum MirrorEnv
     {
-        Mainnet,
-        Devnet
+        Mainnet = 1,
+        Devnet = 2
     }
 
     public enum MirrorChain

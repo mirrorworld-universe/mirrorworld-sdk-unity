@@ -142,14 +142,11 @@ public class TestManager : MonoBehaviour
         AddAPIButton(lineAssetAuction, APINames.SolAssetAuctionListNFT);
         AddAPIButton(lineAssetAuction, APINames.SolAssetAuctionTransferNFT);
         //Asset/Confirmation
-        Transform lineAssetConfirmation = AddAPILine(apiParent, "Asset/Confirmation");
-        AddAPIButton(lineAssetConfirmation, APINames.SolAssetConfirmationCheckStatusOfMinting, 20);
-        AddAPIButton(lineAssetConfirmation, APINames.SolAssetConfirmationCheckStatusOfTransactions, 18);
         //Asset/Mint
         Transform lineAssetMint = AddAPILine(apiParent, "Asset/Mint");
         AddAPIButton(lineAssetMint, APINames.SolAssetMintCollection);
         AddAPIButton(lineAssetMint, APINames.SolAssetMintNFT);
-        AddAPIButton(lineAssetMint, APINames.SolAssetMintUpdateNFTProperties);
+        //AddAPIButton(lineAssetMint, APINames.SolAssetMintUpdateNFTProperties);
         //Asset/Search
         Transform lineAssetSearch = AddAPILine(apiParent, "Asset/Search");
         AddAPIButton(lineAssetSearch, APINames.SolAssetSearchQueryNFT);
@@ -617,14 +614,14 @@ public class TestManager : MonoBehaviour
         else if (btnName == APINames.ClientStartLogin)
         {
             notOpenDetail = true;
-            MirrorWorld.Solana.StartLogin((loginResponse) => {
+            MirrorWorld.EVM.StartLogin((loginResponse) => {
                 Debug.Log("Login result:" + JsonUtility.ToJson(loginResponse));
             });
         }
         else if (btnName == APINames.ClientGuestLogin)
         {
             notOpenDetail = true;
-            MirrorWorld.Solana.GuestLogin((loginResponse) => {
+            MirrorWorld.EVM.GuestLogin((loginResponse) => {
                 Debug.Log("GuestLogin result:" + JsonUtility.ToJson(loginResponse));
 
                 UniversalDialog dialog = null;
@@ -639,7 +636,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == APINames.ClientLoginWithEmail)
         {
             SetInfoPanel("LoginWithEmail", "email", "password", null, null, null, null, "Login", "Login with a registed email.", () => {
-                MirrorWorld.Solana.LoginWithEmail(v1, v2, (res) => {
+                MirrorWorld.EVM.LoginWithEmail(v1, v2, (res) => {
                     PrintLog("Login result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -647,7 +644,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == APINames.ClientQueryUser)
         {
             SetInfoPanel("QueryUser", "email", null, null, null, null, null, "Query", "Query user info.", () => {
-                MirrorWorld.Solana.QueryUser(v1, (res) => {
+                MirrorWorld.EVM.QueryUser(v1, (res) => {
                     PrintLog("Query result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -655,7 +652,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == APINames.SolWalletGetTokens)
         {
             SetInfoPanel("GetWalletTokens", null, null, null, null, null, null, "Get", "Get your tokens", () => {
-                MirrorWorld.Solana.GetTokens((res) => {
+                MirrorWorld.EVM.GetTokens((res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("Get tokens result:" + body);
                 });
@@ -664,7 +661,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == APINames.ClientLogout)
         {
             notOpenDetail = true;
-            MirrorWorld.Solana.Logout(() => {
+            MirrorWorld.EVM.Logout(() => {
                 UniversalDialog dialog = null;
                 Action yesAction = () => {
                     dialog.DestroyDialog();
@@ -674,8 +671,8 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == APINames.SolAssetSearchQueryNFT)
         {
-            SetInfoPanel("QueryNFT", "mint address", null, null, null, null, null, "GetNFTDetails", "GetNFTDetails", () => {
-                MirrorWorld.Solana.QueryNFT(v1, (res) => {
+            SetInfoPanel("QueryNFT", "mint address", "token id", null, null, null, null, "GetNFTDetails", "GetNFTDetails", () => {
+                MirrorWorld.EVM.QueryNFT(v1, v2, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
@@ -683,13 +680,10 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == APINames.SolAssetSearchSearchNFTsByOwner)
         {
-            SetInfoPanel("GetNFTOwnedByAddress", "owner address", "limit", "offset", null, null, null, "Get", "Get NFTs wwned by address", () => {
-                List<string> owners = new List<string>();
-                owners.Add(v1);
-                long limit = long.Parse(v2);
-                long offset = long.Parse(v3);
+            SetInfoPanel("GetNFTOwnedByAddress", "owner address", "limit", "cursor", null, null, null, "Get", "Get NFTs wwned by address", () => {
+                int limit = int.Parse(v2);
 
-                MirrorWorld.Solana.SearchNFTsByOwner(owners, limit, offset, (res) => {
+                MirrorWorld.EVM.SearchNFTsByOwner(v1, limit, v3, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
@@ -697,10 +691,13 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == APINames.SolAssetSearchSearchNFTs)
         {
-            SetInfoPanel("FetchNFTsByMintAddresses", "mint address", null, null, null, null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses", () => {
-                List<string> list = new List<string>();
-                list.Add(v1);
-                MirrorWorld.Solana.SearchNFTsByMintAddress(list, (res) => {
+            SetInfoPanel("FetchNFTsByMintAddresses", "mint address", "token id", null, null, null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses", () => {
+                List<EVMSearchNFTsByAddressesReqToken> list = new List<EVMSearchNFTsByAddressesReqToken>();
+                EVMSearchNFTsByAddressesReqToken token = new EVMSearchNFTsByAddressesReqToken();
+                token.token_address = v1;
+                token.token_id = int.Parse(v2);
+                list.Add(token);
+                MirrorWorld.EVM.SearchNFTsByMintAddress(list, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
@@ -710,7 +707,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("IsLoggedIn", null, null, null, null, null, null, "IsLoggedIn", "IsLoggedIn", () =>
             {
-                MirrorWorld.Solana.IsLogged((res) => {
+                MirrorWorld.EVM.IsLogged((res) => {
                     PrintLog("result:" + res);
                 });
             }
@@ -718,9 +715,9 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == APINames.SolAssetMintCollection)
         {
-            SetInfoPanel("CreateVerifiedCollection", "name", "symbol", "url", "seller fee basis points", null, null, "CreateVerifiedCollection", "CreateVerifiedCollection", () => {
+            SetInfoPanel("CreateVerifiedCollection", "name", "symbol", "url", null, null, null, "CreateVerifiedCollection", "CreateVerifiedCollection", () => {
                 int seller_fee_basis_points = (int)PrecisionUtil.StrToDouble(v4);
-                MirrorWorld.Solana.MintCollection(v1, v2, v3, seller_fee_basis_points, null, approveFinished, (res) => {
+                MirrorWorld.EVM.MintCollection(v1, v2, v3, approveFinished, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
@@ -729,29 +726,30 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == APINames.SolAssetMintNFT)
         {
-            SetInfoPanel("MintNFT", "parent collection", "name", "symbol", "url", null, null, "MintNFT", "MintNFT", () => {
-                int amount = PrecisionUtil.StrToInt(v6);
-                string mint_id = "demo_test_id";
-                MirrorWorld.Solana.MintNFT(v1, v2, v3, v4, Confirmation.Default, mint_id, v5, amount, approveFinished, (res) => {
+            SetInfoPanel("MintNFT", "parent collection", "token_id", "to_wallet", "mint amount", null, null, "MintNFT", "MintNFT", () => {
+                int amount = PrecisionUtil.StrToInt(v4);
+                int token_id = int.Parse(v2);
+                MirrorWorld.EVM.MintNFT(v1, token_id, v3, amount, Confirmation.Default, approveFinished, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
         }
-        else if (btnName == APINames.SolAssetMintUpdateNFTProperties)
-        {
-            SetInfoPanel("UpdateNFTProperties", "mint address", "name", "updateAuthority", "json url", null, null, "MintNFT", "MintNFT", () => {
-                MirrorWorld.Solana.UpdateNFT(v1, v2, "newsymbol", v3, v4, 200, Confirmation.Default, approveFinished, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
-                });
-            });
-        }
+        //else if (btnName == APINames.SolAssetMintUpdateNFTProperties)
+        //{
+        //    SetInfoPanel("UpdateNFTProperties", "mint address", "name", "updateAuthority", "json url", null, null, "MintNFT", "MintNFT", () => {
+        //        MirrorWorld.EVM.UpdateNFT(v1, v2, "newsymbol", v3, v4, 200, Confirmation.Default, approveFinished, (res) => {
+        //            var body = JsonUtility.ToJson(res);
+        //            PrintLog("result:" + body);
+        //        });
+        //    });
+        //}
         else if (btnName == APINames.SolAssetAuctionListNFT)
         {
-            SetInfoPanel("ListNFT", "mint address", "price", "auction_house", null, null, null, "ListNFT", "ListNFT", () => {
-                double price = PrecisionUtil.StrToDouble(v2);
-                MirrorWorld.Solana.ListNFT(v1, price, v3, Confirmation.Default, approveFinished, (res) => {
+            SetInfoPanel("ListNFT", "collection address", "token id", "price", "marketplace address", null, null, "ListNFT", "ListNFT", () => {
+                int token_id = PrecisionUtil.StrToInt(v2);
+                double price = PrecisionUtil.StrToDouble(v3);
+                MirrorWorld.EVM.ListNFT(v1, token_id, price, v4, approveFinished, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
@@ -759,9 +757,9 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == APINames.SolAssetAuctionCancelListing)
         {
-            SetInfoPanel("CancelNFTListing", "mint address", "price", "auction_house", null, null, null, "CancelNFTListing", "CancelNFTListing", () => {
-                double price = PrecisionUtil.StrToDouble(v2);
-                MirrorWorld.Solana.CancelListing(v1, price, v3, Confirmation.Default, approveFinished, (res) =>
+            SetInfoPanel("CancelNFTListing", "collection address", "token id", "marketplace_address", null, null, null, "CancelNFTListing", "CancelNFTListing", () => {
+                int token_id = PrecisionUtil.StrToInt(v2);
+                MirrorWorld.EVM.CancelListing(v1, token_id, v3, approveFinished, (res) =>
                 {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
@@ -770,10 +768,10 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == APINames.SolAssetAuctionBuyNFT)
         {
-            SetInfoPanel("Buy NFT", "mint address", "Price", "auction house", null, null, null, "BuyNFT", "BuyNFT", () => {
+            SetInfoPanel("Buy NFT", "mint address", "Price", "token id", "marketplace_address", null, null, "BuyNFT", "BuyNFT", () => {
                 double price = PrecisionUtil.StrToDouble(v2);
-                Debug.Log("price:" + price);
-                MirrorWorld.Solana.BuyNFT(v1, price, v3, approveFinished, (res) => {
+                int token_id = PrecisionUtil.StrToInt(v3);
+                MirrorWorld.EVM.BuyNFT(v1, price, token_id, v4, approveFinished, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
@@ -781,8 +779,9 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == APINames.SolAssetAuctionTransferNFT)
         {
-            SetInfoPanel("Transfer NFT", "mint address", "to wallet", null, null, null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses", () => {
-                MirrorWorld.Solana.TransferNFT(v1, v2, approveFinished, (res) => {
+            SetInfoPanel("Transfer NFT", "collection address", "token id", "to wallet address", null, null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses", () => {
+                int token_id = PrecisionUtil.StrToInt(v2);
+                MirrorWorld.EVM.TransferNFT(v1, token_id, v3, approveFinished, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
@@ -790,9 +789,9 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == APINames.SolWalletGetTransactions)
         {
-            SetInfoPanel("GetWalletTransactions", "number", "next_before", null, null, null, null, "GetWalletTransactions", "GetWalletTransactions", () => {
-                float price = PrecisionUtil.StrToFloat(v1);
-                MirrorWorld.Solana.GetTransactions(price, v2, (res) => {
+            SetInfoPanel("GetWalletTransactions", "number", null, null, null, null, null, "GetWalletTransactions", "GetWalletTransactions", () => {
+                double price = PrecisionUtil.StrToDouble(v1);
+                MirrorWorld.EVM.GetTransactions(price, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
@@ -801,54 +800,18 @@ public class TestManager : MonoBehaviour
         else if (btnName == APINames.SolWalletGetTransactionsBySignature)
         {
             SetInfoPanel("GetWalletTransactionsBySignatrue", "signature", null, null, null, null, null, "GetWalletTransactionsBySignatrue", "GetWalletTransactionsBySignatrue", () => {
-                MirrorWorld.Solana.GetTransactionsBySignature(v1, (res) =>
+                MirrorWorld.EVM.GetTransactionsBySignature(v1, (res) =>
                 {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
         }
-        else if (btnName == APINames.SolAssetConfirmationCheckStatusOfTransactions)
-        {
-            SetInfoPanel("GetStatusOfTransactions", "signature 1", "signature 2", null, null, null, null, "GetStatusOfTransactions", "GetStatusOfTransactions", () => {
-                List<string> signatures = new List<string>();
-                if (v1 != "") signatures.Add(v1);
-                if (v2 != "") signatures.Add(v2);
-
-                MirrorWorld.Solana.CheckTransactionsStatus(signatures, (res) =>
-                {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("GetStatusOfTransactions result:" + body);
-                });
-            });
-        }
-        else if (btnName == APINames.SolAssetConfirmationCheckStatusOfMinting)
-        {
-            SetInfoPanel("GetStatusOfMintings", "mint address 1", "mint address 2", null, null, null, null, "GetStatusOfMintings", "GetStatusOfMintings", () => {
-                List<string> mintAddresses = new List<string>();
-                if (v1 != "") mintAddresses.Add(v1);
-                if (v2 != "") mintAddresses.Add(v2);
-                MirrorWorld.Solana.CheckMintingStatus(mintAddresses, (res) =>
-                {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("GetStatusOfMintings result:" + body);
-                });
-            });
-        }
         else if (btnName == APINames.SolWalletTransferSOL)
         {
-            SetInfoPanel("TransferSol", "amount", "public key", null, null, null, null, "TransferSol", "TransferSol", () => {
-                if (v1.Contains('.'))
-                {
-                    int realAmout = (int)PrecisionUtil.StrToDouble(v1);
-                    UniversalDialog dialog = null;
-                    Action yesAction = () => {
-                        dialog.DestroyDialog();
-                    };
-                    dialog = ShowUniversalNotice("Tips", "You can only transfer integer, so the transfer amount now is:" + realAmout, "Got it", "", yesAction, null);
-                }
+            SetInfoPanel("TransferETH", "nonce", "gas price", "gas limit", "to", "amout", null, "Transfer", "Transfer", () => {
                 int price = (int)PrecisionUtil.StrToDouble(v1);
-                MirrorWorld.Solana.TransferSol(price, v2, Confirmation.Default, approveFinished, (res) => {
+                MirrorWorld.EVM.TransferETH(v1, v2, v3, v4, v5, approveFinished, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
@@ -856,10 +819,8 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == APINames.SolWalletTransferToken)
         {
-            SetInfoPanel("TransferSPLToken", "amount", "public key", "amount", "mint_address", null, null, "Transfer", "Transfer", () => {
-                ulong price = PrecisionUtil.StrToULong(v1);
-                int decimals = PrecisionUtil.StrToInt(v3);
-                MirrorWorld.Solana.TransferToken(v4, decimals, price, v2, approveFinished, (res) => {
+            SetInfoPanel("TransferToken", "nonce", "gas price", "gas limit", "to", "amout", "contract", "Transfer", "Transfer", () => {
+                MirrorWorld.EVM.TransferToken(v1, v2, v3, v4, v5, v6, approveFinished, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
@@ -868,7 +829,7 @@ public class TestManager : MonoBehaviour
         else if (btnName == APINames.ClientOpenWallet)
         {
             notOpenDetail = true;
-            MirrorWorld.Solana.OpenWallet(() => {
+            MirrorWorld.EVM.OpenWallet(() => {
                 MirrorWrapper.Instance.LogFlow("Wallet logout callback runs!!");
             });
         }
@@ -878,13 +839,13 @@ public class TestManager : MonoBehaviour
             List<string> collections = new List<string>();
             collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
 
-            MirrorWorld.Solana.OpenMarket("https://jump-devnet.MirrorWorld.Solana.fun");
+            MirrorWorld.EVM.OpenMarket("https://jump-devnet.MirrorWorld.EVM.fun");
         }
         else if (btnName == APINames.SolMetadataGetCollectionFiltersInfo)
         {
             SetInfoPanel("GetCollectionFilterInfo", "collection", null, null, null, null, null, "Get", "Get collection filter info", () => {
                 string collection = v1;
-                MirrorWorld.Solana.MetadataCollectionFilters(v1, (res) => {
+                MirrorWorld.EVM.MetadataCollectionFilters(v1, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
@@ -897,7 +858,7 @@ public class TestManager : MonoBehaviour
                 List<string> collections = new List<string>();
                 collections.Add(collection1);
 
-                MirrorWorld.Solana.MetadataCollectionsInfo(collections, (res) => {
+                MirrorWorld.EVM.MetadataCollectionsInfo(collections, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
@@ -905,12 +866,13 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == APINames.SolMetadataNFTEvents)
         {
-            SetInfoPanel("GetNFTEvents", "mint address", "page", "page size", null, null, null, "Get", "Get NFT events", () => {
+            SetInfoPanel("GetNFTEvents", "contract", "page", "page size", "token id", "marketplace_address", null, "Get", "Get NFT events", () => {
                 string mintAddress = v1;
                 int page = int.Parse(v2);
                 int pageSize = int.Parse(v3);
+                int tokenID = int.Parse(v4);
 
-                MirrorWorld.Solana.MetadataNFTEvents(mintAddress, page, pageSize, (res) => {
+                MirrorWorld.EVM.MetadataNFTEvents(v1, page, pageSize, tokenID, v5, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
@@ -924,7 +886,7 @@ public class TestManager : MonoBehaviour
                 collections.Add(collection1);
                 string searchString = v2;
 
-                MirrorWorld.Solana.MetadataSearchNFTs(collections, searchString, (res) => {
+                MirrorWorld.EVM.MetadataSearchNFTs(collections, searchString, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
@@ -937,7 +899,7 @@ public class TestManager : MonoBehaviour
                 List<string> collections = new List<string>();
                 collections.Add(collection1);
 
-                MirrorWorld.Solana.MetadataRecommendSearchNFTs(collections, (res) => {
+                MirrorWorld.EVM.MetadataRecommendSearchNFTs(collections, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
@@ -952,7 +914,7 @@ public class TestManager : MonoBehaviour
                 string orderByString = v4;
                 bool desc = true;
 
-                MirrorWorld.Solana.MetadataNFTsByUnabridgedParams(collection, page, pageSize, orderByString, desc, null, (res) => {
+                MirrorWorld.EVM.MetadataNFTsByUnabridgedParams(collection, page, pageSize, orderByString, desc, null, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });

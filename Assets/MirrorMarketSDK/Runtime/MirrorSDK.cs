@@ -46,7 +46,7 @@ public class MirrorSDK : MonoBehaviour
 #endif
     }
 
-    public static void InitSDK(string apiKey, GameObject gameObject,MirrorChain chain, bool useDebug, MirrorEnv environment)
+    public static void InitSDK(string apiKey, GameObject gameObject ,MirrorChain chain, bool useDebug, MirrorEnv environment)
     {
         Debug.Log("env:"+ environment);
 
@@ -60,7 +60,7 @@ public class MirrorSDK : MonoBehaviour
 
 #if (UNITY_ANDROID && !(UNITY_EDITOR))
 
-            MirrorWrapper.Instance.AndroidInitSDK(apiKey,environment);
+            MirrorWrapper.Instance.AndroidInitSDK(apiKey,environment,chain);
             
             MirrorWrapper.Instance.AndroidSetDebug(useDebug);
 
