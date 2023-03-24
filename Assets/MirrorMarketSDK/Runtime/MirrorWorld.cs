@@ -4,89 +4,86 @@ using MirrorworldSDK;
 using System;
 using MirrorworldSDK.Models;
 
-public class MirrorWorld
-{
-    public MWSolanaWrapper Solana;
+//public class MirrorWorld
+//{
+//    /// <summary>
+//    /// Open login page and let user to login SDK.
+//    /// </summary>
+//    /// <param name="action"></param>
+//    public static void StartLogin(Action<LoginResponse> action)
+//    {
+//        MWClientWrapper.StartLogin(action);
+//    }
 
-    public MWEVMWrapper EVM;
+//    /// <summary>
+//    /// Set if use debug mode
+//    /// </summary>
+//    /// <param name="useDebug"></param>
+//    public static void SetDebugMode(bool useDebug)
+//    {
+//        MWClientWrapper.SetDebugMode(useDebug);
+//    }
 
-    /// <summary>
-    /// Open login page and let user to login SDK.
-    /// </summary>
-    /// <param name="action"></param>
-    public static void StartLogin(Action<LoginResponse> action)
-    {
-        MWClientWrapper.StartLogin(action);
-    }
+//    public static MirrorEnv GetEnv()
+//    {
+//        return MWClientWrapper.GetEnv();
+//    }
 
-    /// <summary>
-    /// Set if use debug mode
-    /// </summary>
-    /// <param name="useDebug"></param>
-    public static void SetDebugMode(bool useDebug)
-    {
-        MWClientWrapper.SetDebugMode(useDebug);
-    }
+//    public static MirrorChain GetChain()
+//    {
+//        return MWClientWrapper.GetChain();
+//    }
 
-    public static MirrorEnv GetEnv()
-    {
-        return MWClientWrapper.GetEnv();
-    }
+//    /// <summary>
+//    /// Guest login
+//    /// </summary>
+//    /// <param name="action"></param>
+//    public static void GuestLogin(Action<LoginResponse> action)
+//    {
+//        MWClientWrapper.GuestLogin(action);
+//    }
 
-    public static MirrorChain GetChain()
-    {
-        return MWClientWrapper.GetChain();
-    }
+//    /// <summary>
+//    /// Login with email,this email must registed.
+//    /// </summary>
+//    /// <param name="emailAddress"></param>
+//    /// <param name="password"></param>
+//    /// <param name="callBack"></param>
+//    public static void LoginWithEmail(string emailAddress, string password, Action<CommonResponse<LoginResponse>> callBack)
+//    {
+//        MWClientWrapper.LoginWithEmail(emailAddress, password, callBack);
+//    }
 
-    /// <summary>
-    /// Guest login
-    /// </summary>
-    /// <param name="action"></param>
-    public static void GuestLogin(Action<LoginResponse> action)
-    {
-        MWClientWrapper.GuestLogin(action);
-    }
+//    /// <summary>
+//    /// User logout
+//    /// </summary>
+//    /// <param name="logoutAction"></param>
+//    public static void Logout(Action logoutAction)
+//    {
+//        MWClientWrapper.Logout(logoutAction);
+//    }
 
-    /// <summary>
-    /// Login with email,this email must registed.
-    /// </summary>
-    /// <param name="emailAddress"></param>
-    /// <param name="password"></param>
-    /// <param name="callBack"></param>
-    public static void LoginWithEmail(string emailAddress, string password, Action<CommonResponse<LoginResponse>> callBack)
-    {
-        MWClientWrapper.LoginWithEmail(emailAddress, password, callBack);
-    }
+//    public static void QueryUser(string email, Action<CommonResponse<UserResponse>> callback)
+//    {
+//        MWClientWrapper.QueryUser(email, (response) =>
+//        {
+//            callback(response);
+//        });
+//    }
 
-    /// <summary>
-    /// User logout
-    /// </summary>
-    /// <param name="logoutAction"></param>
-    public static void Logout(Action logoutAction)
-    {
-        MWClientWrapper.Logout(logoutAction);
-    }
+//    public static void IsLogged(Action<bool> action)
+//    {
+//        MWClientWrapper.IsLoggedIn(action);
+//    }
 
-    public static void QueryUser(string email, Action<CommonResponse<UserResponse>> callback)
-    {
-        MWClientWrapper.QueryUser(email, (response) =>
-        {
-            callback(response);
-        });
-    }
+//    public static void OpenWallet(Action walletLogoutAction)
+//    {
+//        MWClientWrapper.OpenWalletPage(walletLogoutAction);
+//    }
 
-    public static void IsLogged(Action<bool> action)
-    {
-        MWClientWrapper.IsLoggedIn(action);
-    }
+//    public static void OpenMarket(string marketUrl)
+//    {
+//        MWClientWrapper.OpenMarketPage(marketUrl);
+//    }
 
-    public static void OpenWallet(Action walletLogoutAction)
-    {
-        MWClientWrapper.OpenWalletPage(walletLogoutAction);
-    }
-
-    public static void OpenMarket(string marketUrl)
-    {
-        MWClientWrapper.OpenMarketPage(marketUrl);
-    }
-}
+//}

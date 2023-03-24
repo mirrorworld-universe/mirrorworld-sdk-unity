@@ -33,7 +33,16 @@ namespace MirrorworldSDK.Wrapper
         {
             string url = UrlUtils.GetMirrorGetUrl(MirrorService.AssetNFT) + urlFetchSingleNFT + "/" + mintAddress;
 
-            monoBehaviour.StartCoroutine(CheckAndGet(url,null,(response)=> {
+            monoBehaviour.StartCoroutine(CheckAndGet(url, null, (response) => {
+
+                callBack(response);
+            }));
+        }
+        public void GetNFTDetailsOnEVM(string mintAddress,string token_id, Action<string> callBack)
+        {
+            string url = UrlUtils.GetMirrorGetUrl(MirrorService.AssetNFT) + urlFetchSingleNFT + "/" + mintAddress + "/" + token_id;
+
+            monoBehaviour.StartCoroutine(CheckAndGet(url, null, (response) => {
 
                 callBack(response);
             }));

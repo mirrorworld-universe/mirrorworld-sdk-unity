@@ -3,10 +3,11 @@ using System.Collections;
 using System;
 using MirrorworldSDK.Models;
 using System.Collections.Generic;
+using MirrorworldSDK;
 
-namespace MirrorworldSDK
+namespace MirrorWorld
 {
-    public class MWSolana
+    public class Solana
     {
         public static void StartLogin(Action<LoginResponse> action)
         {
