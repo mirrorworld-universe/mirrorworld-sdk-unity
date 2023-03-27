@@ -498,10 +498,8 @@ public class TestManager : MonoBehaviour
         else if (btnName == APINames.ClientOpenMarket)
         {
             notOpenDetail = true;
-            List<string> collections = new List<string>();
-            collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
 
-            MirrorWorld.Solana.OpenMarket("https://jump-devnet.MirrorWorld.Solana.fun");
+            MirrorWorld.Solana.OpenMarket("https://jump-devnet.mirrorWorld.fun");
         }
         else if (btnName == APINames.SolMetadataGetCollectionFiltersInfo)
         {
