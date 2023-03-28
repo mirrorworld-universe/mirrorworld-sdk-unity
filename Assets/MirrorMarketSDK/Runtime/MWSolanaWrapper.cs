@@ -200,6 +200,7 @@ namespace MirrorworldSDK
 
         public static void MintNFT(string parentCollection, string nFTName, string nFTSymbol, string nFTJsonUrl, string confirmation, string mint_id, string receiveWallet, double amountSol, Action approveFinished, Action<CommonResponse<MintResponse>> callBack)
         {
+            LogUtils.LogFlow("Mint request:amountSol:" + amountSol + ",receiveWallet:" + receiveWallet);
             ApproveMintNFT requestParams = new ApproveMintNFT();
             requestParams.collection_mint = parentCollection;
             requestParams.name = nFTName;
@@ -234,6 +235,8 @@ namespace MirrorworldSDK
                 }
 
                 string rawRequestBody = JsonUtility.ToJson(requestBody);
+
+                LogUtils.LogFlow("MintNFT rawRequestBody:"+ rawRequestBody);
 
                 MirrorWrapper.Instance.MintNFT(rawRequestBody, (response)=> {
 
@@ -373,9 +376,12 @@ namespace MirrorworldSDK
             });
         }
 
-        public static void GetTokensByWalletByWallet(string wallet,Action<string> action)
+        public static void GetTokensByWalletByWallet(string wallet, int limit, string next_before, Action<string> action)
         {
-            MirrorWrapper.Instance.GetWalletTokensByWallet(wallet, action);
+            Dictionary<string, string> requestParams = new Dictionary<string, string>();
+            requestParams.Add("limit",limit+"");
+            requestParams.Add("next_before", next_before);
+            MirrorWrapper.Instance.GetWalletTokensByWallet(wallet,requestParams, action);
         }
 
         public static void TransferSol(int amount, string to_publickey, string confirmation, Action approveFinished, Action<CommonResponse<TransferSolResponse>> callBack)
@@ -458,6 +464,8 @@ namespace MirrorworldSDK
             var rawRequestBody = JsonUtility.ToJson(requestBody);
 
             MirrorWrapper.Instance.GetCollectionInfo(rawRequestBody, (response)=> {
+
+                Debug.Log("MetadataCollectionsInfo response:"+response);
 
                 CommonResponse<List<GetCollectionInfoResponse>> responseBody = JsonUtility.FromJson<CommonResponse<List<GetCollectionInfoResponse>>>(response);
 

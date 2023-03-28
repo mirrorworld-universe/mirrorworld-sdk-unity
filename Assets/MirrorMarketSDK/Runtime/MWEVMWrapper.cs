@@ -239,7 +239,7 @@ public class MWEVMWrapper
 
     public static void GetTokensByWalletByWallet(string wallet, Action<string> action)
     {
-        MirrorWrapper.Instance.GetWalletTokensByWallet(wallet, action);
+        MirrorWrapper.Instance.GetWalletTokensByWallet(wallet, null, action);
     }
 
     public static void TransferETH(string nonce, string gasPrice, string gasLimit, string to, string amount, Action approveFinished, Action<string> callBack)

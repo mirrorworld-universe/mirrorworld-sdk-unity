@@ -32,11 +32,11 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void GetWalletTokensByWallet(string walletAddress, Action<string> action)
+        public void GetWalletTokensByWallet(string walletAddress, Dictionary<string, string> requestParams, Action<string> action)
         {
-            string url = UrlUtils.GetMirrorGetUrl(MirrorService.Wallet) + urlGetWalletTokens + "/" + walletAddress;
+            string url = UrlUtils.GetMirrorGetUrl(MirrorService.Wallet) + walletAddress + "/transactions";
 
-            monoBehaviour.StartCoroutine(CheckAndGet(url, null, (response) =>
+            monoBehaviour.StartCoroutine(CheckAndGet(url, requestParams, (response) =>
             {
                 LogFlow("GetWalletTokens result:" + JsonUtility.ToJson(response));
 

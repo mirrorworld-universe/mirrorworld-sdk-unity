@@ -89,6 +89,7 @@ namespace MirrorWorld
 
         public static void MintNFT(string parentCollection, string nFTName, string nFTSymbol, string nFTJsonUrl, string confirmation, string mint_id, string receiveWallet, double amountSol, Action approveFinished, Action<CommonResponse<MintResponse>> callBack)
         {
+            LogUtils.LogFlow("Mint request:amountSol:" + amountSol + ",receiveWallet:" + receiveWallet);
             MWSolanaWrapper.MintNFT(parentCollection, nFTName, nFTSymbol, nFTJsonUrl, confirmation, mint_id, receiveWallet, amountSol, approveFinished, callBack);
         }
 
@@ -134,9 +135,9 @@ namespace MirrorWorld
             MWSolanaWrapper.GetTokens(action);
         }
 
-        public static void GetTokensByWalletByWallet(string wallet, Action<string> action)
+        public static void GetTokensByWalletByWallet(string wallet, int limit, string next_before, Action<string> action)
         {
-            MWSolanaWrapper.GetTokensByWalletByWallet(wallet, action);
+            MWSolanaWrapper.GetTokensByWalletByWallet(wallet,limit,next_before, action);
         }
 
         public static void TransferSol(int amount, string to_publickey, string confirmation, Action approveFinished, Action<CommonResponse<TransferSolResponse>> callBack)
