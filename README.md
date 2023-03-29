@@ -8,9 +8,8 @@
 
 ## Import SDK
 
-1. One way,download assets [Mirror World Unity SDK](https://github.com/mirrorworld-universe/mirrorworld-sdk-unity/releases).  
+Download assets [Mirror World Unity SDK](https://github.com/mirrorworld-universe/mirrorworld-sdk-unity/releases).  
 import it to your project `Assets > Import Package > Custom Package` and select the package you just downloaded.
-2. Besides, you can also search for the package in Unity Assets Store with the key word "com.mirror.sdk" and import it.
 
 ## Usage
 ### Configration
@@ -24,18 +23,19 @@ Input your aky key which requested on https://docs.mirrorworld.fun/ .
 If checking this, you could see all the flow and error notice on console.
 - Environment
 Choose the environment you want to use.
-- Debug Email and Password
-In pre-release beta, you can only login SDK with this function. Input your email and password on https://docs.mirrorworld.fun/ .
+- Debug Email
+Using for debug. Please input the email which used to register the API key.
 
 #### Configration dynamic
 If you don't want to add a game object to your scene,you can init Mirror World SDK with the following code:  
 ```cs
 GameObject mirrorObj = new GameObject("MirrorSDK", typeof(MirrorSDK));
 string apiKey = "your api key";
+MirrorChain chain = MirrorChain.Solana;
 bool debugMode = true;
-Environment environment = Environment.StagingDevnet;
+MirrorEnv env = MirrorEnv.Devnet;
 
-MirrorSDK.InitSDK(apiKey, mirrorObj, debugMode, environment);
+MirrorSDK.InitSDK(apiKey, mirrorObj, chain, debugMode, env);
 ```
 
 ### Login
@@ -45,12 +45,22 @@ And then,if you want to call some API of SDK in your app,you should lead users t
 
 If you want him to login(or again), you can use the following code:
 ```cs
-MirrorSDK.StartLogin();
+//Solana
+MirrorWorld.Solana.StartLogin((loginResponse) => {
+    Debug.Log("Login result:" + JsonUtility.ToJson(loginResponse));
+});
+//EVM
+MirrorWorld.EVM.StartLogin((loginResponse) => {
+    Debug.Log("Login result:" + JsonUtility.ToJson(loginResponse));
+});
 ```
+As you see, you need to use different instance on different chain.
+Normally, they are **MirrorWorld.chain_name**.
+For convinience, we will use Solana as default at following code.
 
 And if you want to do something after the logining is successful,you can pass an action to it as follows code:
 ```cs
-MirrorSDK.StartLogin((isSuccess)=>{
+MirrorWorld.Solana.StartLogin((isSuccess)=>{
     if(isSuccess){
         Debug.Log("Login success!");
     }else{
@@ -63,7 +73,7 @@ MirrorSDK.StartLogin((isSuccess)=>{
 When a user opens your app, you may want to know whether this user has logged in before,instead of letting him login every time, you can call the following code to know that.
 
 ```cs
-MirrorSDK.IsLoggedIn((isLoggedIn) => {
+MirrorWorld.Solana.IsLoggedIn((isLoggedIn) => {
     Debug.Log("If he is logged in:" + isLoggedIn);
 });
 ```
@@ -72,11 +82,9 @@ MirrorSDK.IsLoggedIn((isLoggedIn) => {
 User may want to check their wallet in your app,you can open their wallet by following code:
 
 ```cs
-Action logoutAction = ()=> {
-    MirrorWrapper.Instance.LogFlow("Wallet logout.");
-}
-
-MirrorSDK.OpenWalletPage(logoutAction);
+MirrorWorld.Solana.OpenWallet(() => {
+    Debug.Log("Wallet logout callback runs!!");
+});
 ```
 If you don't need to do anything if user clicked logout button in wallet page,passing 'logoutAction' to this function would be ok.
 

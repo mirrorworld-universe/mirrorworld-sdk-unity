@@ -8,7 +8,10 @@ using UnityEngine.UI;
 
 public class LoginDialog : MonoBehaviour
 {
+    public Text titleText;
+
     public Text contentText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +26,8 @@ public class LoginDialog : MonoBehaviour
 
     public void OnBtnLoggedClicked()
     {
+        contentText.text = "Checking login status...";
+
         MirrorSDK.CompleteLoginWithSession((success)=>{
             if (success)
             {

@@ -11,33 +11,207 @@ public class TestManager : MonoBehaviour
 {
     public GameObject apiInfo;
     public GameObject apiList;
+    public InitPanel initPanel;
+
+    public Transform apiParent;
+    public GameObject listLineModel;
+    public GameObject listItemModel;
 
     public TextMeshProUGUI apiNameText;
-    public TextMeshProUGUI input1;
-    public TextMeshProUGUI input2;
-    public TextMeshProUGUI input3;
-    public TextMeshProUGUI input4;
-    public TextMeshProUGUI title1, title2, title3, title4;
-    public GameObject inputField1;
-    public GameObject inputField2;
-    public GameObject inputField3;
-    public GameObject inputField4;
     public TextMeshProUGUI btnText;
     public TextMeshProUGUI contentText;
+    public ParamCell cell1;
+    public ParamCell cell2;
+    public ParamCell cell3;
+    public ParamCell cell4;
+    public ParamCell cell5;
+    public ParamCell cell6;
 
-    private string v1, v2, v3, v4;
+    private string v1, v2, v3, v4, v5, v6;
     private Action clickAction;
+    private MirrorChain selectedChain;
     // Start is called before the first frame update
     void Start()
     {
+        initPanel.Show();
         apiInfo.SetActive(false);
-        apiList.SetActive(true);
+        apiList.SetActive(false);
+        initPanel.EnterNextPage = (chain) =>
+        {
+            selectedChain = chain;
+            InitAPIList();
+            initPanel.Hide();
+            apiInfo.SetActive(false);
+            apiList.SetActive(true);
+        };
     }
 
-    // Update is called once per frame
-    void Update()
+    public void InitAPIList()
     {
-        
+        for (int i = 0; i < apiParent.childCount; i++)
+        {
+            Destroy(apiParent.GetChild(i).gameObject);
+        }
+
+        if (selectedChain == MirrorChain.Solana)
+        {
+            InitSolanaAPIList();
+        }
+        else if (selectedChain == MirrorChain.Ethereum || selectedChain == MirrorChain.Polygon || selectedChain == MirrorChain.BNB)
+        {
+            InitEVMAPIList(selectedChain);
+        }
+        else
+        {
+            Debug.Log("Unknown selected chain:"+selectedChain);
+        }
+    }
+
+    private void InitSolanaAPIList()
+    {
+        //Client
+        Transform lineClient = AddAPILine(apiParent,"Client");
+        AddAPIButton(lineClient, APINames.ClientGuestLogin);
+        AddAPIButton(lineClient, APINames.ClientStartLogin);
+        AddAPIButton(lineClient, APINames.ClientIsLogged);
+        AddAPIButton(lineClient, APINames.ClientLoginWithEmail,22);
+        AddAPIButton(lineClient, APINames.ClientLogout);
+        AddAPIButton(lineClient, APINames.ClientOpenWallet);
+        AddAPIButton(lineClient, APINames.ClientOpenMarket);
+        AddAPIButton(lineClient, APINames.ClientQueryUser);
+        //AddAPIButton(lineClient, APINames.ClientFetchUser);
+        //Asset/Auction
+        Transform lineAssetAuction = AddAPILine(apiParent,"Asset/Auction");
+        AddAPIButton(lineAssetAuction, APINames.SolAssetAuctionBuyNFT);
+        AddAPIButton(lineAssetAuction, APINames.SolAssetAuctionCancelListing,22);
+        AddAPIButton(lineAssetAuction, APINames.SolAssetAuctionListNFT);
+        AddAPIButton(lineAssetAuction, APINames.SolAssetAuctionTransferNFT);
+        //Asset/Confirmation
+        Transform lineAssetConfirmation = AddAPILine(apiParent,"Asset/Confirmation");
+        AddAPIButton(lineAssetConfirmation, APINames.SolAssetConfirmationCheckStatusOfMinting,20);
+        AddAPIButton(lineAssetConfirmation, APINames.SolAssetConfirmationCheckStatusOfTransactions,18);
+        //Asset/Mint
+        Transform lineAssetMint = AddAPILine(apiParent,"Asset/Mint");
+        AddAPIButton(lineAssetMint, APINames.SolAssetMintCollection);
+        AddAPIButton(lineAssetMint, APINames.SolAssetMintNFT);
+        AddAPIButton(lineAssetMint, APINames.SolAssetMintUpdateNFTProperties);
+        //Asset/Search
+        Transform lineAssetSearch = AddAPILine(apiParent,"Asset/Search");
+        AddAPIButton(lineAssetSearch, APINames.SolAssetSearchQueryNFT);
+        AddAPIButton(lineAssetSearch, APINames.SolAssetSearchSearchNFTs);
+        AddAPIButton(lineAssetSearch, APINames.SolAssetSearchSearchNFTsByOwner, 20);
+        //Wallet
+        Transform lineWallet = AddAPILine(apiParent,"Wallet");
+        AddAPIButton(lineWallet, APINames.SolWalletGetTransactions);
+        AddAPIButton(lineWallet, APINames.SolWalletGetTransactionsByWallet, 18);
+        AddAPIButton(lineWallet, APINames.SolWalletGetTransactionsBySignature,18);
+        AddAPIButton(lineWallet, APINames.SolWalletGetTokens);
+        AddAPIButton(lineWallet, APINames.SolWalletGetTokensByWallet, 18);
+        AddAPIButton(lineWallet, APINames.SolWalletTransferSOL);
+        AddAPIButton(lineWallet, APINames.SolWalletTransferToken);
+        //Metadata/Collection
+        Transform lineMetadataCollections = AddAPILine(apiParent,"Metadata/Collection");
+        AddAPIButton(lineMetadataCollections, APINames.SolMetadataGetCollectionsInfo, 18);
+        AddAPIButton(lineMetadataCollections, APINames.SolMetadataGetCollectionFiltersInfo, 18);
+        AddAPIButton(lineMetadataCollections, APINames.SolMetadataGetCollectionsSummary, 18);
+        //Metadata/NFT
+        Transform lineMetadataNFT = AddAPILine(apiParent,"Metadata/NFT");
+        AddAPIButton(lineMetadataNFT, APINames.SolMetadataNFTInfo);
+        AddAPIButton(lineMetadataNFT, APINames.SolMetadataNFTsInfo);
+        AddAPIButton(lineMetadataNFT, APINames.SolMetadataNFTEvents);
+        AddAPIButton(lineMetadataNFT, APINames.SolMetadataNFTSearchNFT);
+        AddAPIButton(lineMetadataNFT, APINames.SolMetadataNFTRecommendSearchNFT, 18);
+    }
+
+    private void InitEVMAPIList(MirrorChain chain)
+    {
+        //Client
+        Transform lineClient = AddAPILine(apiParent, "Client");
+        AddAPIButton(lineClient, APINames.ClientGuestLogin);
+        AddAPIButton(lineClient, APINames.ClientStartLogin);
+        AddAPIButton(lineClient, APINames.ClientIsLogged);
+        AddAPIButton(lineClient, APINames.ClientLoginWithEmail, 22);
+        AddAPIButton(lineClient, APINames.ClientLogout);
+        AddAPIButton(lineClient, APINames.ClientOpenWallet);
+        AddAPIButton(lineClient, APINames.ClientOpenMarket);
+        AddAPIButton(lineClient, APINames.ClientQueryUser);
+        //Asset/Auction
+        Transform lineAssetAuction = AddAPILine(apiParent, "Asset/Auction");
+        AddAPIButton(lineAssetAuction, APINames.SolAssetAuctionBuyNFT);
+        AddAPIButton(lineAssetAuction, APINames.SolAssetAuctionCancelListing, 22);
+        AddAPIButton(lineAssetAuction, APINames.SolAssetAuctionListNFT);
+        AddAPIButton(lineAssetAuction, APINames.SolAssetAuctionTransferNFT);
+        //Asset/Confirmation
+        //Asset/Mint
+        Transform lineAssetMint = AddAPILine(apiParent, "Asset/Mint");
+        AddAPIButton(lineAssetMint, APINames.SolAssetMintCollection);
+        AddAPIButton(lineAssetMint, APINames.SolAssetMintNFT);
+        //Asset/Search
+        Transform lineAssetSearch = AddAPILine(apiParent, "Asset/Search");
+        AddAPIButton(lineAssetSearch, APINames.SolAssetSearchQueryNFT);
+        AddAPIButton(lineAssetSearch, APINames.SolAssetSearchSearchNFTs);
+        AddAPIButton(lineAssetSearch, APINames.SolAssetSearchSearchNFTsByOwner, 20);
+        //Wallet
+        Transform lineWallet = AddAPILine(apiParent, "Wallet");
+        AddAPIButton(lineWallet, APINames.SolWalletGetTransactions);
+        AddAPIButton(lineWallet, APINames.SolWalletGetTransactionsByWallet, 18);
+        AddAPIButton(lineWallet, APINames.SolWalletGetTransactionsBySignature, 18);
+        AddAPIButton(lineWallet, APINames.SolWalletGetTokens);
+        AddAPIButton(lineWallet, APINames.SolWalletGetTokensByWallet, 18);
+        if(chain == MirrorChain.Ethereum)
+        {
+            AddAPIButton(lineWallet, APINames.SolWalletTransferETH);
+        }
+        else if (chain == MirrorChain.Polygon)
+        {
+            AddAPIButton(lineWallet, APINames.SolWalletTransferMatic);
+        }
+        else if (chain == MirrorChain.BNB)
+        {
+            AddAPIButton(lineWallet, APINames.SolWalletTransferBNB);
+        }
+        AddAPIButton(lineWallet, APINames.SolWalletTransferToken);
+        //Metadata/Collection
+        Transform lineMetadataCollections = AddAPILine(apiParent, "Metadata/Collection");
+        AddAPIButton(lineMetadataCollections, APINames.SolMetadataGetCollectionsInfo, 18);
+        AddAPIButton(lineMetadataCollections, APINames.SolMetadataGetCollectionFiltersInfo, 18);
+        AddAPIButton(lineMetadataCollections, APINames.SolMetadataGetCollectionsSummary, 18);
+        //Metadata/NFT
+        Transform lineMetadataNFT = AddAPILine(apiParent, "Metadata/NFT");
+        AddAPIButton(lineMetadataNFT, APINames.SolMetadataNFTInfo);
+        AddAPIButton(lineMetadataNFT, APINames.SolMetadataNFTsInfo);
+        AddAPIButton(lineMetadataNFT, APINames.SolMetadataNFTEvents);
+        AddAPIButton(lineMetadataNFT, APINames.SolMetadataNFTSearchNFT);
+        AddAPIButton(lineMetadataNFT, APINames.SolMetadataNFTRecommendSearchNFT, 18);
+    }
+
+    private Transform AddAPILine(Transform parent,string title)
+    {
+        Transform lineSystem = Instantiate(listLineModel, parent).transform;
+        lineSystem.Find("Title").GetComponent<TextMeshProUGUI>().text = title;
+        lineSystem.gameObject.SetActive(true);
+        return lineSystem;
+    }
+
+    private void AddAPIButton(Transform lineTrans, string apiName, int fontSize)
+    {
+        //Transform buttonParent = lineTrans.Find("APIs");
+        GameObject btnGO = Instantiate(listItemModel, lineTrans);
+        btnGO.SetActive(true);
+        btnGO.name = apiName;
+        TextMeshProUGUI label = btnGO.transform.Find("Text").GetComponent<TextMeshProUGUI>();
+        label.text = apiName;
+        label.fontSize = fontSize;
+    }
+    private void AddAPIButton(Transform lineTrans, string apiName)
+    {
+        //Transform buttonParent = lineTrans.Find("APIs");
+        GameObject btnGO = Instantiate(listItemModel, lineTrans);
+        btnGO.SetActive(true);
+        btnGO.name = apiName;
+        TextMeshProUGUI label = btnGO.transform.Find("Text").GetComponent<TextMeshProUGUI>();
+        label.text = apiName;
+        label.fontSize = 24;
     }
 
     public void OnButtonsClicked()
@@ -45,6 +219,18 @@ public class TestManager : MonoBehaviour
         var btnName = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name;
         Debug.Log("button name:" + btnName);
 
+        if(selectedChain == MirrorChain.Solana)
+        {
+            handleSolanaDemoClick(btnName);
+        }
+        else if(selectedChain == MirrorChain.Ethereum || selectedChain == MirrorChain.Polygon || selectedChain == MirrorChain.BNB)
+        {
+            handleEVMDemoClick(btnName);
+        }
+    }
+
+    private void handleSolanaDemoClick(string btnName)
+    {
         ClearLog();
         PrintLog("wait to call...");
 
@@ -61,307 +247,252 @@ public class TestManager : MonoBehaviour
             MirrorWrapper.Instance.ClearUnitySDKCache();
             MirrorWrapper.Instance.LogFlow("Cleared local storage.");
         }
-        else if (btnName == "BtnStartLogin")
+        else if (btnName == APINames.ClientStartLogin)
         {
             notOpenDetail = true;
-            MirrorSDK.StartLogin((loginResponse) => {
+            MirrorWorld.Solana.StartLogin((loginResponse) => {
                 Debug.Log("Login result:" + JsonUtility.ToJson(loginResponse));
             });
         }
-        else if (btnName == "BtnGuestLogin")
+        else if (btnName == APINames.ClientGuestLogin)
         {
             notOpenDetail = true;
-            MirrorSDK.GuestLogin((loginResponse) => {
-                Debug.Log("GuestLogin result:" + JsonUtility.ToJson(loginResponse));
+            MirrorWorld.Solana.GuestLogin((loginResponse) => {
+                MirrorWrapper.Instance.LoginAsDeveloper((loginSuccess) => {
 
-                UniversalDialog dialog = null;
-                dialog = ShowUniversalNotice("Guest Login","Guest login success! your account is :" + loginResponse.user.email,"OK",null,
-                ()=> {
-                    dialog.DestroyDialog();
-                },
-                null);
-            });
-        }
-        else if (btnName == "BtnAutoLogin")
-        {
-            notOpenDetail = true;
+                    Debug.Log("GuestLogin result:" + JsonUtility.ToJson(loginResponse));
 
-            MirrorWrapper.Instance.LogFlow("Try to login with locally storage...");
-
-            MirrorSDK.IsLoggedIn((logged) =>
-            {
-                if (logged)
-                {
                     UniversalDialog dialog = null;
-                    dialog = ShowUniversalNotice("Auto Login Success.", "You can do auto login testing whenever your game is opened.", "Ok", "", ()=> {
+                    dialog = ShowUniversalNotice("Guest Login", "Guest login success! But a guest account can not visit sensitive APIs.", "OK", null,
+                    () => {
+                        LogUtils.LogFlow("Click OK");
                         dialog.DestroyDialog();
-                    }, null);
-                }
-                else
-                {
-                    UniversalDialog dialog = null;
-                    Action yesAction = () => {
-                        MirrorSDK.StartLogin((loginResponse)=> {
-                            MirrorWrapper.Instance.LogFlow("Login success!");
-                            dialog.DestroyDialog();
-                        });
-                    };
-                    Action noAction = () => {
-                        dialog.DestroyDialog();
-                    };
-                    dialog = ShowUniversalNotice("Auto Login Failed.","You must call 'StartLogin' first.","StartLogin","Cancel",yesAction,noAction);
-                }
-            });
-        }
-        else if (btnName == "BtnEmailLogin")
-        {
-            SetInfoPanel("LoginWithEmail", "email", "password", null, null, "Login", "Login with a registed email.", () => {
-                MirrorSDK.LoginWithEmail(v1,v2,(res)=> {
-                    PrintLog("Login result:"+JsonUtility.ToJson(res));
+                    },
+                    null);
                 });
             });
         }
-        else if (btnName == "BtnFetchUser")
+        else if (btnName == APINames.ClientLoginWithEmail)
         {
-            SetInfoPanel("FetchUser", "email", null, null, null, "FetchUser", "FetchUser", () => {
-                MirrorSDK.FetchUser(v1, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+            SetInfoPanel("LoginWithEmail", "email", "password", null, null, null, null, "Login", "Login with a registed email.", () => {
+                MirrorWorld.Solana.LoginWithEmail(v1, v2, (res) => {
+                    PrintLog("Login result:" + JsonUtility.ToJson(res));
                 });
             });
         }
-        else if (btnName == "BtnGetTokens")
+        else if (btnName == APINames.ClientQueryUser)
         {
-            SetInfoPanel("GetWalletTokens", null, null, null, null, "Get", "Get your tokens", () => {
-                MirrorSDK.GetTokens((res) => {
+            SetInfoPanel("QueryUser", "email", null, null, null, null, null, "Query", "Query user info.", () => {
+                MirrorWorld.Solana.QueryUser(v1, (res) => {
+                    PrintLog("Query result:" + JsonUtility.ToJson(res));
+                });
+            });
+        }
+        else if (btnName == APINames.SolWalletGetTokens)
+        {
+            SetInfoPanel("GetWalletTokens", null, null, null, null, null, null, "Get", "Get your tokens", () => {
+                MirrorWorld.Solana.GetTokens((res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("Get tokens result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnGetAccessToken")
+        else if (btnName == APINames.SolWalletGetTokensByWallet)
         {
-            SetInfoPanel("GetAccessToken", null, null, null, null, "GetAccessToken", "Get Access Token", () => {
-                MirrorSDK.GetAccessToken((isSuccess)=> {
-                    PrintLog("Access token is secret,you can see the result in console."+ isSuccess);
+            SetInfoPanel("GetWalletTokensByWallet", "wallet address", "limit", "next_before", null, null, null, "Get", "Get your tokens", () => {
+                int limit = PrecisionUtil.StrToInt(v2);
+                MirrorWorld.Solana.GetTokensByWalletByWallet(v1,limit,v3,(res) => {
+                    var body = JsonUtility.ToJson(res);
+                    PrintLog("Get tokens result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnLogout")
+        else if (btnName == APINames.ClientLogout)
         {
             notOpenDetail = true;
-            MirrorSDK.Logout(()=> {
-                PrintLog("Logout success");
+            MirrorWorld.Solana.Logout(() => {
+                UniversalDialog dialog = null;
+                Action yesAction = () => {
+                    dialog.DestroyDialog();
+                };
+                dialog = ShowUniversalNotice("Logout", "Your logged account has logged out.", "Got it", "", yesAction, null);
             });
         }
-        else if (btnName == "BtnGetWallet")
+        else if (btnName == APINames.SolAssetSearchQueryNFT)
         {
-            SetInfoPanel("GetWallet",null,null,null,null, "GetWallet", "Get wallet",()=> {
-                //MirrorSDK.GetWallet((res)=> {
-                //    var body = JsonUtility.ToJson(res);
-                //    PrintLog("result:" + body);
-                //});
-                PrintLog("result:" + MirrorSDK.GetWallet());
-            });
-        }
-        else if (btnName == "BtnGetNFTDetails")
-        {
-            SetInfoPanel("GetNFTDetails", "mint address", null, null, null, "GetNFTDetails", "GetNFTDetails", () => {
-                MirrorSDK.GetNFTDetails(v1, (res) => {
+            SetInfoPanel("QueryNFT", "mint address", null, null, null, null, null, "GetNFTDetails", "GetNFTDetails", () => {
+                MirrorWorld.Solana.QueryNFT(v1, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnGetNFTsOwnedByAddress")
+        else if (btnName == APINames.SolAssetSearchSearchNFTsByOwner)
         {
-            SetInfoPanel("GetNFTOwnedByAddress", "owner address", "limit", "offset", null, "Get", "Get NFTs wwned by address", () => {
+            SetInfoPanel("GetNFTOwnedByAddress", "owner address", "limit", "offset", null, null, null, "Get", "Get NFTs wwned by address", () => {
                 List<string> owners = new List<string>();
                 owners.Add(v1);
                 long limit = long.Parse(v2);
                 long offset = long.Parse(v3);
-                
-                MirrorSDK.GetNFTsOwnedByAddress(owners, limit,offset, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
-                });
-            });
-        }
-        else if (btnName == "BtnFetchNFTsByMint")
-        {
-            SetInfoPanel("FetchNFTsByMintAddresses", "mint address", null, null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses",()=> {
-                List<string> list = new List<string>();
-                list.Add(v1);
-                MirrorSDK.FetchNFTsByMintAddress(list, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
-                });
-            });
-        }
-        else if (btnName == "BtnFetchNFTsByCreators")
-        {
-            SetInfoPanel("FetchNFTsByCreatorAddresses", "creator address", null, null, null, "FetchNFTsByCreatorAddresses", "FetchNFTsByCreatorAddresses", () => {
-                List<string> list = new List<string>();
-                list.Add(v1);
 
-                MirrorSDK.FetchNFTsByCreatorAddresses(list, (res) => {
+                MirrorWorld.Solana.SearchNFTsByOwner(owners, limit, offset, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnFetchNFTsByAuthens")
+        else if (btnName == APINames.SolAssetSearchSearchNFTs)
         {
-            SetInfoPanel("FetchNFTsByUpdateAuthorities", "auth address", null, null, null, "FetchNFTsByUpdateAuthorities", "FetchNFTsByUpdateAuthorities", () => {
+            SetInfoPanel("FetchNFTsByMintAddresses", "mint address", null, null, null, null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses", () => {
                 List<string> list = new List<string>();
                 list.Add(v1);
-
-                MirrorSDK.FetchNFTsByUpdateAuthorities(list, (res) => {
+                MirrorWorld.Solana.SearchNFTsByMintAddress(list, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnIsLoggedIn")
+        else if (btnName == APINames.ClientIsLogged)
         {
-            SetInfoPanel("IsLoggedIn", null, null, null, null, "IsLoggedIn", "IsLoggedIn", () =>
+            SetInfoPanel("IsLoggedIn", null, null, null, null, null, null, "IsLoggedIn", "IsLoggedIn", () =>
             {
-                MirrorSDK.IsLoggedIn((res)=> {
+                MirrorWorld.Solana.IsLogged((res) => {
                     PrintLog("result:" + res);
                 });
             }
             );
         }
-        else if (btnName == "BtnCreateCollection")
+        else if (btnName == APINames.SolAssetMintCollection)
         {
-            SetInfoPanel("CreateVerifiedCollection", "name", "symbol", "url", "seller fee basis points", "CreateVerifiedCollection", "CreateVerifiedCollection", () => {
+            SetInfoPanel("CreateVerifiedCollection", "name", "symbol", "url", "seller fee basis points", null, null, "CreateVerifiedCollection", "CreateVerifiedCollection", () => {
                 int seller_fee_basis_points = (int)PrecisionUtil.StrToDouble(v4);
-                MirrorSDK.CreateVerifiedCollection(v1, v2, v3, seller_fee_basis_points, null, approveFinished,(res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
-                }); }
+                MirrorWorld.Solana.MintCollection(v1, v2, v3, seller_fee_basis_points, null, approveFinished, (res) => {
+                    PrintLog("result:" + res);
+                });
+            }
                 );
         }
-        else if (btnName == "BtnMintNFT")
+        else if (btnName == APINames.SolAssetMintNFT)
         {
-            SetInfoPanel("MintNFT",  "parent collection", "name", "symbol", "url", "MintNFT", "MintNFT",()=> {
-                MirrorSDK.MintNFT(v1,v2,v3,v4,null, null, approveFinished,(res) => {
+            SetInfoPanel("MintNFT", "parent collection", "name", "symbol", "url", "receive wallet", "amount", "MintNFT", "MintNFT", () => {
+                double amount = PrecisionUtil.StrToDouble(v6);
+                string mint_id = "demo_test_id";
+                MirrorWorld.Solana.MintNFT(v1, v2, v3, v4, Confirmation.Default, mint_id, v5, amount, approveFinished, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnUpdateNFTProperties")
+        else if (btnName == APINames.SolAssetMintUpdateNFTProperties)
         {
-            SetInfoPanel("UpdateNFTProperties", "mint address", "name", "updateAuthority", "json url",  "MintNFT", "MintNFT", () => {
-                MirrorSDK.UpdateNFTProperties(v1, v2, "newsymbol", v3, v4 , 200,approveFinished, (res) => {
+            SetInfoPanel("UpdateNFTProperties", "mint address", "name", "updateAuthority", "json url", null, null, "MintNFT", "MintNFT", () => {
+                MirrorWorld.Solana.UpdateNFT(v1, v2, "newsymbol", v3, v4, 200, Confirmation.Default, approveFinished, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnListNFT")
+        else if (btnName == APINames.SolAssetAuctionListNFT)
         {
-            SetInfoPanel("ListNFT", "mint address", "price", null, null, "ListNFT", "ListNFT", ()=> {
+            SetInfoPanel("ListNFT", "mint address", "price", "auction_house", null, null, null, "ListNFT", "ListNFT", () => {
                 double price = PrecisionUtil.StrToDouble(v2);
-                MirrorSDK.ListNFT(v1,price,Confirmation.Default, approveFinished,(res)=> {
+                MirrorWorld.Solana.ListNFT(v1, price, v3, Confirmation.Default, approveFinished, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnListUpdate")
+        else if (btnName == APINames.SolAssetAuctionCancelListing)
         {
-            SetInfoPanel("UpdateNFTListing", "mint address", "price", null, null, "UpdateNFTListing", "UpdateNFTListing", ()=> {
+            SetInfoPanel("CancelNFTListing", "mint address", "price", "auction_house", null, null, null, "CancelNFTListing", "CancelNFTListing", () => {
                 double price = PrecisionUtil.StrToDouble(v2);
-                MirrorSDK.UpdateNFTListing(v1,price, Confirmation.Default, approveFinished,(res) =>
+                MirrorWorld.Solana.CancelListing(v1, price, v3, Confirmation.Default, approveFinished, (res) =>
                 {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnListCancel")
+        else if (btnName == APINames.SolAssetAuctionBuyNFT)
         {
-            SetInfoPanel("CancelNFTListing", "mint address", "price", null, null, "CancelNFTListing", "CancelNFTListing", ()=> {
+            SetInfoPanel("Buy NFT", "mint address", "Price", "auction house", null, null, null, "BuyNFT", "BuyNFT", () => {
                 double price = PrecisionUtil.StrToDouble(v2);
-                MirrorSDK.CancelNFTListing(v1, price, Confirmation.Default, approveFinished,(res) =>
-                {
+                Debug.Log("price:" + price);
+                MirrorWorld.Solana.BuyNFT(v1, price, v3, approveFinished, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnBuyNFT")
+        else if (btnName == APINames.SolAssetAuctionTransferNFT)
         {
-            SetInfoPanel("Buy NFT", "mint address", "Price", null, null, "BuyNFT", "BuyNFT", ()=> {
-                double price = PrecisionUtil.StrToDouble(v2);
-                Debug.Log("price:"+ price);
-                MirrorSDK.BuyNFT(v1,price, approveFinished,(res)=> {
+            SetInfoPanel("Transfer NFT", "mint address", "to wallet", null, null, null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses", () => {
+                MirrorWorld.Solana.TransferNFT(v1, v2, approveFinished, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnTransferNFT")
+        else if (btnName == APINames.SolWalletGetTransactions)
         {
-            SetInfoPanel("Transfer NFT", "mint address", "to wallet", null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses",()=> {
-                MirrorSDK.TransferNFT(v1,v2,approveFinished, (res)=> {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
-                });
-            });
-        }
-        else if (btnName == "BtnGetTransactions")
-        {
-            SetInfoPanel("GetWalletTransactions", "number", "next_before", null, null, "GetWalletTransactions", "GetWalletTransactions", ()=> {
+            SetInfoPanel("GetWalletTransactions", "number", "next_before", null, null, null, null, "GetWalletTransactions", "GetWalletTransactions", () => {
                 float price = PrecisionUtil.StrToFloat(v1);
-                MirrorSDK.GetTransactions(price,v2,(res)=> {
+                MirrorWorld.Solana.GetTransactions(price, v2, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnGetWalletTransactionsBySignatrue")
+        else if (btnName == APINames.SolWalletGetTransactionsByWallet)
         {
-            SetInfoPanel("GetWalletTransactionsBySignatrue", "signature", null, null, null, "GetWalletTransactionsBySignatrue", "GetWalletTransactionsBySignatrue", ()=> {
-                MirrorSDK.GetWalletTransactionsBySignatrue(v1, (res) =>
+            SetInfoPanel("GetWalletTransactions", "wallet address", "limit", "next_before", null, null, null, "GetWalletTransactions", "GetWalletTransactions", () => {
+                int limit = PrecisionUtil.StrToInt(v2);
+                MirrorWorld.Solana.GetTokensByWalletByWallet(v1, limit, v3, (res) => {
+                    var body = JsonUtility.ToJson(res);
+                    PrintLog("result:" + body);
+                });
+            });
+        }
+        else if (btnName == APINames.SolWalletGetTransactionsBySignature)
+        {
+            SetInfoPanel("GetWalletTransactionsBySignatrue", "signature", null, null, null, null, null, "GetWalletTransactionsBySignatrue", "GetWalletTransactionsBySignatrue", () => {
+                MirrorWorld.Solana.GetTransactionsBySignature(v1, (res) =>
                 {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnGetStatusOfTransactions")
+        else if (btnName == APINames.SolAssetConfirmationCheckStatusOfTransactions)
         {
-            SetInfoPanel("GetStatusOfTransactions", "signature 1", "signature 2", null, null, "GetStatusOfTransactions", "GetStatusOfTransactions", () => {
+            SetInfoPanel("GetStatusOfTransactions", "signature 1", "signature 2", null, null, null, null, "GetStatusOfTransactions", "GetStatusOfTransactions", () => {
                 List<string> signatures = new List<string>();
                 if (v1 != "") signatures.Add(v1);
                 if (v2 != "") signatures.Add(v2);
 
-                MirrorSDK.CheckStatusOfTransactions(signatures, (res) =>
+                MirrorWorld.Solana.CheckTransactionsStatus(signatures, (res) =>
                 {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("GetStatusOfTransactions result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnGetStatusOfMintings")
+        else if (btnName == APINames.SolAssetConfirmationCheckStatusOfMinting)
         {
-            SetInfoPanel("GetStatusOfMintings", "mint address 1", "mint address 2", null, null, "GetStatusOfMintings", "GetStatusOfMintings", () => {
+            SetInfoPanel("GetStatusOfMintings", "mint address 1", "mint address 2", null, null, null, null, "GetStatusOfMintings", "GetStatusOfMintings", () => {
                 List<string> mintAddresses = new List<string>();
                 if (v1 != "") mintAddresses.Add(v1);
                 if (v2 != "") mintAddresses.Add(v2);
-                MirrorSDK.CheckStatusOfMinting(mintAddresses, (res) =>
+                MirrorWorld.Solana.CheckMintingStatus(mintAddresses, (res) =>
                 {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("GetStatusOfMintings result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnTransferSol")
+        else if (btnName == APINames.SolWalletTransferSOL)
         {
-            SetInfoPanel("TransferSol", "amount", "public key", null, null, "TransferSol", "TransferSol", ()=> {
+            SetInfoPanel("TransferSol", "amount", "public key", null, null, null, null, "TransferSol", "TransferSol", () => {
                 if (v1.Contains('.'))
                 {
                     int realAmout = (int)PrecisionUtil.StrToDouble(v1);
@@ -369,140 +500,152 @@ public class TestManager : MonoBehaviour
                     Action yesAction = () => {
                         dialog.DestroyDialog();
                     };
-                    dialog = ShowUniversalNotice("Tips","You can only transfer integer, so the transfer amount now is:"+ realAmout,"Got it","", yesAction,null);
+                    dialog = ShowUniversalNotice("Tips", "You can only transfer integer, so the transfer amount now is:" + realAmout, "Got it", "", yesAction, null);
                 }
                 int price = (int)PrecisionUtil.StrToDouble(v1);
-                MirrorSDK.TransferSol(price, v2,Confirmation.Default, approveFinished,(res)=> {
+                MirrorWorld.Solana.TransferSol(price, v2, Confirmation.Default, approveFinished, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnTransferSPLToken")
+        else if (btnName == APINames.SolWalletTransferToken)
         {
-            SetInfoPanel("TransferSPLToken", "amount", "public key", "amount", "mint_address", "Transfer", "Transfer", ()=> {
+            SetInfoPanel("TransferSPLToken", "amount", "public key", "amount", "mint_address", null, null, "Transfer", "Transfer", () => {
                 ulong price = PrecisionUtil.StrToULong(v1);
                 int decimals = PrecisionUtil.StrToInt(v3);
-                MirrorSDK.TransferSPLToken(v4, decimals, price,v2, approveFinished,(res)=> {
+                MirrorWorld.Solana.TransferToken(v4, decimals, price, v2, approveFinished, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnOpenWallet")
+        else if (btnName == APINames.ClientOpenWallet)
         {
             notOpenDetail = true;
-            MirrorSDK.OpenWalletPage(()=> {
+            MirrorWorld.Solana.OpenWallet(() => {
                 MirrorWrapper.Instance.LogFlow("Wallet logout callback runs!!");
             });
         }
-        else if (btnName == "BtnOpenMarket")
+        else if (btnName == APINames.ClientOpenMarket)
         {
             notOpenDetail = true;
-            List<string> collections = new List<string>();
-            collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
-        
-            MirrorSDK.OpenMarketPage("https://jump-devnet.mirrorworld.fun");
+
+            MirrorWorld.Solana.OpenMarket("https://jump-devnet.mirrorWorld.fun");
         }
-        else if (btnName == "BtnGetCollectionFilterInfo")
+        else if (btnName == APINames.SolMetadataGetCollectionFiltersInfo)
         {
-            SetInfoPanel("GetCollectionFilterInfo", "collection", null, null, null, "Get", "Get collection filter info", () => {
+            SetInfoPanel("GetCollectionFilterInfo", "collection", null, null, null, null, null, "Get", "Get collection filter info", () => {
                 string collection = v1;
-                MirrorSDK.GetCollectionFilterInfo(v1, (res) => {
+                MirrorWorld.Solana.MetadataCollectionFilters(v1, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnGetNFTInfo")
+        else if (btnName == APINames.SolMetadataGetCollectionsSummary)
         {
-            SetInfoPanel("GetNFTInfo", "mint address", null, null, null, "Get", "Get NFT info", () => {
-                string mintAddress = v1;
-
-                MirrorSDK.GetNFTInfo(mintAddress, (res) => {
-                    PrintLog("result:" + res);
+            SetInfoPanel("GetCollectionFilterInfo", "collection 1", "collection 2", null, null, null, null, "Get", "Get collection filter info", () => {
+                List<string> cols = new List<string>();
+                if (string.IsNullOrWhiteSpace(v1)) cols.Add(v1);
+                if (string.IsNullOrWhiteSpace(v2)) cols.Add(v2);
+                if (string.IsNullOrWhiteSpace(v1) && string.IsNullOrWhiteSpace(v2))
+                {
+                    PrintLog("Please input something.");
+                    return;
+                }
+                MirrorWorld.Solana.MetadataCollectionsSummary(cols, (res) => {
+                    var body = JsonUtility.ToJson(res);
+                    PrintLog("result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnGetCollectionInfo")
+        else if (btnName == APINames.SolMetadataGetCollectionsInfo)
         {
-            SetInfoPanel("GetCollectionInfo", "collection", null, null, null, "Get", "Get collection info", () => {
+            SetInfoPanel("GetCollectionInfo", "collection", null, null, null, null, null, "Get", "Get collection info", () => {
                 string collection1 = v1;
                 List<string> collections = new List<string>();
                 collections.Add(collection1);
 
-                MirrorSDK.GetCollectionInfo(collections, (res) => {
+                MirrorWorld.Solana.MetadataCollectionsInfo(collections, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnGetNFTEvents")
+        else if (btnName == APINames.SolMetadataNFTEvents)
         {
-            SetInfoPanel("GetNFTEvents", "mint address", "page", "page size", null, "Get", "Get NFT events", () => {
+            SetInfoPanel("GetNFTEvents", "mint address", "page", "page size", null, null, null, "Get", "Get NFT events", () => {
                 string mintAddress = v1;
                 int page = int.Parse(v2);
                 int pageSize = int.Parse(v3);
 
-                MirrorSDK.GetNFTEvents(mintAddress,page,pageSize, (res) => {
+                MirrorWorld.Solana.MetadataNFTEvents(mintAddress, page, pageSize, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnSearchNFTs")
+        else if (btnName == APINames.SolMetadataNFTSearchNFT)
         {
-            SetInfoPanel("SearchNFTs", "collection 1", "search string", null, null, "Search", "Search NFTs", () => {
+            SetInfoPanel("SearchNFTs", "collection 1", "search string", null, null, null, null, "Search", "Search NFTs", () => {
                 string collection1 = v1;
                 List<string> collections = new List<string>();
                 collections.Add(collection1);
                 string searchString = v2;
 
-                MirrorSDK.SearchNFTs(collections, searchString, (res) => {
+                MirrorWorld.Solana.MetadataSearchNFTs(collections, searchString, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnRecommendSearchNFTs")
+        else if (btnName == APINames.SolMetadataNFTRecommendSearchNFT)
         {
-            SetInfoPanel("RecommendSearchNFT", "collection 1", null, null, null, "Search", "Recommend search NFTs", () => {
+            SetInfoPanel("RecommendSearchNFT", "collection 1", null, null, null, null, null, "Search", "Recommend search NFTs", () => {
                 string collection1 = v1;
                 List<string> collections = new List<string>();
                 collections.Add(collection1);
 
-                MirrorSDK.RecommendSearchNFT(collections, (res) => {
+                MirrorWorld.Solana.MetadataRecommendSearchNFTs(collections, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnGetNFTs")
+        else if (btnName == APINames.SolMetadataNFTInfo)
         {
-            SetInfoPanel("GetNFTs", "collection", "page", "page size", "orderByString", "Get", "Get NFTs", () => {
+            SetInfoPanel("Get NFT Info", "mint address", null, null, null, null, null, "Get", "Get NFTs", () => {
+                if (string.IsNullOrWhiteSpace(v1))
+                {
+                    PrintLog("Please input something.");
+                    return;
+                }
+
+                MirrorWorld.Solana.MetadataNFTInfo(v1, (res) => {
+                    var body = JsonUtility.ToJson(res);
+                    PrintLog("result:" + body);
+                });
+            });
+        }
+        else if (btnName == APINames.SolMetadataNFTsInfo)
+        {
+            SetInfoPanel("GetNFTs", "collection", "page", "page size", "orderByString", null, null, "Get", "Get NFTs", () => {
                 string collection = v1;
                 int page = int.Parse(v2);
                 int pageSize = int.Parse(v3);
                 string orderByString = v4;
                 bool desc = true;
 
-                MirrorSDK.GetNFTsByUnabridgedParams(collection,page,pageSize, orderByString,desc,null,(res) => {
+                MirrorWorld.Solana.MetadataNFTsByUnabridgedParams(collection, page, pageSize, orderByString, desc, null, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });
             });
         }
-        else if (btnName == "BtnGetNFTRealPrice")
+        else
         {
-            SetInfoPanel("GetNFTRealPrice", "price", "fee", null, null, "Get", "Get NFT real price.", () => {
-                string price = v1;
-                int fee = int.Parse(v2);
-
-                MirrorSDK.GetNFTRealPrice(price, fee, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
-                });
-            });
+            MirrorWrapper.Instance.LogFlow("Unknown btnname:"+btnName);
         }
 
         if (!notOpenDetail)
@@ -512,48 +655,437 @@ public class TestManager : MonoBehaviour
         }
     }
 
-    private void SetInfoPanel(string apiName,string hint1,string hint2,string hint3,string hint4,string btnText,string content,Action action)
+    private void handleEVMDemoClick(string btnName)
+    {
+        ClearLog();
+        PrintLog("wait to call...");
+
+        bool notOpenDetail = false;
+
+        Action approveFinished = () => {
+            MirrorWrapper.Instance.LogFlow("Approve finished!");
+        };
+
+        if (btnName == "BtnClearCache")
+        {
+            notOpenDetail = true;
+            PlayerPrefs.DeleteAll();
+            MirrorWrapper.Instance.ClearUnitySDKCache();
+            MirrorWrapper.Instance.LogFlow("Cleared local storage.");
+        }
+        else if (btnName == APINames.ClientStartLogin)
+        {
+            notOpenDetail = true;
+            MirrorWorld.EVM.StartLogin((loginResponse) => {
+                Debug.Log("Login result:" + JsonUtility.ToJson(loginResponse));
+            });
+        }
+        else if (btnName == APINames.ClientGuestLogin)
+        {
+            notOpenDetail = true;
+            MirrorWorld.EVM.GuestLogin((loginResponse) => {
+                MirrorWrapper.Instance.LoginAsDeveloper((loginSuccess) => {
+
+                    Debug.Log("GuestLogin result:" + JsonUtility.ToJson(loginResponse));
+
+                    UniversalDialog dialog = null;
+                    dialog = ShowUniversalNotice("Guest Login", "Guest login success! But a guest account can not visit sensitive APIs.", "OK", null,
+                    () => {
+                        LogUtils.LogFlow("Click OK");
+                        dialog.DestroyDialog();
+                    },
+                    null);
+                });
+            });
+        }
+        else if (btnName == APINames.ClientLoginWithEmail)
+        {
+            SetInfoPanel("LoginWithEmail", "email", "password", null, null, null, null, "Login", "Login with a registed email.", () => {
+                MirrorWorld.EVM.LoginWithEmail(v1, v2, (res) => {
+                    PrintLog("Login result:" + JsonUtility.ToJson(res));
+                });
+            });
+        }
+        else if (btnName == APINames.ClientQueryUser)
+        {
+            SetInfoPanel("QueryUser", "email", null, null, null, null, null, "Query", "Query user info.", () => {
+                MirrorWorld.EVM.QueryUser(v1, (res) => {
+                    PrintLog("Query result:" + JsonUtility.ToJson(res));
+                });
+            });
+        }
+        else if (btnName == APINames.SolWalletGetTokens)
+        {
+            SetInfoPanel("GetWalletTokens", null, null, null, null, null, null, "Get", "Get your tokens", () => {
+                MirrorWorld.EVM.GetTokens((res) => {
+                    PrintLog("Get tokens result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolWalletGetTokensByWallet)
+        {
+            SetInfoPanel("GetWalletTokens", "wallet address", null, null, null, null, null, "Get", "Get your tokens", () => {
+                MirrorWorld.EVM.GetTokensByWalletByWallet(v1, (res) => {
+                    PrintLog("Get tokens result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.ClientLogout)
+        {
+            notOpenDetail = true;
+            MirrorWorld.EVM.Logout(() => {
+                UniversalDialog dialog = null;
+                Action yesAction = () => {
+                    dialog.DestroyDialog();
+                };
+                dialog = ShowUniversalNotice("Logout", "Your logged account has logged out.", "Got it", "", yesAction, null);
+            });
+        }
+        else if (btnName == APINames.SolAssetSearchQueryNFT)
+        {
+            SetInfoPanel("QueryNFT", "mint address", "token id", null, null, null, null, "GetNFTDetails", "GetNFTDetails", () => {
+                MirrorWorld.EVM.QueryNFT(v1, v2, (res) => {
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolAssetSearchSearchNFTsByOwner)
+        {
+            SetInfoPanel("GetNFTOwnedByAddress", "owner address", "limit", "cursor", null, null, null, "Get", "Get NFTs wwned by address", () => {
+                int limit = int.Parse(v2);
+
+                MirrorWorld.EVM.SearchNFTsByOwner(v1, limit, v3, (res) => {
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolAssetSearchSearchNFTs)
+        {
+            SetInfoPanel("FetchNFTsByMintAddresses", "mint address", "token id", null, null, null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses", () => {
+                List<EVMSearchNFTsByAddressesReqToken> list = new List<EVMSearchNFTsByAddressesReqToken>();
+                EVMSearchNFTsByAddressesReqToken token = new EVMSearchNFTsByAddressesReqToken();
+                token.token_address = v1;
+                token.token_id = int.Parse(v2);
+                list.Add(token);
+                MirrorWorld.EVM.SearchNFTsByMintAddress(list, (res) => {
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.ClientIsLogged)
+        {
+            SetInfoPanel("IsLoggedIn", null, null, null, null, null, null, "IsLoggedIn", "IsLoggedIn", () =>
+            {
+                MirrorWorld.EVM.IsLogged((res) => {
+                    PrintLog("result:" + res);
+                });
+            }
+            );
+        }
+        else if (btnName == APINames.SolAssetMintCollection)
+        {
+            SetInfoPanel("CreateVerifiedCollection", "name", "symbol", "url", null, null, null, "CreateVerifiedCollection", "CreateVerifiedCollection", () => {
+                int seller_fee_basis_points = (int)PrecisionUtil.StrToDouble(v4);
+                MirrorWorld.EVM.MintCollection(v1, v2, v3, approveFinished, (res) => {
+                    PrintLog("result:" + res);
+                });
+            }
+                );
+        }
+        else if (btnName == APINames.SolAssetMintNFT)
+        {
+            SetInfoPanel("MintNFT", "parent collection", "token_id", "to_wallet", "mint amount", null, null, "MintNFT", "MintNFT", () => {
+                int amount = PrecisionUtil.StrToInt(v4);
+                int token_id = int.Parse(v2);
+                MirrorWorld.EVM.MintNFT(v1, token_id, v3, amount, Confirmation.Default, approveFinished, (res) => {
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolAssetAuctionListNFT)
+        {
+            SetInfoPanel("ListNFT", "collection address", "token id", "price", "marketplace address", null, null, "ListNFT", "ListNFT", () => {
+                int token_id = PrecisionUtil.StrToInt(v2);
+                double price = PrecisionUtil.StrToDouble(v3);
+                MirrorWorld.EVM.ListNFT(v1, token_id, price, v4, approveFinished, (res) => {
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolAssetAuctionCancelListing)
+        {
+            SetInfoPanel("CancelNFTListing", "collection address", "token id", "marketplace_address", null, null, null, "CancelNFTListing", "CancelNFTListing", () => {
+                int token_id = PrecisionUtil.StrToInt(v2);
+                MirrorWorld.EVM.CancelListing(v1, token_id, v3, approveFinished, (res) =>
+                {
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolAssetAuctionBuyNFT)
+        {
+            SetInfoPanel("Buy NFT", "mint address", "Price", "token id", "marketplace_address", null, null, "BuyNFT", "BuyNFT", () => {
+                double price = PrecisionUtil.StrToDouble(v2);
+                int token_id = PrecisionUtil.StrToInt(v3);
+                MirrorWorld.EVM.BuyNFT(v1, price, token_id, v4, approveFinished, (res) => {
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolAssetAuctionTransferNFT)
+        {
+            SetInfoPanel("Transfer NFT", "collection address", "token id", "to wallet address", null, null, null, "Transfer", "Transfer", () => {
+                int token_id = PrecisionUtil.StrToInt(v2);
+                MirrorWorld.EVM.TransferNFT(v1, token_id, v3, approveFinished, (res) => {
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolWalletGetTransactions)
+        {
+            SetInfoPanel("GetWalletTransactions", "number", null, null, null, null, null, "GetWalletTransactions", "GetWalletTransactions", () => {
+                double price = PrecisionUtil.StrToDouble(v1);
+                MirrorWorld.EVM.GetTransactions(price, (res) => {
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolWalletGetTransactionsByWallet)
+        {
+            SetInfoPanel("GetWalletTransactions", "wallet address", "limit", null, null, null, null, "GetWalletTransactions", "GetWalletTransactions", () => {
+                int limit = PrecisionUtil.StrToInt(v2);
+                MirrorWorld.EVM.GetTransactionsByWallet(v1, limit, (res) => {
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolWalletGetTransactionsBySignature)
+        {
+            SetInfoPanel("GetWalletTransactionsBySignatrue", "signature", null, null, null, null, null, "GetWalletTransactionsBySignatrue", "GetWalletTransactionsBySignatrue", () => {
+                MirrorWorld.EVM.GetTransactionsBySignature(v1, (res) =>
+                {
+
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolWalletTransferETH)
+        {
+            SetInfoPanel("Transfer ETH", "nonce", "gas price", "gas limit", "to", "amout", null, "Transfer", "Transfer", () => {
+                int price = (int)PrecisionUtil.StrToDouble(v1);
+                MirrorWorld.EVM.TransferETH(v1, v2, v3, v4, v5, approveFinished, (res) => {
+           
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolWalletTransferBNB)
+        {
+            SetInfoPanel("Transfer BNB", "nonce", "gas price", "gas limit", "to", "amout", null, "Transfer", "Transfer", () => {
+                int price = (int)PrecisionUtil.StrToDouble(v1);
+                MirrorWorld.EVM.TransferBNB(v1, v2, v3, v4, v5, approveFinished, (res) => {
+
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolWalletTransferMatic)
+        {
+            SetInfoPanel("Transfer Matic", "nonce", "gas price", "gas limit", "to", "amout", null, "Transfer", "Transfer", () => {
+                int price = (int)PrecisionUtil.StrToDouble(v1);
+                MirrorWorld.EVM.TransferMatic(v1, v2, v3, v4, v5, approveFinished, (res) => {
+
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolWalletTransferToken)
+        {
+            SetInfoPanel("TransferToken", "nonce", "gas price", "gas limit", "to", "amout", "contract", "Transfer", "Transfer", () => {
+                MirrorWorld.EVM.TransferToken(v1, v2, v3, v4, v5, v6, approveFinished, (res) => {
+
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.ClientOpenWallet)
+        {
+            notOpenDetail = true;
+            MirrorWorld.EVM.OpenWallet(() => {
+                MirrorWrapper.Instance.LogFlow("Wallet logout callback runs!!");
+            });
+        }
+        else if (btnName == APINames.ClientOpenMarket)
+        {
+            notOpenDetail = true;
+            List<string> collections = new List<string>();
+            collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
+
+            MirrorWorld.EVM.OpenMarket("https://jump-devnet.MirrorWorld.EVM.fun");
+        }
+        else if (btnName == APINames.SolMetadataGetCollectionFiltersInfo)
+        {
+            SetInfoPanel("GetCollectionFilterInfo", "collection", null, null, null, null, null, "Get", "Get collection filter info", () => {
+                string collection = v1;
+                MirrorWorld.EVM.MetadataCollectionFilters(v1, (res) => {
+                    var body = JsonUtility.ToJson(res);
+                    PrintLog("result:" + body);
+                });
+            });
+        }
+        else if (btnName == APINames.SolMetadataGetCollectionsSummary)
+        {
+            SetInfoPanel("GetCollectionFilterInfo", "collection 1", "collection 2", null, null, null, null, "Get", "Get collection filter info", () => {
+                List<string> cols = new List<string>();
+                if (string.IsNullOrWhiteSpace(v1)) cols.Add(v1);
+                if (string.IsNullOrWhiteSpace(v2)) cols.Add(v2);
+                if (string.IsNullOrWhiteSpace(v1) && string.IsNullOrWhiteSpace(v2))
+                {
+                    PrintLog("Please input something.");
+                    return;
+                }
+                MirrorWorld.EVM.MetadataCollectionsSummary(cols, (res) => {
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolMetadataGetCollectionsInfo)
+        {
+            SetInfoPanel("GetCollectionInfo", "collection", null, null, null, null, null, "Get", "Get collection info", () => {
+                string collection1 = v1;
+                List<string> collections = new List<string>();
+                collections.Add(collection1);
+
+                MirrorWorld.EVM.MetadataCollectionsInfo(collections, (res) => {
+                    var body = JsonUtility.ToJson(res);
+                    PrintLog("result:" + body);
+                });
+            });
+        }
+        else if (btnName == APINames.SolMetadataNFTEvents)
+        {
+            SetInfoPanel("GetNFTEvents", "contract", "page", "page size", "token id", "marketplace_address", null, "Get", "Get NFT events", () => {
+                string mintAddress = v1;
+                int page = int.Parse(v2);
+                int pageSize = int.Parse(v3);
+                int tokenID = int.Parse(v4);
+
+                MirrorWorld.EVM.MetadataNFTEvents(v1, page, pageSize, tokenID, v5, (res) => {
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolMetadataNFTSearchNFT)
+        {
+            SetInfoPanel("SearchNFTs", "collection 1", "search string", null, null, null, null, "Search", "Search NFTs", () => {
+                string collection1 = v1;
+                List<string> collections = new List<string>();
+                collections.Add(collection1);
+                string searchString = v2;
+
+                MirrorWorld.EVM.MetadataSearchNFTs(collections, searchString, (res) => {
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolMetadataNFTRecommendSearchNFT)
+        {
+            SetInfoPanel("RecommendSearchNFT", "collection 1", null, null, null, null, null, "Search", "Recommend search NFTs", () => {
+                string collection1 = v1;
+                List<string> collections = new List<string>();
+                collections.Add(collection1);
+
+                MirrorWorld.EVM.MetadataRecommendSearchNFTs(collections, (res) => {
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolMetadataNFTInfo)
+        {
+            SetInfoPanel("GetNFTs", "contract", "token id", null, null, null, null, "Get", "Get NFTs", () => {
+                //int tokenID = PrecisionUtil.StrToInt(v2);
+
+                MirrorWorld.EVM.MetadataNFTInfo(v1, v2, (res) => {
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolMetadataNFTsInfo)
+        {
+            SetInfoPanel("GetNFTs", "collection", "page", "page size", "orderByString", null, null, "Get", "Get NFTs", () => {
+                string collection = v1;
+                int page = int.Parse(v2);
+                int pageSize = int.Parse(v3);
+                string orderByString = v4;
+                bool desc = true;
+
+                MirrorWorld.EVM.MetadataNFTsByUnabridgedParams(collection, page, pageSize, orderByString, desc, null, (res) => {
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else
+        {
+            MirrorWrapper.Instance.LogFlow("Unknown btnname:" + btnName);
+        }
+
+        if (!notOpenDetail)
+        {
+            apiInfo.SetActive(true);
+            apiList.SetActive(false);
+        }
+    }
+
+    private void SetInfoPanel(string apiName,string hint1,string hint2, string hint3, string hint4, string hint5,string hint6,string btnText,string content,Action action)
     {
         apiNameText.text = apiName;
         if(hint1 == null)
         {
-            inputField1.gameObject.SetActive(false);
+            cell1.Hide();
         }
         else
         {
-            inputField1.gameObject.SetActive(true);
-            input1.text = hint1;
-            title1.text = hint1;
+            cell1.Show(hint1,hint1);
         }
         if (hint2 == null)
         {
-            inputField2.gameObject.SetActive(false);
+            cell2.Hide();
         }
         else
         {
-            inputField2.gameObject.SetActive(true);
-            input2.text = hint2;
-            title2.text = hint2;
+            cell2.Show(hint2, hint2);
         }
         if (hint3 == null)
         {
-            inputField3.gameObject.SetActive(false);
+            cell3.Hide();
         }
         else
         {
-            inputField3.gameObject.SetActive(true);
-            input3.text = hint3;
-            title3.text = hint3;
+            cell3.Show(hint3, hint3);
         }
         if (hint4 == null)
         {
-            inputField4.gameObject.SetActive(false);
+            cell4.Hide();
         }
         else
         {
-            inputField4.gameObject.SetActive(true);
-            input4.text = hint4;
-            title4.text = hint4;
+            cell4.Show(hint4, hint4);
+        }
+        if (hint5 == null)
+        {
+            cell5.Hide();
+        }
+        else
+        {
+            cell5.Show(hint5, hint5);
+        }
+        if (hint6 == null)
+        {
+            cell6.Hide();
+        }
+        else
+        {
+            cell6.Show(hint6, hint6);
         }
         this.btnText.text = btnText;
         PrintLog(content);
@@ -585,14 +1117,18 @@ public class TestManager : MonoBehaviour
 
     private void UpdateValues()
     {
-        v1 = input1.GetParsedText().Trim();
+        v1 = cell1.GetInput();
         v1 = SubLastChar(v1);
-        v2 = input2.GetParsedText().Trim();
+        v2 = cell2.GetInput();
         v2 = SubLastChar(v2);
-        v3 = input3.GetParsedText().Trim();
+        v3 = cell3.GetInput();
         v3 = SubLastChar(v3);
-        v4 = input4.GetParsedText().Trim();
+        v4 = cell4.GetInput();
         v4 = SubLastChar(v4);
+        v5 = cell5.GetInput();
+        v5 = SubLastChar(v5);
+        v6 = cell6.GetInput();
+        v6 = SubLastChar(v6);
     }
 
     private string SubLastChar(string originStr)
@@ -605,7 +1141,7 @@ public class TestManager : MonoBehaviour
     private UniversalDialog ShowUniversalNotice(string title, string content, string yesText, string noText, Action yesAction, Action noAction)
     {
         MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
-        GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("UniversalDialog", monoBehaviour.transform);
+        GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("UniversalDialog", GameObject.Find("Canvas").transform);
         UniversalDialog dialog = dialogCanvas.GetComponent<UniversalDialog>();
         dialog.Init(title,content,yesText,noText,yesAction,noAction);
         return dialog;

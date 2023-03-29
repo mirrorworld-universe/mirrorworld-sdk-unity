@@ -12,20 +12,49 @@ namespace MirrorworldSDK.Wrapper
 {
     public partial class MirrorWrapper
     {
-        private AndroidBridgeUtils bridgeUtils = new AndroidBridgeUtils();
+        //private AndroidBridgeUtils bridgeUtils = new AndroidBridgeUtils();
 
         AndroidJavaClass javaMirrorWorld;
         AndroidJavaObject mirrorSDKInstance;
+        AndroidJavaObject unitActivity;
 
-        public void AndroidInitSDK(string apiKey,MirrorEnv env)
+        public void AndroidInitSDK(string apiKey,MirrorEnv env, MirrorChain chain)
         {
             if (Application.platform == RuntimePlatform.Android)
             {
                 AndroidJavaClass jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-                AndroidJavaObject jo = jc.GetStatic<AndroidJavaObject>("currentActivity");
+                unitActivity = jc.GetStatic<AndroidJavaObject>("currentActivity");
 
-                javaMirrorWorld = new AndroidJavaClass("com.mirror.sdk.MirrorWorld");
-                javaMirrorWorld.CallStatic("initMirrorWorld", jo, apiKey,(int)env);
+                string packageName;
+                if(chain == MirrorChain.Solana)
+                {
+                    packageName = "com.mirror.sdk.solana.MirrorWorld";
+                }
+                else
+                {
+                    packageName = "com.mirror.sdk.evm.MirrorWorld";
+                }
+
+                javaMirrorWorld = new AndroidJavaClass(packageName);
+
+                string enumStrOnAndroid;
+                if(env == MirrorEnv.Mainnet)
+                {
+                    enumStrOnAndroid = "MainNet";
+                }
+                else if (env == MirrorEnv.Devnet)
+                {
+                    enumStrOnAndroid = "DevNet";
+                }
+                else
+                {
+                    enumStrOnAndroid = "";
+                    LogUtils.LogFlow("Unknown net:"+env);
+                }
+                AndroidJavaClass ajc = new AndroidJavaClass("com.mirror.sdk.constant.MirrorEnv");
+                AndroidJavaObject loginP = ajc.GetStatic<AndroidJavaObject>(enumStrOnAndroid);
+
+                javaMirrorWorld.CallStatic("initSDK", unitActivity, apiKey, loginP);
 
                 AndroidSetAuthTokenCallback();
             }
@@ -43,8 +72,8 @@ namespace MirrorworldSDK.Wrapper
             //AndroidJavaObject javaObject = javaClass.CallStatic<AndroidJavaObject>("getInstance", jo);
             //javaObject.Call("InitSDK");
 
-            AndroidJavaClass javaClass = new AndroidJavaClass("com.mirror.sdk.MirrorSDK");
-            mirrorSDKInstance = javaClass.CallStatic<AndroidJavaObject>("getInstance");
+            AndroidJavaClass mirrorSDK = new AndroidJavaClass("com.mirror.sdk.MirrorSDK");
+            mirrorSDKInstance = mirrorSDK.CallStatic<AndroidJavaObject>("getInstance");
             mirrorSDKInstance.Call("setAuthTokenCallback", new MirrorCallback((xAuthToken) => {
                 LogFlow("Android update xAuthToken to:"+xAuthToken);
                 authToken = xAuthToken;
@@ -95,7 +124,8 @@ namespace MirrorworldSDK.Wrapper
                 SaveKeyParams(responseBody.access_token, responseBody.refresh_token, responseBody.user);
 
                 callback(responseBody);
-            }));
+
+            }), unitActivity);
         }
 
         public void AndroidOpenWallet(string url,Action walletLogoutAction)
@@ -106,7 +136,7 @@ namespace MirrorworldSDK.Wrapper
                 return;
             }
 
-            javaMirrorWorld.CallStatic("openWallet", url, new MirrorCallback((resultString) => {
+            javaMirrorWorld.CallStatic("openWallet", unitActivity, new MirrorCallback((resultString) => {
                 walletLogoutAction();
             }));
         }
@@ -132,7 +162,7 @@ namespace MirrorworldSDK.Wrapper
                 return;
             }
 
-            javaMirrorWorld.CallStatic("openUrl", url);
+            javaMirrorWorld.CallStatic("openUrl", url, unitActivity);
         }
 
         public void AndroidSetConstantLoginCb(Action<LoginResponse> action)

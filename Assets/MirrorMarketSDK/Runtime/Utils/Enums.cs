@@ -3,10 +3,31 @@ namespace MirrorworldSDK
 {
     public enum MirrorEnv
     {
-        StagingDevNet = 0,
-        StagingMainNet,
-        ProductionMainnet,
-        ProductionDevnet
+        Mainnet = 1,
+        Devnet = 2
+    }
+
+    public enum MirrorChain
+    {
+        Solana = 101,
+        Ethereum = 201,
+        Polygon = 202,
+        BNB = 203,
+        SUI = 204,
+    }
+
+    public enum MirrorService
+    {
+        AssetAuction,
+        AssetMint,
+        AssetNFT,
+        Metadata,
+        MetadataCollection,
+        MetadataNFT,
+        MetadataNFTSearch,
+        Marketplace,
+        Wallet,
+        Confirmation,
     }
 
     public enum MirrorEnvPublic
@@ -17,7 +38,8 @@ namespace MirrorworldSDK
 
     public enum EnvironmentVersion
     {
-        V1
+        V1,
+        V2
     }
 
     public enum MirrorResponseCode
@@ -41,6 +63,7 @@ namespace MirrorworldSDK
         public static string MintNFT = "mint_nft";
         public static string UpdateNFT = "update_nft";
         public static string TransferSol = "transfer_sol";
+        public static string TransferETH = "transfer_eth"; 
         public static string TransferSPLToken = "transfer_spl_token";
         public static string CreateCollection = "create_collection";
         public static string ListNFT = "list_nft";

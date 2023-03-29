@@ -8,11 +8,11 @@ namespace MirrorworldSDK.Wrapper
 {
     public partial class MirrorWrapper
     {
-        private readonly string urlCheckStatusOfTransactions = "solana/confirmation/transactions-status";
+        private readonly string urlSolAssetConfirmationTransactionStatus = "transactions-status";
 
-        private readonly string urlCheckStatusOfMinting = "solana/confirmation/mints-status";
+        private readonly string urlCheckStatusOfMinting = "mints-status";
 
-        public void GetStatusOfTransactions(List<string> signatures, Action<CommonResponse<GetStatusOfTransactionsResponse>> callBack)
+        public void GetStatusOfTransactions(List<string> signatures, Action<string> callBack)
         {
             GetStatusOfTransactionsRequest requestBody = new GetStatusOfTransactionsRequest();
 
@@ -20,20 +20,18 @@ namespace MirrorworldSDK.Wrapper
 
             string rawRequestBody = JsonUtility.ToJson(requestBody);
 
-            string url = GetAPIRoot() + urlCheckStatusOfTransactions;
+            string url = UrlUtils.GetMirrorPostUrl(MirrorService.Confirmation, urlSolAssetConfirmationTransactionStatus);
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) =>
             {
                 LogFlow("GetStatusOfTransactions result:" + response);
 
-                CommonResponse<GetStatusOfTransactionsResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetStatusOfTransactionsResponse>>(response);
-
-                callBack(responseBody);
+                callBack(response);
             }));
         }
 
 
-        public void GetStatusOfMintings(List<string> mintAddresses, Action<CommonResponse<GetStatusOfTransactionsResponse>> callBack)
+        public void GetStatusOfMintings(List<string> mintAddresses, Action<string> callBack)
         {
             GetStatusOfMintingRequest requestBody = new GetStatusOfMintingRequest();
 
@@ -41,15 +39,13 @@ namespace MirrorworldSDK.Wrapper
 
             string rawRequestBody = JsonUtility.ToJson(requestBody);
 
-            string url = GetAPIRoot() + urlCheckStatusOfMinting;
+            string url = UrlUtils.GetMirrorPostUrl(MirrorService.Confirmation, urlCheckStatusOfMinting);
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) =>
             {
                 LogFlow("GetStatusOfMintings result:" + response);
 
-                CommonResponse<GetStatusOfTransactionsResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetStatusOfTransactionsResponse>>(response);
-
-                callBack(responseBody);
+                callBack(response);
             }));
         }
     }

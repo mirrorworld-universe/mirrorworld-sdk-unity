@@ -1,111 +1,110 @@
 ﻿
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using MirrorworldSDK.Interfaces;
 using MirrorworldSDK.Models;
 using UnityEngine;
 
 namespace MirrorworldSDK.Wrapper
 {
-    public partial class MirrorWrapper : IWalletService
+    public partial class MirrorWrapper
     {
-        private readonly string urlGetWalletTokens = "wallet/tokens";
+        private readonly string urlGetWalletTokens = "tokens";
 
-        private readonly string urlGetWalletTransaction = "wallet/transactions";
+        private readonly string urlGetWalletTransaction = "transactions";
 
-        private readonly string urlGetWalletTransactionBySignature = "wallet/transactions";
+        private readonly string urlGetWalletTransactionBySignature = "transactions";
 
-        private readonly string urlTransferSolToAnotherAddress = "wallet/transfer-sol";
+        private readonly string urlTransferSolToAnotherAddress = "transfer-sol";
 
-        private readonly string urlTransferTokenToAnotherAddress = "wallet/transfer-token";
+        private readonly string urlTransferTokenToAnotherAddress = "transfer-token";
 
-        public void GetWalletTokens(Action<CommonResponse<WalletTokenResponse>> action)
+        public void GetWalletTokens(Action<string> action)
         {
-            string url = GetAPIRoot() + urlGetWalletTokens;
+            string url = UrlUtils.GetMirrorGetUrl(MirrorService.Wallet) + urlGetWalletTokens;
 
             monoBehaviour.StartCoroutine(CheckAndGet(url, null, (response) =>
             {
                 LogFlow("GetWalletTokens result:" + JsonUtility.ToJson(response));
 
-                CommonResponse<WalletTokenResponse> responseBody = JsonUtility.FromJson<CommonResponse<WalletTokenResponse>>(response);
-
-                action(responseBody);
+                action(response);
             }));
         }
 
-        public void GetWalletTransactions(double number,string nextBefore, Action<CommonResponse<TransferTokenResponse>> action)
+        public void GetWalletTokensByWallet(string walletAddress, Dictionary<string, string> requestParams, Action<string> action)
         {
-            string url = GetAPIRoot() + urlGetWalletTransaction + "?limit=" + number + "&next_before=" + nextBefore;
+            string url = UrlUtils.GetMirrorGetUrl(MirrorService.Wallet) + walletAddress + "/transactions";
 
-            monoBehaviour.StartCoroutine(CheckAndGet(url, null, (response) =>
+            monoBehaviour.StartCoroutine(CheckAndGet(url, requestParams, (response) =>
             {
-                CommonResponse<TransferTokenResponse> responseBody = JsonUtility.FromJson<CommonResponse<TransferTokenResponse>>(response);
+                LogFlow("GetWalletTokens result:" + JsonUtility.ToJson(response));
 
-                action(responseBody);
+                action(response);
             }));
         }
 
-        public void GetWalletTransactionsBySignatrue(string signature,Action<CommonResponse<TransferTokenResponse>> action)
+        public void GetWalletTransactions(Dictionary<string, string> requestParams, Action<string> action)
         {
-            string url = GetAPIRoot() + urlGetWalletTransactionBySignature + "/" + signature;
+            string url = UrlUtils.GetMirrorPostUrl(MirrorService.Wallet, urlGetWalletTransaction);
+
+            monoBehaviour.StartCoroutine(CheckAndGet(url, requestParams, (response) =>
+            {
+                action(response);
+            }));
+        }
+
+        public void GetWalletTransactionsByWallet(string walletAddress, Dictionary<string, string> requestParams, Action<string> action)
+        {
+            string url = UrlUtils.GetMirrorGetUrl(MirrorService.Wallet) + "wallet/" + walletAddress + "/transactions";
+
+            monoBehaviour.StartCoroutine(CheckAndGet(url, requestParams, (response) =>
+            {
+                action(response);
+            }));
+        }
+
+        public void GetWalletTransactionsBySignatrue(string signature,Action<string> action)
+        {
+            string url = UrlUtils.GetMirrorGetUrl(MirrorService.Wallet) + urlGetWalletTransactionBySignature + "/" + signature;
 
             monoBehaviour.StartCoroutine(CheckAndGet(url, null, (response) =>
             {
                 LogFlow("response:"+ response);
-                CommonResponse<TransferTokenResponse> responseBody = JsonUtility.FromJson<CommonResponse<TransferTokenResponse>>(response);
 
-                action(responseBody);
+                action(response);
             }));
         }
 
-        public void TransferSol(int amount, string publicKey,string confirmation, Action<CommonResponse<TransferSolResponse>> callBack)
+        public void TransferSol(string rawRequestBody, Action<string> callBack)
         {
-            string url = GetAPIRoot() + urlTransferSolToAnotherAddress;
-
-            TransferSolRequest requestBody = new TransferSolRequest();
-
-            requestBody.amount = amount;
-
-            requestBody.to_publickey = publicKey;
-
-            requestBody.confirmation = confirmation;
-
-            var rawRequestBody = JsonUtility.ToJson(requestBody);
+            string url = UrlUtils.GetMirrorPostUrl(MirrorService.Wallet, urlTransferSolToAnotherAddress);
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
 
                 LogFlow("TransferSol result :" + response);
 
-                CommonResponse<TransferSolResponse> responseBody = JsonUtility.FromJson<CommonResponse<TransferSolResponse>>(response);
-
-                callBack(responseBody);
+                callBack(response);
 
             }));
         }
 
-        public void TransferSPLToken(string token_mint, int decimals, ulong amount, string to_publickey, Action<CommonResponse<TransferTokenResponse>> callBack)
+        public void TransferOnEVM(string url, string rawRequestBody, Action<string> callBack)
         {
-            string url = GetAPIRoot() + urlTransferTokenToAnotherAddress;
-
-            TransferTokenRequest requestBody = new TransferTokenRequest();
-
-            requestBody.amount = amount;
-
-            requestBody.to_publickey = to_publickey;
-
-            requestBody.decimals = decimals;
-
-            requestBody.token_mint = token_mint;
-
-            var rawRequestBody = JsonUtility.ToJson(requestBody);
-
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
 
-                CommonResponse<TransferTokenResponse> responseBody = JsonUtility.FromJson<CommonResponse<TransferTokenResponse>>(response);
+                LogFlow("TransferSol result :" + response);
 
-                callBack(responseBody);
+                callBack(response);
 
             }));
+        }
+
+        public void TransferSPLToken(string rawRequestBody, Action<string> callBack)
+        {
+            string url = UrlUtils.GetMirrorPostUrl(MirrorService.Wallet, urlTransferTokenToAnotherAddress);
+
+            monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, callBack));
         }
     }
 }
