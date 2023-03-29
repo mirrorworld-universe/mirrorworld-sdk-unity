@@ -89,6 +89,17 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
+        public void TransferOnEVM(string url, string rawRequestBody, Action<string> callBack)
+        {
+            monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
+
+                LogFlow("TransferSol result :" + response);
+
+                callBack(response);
+
+            }));
+        }
+
         public void TransferSPLToken(string rawRequestBody, Action<string> callBack)
         {
             string url = UrlUtils.GetMirrorPostUrl(MirrorService.Wallet, urlTransferTokenToAnotherAddress);

@@ -176,7 +176,7 @@ public class MWEVMWrapper
 
         var rawRequestBody = JsonUtility.ToJson(requestBody);
 
-        MirrorWrapper.Instance.FetchNFTsByMintAddresses(rawRequestBody, (response) => {
+        MirrorWrapper.Instance.GetNFTsOwnedByAddressOnEVM(rawRequestBody, (response) => {
 
             action(response);
         });
@@ -190,7 +190,7 @@ public class MWEVMWrapper
 
         var rawRequestBody = JsonUtility.ToJson(requestBody);
 
-        MirrorWrapper.Instance.GetNFTsOwnedByAddress(rawRequestBody, (response) => {
+        MirrorWrapper.Instance.FetchNFTsByMintAddresses(rawRequestBody, (response) => {
 
             callBack(response);
         });
@@ -244,6 +244,26 @@ public class MWEVMWrapper
 
     public static void TransferETH(string nonce, string gasPrice, string gasLimit, string to, string amount, Action approveFinished, Action<string> callBack)
     {
+        string url = UrlUtils.GetMirrorPostUrl(MirrorService.Wallet, "transfer-eth");
+
+        TransferOnEVM(url,nonce,gasPrice,gasLimit,to,amount,approveFinished,callBack);
+    }
+    public static void TransferBNB(string nonce, string gasPrice, string gasLimit, string to, string amount, Action approveFinished, Action<string> callBack)
+    {
+        string url = UrlUtils.GetMirrorPostUrl(MirrorService.Wallet, "transfer-bnb");
+
+        TransferOnEVM(url, nonce, gasPrice, gasLimit, to, amount, approveFinished, callBack);
+    }
+
+    public static void TransferMatic(string nonce, string gasPrice, string gasLimit, string to, string amount, Action approveFinished, Action<string> callBack)
+    {
+        string url = UrlUtils.GetMirrorPostUrl(MirrorService.Wallet, "transfer-matic");
+
+        TransferOnEVM(url, nonce, gasPrice, gasLimit, to, amount, approveFinished, callBack);
+    }
+
+    private static void TransferOnEVM(string url, string nonce, string gasPrice, string gasLimit, string to, string amount, Action approveFinished, Action<string> callBack)
+    {
         EVMTransferETHReq requestParams = new EVMTransferETHReq();
         requestParams.nonce = nonce;
         requestParams.gasPrice = gasPrice;
@@ -261,7 +281,7 @@ public class MWEVMWrapper
 
             var rawRequestBody = JsonUtility.ToJson(requestParams);
 
-            MirrorWrapper.Instance.TransferSol(rawRequestBody, (response) => {
+            MirrorWrapper.Instance.TransferOnEVM(url, rawRequestBody, (response) => {
 
                 callBack(response);
             });

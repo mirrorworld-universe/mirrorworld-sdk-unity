@@ -190,6 +190,7 @@ namespace MirrorworldSDK
 
                 var rawRequestBody = JsonUtility.ToJson(requestBody);
                 MirrorWrapper.Instance.CreateVerifiedCollection(rawRequestBody, (response)=> {
+                    LogUtils.LogFlow("Create collection result:"+response);
 
                     CommonResponse<MintResponse> responseBody = JsonUtility.FromJson<CommonResponse<MintResponse>>(response);
 

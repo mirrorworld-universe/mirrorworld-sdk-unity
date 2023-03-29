@@ -40,6 +40,8 @@ public class APINames
     public static string SolWalletGetTokensByWallet = "Get Tokens By Wallet";
     public static string SolWalletTransferSOL = "Transfer SOL";
     public static string SolWalletTransferETH = "Transfer ETH";
+    public static string SolWalletTransferBNB = "Transfer BNB";
+    public static string SolWalletTransferMatic = "Transfer Matic";
     public static string SolWalletTransferToken = "Transfer Token";
     //Metadata/Collections
     public static string SolMetadataGetCollectionsInfo = "Collections Info";

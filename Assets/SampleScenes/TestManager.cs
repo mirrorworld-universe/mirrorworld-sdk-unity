@@ -59,7 +59,7 @@ public class TestManager : MonoBehaviour
         }
         else if (selectedChain == MirrorChain.Ethereum || selectedChain == MirrorChain.Polygon || selectedChain == MirrorChain.BNB)
         {
-            InitEVMAPIList();
+            InitEVMAPIList(selectedChain);
         }
         else
         {
@@ -123,7 +123,7 @@ public class TestManager : MonoBehaviour
         AddAPIButton(lineMetadataNFT, APINames.SolMetadataNFTRecommendSearchNFT, 18);
     }
 
-    private void InitEVMAPIList()
+    private void InitEVMAPIList(MirrorChain chain)
     {
         //Client
         Transform lineClient = AddAPILine(apiParent, "Client");
@@ -146,7 +146,6 @@ public class TestManager : MonoBehaviour
         Transform lineAssetMint = AddAPILine(apiParent, "Asset/Mint");
         AddAPIButton(lineAssetMint, APINames.SolAssetMintCollection);
         AddAPIButton(lineAssetMint, APINames.SolAssetMintNFT);
-        //AddAPIButton(lineAssetMint, APINames.SolAssetMintUpdateNFTProperties);
         //Asset/Search
         Transform lineAssetSearch = AddAPILine(apiParent, "Asset/Search");
         AddAPIButton(lineAssetSearch, APINames.SolAssetSearchQueryNFT);
@@ -159,7 +158,18 @@ public class TestManager : MonoBehaviour
         AddAPIButton(lineWallet, APINames.SolWalletGetTransactionsBySignature, 18);
         AddAPIButton(lineWallet, APINames.SolWalletGetTokens);
         AddAPIButton(lineWallet, APINames.SolWalletGetTokensByWallet, 18);
-        AddAPIButton(lineWallet, APINames.SolWalletTransferETH);
+        if(chain == MirrorChain.Ethereum)
+        {
+            AddAPIButton(lineWallet, APINames.SolWalletTransferETH);
+        }
+        else if (chain == MirrorChain.Polygon)
+        {
+            AddAPIButton(lineWallet, APINames.SolWalletTransferMatic);
+        }
+        else if (chain == MirrorChain.BNB)
+        {
+            AddAPIButton(lineWallet, APINames.SolWalletTransferBNB);
+        }
         AddAPIButton(lineWallet, APINames.SolWalletTransferToken);
         //Metadata/Collection
         Transform lineMetadataCollections = AddAPILine(apiParent, "Metadata/Collection");
@@ -357,8 +367,7 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("CreateVerifiedCollection", "name", "symbol", "url", "seller fee basis points", null, null, "CreateVerifiedCollection", "CreateVerifiedCollection", () => {
                 int seller_fee_basis_points = (int)PrecisionUtil.StrToDouble(v4);
                 MirrorWorld.Solana.MintCollection(v1, v2, v3, seller_fee_basis_points, null, approveFinished, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    PrintLog("result:" + res);
                 });
             }
                 );
@@ -687,15 +696,6 @@ public class TestManager : MonoBehaviour
                     },
                     null);
                 });
-                //Debug.Log("GuestLogin result:" + JsonUtility.ToJson(loginResponse));
-
-                //UniversalDialog dialog = null;
-                //dialog = ShowUniversalNotice("Guest Login", "Guest login success! your account is :" + loginResponse.user.email, "OK", null,
-                //() => {
-                //    LogUtils.LogFlow("Click OK");
-                //    dialog.DestroyDialog();
-                //},
-                //null);
             });
         }
         else if (btnName == APINames.ClientLoginWithEmail)
@@ -718,8 +718,15 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("GetWalletTokens", null, null, null, null, null, null, "Get", "Get your tokens", () => {
                 MirrorWorld.EVM.GetTokens((res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("Get tokens result:" + body);
+                    PrintLog("Get tokens result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolWalletGetTokensByWallet)
+        {
+            SetInfoPanel("GetWalletTokens", "wallet address", null, null, null, null, null, "Get", "Get your tokens", () => {
+                MirrorWorld.EVM.GetTokensByWalletByWallet(v1, (res) => {
+                    PrintLog("Get tokens result:" + res);
                 });
             });
         }
@@ -738,8 +745,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("QueryNFT", "mint address", "token id", null, null, null, null, "GetNFTDetails", "GetNFTDetails", () => {
                 MirrorWorld.EVM.QueryNFT(v1, v2, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -749,8 +755,7 @@ public class TestManager : MonoBehaviour
                 int limit = int.Parse(v2);
 
                 MirrorWorld.EVM.SearchNFTsByOwner(v1, limit, v3, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -763,8 +768,7 @@ public class TestManager : MonoBehaviour
                 token.token_id = int.Parse(v2);
                 list.Add(token);
                 MirrorWorld.EVM.SearchNFTsByMintAddress(list, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -783,8 +787,7 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("CreateVerifiedCollection", "name", "symbol", "url", null, null, null, "CreateVerifiedCollection", "CreateVerifiedCollection", () => {
                 int seller_fee_basis_points = (int)PrecisionUtil.StrToDouble(v4);
                 MirrorWorld.EVM.MintCollection(v1, v2, v3, approveFinished, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    PrintLog("result:" + res);
                 });
             }
                 );
@@ -795,28 +798,17 @@ public class TestManager : MonoBehaviour
                 int amount = PrecisionUtil.StrToInt(v4);
                 int token_id = int.Parse(v2);
                 MirrorWorld.EVM.MintNFT(v1, token_id, v3, amount, Confirmation.Default, approveFinished, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    PrintLog("result:" + res);
                 });
             });
         }
-        //else if (btnName == APINames.SolAssetMintUpdateNFTProperties)
-        //{
-        //    SetInfoPanel("UpdateNFTProperties", "mint address", "name", "updateAuthority", "json url", null, null, "MintNFT", "MintNFT", () => {
-        //        MirrorWorld.EVM.UpdateNFT(v1, v2, "newsymbol", v3, v4, 200, Confirmation.Default, approveFinished, (res) => {
-        //            var body = JsonUtility.ToJson(res);
-        //            PrintLog("result:" + body);
-        //        });
-        //    });
-        //}
         else if (btnName == APINames.SolAssetAuctionListNFT)
         {
             SetInfoPanel("ListNFT", "collection address", "token id", "price", "marketplace address", null, null, "ListNFT", "ListNFT", () => {
                 int token_id = PrecisionUtil.StrToInt(v2);
                 double price = PrecisionUtil.StrToDouble(v3);
                 MirrorWorld.EVM.ListNFT(v1, token_id, price, v4, approveFinished, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -826,8 +818,7 @@ public class TestManager : MonoBehaviour
                 int token_id = PrecisionUtil.StrToInt(v2);
                 MirrorWorld.EVM.CancelListing(v1, token_id, v3, approveFinished, (res) =>
                 {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -837,18 +828,16 @@ public class TestManager : MonoBehaviour
                 double price = PrecisionUtil.StrToDouble(v2);
                 int token_id = PrecisionUtil.StrToInt(v3);
                 MirrorWorld.EVM.BuyNFT(v1, price, token_id, v4, approveFinished, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    PrintLog("result:" + res);
                 });
             });
         }
         else if (btnName == APINames.SolAssetAuctionTransferNFT)
         {
-            SetInfoPanel("Transfer NFT", "collection address", "token id", "to wallet address", null, null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses", () => {
+            SetInfoPanel("Transfer NFT", "collection address", "token id", "to wallet address", null, null, null, "Transfer", "Transfer", () => {
                 int token_id = PrecisionUtil.StrToInt(v2);
                 MirrorWorld.EVM.TransferNFT(v1, token_id, v3, approveFinished, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -857,8 +846,16 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("GetWalletTransactions", "number", null, null, null, null, null, "GetWalletTransactions", "GetWalletTransactions", () => {
                 double price = PrecisionUtil.StrToDouble(v1);
                 MirrorWorld.EVM.GetTransactions(price, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolWalletGetTransactionsByWallet)
+        {
+            SetInfoPanel("GetWalletTransactions", "wallet address", "limit", null, null, null, null, "GetWalletTransactions", "GetWalletTransactions", () => {
+                int limit = PrecisionUtil.StrToInt(v2);
+                MirrorWorld.EVM.GetTransactionsByWallet(v1, limit, (res) => {
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -867,18 +864,38 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("GetWalletTransactionsBySignatrue", "signature", null, null, null, null, null, "GetWalletTransactionsBySignatrue", "GetWalletTransactionsBySignatrue", () => {
                 MirrorWorld.EVM.GetTransactionsBySignature(v1, (res) =>
                 {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+
+                    PrintLog("result:" + res);
                 });
             });
         }
-        else if (btnName == APINames.SolWalletTransferSOL)
+        else if (btnName == APINames.SolWalletTransferETH)
         {
-            SetInfoPanel("TransferETH", "nonce", "gas price", "gas limit", "to", "amout", null, "Transfer", "Transfer", () => {
+            SetInfoPanel("Transfer ETH", "nonce", "gas price", "gas limit", "to", "amout", null, "Transfer", "Transfer", () => {
                 int price = (int)PrecisionUtil.StrToDouble(v1);
                 MirrorWorld.EVM.TransferETH(v1, v2, v3, v4, v5, approveFinished, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+           
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolWalletTransferBNB)
+        {
+            SetInfoPanel("Transfer BNB", "nonce", "gas price", "gas limit", "to", "amout", null, "Transfer", "Transfer", () => {
+                int price = (int)PrecisionUtil.StrToDouble(v1);
+                MirrorWorld.EVM.TransferBNB(v1, v2, v3, v4, v5, approveFinished, (res) => {
+
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolWalletTransferMatic)
+        {
+            SetInfoPanel("Transfer Matic", "nonce", "gas price", "gas limit", "to", "amout", null, "Transfer", "Transfer", () => {
+                int price = (int)PrecisionUtil.StrToDouble(v1);
+                MirrorWorld.EVM.TransferMatic(v1, v2, v3, v4, v5, approveFinished, (res) => {
+
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -886,8 +903,8 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("TransferToken", "nonce", "gas price", "gas limit", "to", "amout", "contract", "Transfer", "Transfer", () => {
                 MirrorWorld.EVM.TransferToken(v1, v2, v3, v4, v5, v6, approveFinished, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -916,6 +933,22 @@ public class TestManager : MonoBehaviour
                 });
             });
         }
+        else if (btnName == APINames.SolMetadataGetCollectionsSummary)
+        {
+            SetInfoPanel("GetCollectionFilterInfo", "collection 1", "collection 2", null, null, null, null, "Get", "Get collection filter info", () => {
+                List<string> cols = new List<string>();
+                if (string.IsNullOrWhiteSpace(v1)) cols.Add(v1);
+                if (string.IsNullOrWhiteSpace(v2)) cols.Add(v2);
+                if (string.IsNullOrWhiteSpace(v1) && string.IsNullOrWhiteSpace(v2))
+                {
+                    PrintLog("Please input something.");
+                    return;
+                }
+                MirrorWorld.EVM.MetadataCollectionsSummary(cols, (res) => {
+                    PrintLog("result:" + res);
+                });
+            });
+        }
         else if (btnName == APINames.SolMetadataGetCollectionsInfo)
         {
             SetInfoPanel("GetCollectionInfo", "collection", null, null, null, null, null, "Get", "Get collection info", () => {
@@ -938,8 +971,7 @@ public class TestManager : MonoBehaviour
                 int tokenID = int.Parse(v4);
 
                 MirrorWorld.EVM.MetadataNFTEvents(v1, page, pageSize, tokenID, v5, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -952,8 +984,7 @@ public class TestManager : MonoBehaviour
                 string searchString = v2;
 
                 MirrorWorld.EVM.MetadataSearchNFTs(collections, searchString, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -965,8 +996,17 @@ public class TestManager : MonoBehaviour
                 collections.Add(collection1);
 
                 MirrorWorld.EVM.MetadataRecommendSearchNFTs(collections, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    PrintLog("result:" + res);
+                });
+            });
+        }
+        else if (btnName == APINames.SolMetadataNFTInfo)
+        {
+            SetInfoPanel("GetNFTs", "contract", "token id", null, null, null, null, "Get", "Get NFTs", () => {
+                //int tokenID = PrecisionUtil.StrToInt(v2);
+
+                MirrorWorld.EVM.MetadataNFTInfo(v1, v2, (res) => {
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -980,8 +1020,7 @@ public class TestManager : MonoBehaviour
                 bool desc = true;
 
                 MirrorWorld.EVM.MetadataNFTsByUnabridgedParams(collection, page, pageSize, orderByString, desc, null, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    PrintLog("result:" + res);
                 });
             });
         }

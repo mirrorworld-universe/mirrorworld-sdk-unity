@@ -40,7 +40,7 @@ namespace MirrorworldSDK.Wrapper
         }
         public void GetNFTDetailsOnEVM(string mintAddress,string token_id, Action<string> callBack)
         {
-            string url = UrlUtils.GetMirrorGetUrl(MirrorService.AssetNFT) + urlFetchSingleNFT + "/" + mintAddress + "/" + token_id;
+            string url = UrlUtils.GetMirrorGetUrl(MirrorService.AssetNFT) + mintAddress + "/" + token_id;
 
             monoBehaviour.StartCoroutine(CheckAndGet(url, null, (response) => {
 
@@ -149,6 +149,16 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
+        public void GetNFTsOwnedByAddressOnEVM(string rawRequestBody, Action<string> callBack)
+        {
+            string url = UrlUtils.GetMirrorPostUrl(MirrorService.AssetNFT, "owner");
+
+            monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
+
+                callBack(response);
+            }));
+        }
+
         public void FetchNftsByUpdateAuthorities(List<string> updateAuthorities, Action<CommonResponse<MultipleNFTsResponse>> callBack)
         {
             FetchMultipleNftsByUpdateAuthoritiesRequest requestBody = new FetchMultipleNftsByUpdateAuthoritiesRequest();
@@ -226,11 +236,6 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        //public void CancelNFTListing(string mintAddress, double price, string confirmation, Action<CommonResponse<ListingResponse>> callBack)
-        //{
-        //    CancelNFTListing(mintAddress, price, "", confirmation, callBack);
-        //}
-
         public void TransferNFT(string rawRequestBody, Action<string> callBack)
         {
             string url = UrlUtils.GetMirrorPostUrl(MirrorService.AssetAuction, urlAssetAuctionTransfer);
@@ -249,9 +254,9 @@ namespace MirrorworldSDK.Wrapper
             string url = UrlUtils.GetMirrorPostUrl(MirrorService.AssetAuction, urlAssetAuctionBuy);
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
+                LogFlow("Buy NFT response:"+ response);
 
                 callBack(response);
-
             }));
         }
 

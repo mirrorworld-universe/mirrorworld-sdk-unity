@@ -126,7 +126,17 @@ namespace MirrorWorld
 
         public static void TransferETH(string nonce, string gasPrice, string gasLimit, string to, string amount, Action approveFinished, Action<string> callBack)
         {
-            MWEVMWrapper.TransferETH(nonce,gasPrice,gasLimit,to,amount,approveFinished,callBack);
+            MWEVMWrapper.TransferETH(nonce, gasPrice, gasLimit, to, amount, approveFinished, callBack);
+        }
+
+        public static void TransferBNB(string nonce, string gasPrice, string gasLimit, string to, string amount, Action approveFinished, Action<string> callBack)
+        {
+            MWEVMWrapper.TransferBNB(nonce, gasPrice, gasLimit, to, amount, approveFinished, callBack);
+        }
+
+        public static void TransferMatic(string nonce, string gasPrice, string gasLimit, string to, string amount, Action approveFinished, Action<string> callBack)
+        {
+            MWEVMWrapper.TransferMatic(nonce, gasPrice, gasLimit, to, amount, approveFinished, callBack);
         }
 
         public static void TransferToken(string nonce, string gasPrice, string gasLimit, string to, string amount, string contract, Action approveFinished, Action<string> callBack)
