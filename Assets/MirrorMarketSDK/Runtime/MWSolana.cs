@@ -135,7 +135,7 @@ namespace MirrorWorld
             MWSolanaWrapper.GetTokens(action);
         }
 
-        public static void GetTokensByWalletByWallet(string wallet, int limit, string next_before, Action<string> action)
+        public static void GetTokensByWallet(string wallet, int limit, string next_before, Action<string> action)
         {
             MWSolanaWrapper.GetTokensByWalletByWallet(wallet,limit,next_before, action);
         }
