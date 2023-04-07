@@ -301,7 +301,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("GetWalletTokensByWallet", "wallet address", "limit", "next_before", null, null, null, "Get", "Get your tokens", () => {
                 int limit = PrecisionUtil.StrToInt(v2);
-                MirrorWorld.Solana.GetTokensByWalletByWallet(v1,limit,v3,(res) => {
+                MirrorWorld.Solana.GetTokensByWallet(v1,limit,v3,(res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("Get tokens result:" + body);
                 });
@@ -447,7 +447,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("GetWalletTransactions", "wallet address", "limit", "next_before", null, null, null, "GetWalletTransactions", "GetWalletTransactions", () => {
                 int limit = PrecisionUtil.StrToInt(v2);
-                MirrorWorld.Solana.GetTokensByWalletByWallet(v1, limit, v3, (res) => {
+                MirrorWorld.Solana.GetTransactionsByWallet(v1, limit, v3, (res) => {
                     var body = JsonUtility.ToJson(res);
                     PrintLog("result:" + body);
                 });

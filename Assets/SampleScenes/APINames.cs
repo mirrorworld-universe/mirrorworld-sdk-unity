@@ -12,7 +12,7 @@ public class APINames
     public static string ClientOpenMarket = "Open Market";
     public static string ClientLogout = "Logout";
     public static string ClientGuestLogin = "Guest Login";
-    public static string ClientFetchUser = "Fetch User";
+    //public static string ClientFetchUser = "Fetch User";
     public static string ClientQueryUser = "Query User";
 
     //Solana
