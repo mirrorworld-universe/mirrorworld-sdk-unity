@@ -13,7 +13,7 @@ namespace MirrorworldSDK
         Ethereum = 201,
         Polygon = 202,
         BNB = 203,
-        SUI = 204,
+        SUI = 301,
     }
 
     public enum MirrorService

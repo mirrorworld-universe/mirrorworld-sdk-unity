@@ -66,7 +66,7 @@ public class MirrorSDK : MonoBehaviour
 
 #elif (UNITY_IOS && !(UNITY_EDITOR))
 
-            MirrorWrapper.IOSInitSDK((int)environment,apiKey);
+            MirrorWrapper.IOSInitSDK((int)environment,(int)chain,apiKey);
 
             MirrorWrapper.Instance.LogFlow("Mirror SDK Inited.");
 #endif
@@ -75,6 +75,11 @@ public class MirrorSDK : MonoBehaviour
     public static void SetChain(MirrorChain chain)
     {
         MirrorWrapper.Instance.SetChain(chain);
+    }
+
+    public static void SetEnvironment(MirrorEnv env)
+    {
+        MirrorWrapper.Instance.SetEnvironment(env);
     }
 
     /// <summary>

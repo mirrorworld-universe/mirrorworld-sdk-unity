@@ -12,7 +12,7 @@
 
 extern "C"
 {
-    extern void IOSInitSDK(int environment,char *apikey);
+    extern void IOSInitSDK(int environment,int chain, char *apikey);
 }
 
 extern "C"

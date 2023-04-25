@@ -40,9 +40,16 @@ namespace MirrorworldSDK.Wrapper
 
         public void SetChain(MirrorChain chain)
         {
-            LogFlow("Set chain to "+chain);
+            LogFlow("Set chain to " + chain);
 
             this.chain = chain;
+        }
+
+        public void SetEnvironment(MirrorEnv env)
+        {
+            LogFlow("Set env to " + env);
+
+            this.environment = environment;
         }
 
         public MirrorChain GetChain()

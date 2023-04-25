@@ -10,15 +10,18 @@ using UnityEngine;
 public class InitPanel : MonoBehaviour
 {
     public TMP_Dropdown dropdown;
+    public List<GameObject> dropGOs;
 
     //Logic
     public Action<MirrorChain> EnterNextPage;
 
     private int selectedChain;
+    private int selectedNet;
 
     public void Show()
     {
         gameObject.SetActive(true);
+        ChangeNetOptions();
     }
 
     public void Hide()
@@ -29,6 +32,7 @@ public class InitPanel : MonoBehaviour
     public void OnOptionSelected()
     {
         selectedChain = dropdown.value;
+        ChangeNetOptions();
     }
 
     public void OnInitBtnClicked()
@@ -56,12 +60,52 @@ public class InitPanel : MonoBehaviour
             Debug.LogError("MirrorSDK: unknwon selected item index:"+selectedChain);
         }
 
+        MirrorEnv env;
+        if (selectedNet == 0)
+        {
+            env = MirrorEnv.Mainnet;
+        }
+        else
+        if (selectedNet == 1)
+        {
+            env = MirrorEnv.Devnet;
+        }
+        else
+        {
+            env = MirrorEnv.Devnet;
+            Debug.LogError("MirrorSDK: Unknwon selectedNet:"+selectedNet);
+        }
+
         MirrorSDK.SetChain(chain);
+        MirrorSDK.SetEnvironment(env);
 
         if(EnterNextPage != null)
         {
             EnterNextPage(chain);
         }
+    }
+
+    public void OnNetOptionSelected()
+    {
+        TMP_Dropdown tMP_Dropdown = dropGOs[selectedChain].transform.Find("Dropdown").GetComponent<TMP_Dropdown>();
+        selectedNet = tMP_Dropdown.value;
+    }
+
+    private void ChangeNetOptions()
+    {
+        for(int i = 0; i < dropGOs.Count; i++)
+        {
+            if(i == selectedChain)
+            {
+                dropGOs[i].SetActive(true);
+            }
+            else
+            {
+                dropGOs[i].SetActive(false);
+            }
+        }
+        TMP_Dropdown tMP_Dropdown = dropGOs[selectedChain].transform.Find("Dropdown").GetComponent<TMP_Dropdown>();
+        selectedNet = tMP_Dropdown.value;
     }
 
     private UniversalDialog ShowUniversalNotice(string title, string content, string yesText, string noText, Action yesAction, Action noAction)

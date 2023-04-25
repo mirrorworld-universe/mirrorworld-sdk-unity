@@ -5,6 +5,8 @@ using MirrorworldSDK.UI;
 using System;
 using MirrorworldSDK.Models;
 using MirrorworldSDK;
+using static MirrorworldSDK.Wrapper.MirrorWrapper;
+using System.Runtime.InteropServices;
 
 public class MWClientWrapper
 {
@@ -43,7 +45,6 @@ public class MWClientWrapper
             IntPtr fp = Marshal.GetFunctionPointerForDelegate(handler);
             MirrorWrapper.IOSStartLogin(fp);
 #endif
-
     }
 
     /// <summary>
