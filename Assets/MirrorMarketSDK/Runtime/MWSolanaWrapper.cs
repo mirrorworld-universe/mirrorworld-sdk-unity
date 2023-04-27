@@ -10,7 +10,7 @@ namespace MirrorworldSDK
     public class MWSolanaWrapper
     {
         //Asset/Auction
-        public static void BuyNFT(string mint_address, double price, string auction_house, Action approveFinished, Action<CommonResponse<ListingResponse>> callBack)
+        public static void BuyNFT(string mint_address, double price, string auction_house, Action approveFinished, Action<string> callBack)
         {
             ApproveListNFT requestParams = new ApproveListNFT();
             requestParams.mint_address = mint_address;
@@ -37,16 +37,16 @@ namespace MirrorworldSDK
 
                 MirrorWrapper.Instance.BuyNFT(rawRequestBody, (response) => {
 
-                    CommonResponse<ListingResponse> responseBody = JsonUtility.FromJson<CommonResponse<ListingResponse>>(response);
+                    //CommonResponse<ListingResponse> responseBody = JsonUtility.FromJson<CommonResponse<ListingResponse>>(response);
 
-                    callBack(responseBody);
+                    callBack(response);
 
                 });
             });
         }
 
 
-        public static void CancelListing(string mint_address, double price, string auction_house, string confirmation, Action approveFinished, Action<CommonResponse<ListingResponse>> callBack)
+        public static void CancelListing(string mint_address, double price, string auction_house, string confirmation, Action approveFinished, Action<string> callBack)
         {
             ApproveListNFT requestParams = new ApproveListNFT();
             requestParams.mint_address = mint_address;
@@ -73,14 +73,14 @@ namespace MirrorworldSDK
 
                 MirrorWrapper.Instance.CancelNFTListing(rawRequestBody, (response) => {
 
-                    CommonResponse<ListingResponse> responseBody = JsonUtility.FromJson<CommonResponse<ListingResponse>>(response);
+                    //CommonResponse<ListingResponse> responseBody = JsonUtility.FromJson<CommonResponse<ListingResponse>>(response);
 
-                    callBack(responseBody);
+                    callBack(response);
                 });
             });
         }
 
-        public static void ListNFT(string mint_address, double price, string auction_house, string confirmation, Action approveFinished, Action<CommonResponse<ListingResponse>> callBack)
+        public static void ListNFT(string mint_address, double price, string auction_house, string confirmation, Action approveFinished, Action<string> callBack)
         {
             ApproveListNFT requestParams = new ApproveListNFT();
             requestParams.mint_address = mint_address;
@@ -109,14 +109,14 @@ namespace MirrorworldSDK
 
                 MirrorWrapper.Instance.ListNFT(rawRequestBody, (response)=> {
 
-                    CommonResponse<ListingResponse> responseBody = JsonUtility.FromJson<CommonResponse<ListingResponse>>(response);
+                    //CommonResponse<ListingResponse> responseBody = JsonUtility.FromJson<CommonResponse<ListingResponse>>(response);
 
-                    callBack(responseBody);
+                    callBack(response);
                 });
             });
         }
 
-        public static void TransferNFT(string mint_address, string to_wallet_address, Action approveAction, Action<CommonResponse<ListingResponse>> callBack)
+        public static void TransferNFT(string mint_address, string to_wallet_address, Action approveAction, Action<string> callBack)
         {
             ApproveTransferNFT requestParams = new ApproveTransferNFT();
             requestParams.mint_address = mint_address;
@@ -137,36 +137,36 @@ namespace MirrorworldSDK
 
                 MirrorWrapper.Instance.TransferNFT(rawRequestBody, (response)=> {
 
-                    CommonResponse<ListingResponse> responseBody = JsonUtility.FromJson<CommonResponse<ListingResponse>>(response);
+                    //CommonResponse<ListingResponse> responseBody = JsonUtility.FromJson<CommonResponse<ListingResponse>>(response);
 
-                    callBack(responseBody);
+                    callBack(response);
                 });
             });
         }
 
         //Asset/Confirmation
-        public static void CheckTransactionsStatus(List<string> signatures, Action<CommonResponse<GetStatusOfTransactionsResponse>> callBack)
+        public static void CheckTransactionsStatus(List<string> signatures, Action<string> callBack)
         {
             MirrorWrapper.Instance.GetStatusOfTransactions(signatures, (response)=> {
 
-                CommonResponse<GetStatusOfTransactionsResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetStatusOfTransactionsResponse>>(response);
+                //CommonResponse<GetStatusOfTransactionsResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetStatusOfTransactionsResponse>>(response);
 
-                callBack(responseBody);
+                callBack(response);
             });
         }
 
-        public static void CheckMintingStatus(List<string> mintAddresses, Action<CommonResponse<GetStatusOfTransactionsResponse>> callBack)
+        public static void CheckMintingStatus(List<string> mintAddresses, Action<string> callBack)
         {
             MirrorWrapper.Instance.GetStatusOfMintings(mintAddresses, (response)=> {
 
-                CommonResponse<GetStatusOfTransactionsResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetStatusOfTransactionsResponse>>(response);
+                //CommonResponse<GetStatusOfTransactionsResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetStatusOfTransactionsResponse>>(response);
 
-                callBack(responseBody);
+                callBack(response);
             });
         }
 
         //Asset/Mint
-        public static void MintCollection(string collectionName, string collectionSymbol, string NFTDetailJson, int seller_fee_basis_points, string confirmation, Action approveFinished, Action<CommonResponse<MintResponse>> callBack)
+        public static void MintCollection(string collectionName, string collectionSymbol, string NFTDetailJson, int seller_fee_basis_points, string confirmation, Action approveFinished, Action<string> callBack)
         {
             ApproveCreateCollection requestParams = new ApproveCreateCollection();
             requestParams.name = collectionName;
@@ -192,14 +192,14 @@ namespace MirrorworldSDK
                 MirrorWrapper.Instance.CreateVerifiedCollection(rawRequestBody, (response)=> {
                     LogUtils.LogFlow("Create collection result:"+response);
 
-                    CommonResponse<MintResponse> responseBody = JsonUtility.FromJson<CommonResponse<MintResponse>>(response);
+                    //CommonResponse<MintResponse> responseBody = JsonUtility.FromJson<CommonResponse<MintResponse>>(response);
 
-                    callBack(responseBody);
+                    callBack(response);
                 });
             });
         }
 
-        public static void MintNFT(string parentCollection, string nFTName, string nFTSymbol, string nFTJsonUrl, string confirmation, string mint_id, string receiveWallet, double amountSol, Action approveFinished, Action<CommonResponse<MintResponse>> callBack)
+        public static void MintNFT(string parentCollection, string nFTName, string nFTSymbol, string nFTJsonUrl, string confirmation, string mint_id, string receiveWallet, double amountSol, Action approveFinished, Action<string> callBack)
         {
             LogUtils.LogFlow("Mint request:amountSol:" + amountSol + ",receiveWallet:" + receiveWallet);
             ApproveMintNFT requestParams = new ApproveMintNFT();
@@ -241,14 +241,14 @@ namespace MirrorworldSDK
 
                 MirrorWrapper.Instance.MintNFT(rawRequestBody, (response)=> {
 
-                    CommonResponse<MintResponse> responseBody = JsonUtility.FromJson<CommonResponse<MintResponse>>(response);
+                    //CommonResponse<MintResponse> responseBody = JsonUtility.FromJson<CommonResponse<MintResponse>>(response);
 
-                    callBack(responseBody);
+                    callBack(response);
                 });
             });
         }
 
-        public static void UpdateNFT(string mintAddress, string NFTName, string symbol, string updateAuthority, string NFTJsonUrl, int seller_fee_basis_points, string confirmation, Action approveAction, Action<CommonResponse<MintResponse>> callBack)
+        public static void UpdateNFT(string mintAddress, string NFTName, string symbol, string updateAuthority, string NFTJsonUrl, int seller_fee_basis_points, string confirmation, Action approveAction, Action<string> callBack)
         {
             ApproveUpdateNFTProperties requestParams = new ApproveUpdateNFTProperties();
             requestParams.mint_address = mintAddress;
@@ -275,25 +275,25 @@ namespace MirrorworldSDK
                 string rawRequestBody = JsonUtility.ToJson(requestBody);
                 MirrorWrapper.Instance.UpdateNFTProperties(rawRequestBody, (response)=> {
 
-                    CommonResponse<MintResponse> responseBody = JsonUtility.FromJson<CommonResponse<MintResponse>>(response);
+                    //CommonResponse<MintResponse> responseBody = JsonUtility.FromJson<CommonResponse<MintResponse>>(response);
 
-                    callBack(responseBody);
+                    callBack(response);
                 });
             });
         }
 
         //Asset/Search
-        public static void QueryNFT(string mintAddress, Action<CommonResponse<SingleNFTResponse>> action)
+        public static void QueryNFT(string mintAddress, Action<string> action)
         {
             MirrorWrapper.Instance.GetNFTDetails(mintAddress, (response)=> {
 
-                CommonResponse<SingleNFTResponse> responseBody = JsonUtility.FromJson<CommonResponse<SingleNFTResponse>>(response);
+                //CommonResponse<SingleNFTResponse> responseBody = JsonUtility.FromJson<CommonResponse<SingleNFTResponse>>(response);
 
-                action(responseBody);
+                action(response);
             });
         }
 
-        public static void SearchNFTsByMintAddress(List<string> mintAddresses, Action<CommonResponse<MultipleNFTsResponse>> action)
+        public static void SearchNFTsByMintAddress(List<string> mintAddresses, Action<string> action)
         {
             FetchMultipleNftsByMintAddressesRequest requestBody = new FetchMultipleNftsByMintAddressesRequest();
 
@@ -303,13 +303,13 @@ namespace MirrorworldSDK
 
             MirrorWrapper.Instance.FetchNFTsByMintAddresses(rawRequestBody, (response)=> {
 
-                CommonResponse<MultipleNFTsResponse> responseBody = JsonUtility.FromJson<CommonResponse<MultipleNFTsResponse>>(response);
+                //CommonResponse<MultipleNFTsResponse> responseBody = JsonUtility.FromJson<CommonResponse<MultipleNFTsResponse>>(response);
 
-                action(responseBody);
+                action(response);
             });
         }
 
-        public static void SearchNFTsByOwner(List<string> owners, long limit, long offset, Action<CommonResponse<MultipleNFTsResponse>> callBack)
+        public static void SearchNFTsByOwner(List<string> owners, long limit, long offset, Action<string> callBack)
         {
             FetchMultipleNftsByOwnersRequest requestBody = new FetchMultipleNftsByOwnersRequest();
 
@@ -323,14 +323,14 @@ namespace MirrorworldSDK
 
             MirrorWrapper.Instance.GetNFTsOwnedByAddress(rawRequestBody, (response)=> {
 
-                CommonResponse<MultipleNFTsResponse> responseBody = JsonUtility.FromJson<CommonResponse<MultipleNFTsResponse>>(response);
+                //CommonResponse<MultipleNFTsResponse> responseBody = JsonUtility.FromJson<CommonResponse<MultipleNFTsResponse>>(response);
 
-                callBack(responseBody);
+                callBack(response);
             });
         }
 
         //Wallet
-        public static void GetTransactions(double number, string nextBefore, Action<CommonResponse<TransferTokenResponse>> action)
+        public static void GetTransactions(double number, string nextBefore, Action<string> action)
         {
             Dictionary<string, string> requestParams = new Dictionary<string, string>();
 
@@ -340,9 +340,9 @@ namespace MirrorworldSDK
 
             MirrorWrapper.Instance.GetWalletTransactions(requestParams, (response)=> {
 
-                CommonResponse<TransferTokenResponse> responseBody = JsonUtility.FromJson<CommonResponse<TransferTokenResponse>>(response);
+                //CommonResponse<TransferTokenResponse> responseBody = JsonUtility.FromJson<CommonResponse<TransferTokenResponse>>(response);
 
-                action(responseBody);
+                action(response);
             });
         }
 
@@ -357,23 +357,23 @@ namespace MirrorworldSDK
             MirrorWrapper.Instance.GetWalletTransactionsByWallet(wallet_address, requestParams, action);
         }
 
-        public static void GetTransactionsBySignature(string signature, Action<CommonResponse<TransferTokenResponse>> action)
+        public static void GetTransactionsBySignature(string signature, Action<string> action)
         {
             MirrorWrapper.Instance.GetWalletTransactionsBySignatrue(signature, (response)=> {
 
-                CommonResponse<TransferTokenResponse> responseBody = JsonUtility.FromJson<CommonResponse<TransferTokenResponse>>(response);
+                //CommonResponse<TransferTokenResponse> responseBody = JsonUtility.FromJson<CommonResponse<TransferTokenResponse>>(response);
 
-                action(responseBody);
+                action(response);
             });
         }
 
-        public static void GetTokens(Action<CommonResponse<WalletTokenResponse>> action)
+        public static void GetTokens(Action<string> action)
         {
             MirrorWrapper.Instance.GetWalletTokens((response)=> {
 
-                CommonResponse<WalletTokenResponse> responseBody = JsonUtility.FromJson<CommonResponse<WalletTokenResponse>>(response);
+                //CommonResponse<WalletTokenResponse> responseBody = JsonUtility.FromJson<CommonResponse<WalletTokenResponse>>(response);
 
-                action(responseBody);
+                action(response);
             });
         }
 
@@ -385,7 +385,7 @@ namespace MirrorworldSDK
             MirrorWrapper.Instance.GetWalletTokensByWallet(wallet,requestParams, action);
         }
 
-        public static void TransferSol(int amount, string to_publickey, string confirmation, Action approveFinished, Action<CommonResponse<TransferSolResponse>> callBack)
+        public static void TransferSol(int amount, string to_publickey, string confirmation, Action approveFinished, Action<string> callBack)
         {
             ApproveTransferSOL requestParams = new ApproveTransferSOL();
             requestParams.to_publickey = to_publickey;
@@ -410,14 +410,14 @@ namespace MirrorworldSDK
 
                 MirrorWrapper.Instance.TransferSol(rawRequestBody, (response)=> {
 
-                    CommonResponse<TransferSolResponse> responseBody = JsonUtility.FromJson<CommonResponse<TransferSolResponse>>(response);
+                    //CommonResponse<TransferSolResponse> responseBody = JsonUtility.FromJson<CommonResponse<TransferSolResponse>>(response);
 
-                    callBack(responseBody);
+                    callBack(response);
                 });
             });
         }
 
-        public static void TransferToken(string token_mint, int decimals, ulong amount, string to_publickey, Action approveFinished, Action<CommonResponse<TransferTokenResponse>> callBack)
+        public static void TransferToken(string token_mint, int decimals, ulong amount, string to_publickey, Action approveFinished, Action<string> callBack)
         {
             ApproveTransferSPLToken requestParams = new ApproveTransferSPLToken();
             requestParams.to_publickey = to_publickey;
@@ -448,15 +448,15 @@ namespace MirrorworldSDK
 
                 MirrorWrapper.Instance.TransferSPLToken(rawRequestBody, (response)=> {
 
-                    CommonResponse<TransferTokenResponse> responseBody = JsonUtility.FromJson<CommonResponse<TransferTokenResponse>>(response);
+                    //CommonResponse<TransferTokenResponse> responseBody = JsonUtility.FromJson<CommonResponse<TransferTokenResponse>>(response);
 
-                    callBack(responseBody);
+                    callBack(response);
                 });
             });
         }
 
         //Metadata/Collections
-        public static void MetadataCollectionsInfo(List<string> collections, Action<CommonResponse<List<GetCollectionInfoResponse>>> callback)
+        public static void MetadataCollectionsInfo(List<string> collections, Action<string> callback)
         {
             GetCollectionInfoRequest requestBody = new GetCollectionInfoRequest();
 
@@ -466,15 +466,15 @@ namespace MirrorworldSDK
 
             MirrorWrapper.Instance.GetCollectionInfo(rawRequestBody, (response)=> {
 
-                Debug.Log("MetadataCollectionsInfo response:"+response);
+                //Debug.Log("MetadataCollectionsInfo response:"+response);
 
-                CommonResponse<List<GetCollectionInfoResponse>> responseBody = JsonUtility.FromJson<CommonResponse<List<GetCollectionInfoResponse>>>(response);
+                //CommonResponse<List<GetCollectionInfoResponse>> responseBody = JsonUtility.FromJson<CommonResponse<List<GetCollectionInfoResponse>>>(response);
 
-                callback(responseBody);
+                callback(response);
             });
         }
 
-        public static void MetadataCollectionFilters(string collection, Action<CommonResponse<GetCollectionFilterInfoResponse>> callBack)
+        public static void MetadataCollectionFilters(string collection, Action<string> callBack)
         {
             Dictionary<string, string> requestParams = new Dictionary<string, string>();
 
@@ -482,9 +482,9 @@ namespace MirrorworldSDK
 
             MirrorWrapper.Instance.GetCollectionFilterInfo(requestParams, (response)=> {
 
-                CommonResponse<GetCollectionFilterInfoResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetCollectionFilterInfoResponse>>(response);
+                //CommonResponse<GetCollectionFilterInfoResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetCollectionFilterInfoResponse>>(response);
 
-                callBack(responseBody);
+                callBack(response);
             });
         }
 
@@ -505,7 +505,7 @@ namespace MirrorworldSDK
             MirrorWrapper.Instance.GetNFTInfo(mintAddress, callBack);
         }
 
-        public static void MetadataNFTsByUnabridgedParams(string collection, int page, int pageSize, string orderByString, bool desc, List<GetNFTsRequestFilter> filters, Action<CommonResponse<GetNFTsResponse>> callback)
+        public static void MetadataNFTsByUnabridgedParams(string collection, int page, int pageSize, string orderByString, bool desc, List<GetNFTsRequestFilter> filters, Action<string> callback)
         {
             GetNFTsRequest requestBody = new GetNFTsRequest();
 
@@ -527,13 +527,13 @@ namespace MirrorworldSDK
 
             MirrorWrapper.Instance.GetNFTsByUnabridgedParams(rawRequestBody, (response)=> {
 
-                CommonResponse<GetNFTsResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetNFTsResponse>>(response);
+                //CommonResponse<GetNFTsResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetNFTsResponse>>(response);
 
-                callback(responseBody);
+                callback(response);
             });
         }
 
-        public static void MetadataNFTEvents(string mintAddress, int page, int pageSize, Action<CommonResponse<GetNFTEventsResponse>> callback)
+        public static void MetadataNFTEvents(string mintAddress, int page, int pageSize, Action<string> callback)
         {
             GetNFTEventsRequest requestBody = new GetNFTEventsRequest();
 
@@ -547,13 +547,13 @@ namespace MirrorworldSDK
 
             MirrorWrapper.Instance.GetNFTEvents(rawRequestBody, (response)=> {
 
-                CommonResponse<GetNFTEventsResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetNFTEventsResponse>>(response);
+                //CommonResponse<GetNFTEventsResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetNFTEventsResponse>>(response);
 
-                callback(responseBody);
+                callback(response);
             });
         }
 
-        public static void MetadataSearchNFTs(List<string> collections, string searchString, Action<CommonResponse<List<MirrorMarketNFTObj>>> callback)
+        public static void MetadataSearchNFTs(List<string> collections, string searchString, Action<string> callback)
         {
             SolMetadataSearchNFTsReq req = new SolMetadataSearchNFTsReq();
 
@@ -564,13 +564,13 @@ namespace MirrorworldSDK
             string rawRequestBody = JsonUtility.ToJson(req);
 
             MirrorWrapper.Instance.SearchNFTs(rawRequestBody, (response)=> {
-                CommonResponse<List<MirrorMarketNFTObj>> responseBody = JsonUtility.FromJson<CommonResponse<List<MirrorMarketNFTObj>>>(response);
+                //CommonResponse<List<MirrorMarketNFTObj>> responseBody = JsonUtility.FromJson<CommonResponse<List<MirrorMarketNFTObj>>>(response);
 
-                callback(responseBody);
+                callback(response);
             });
         }
 
-        public static void MetadataRecommendSearchNFTs(List<string> collections, Action<CommonResponse<List<MirrorMarketNFTObj>>> callback)
+        public static void MetadataRecommendSearchNFTs(List<string> collections, Action<string> callback)
         {
             RecommendSearchNFTRequest requestBody = new RecommendSearchNFTRequest();
 
@@ -580,9 +580,9 @@ namespace MirrorworldSDK
 
             MirrorWrapper.Instance.RecommendSearchNFT(rawRequestBody, (response)=> {
 
-                CommonResponse<List<MirrorMarketNFTObj>> responseBody = JsonUtility.FromJson<CommonResponse<List<MirrorMarketNFTObj>>>(response);
+                //CommonResponse<List<MirrorMarketNFTObj>> responseBody = JsonUtility.FromJson<CommonResponse<List<MirrorMarketNFTObj>>>(response);
 
-                callback(responseBody);
+                callback(response);
             });
         }
     }
