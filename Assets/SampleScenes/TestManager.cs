@@ -284,7 +284,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("QueryUser", "email", null, null, null, null, null, "Query", "Query user info.", () => {
                 MirrorWorld.Solana.QueryUser(v1, (res) => {
-                    PrintLog("Query result:" + JsonUtility.ToJson(res));
+                    PrintLog("Query result:" + res);
                 });
             });
         }
@@ -292,8 +292,8 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("GetWalletTokens", null, null, null, null, null, null, "Get", "Get your tokens", () => {
                 MirrorWorld.Solana.GetTokens((res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("Get tokens result:" + body);
+                    
+                    PrintLog("Get tokens result:" + res);
                 });
             });
         }
@@ -302,8 +302,8 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("GetWalletTokensByWallet", "wallet address", "limit", "next_before", null, null, null, "Get", "Get your tokens", () => {
                 int limit = PrecisionUtil.StrToInt(v2);
                 MirrorWorld.Solana.GetTokensByWallet(v1,limit,v3,(res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("Get tokens result:" + body);
+                    
+                    PrintLog("Get tokens result:" + res);
                 });
             });
         }
@@ -322,8 +322,8 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("QueryNFT", "mint address", null, null, null, null, null, "GetNFTDetails", "GetNFTDetails", () => {
                 MirrorWorld.Solana.QueryNFT(v1, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -336,8 +336,8 @@ public class TestManager : MonoBehaviour
                 long offset = long.Parse(v3);
 
                 MirrorWorld.Solana.SearchNFTsByOwner(owners, limit, offset, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -347,8 +347,8 @@ public class TestManager : MonoBehaviour
                 List<string> list = new List<string>();
                 list.Add(v1);
                 MirrorWorld.Solana.SearchNFTsByMintAddress(list, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -374,12 +374,11 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == APINames.SolAssetMintNFT)
         {
-            SetInfoPanel("MintNFT", "parent collection", "name", "symbol", "url", "receive wallet", "amount", "MintNFT", "MintNFT", () => {
+            SetInfoPanel("MintNFT", "parent collection", "name", "mint_id", "url", "receive wallet", "amount", "MintNFT", "MintNFT", () => {
                 double amount = PrecisionUtil.StrToDouble(v6);
-                string mint_id = "demo_test_id";
-                MirrorWorld.Solana.MintNFT(v1, v2, v3, v4, Confirmation.Default, mint_id, v5, amount, approveFinished, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                MirrorWorld.Solana.MintNFT(v1, v2, "testsymbol", v4, Confirmation.Default, v3, v5, amount, approveFinished, (res) => {
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -387,8 +386,8 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("UpdateNFTProperties", "mint address", "name", "updateAuthority", "json url", null, null, "MintNFT", "MintNFT", () => {
                 MirrorWorld.Solana.UpdateNFT(v1, v2, "newsymbol", v3, v4, 200, Confirmation.Default, approveFinished, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -397,8 +396,8 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("ListNFT", "mint address", "price", "auction_house", null, null, null, "ListNFT", "ListNFT", () => {
                 double price = PrecisionUtil.StrToDouble(v2);
                 MirrorWorld.Solana.ListNFT(v1, price, v3, Confirmation.Default, approveFinished, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -408,8 +407,8 @@ public class TestManager : MonoBehaviour
                 double price = PrecisionUtil.StrToDouble(v2);
                 MirrorWorld.Solana.CancelListing(v1, price, v3, Confirmation.Default, approveFinished, (res) =>
                 {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -419,8 +418,8 @@ public class TestManager : MonoBehaviour
                 double price = PrecisionUtil.StrToDouble(v2);
                 Debug.Log("price:" + price);
                 MirrorWorld.Solana.BuyNFT(v1, price, v3, approveFinished, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -428,8 +427,8 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("Transfer NFT", "mint address", "to wallet", null, null, null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses", () => {
                 MirrorWorld.Solana.TransferNFT(v1, v2, approveFinished, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -438,8 +437,8 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("GetWalletTransactions", "number", "next_before", null, null, null, null, "GetWalletTransactions", "GetWalletTransactions", () => {
                 float price = PrecisionUtil.StrToFloat(v1);
                 MirrorWorld.Solana.GetTransactions(price, v2, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -448,8 +447,8 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("GetWalletTransactions", "wallet address", "limit", "next_before", null, null, null, "GetWalletTransactions", "GetWalletTransactions", () => {
                 int limit = PrecisionUtil.StrToInt(v2);
                 MirrorWorld.Solana.GetTransactionsByWallet(v1, limit, v3, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -458,8 +457,8 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("GetWalletTransactionsBySignatrue", "signature", null, null, null, null, null, "GetWalletTransactionsBySignatrue", "GetWalletTransactionsBySignatrue", () => {
                 MirrorWorld.Solana.GetTransactionsBySignature(v1, (res) =>
                 {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -472,8 +471,8 @@ public class TestManager : MonoBehaviour
 
                 MirrorWorld.Solana.CheckTransactionsStatus(signatures, (res) =>
                 {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("GetStatusOfTransactions result:" + body);
+                    
+                    PrintLog("GetStatusOfTransactions result:" + res);
                 });
             });
         }
@@ -485,8 +484,8 @@ public class TestManager : MonoBehaviour
                 if (v2 != "") mintAddresses.Add(v2);
                 MirrorWorld.Solana.CheckMintingStatus(mintAddresses, (res) =>
                 {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("GetStatusOfMintings result:" + body);
+                    
+                    PrintLog("GetStatusOfMintings result:" + res);
                 });
             });
         }
@@ -504,8 +503,8 @@ public class TestManager : MonoBehaviour
                 }
                 int price = (int)PrecisionUtil.StrToDouble(v1);
                 MirrorWorld.Solana.TransferSol(price, v2, Confirmation.Default, approveFinished, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -515,8 +514,8 @@ public class TestManager : MonoBehaviour
                 ulong price = PrecisionUtil.StrToULong(v1);
                 int decimals = PrecisionUtil.StrToInt(v3);
                 MirrorWorld.Solana.TransferToken(v4, decimals, price, v2, approveFinished, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -538,8 +537,8 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("GetCollectionFilterInfo", "collection", null, null, null, null, null, "Get", "Get collection filter info", () => {
                 string collection = v1;
                 MirrorWorld.Solana.MetadataCollectionFilters(v1, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -555,8 +554,8 @@ public class TestManager : MonoBehaviour
                     return;
                 }
                 MirrorWorld.Solana.MetadataCollectionsSummary(cols, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -568,8 +567,8 @@ public class TestManager : MonoBehaviour
                 collections.Add(collection1);
 
                 MirrorWorld.Solana.MetadataCollectionsInfo(collections, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -581,8 +580,8 @@ public class TestManager : MonoBehaviour
                 int pageSize = int.Parse(v3);
 
                 MirrorWorld.Solana.MetadataNFTEvents(mintAddress, page, pageSize, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -595,8 +594,8 @@ public class TestManager : MonoBehaviour
                 string searchString = v2;
 
                 MirrorWorld.Solana.MetadataSearchNFTs(collections, searchString, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -608,8 +607,8 @@ public class TestManager : MonoBehaviour
                 collections.Add(collection1);
 
                 MirrorWorld.Solana.MetadataRecommendSearchNFTs(collections, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -623,8 +622,8 @@ public class TestManager : MonoBehaviour
                 }
 
                 MirrorWorld.Solana.MetadataNFTInfo(v1, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -638,8 +637,8 @@ public class TestManager : MonoBehaviour
                 bool desc = true;
 
                 MirrorWorld.Solana.MetadataNFTsByUnabridgedParams(collection, page, pageSize, orderByString, desc, null, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -928,8 +927,8 @@ public class TestManager : MonoBehaviour
             SetInfoPanel("GetCollectionFilterInfo", "collection", null, null, null, null, null, "Get", "Get collection filter info", () => {
                 string collection = v1;
                 MirrorWorld.EVM.MetadataCollectionFilters(v1, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -957,8 +956,8 @@ public class TestManager : MonoBehaviour
                 collections.Add(collection1);
 
                 MirrorWorld.EVM.MetadataCollectionsInfo(collections, (res) => {
-                    var body = JsonUtility.ToJson(res);
-                    PrintLog("result:" + body);
+                    
+                    PrintLog("result:" + res);
                 });
             });
         }

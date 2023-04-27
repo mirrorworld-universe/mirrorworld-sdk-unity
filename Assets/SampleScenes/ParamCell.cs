@@ -6,6 +6,7 @@ using UnityEngine;
 public class ParamCell : MonoBehaviour
 {
     public GameObject cellObject;
+    public TMP_InputField totalInputField;
     public TextMeshProUGUI titleText;
     public TextMeshProUGUI inputText;
     public TextMeshProUGUI hintText;
@@ -24,6 +25,7 @@ public class ParamCell : MonoBehaviour
     public void Show(string title, string hint)
     {
         cellObject.SetActive(true);
+        totalInputField.text = "";
         titleText.text = title;
         hintText.text = hint;
     }

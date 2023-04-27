@@ -35,7 +35,7 @@ namespace MirrorWorld
             MWClientWrapper.Logout(logoutAction);
         }
 
-        public static void QueryUser(string email, Action<CommonResponse<UserResponse>> callback)
+        public static void QueryUser(string email, Action<string> callback)
         {
             MWClientWrapper.QueryUser(email, callback);
         }
@@ -109,7 +109,7 @@ namespace MirrorWorld
             MWEVMWrapper.GetTransactionsByWallet(wallet_address, limit, action);
         }
 
-        public static void GetTransactionsBySignature(string signature, Action<CommonResponse<TransferTokenResponse>> action)
+        public static void GetTransactionsBySignature(string signature, Action<string> action)
         {
             MWEVMWrapper.GetTransactionsBySignature(signature, action);
         }

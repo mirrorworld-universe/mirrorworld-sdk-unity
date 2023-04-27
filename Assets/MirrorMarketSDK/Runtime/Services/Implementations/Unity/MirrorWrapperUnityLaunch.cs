@@ -1,8 +1,7 @@
 ﻿
-using System;
+
 using MirrorworldSDK.Models;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace MirrorworldSDK.Wrapper
 {

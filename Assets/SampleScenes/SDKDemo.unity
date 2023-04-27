@@ -3574,6 +3574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cellObject: {fileID: 314185004}
+  totalInputField: {fileID: 1890194635}
   titleText: {fileID: 1415311033}
   inputText: {fileID: 1537206621}
   hintText: {fileID: 1305575130}
@@ -8559,6 +8560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cellObject: {fileID: 737694161}
+  totalInputField: {fileID: 2078833959}
   titleText: {fileID: 1753501570}
   inputText: {fileID: 1420356327}
   hintText: {fileID: 1054845957}
@@ -10801,6 +10803,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cellObject: {fileID: 915804180}
+  totalInputField: {fileID: 555253737}
   titleText: {fileID: 267750892}
   inputText: {fileID: 1366287754}
   hintText: {fileID: 1580003016}
@@ -21604,6 +21607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cellObject: {fileID: 1695137914}
+  totalInputField: {fileID: 715852473}
   titleText: {fileID: 2099892387}
   inputText: {fileID: 1837582922}
   hintText: {fileID: 251848539}
@@ -23259,6 +23263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cellObject: {fileID: 1851070319}
+  totalInputField: {fileID: 2126318765}
   titleText: {fileID: 323816635}
   inputText: {fileID: 344924760}
   hintText: {fileID: 1711500485}
@@ -25300,6 +25305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cellObject: {fileID: 2078205590}
+  totalInputField: {fileID: 107034047}
   titleText: {fileID: 1496662669}
   inputText: {fileID: 86725657}
   hintText: {fileID: 1518274271}

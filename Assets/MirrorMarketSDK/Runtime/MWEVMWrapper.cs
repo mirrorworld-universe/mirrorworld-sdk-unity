@@ -219,13 +219,13 @@ public class MWEVMWrapper
         MirrorWrapper.Instance.GetWalletTransactionsByWallet(wallet_address, requestParams, action);
     }
 
-    public static void GetTransactionsBySignature(string signature, Action<CommonResponse<TransferTokenResponse>> action)
+    public static void GetTransactionsBySignature(string signature, Action<string> action)
     {
         MirrorWrapper.Instance.GetWalletTransactionsBySignatrue(signature, (response) => {
 
-            CommonResponse<TransferTokenResponse> responseBody = JsonUtility.FromJson<CommonResponse<TransferTokenResponse>>(response);
+            //CommonResponse<TransferTokenResponse> responseBody = JsonUtility.FromJson<CommonResponse<TransferTokenResponse>>(response);
 
-            action(responseBody);
+            action(response);
         });
     }
 
