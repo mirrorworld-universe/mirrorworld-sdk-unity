@@ -22,6 +22,6 @@ namespace MirrorworldSDK.Interfaces
 
         public void GetAccessToken(Action<bool> action);
         
-        public void QueryUser(string email, Action<CommonResponse<UserResponse>> callBack);
+        public void QueryUser(string email, Action<string> callBack);
     }
 }

@@ -34,7 +34,7 @@ namespace MirrorWorld
             MWClientWrapper.Logout(logoutAction);
         }
 
-        public static void QueryUser(string email, Action<CommonResponse<UserResponse>> callback)
+        public static void QueryUser(string email, Action<string> callback)
         {
             MWClientWrapper.QueryUser(email,callback);
         }

@@ -284,7 +284,7 @@ public class TestManager : MonoBehaviour
         {
             SetInfoPanel("QueryUser", "email", null, null, null, null, null, "Query", "Query user info.", () => {
                 MirrorWorld.Solana.QueryUser(v1, (res) => {
-                    PrintLog("Query result:" + JsonUtility.ToJson(res));
+                    PrintLog("Query result:" + res);
                 });
             });
         }
@@ -374,10 +374,9 @@ public class TestManager : MonoBehaviour
         }
         else if (btnName == APINames.SolAssetMintNFT)
         {
-            SetInfoPanel("MintNFT", "parent collection", "name", "symbol", "url", "receive wallet", "amount", "MintNFT", "MintNFT", () => {
+            SetInfoPanel("MintNFT", "parent collection", "name", "mint_id", "url", "receive wallet", "amount", "MintNFT", "MintNFT", () => {
                 double amount = PrecisionUtil.StrToDouble(v6);
-                string mint_id = "demo_test_id";
-                MirrorWorld.Solana.MintNFT(v1, v2, v3, v4, Confirmation.Default, mint_id, v5, amount, approveFinished, (res) => {
+                MirrorWorld.Solana.MintNFT(v1, v2, "testsymbol", v4, Confirmation.Default, v3, v5, amount, approveFinished, (res) => {
                     
                     PrintLog("result:" + res);
                 });
