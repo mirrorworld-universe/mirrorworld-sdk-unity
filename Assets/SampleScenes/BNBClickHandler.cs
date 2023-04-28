@@ -198,7 +198,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             {
                 MWSDK.BNB.QueryUser(v1, (res) =>
                 {
-                    PrintLog("Query result:" + JsonUtility.ToJson(res));
+                    PrintLog("Query result:" + res);
                 });
             });
         }
@@ -447,7 +447,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             List<string> collections = new List<string>();
             collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
 
-            MWSDK.BNB.OpenMarket("https://jump-devnet.MWSDK.BNB.fun");
+            MWSDK.BNB.OpenMarket("https://jump-devnet.mirrorworld.fun");
         }
         else if (btnName == APINames.SolMetadataGetCollectionFiltersInfo)
         {

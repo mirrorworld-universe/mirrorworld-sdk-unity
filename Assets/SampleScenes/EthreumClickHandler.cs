@@ -169,7 +169,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 MirrorWrapper.Instance.LoginAsDeveloper((loginSuccess) =>
                 {
 
-                    MWSDK.DebugLog("GuestLogin result:" + JsonUtility.ToJson(loginResponse));
+                    //MWSDK.DebugLog("GuestLogin result:" + JsonUtility.ToJson(loginResponse));
 
                     UniversalDialog dialog = null;
                     dialog = ShowUniversalNotice("Guest Login", "Guest login success! But a guest account can not visit sensitive APIs.", "OK", null,
@@ -198,7 +198,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             {
                 MWSDK.Ethereum.QueryUser(v1, (res) =>
                 {
-                    PrintLog("Query result:" + JsonUtility.ToJson(res));
+                    PrintLog("Query result:" + res);
                 });
             });
         }
@@ -447,7 +447,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             List<string> collections = new List<string>();
             collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
 
-            MWSDK.Ethereum.OpenMarket("https://jump-devnet.MWSDK.Ethereum.fun");
+            MWSDK.Ethereum.OpenMarket("https://jump-devnet.mirrorworld.fun");
         }
         else if (btnName == APINames.SolMetadataGetCollectionFiltersInfo)
         {
@@ -456,7 +456,6 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 string collection = v1;
                 MWSDK.Ethereum.Metadata.MetadataCollectionFilters(v1, (res) =>
                 {
-
                     PrintLog("result:" + res);
                 });
             });
@@ -489,7 +488,6 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
 
                 MWSDK.Ethereum.Metadata.MetadataCollectionsInfo(collections, (res) =>
                 {
-
                     PrintLog("result:" + res);
                 });
             });

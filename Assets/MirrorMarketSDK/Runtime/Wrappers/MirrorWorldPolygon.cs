@@ -51,24 +51,18 @@ namespace MirrorWorld
         public void OpenMarket(string marketUrl)
         {
             MWClientWrapper.OpenMarketPage(marketUrl);
-        }
-        
-
-
-        
-
-        
+        }  
     }
 
     public class PolygonMetadata
     {
         //Metadata/Collections
-        public void MetadataCollectionsInfo(List<string> collections, Action<CommonResponse<List<GetCollectionInfoResponse>>> callback)
+        public void MetadataCollectionsInfo(List<string> collections, Action<string> callback)
         {
             MWEVMWrapper.MetadataCollectionsInfo(collections, callback);
         }
 
-        public void MetadataCollectionFilters(string collection, Action<CommonResponse<GetCollectionFilterInfoResponse>> callBack)
+        public void MetadataCollectionFilters(string collection, Action<string> callBack)
         {
             MWEVMWrapper.MetadataCollectionFilters(collection, callBack);
         }

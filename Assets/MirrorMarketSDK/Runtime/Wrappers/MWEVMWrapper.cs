@@ -317,7 +317,7 @@ public class MWEVMWrapper
     }
 
     //Metadata/Collections
-    public static void MetadataCollectionsInfo(List<string> collections, Action<CommonResponse<List<GetCollectionInfoResponse>>> callback)
+    public static void MetadataCollectionsInfo(List<string> collections, Action<string> callback)
     {
         GetCollectionInfoRequest requestBody = new GetCollectionInfoRequest();
 
@@ -327,13 +327,13 @@ public class MWEVMWrapper
 
         MirrorWrapper.Instance.GetCollectionInfo(rawRequestBody, (response) => {
 
-            CommonResponse<List<GetCollectionInfoResponse>> responseBody = JsonUtility.FromJson<CommonResponse<List<GetCollectionInfoResponse>>>(response);
+            //CommonResponse<List<GetCollectionInfoResponse>> responseBody = JsonUtility.FromJson<CommonResponse<List<GetCollectionInfoResponse>>>(response);
 
-            callback(responseBody);
+            callback(response);
         });
     }
 
-    public static void MetadataCollectionFilters(string collection, Action<CommonResponse<GetCollectionFilterInfoResponse>> callBack)
+    public static void MetadataCollectionFilters(string collection, Action<string> callBack)
     {
         Dictionary<string, string> requestParams = new Dictionary<string, string>();
 
@@ -341,9 +341,9 @@ public class MWEVMWrapper
 
         MirrorWrapper.Instance.GetCollectionFilterInfo(requestParams, (response) => {
 
-            CommonResponse<GetCollectionFilterInfoResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetCollectionFilterInfoResponse>>(response);
+            //CommonResponse<GetCollectionFilterInfoResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetCollectionFilterInfoResponse>>(response);
 
-            callBack(responseBody);
+            callBack(response);
         });
     }
 
