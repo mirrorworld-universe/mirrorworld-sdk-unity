@@ -153,14 +153,14 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
         else if (btnName == APINames.ClientStartLogin)
         {
             notOpenDetail = true;
-            MWSDK.Solana.StartLogin((loginResponse) => {
+            MWSDK.StartLogin((loginResponse) => {
                 MWSDK.DebugLog("Login result:" + JsonUtility.ToJson(loginResponse));
             });
         }
         else if (btnName == APINames.ClientGuestLogin)
         {
             notOpenDetail = true;
-            MWSDK.Solana.GuestLogin((loginResponse) => {
+            MWSDK.GuestLogin((loginResponse) => {
                 MirrorWrapper.Instance.LoginAsDeveloper((loginSuccess) => {
 
                     MWSDK.DebugLog("GuestLogin result:" + JsonUtility.ToJson(loginResponse));
@@ -178,7 +178,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
         else if (btnName == APINames.ClientLoginWithEmail)
         {
             SetInfoPanel("LoginWithEmail", "email", "password", null, null, null, null, "Login", "Login with a registed email.", () => {
-                MWSDK.Solana.LoginWithEmail(v1, v2, (res) => {
+                MWSDK.LoginWithEmail(v1, v2, (res) => {
                     PrintLog("Login result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -186,7 +186,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
         else if (btnName == APINames.ClientQueryUser)
         {
             SetInfoPanel("QueryUser", "email", null, null, null, null, null, "Query", "Query user info.", () => {
-                MWSDK.Solana.QueryUser(v1, (res) => {
+                MWSDK.QueryUser(v1, (res) => {
                     PrintLog("Query result:" + res);
                 });
             });
@@ -213,7 +213,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
         else if (btnName == APINames.ClientLogout)
         {
             notOpenDetail = true;
-            MWSDK.Solana.Logout(() => {
+            MWSDK.Logout(() => {
                 UniversalDialog dialog = null;
                 Action yesAction = () => {
                     dialog.DestroyDialog();
@@ -259,7 +259,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
         {
             SetInfoPanel("IsLoggedIn", null, null, null, null, null, null, "IsLoggedIn", "IsLoggedIn", () =>
             {
-                MWSDK.Solana.IsLogged((res) => {
+                MWSDK.IsLogged((res) => {
                     PrintLog("result:" + res);
                 });
             }
@@ -425,7 +425,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
         else if (btnName == APINames.ClientOpenWallet)
         {
             notOpenDetail = true;
-            MWSDK.Solana.OpenWallet(() => {
+            MWSDK.OpenWallet(() => {
                 MWSDK.DebugLog("Wallet logout callback runs!!");
             });
         }
@@ -433,7 +433,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
         {
             notOpenDetail = true;
 
-            MWSDK.Solana.OpenMarket("https://jump-devnet.mirrorWorld.fun");
+            MWSDK.OpenMarket("https://jump-devnet.mirrorWorld.fun");
         }
         else if (btnName == APINames.SolMetadataGetCollectionFiltersInfo)
         {

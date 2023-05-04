@@ -156,7 +156,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
         else if (btnName == APINames.ClientStartLogin)
         {
             notOpenDetail = true;
-            MWSDK.Polygon.StartLogin((loginResponse) =>
+            MWSDK.StartLogin((loginResponse) =>
             {
                 MWSDK.DebugLog("Login result:" + JsonUtility.ToJson(loginResponse));
             });
@@ -164,7 +164,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
         else if (btnName == APINames.ClientGuestLogin)
         {
             notOpenDetail = true;
-            MWSDK.Polygon.GuestLogin((loginResponse) =>
+            MWSDK.GuestLogin((loginResponse) =>
             {
                 MirrorWrapper.Instance.LoginAsDeveloper((loginSuccess) =>
                 {
@@ -186,7 +186,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
         {
             SetInfoPanel("LoginWithEmail", "email", "password", null, null, null, null, "Login", "Login with a registed email.", () =>
             {
-                MWSDK.Polygon.LoginWithEmail(v1, v2, (res) =>
+                MWSDK.LoginWithEmail(v1, v2, (res) =>
                 {
                     PrintLog("Login result:" + JsonUtility.ToJson(res));
                 });
@@ -196,7 +196,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
         {
             SetInfoPanel("QueryUser", "email", null, null, null, null, null, "Query", "Query user info.", () =>
             {
-                MWSDK.Polygon.QueryUser(v1, (res) =>
+                MWSDK.QueryUser(v1, (res) =>
                 {
                     PrintLog("Query result:" + res);
                 });
@@ -225,7 +225,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
         else if (btnName == APINames.ClientLogout)
         {
             notOpenDetail = true;
-            MWSDK.Polygon.Logout(() =>
+            MWSDK.Logout(() =>
             {
                 UniversalDialog dialog = null;
                 Action yesAction = () =>
@@ -276,7 +276,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
         {
             SetInfoPanel("IsLoggedIn", null, null, null, null, null, null, "IsLoggedIn", "IsLoggedIn", () =>
             {
-                MWSDK.Polygon.IsLogged((res) =>
+                MWSDK.IsLogged((res) =>
                 {
                     PrintLog("result:" + res);
                 });
@@ -436,7 +436,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
         else if (btnName == APINames.ClientOpenWallet)
         {
             notOpenDetail = true;
-            MWSDK.Polygon.OpenWallet(() =>
+            MWSDK.OpenWallet(() =>
             {
                 MWSDK.DebugLog("Wallet logout callback runs!!");
             });
@@ -447,7 +447,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             List<string> collections = new List<string>();
             collections.Add("BXqCckKEidhJUpYrg4u2ocdiDKwJY3WujHvVDPTMf6nL");
 
-            MWSDK.Polygon.OpenMarket("https://jump-devnet.mirrorworld.fun");
+            MWSDK.OpenMarket("https://jump-devnet.mirrorworld.fun");
         }
         else if (btnName == APINames.SolMetadataGetCollectionFiltersInfo)
         {

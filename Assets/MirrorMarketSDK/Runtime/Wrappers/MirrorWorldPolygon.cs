@@ -13,45 +13,45 @@ namespace MirrorWorld
         public PolygonWallet Wallet = new PolygonWallet();
         public PolygonMetadata Metadata = new PolygonMetadata();
         //Client
-        public void StartLogin(Action<LoginResponse> action)
-        {
-            MWClientWrapper.StartLogin(action);
-        }
+        //public void StartLogin(Action<LoginResponse> action)
+        //{
+        //    MWClientWrapper.StartLogin(action);
+        //}
 
-        public void LoginWithEmail(string emailAddress, string password, Action<CommonResponse<LoginResponse>> callBack)
-        {
-            MWClientWrapper.LoginWithEmail(emailAddress, password, callBack);
-        }
+        //public void LoginWithEmail(string emailAddress, string password, Action<CommonResponse<LoginResponse>> callBack)
+        //{
+        //    MWClientWrapper.LoginWithEmail(emailAddress, password, callBack);
+        //}
 
-        public void IsLogged(Action<bool> action)
-        {
-            MWClientWrapper.IsLoggedIn(action);
-        }
+        //public void IsLogged(Action<bool> action)
+        //{
+        //    MWClientWrapper.IsLoggedIn(action);
+        //}
 
-        public void GuestLogin(Action<LoginResponse> action)
-        {
-            MWClientWrapper.GuestLogin(action);
-        }
+        //public void GuestLogin(Action<LoginResponse> action)
+        //{
+        //    MWClientWrapper.GuestLogin(action);
+        //}
 
-        public void Logout(Action logoutAction)
-        {
-            MWClientWrapper.Logout(logoutAction);
-        }
+        //public void Logout(Action logoutAction)
+        //{
+        //    MWClientWrapper.Logout(logoutAction);
+        //}
 
-        public void QueryUser(string email, Action<string> callback)
-        {
-            MWClientWrapper.QueryUser(email, callback);
-        }
+        //public void QueryUser(string email, Action<string> callback)
+        //{
+        //    MWClientWrapper.QueryUser(email, callback);
+        //}
 
-        public void OpenWallet(Action walletLogoutAction)
-        {
-            MWClientWrapper.OpenWalletPage(walletLogoutAction);
-        }
+        //public void OpenWallet(Action walletLogoutAction)
+        //{
+        //    MWClientWrapper.OpenWalletPage(walletLogoutAction);
+        //}
 
-        public void OpenMarket(string marketUrl)
-        {
-            MWClientWrapper.OpenMarketPage(marketUrl);
-        }  
+        //public void OpenMarket(string marketUrl)
+        //{
+        //    MWClientWrapper.OpenMarketPage(marketUrl);
+        //}  
     }
 
     public class PolygonMetadata
