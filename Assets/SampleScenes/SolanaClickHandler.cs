@@ -439,7 +439,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
         {
             SetInfoPanel("GetCollectionFilterInfo", "collection", null, null, null, null, null, "Get", "Get collection filter info", () => {
                 string collection = v1;
-                MWSDK.Solana.Metadata.MetadataCollectionFilters(v1, (res) => {
+                MWSDK.Solana.Metadata.GetCollectionFilters(v1, (res) => {
 
                     PrintLog("result:" + res);
                 });
@@ -456,7 +456,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                     PrintLog("Please input something.");
                     return;
                 }
-                MWSDK.Solana.Metadata.MetadataCollectionsSummary(cols, (res) => {
+                MWSDK.Solana.Metadata.GetCollectionsSummary(cols, (res) => {
 
                     PrintLog("result:" + res);
                 });
@@ -469,7 +469,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 List<string> collections = new List<string>();
                 collections.Add(collection1);
 
-                MWSDK.Solana.Metadata.MetadataCollectionsInfo(collections, (res) => {
+                MWSDK.Solana.Metadata.GetCollectionsInfo(collections, (res) => {
 
                     PrintLog("result:" + res);
                 });
@@ -482,7 +482,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 int page = int.Parse(v2);
                 int pageSize = int.Parse(v3);
 
-                MWSDK.Solana.Metadata.MetadataNFTEvents(mintAddress, page, pageSize, (res) => {
+                MWSDK.Solana.Metadata.GetNFTEvents(mintAddress, page, pageSize, (res) => {
 
                     PrintLog("result:" + res);
                 });
@@ -496,7 +496,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 collections.Add(collection1);
                 string searchString = v2;
 
-                MWSDK.Solana.Metadata.MetadataSearchNFTs(collections, searchString, (res) => {
+                MWSDK.Solana.Metadata.SearchNFTs(collections, searchString, (res) => {
 
                     PrintLog("result:" + res);
                 });
@@ -509,7 +509,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 List<string> collections = new List<string>();
                 collections.Add(collection1);
 
-                MWSDK.Solana.Metadata.MetadataRecommendSearchNFTs(collections, (res) => {
+                MWSDK.Solana.Metadata.RecommendSearchNFTs(collections, (res) => {
 
                     PrintLog("result:" + res);
                 });
@@ -524,7 +524,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                     return;
                 }
 
-                MWSDK.Solana.Metadata.MetadataNFTInfo(v1, (res) => {
+                MWSDK.Solana.Metadata.GetNFTInfo(v1, (res) => {
 
                     PrintLog("result:" + res);
                 });
@@ -539,7 +539,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 string orderByString = v4;
                 bool desc = true;
 
-                MWSDK.Solana.Metadata.MetadataNFTsByUnabridgedParams(collection, page, pageSize, orderByString, desc, null, (res) => {
+                MWSDK.Solana.Metadata.GetNFTs(collection, page, pageSize, orderByString, desc, null, (res) => {
 
                     PrintLog("result:" + res);
                 });

@@ -454,7 +454,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             SetInfoPanel("GetCollectionFilterInfo", "collection", null, null, null, null, null, "Get", "Get collection filter info", () =>
             {
                 string collection = v1;
-                MWSDK.BNB.Metadata.MetadataCollectionFilters(v1, (res) =>
+                MWSDK.BNB.Metadata.GetCollectionFilters(v1, (res) =>
                 {
 
                     PrintLog("result:" + res);
@@ -473,7 +473,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                     PrintLog("Please input something.");
                     return;
                 }
-                MWSDK.BNB.Metadata.MetadataCollectionsSummary(cols, (res) =>
+                MWSDK.BNB.Metadata.GetCollectionsSummary(cols, (res) =>
                 {
                     PrintLog("result:" + res);
                 });
@@ -487,7 +487,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 List<string> collections = new List<string>();
                 collections.Add(collection1);
 
-                MWSDK.BNB.Metadata.MetadataCollectionsInfo(collections, (res) =>
+                MWSDK.BNB.Metadata.GetCollectionsInfo(collections, (res) =>
                 {
 
                     PrintLog("result:" + res);
@@ -503,7 +503,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 int pageSize = int.Parse(v3);
                 int tokenID = int.Parse(v4);
 
-                MWSDK.BNB.Metadata.MetadataNFTEvents(v1, page, pageSize, tokenID, v5, (res) =>
+                MWSDK.BNB.Metadata.GetNFTEvents(v1, page, pageSize, tokenID, v5, (res) =>
                 {
                     PrintLog("result:" + res);
                 });
@@ -518,7 +518,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 collections.Add(collection1);
                 string searchString = v2;
 
-                MWSDK.BNB.Metadata.MetadataSearchNFTs(collections, searchString, (res) =>
+                MWSDK.BNB.Metadata.SearchNFTs(collections, searchString, (res) =>
                 {
                     PrintLog("result:" + res);
                 });
@@ -532,7 +532,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 List<string> collections = new List<string>();
                 collections.Add(collection1);
 
-                MWSDK.BNB.Metadata.MetadataRecommendSearchNFTs(collections, (res) =>
+                MWSDK.BNB.Metadata.RecommendSearchNFTs(collections, (res) =>
                 {
                     PrintLog("result:" + res);
                 });
@@ -544,7 +544,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             {
                 //int tokenID = PrecisionUtil.StrToInt(v2);
 
-                MWSDK.BNB.Metadata.MetadataNFTInfo(v1, v2, (res) =>
+                MWSDK.BNB.Metadata.GetNFTInfo(v1, v2, (res) =>
                 {
                     PrintLog("result:" + res);
                 });
@@ -560,7 +560,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 string orderByString = v4;
                 bool desc = true;
 
-                MWSDK.BNB.Metadata.MetadataNFTsByUnabridgedParams(collection, page, pageSize, orderByString, desc, null, (res) =>
+                MWSDK.BNB.Metadata.GetNFTs(collection, page, pageSize, orderByString, desc, null, (res) =>
                 {
                     PrintLog("result:" + res);
                 });

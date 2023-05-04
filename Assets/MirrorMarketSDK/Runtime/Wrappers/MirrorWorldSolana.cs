@@ -118,43 +118,43 @@ namespace MirrorWorld
     {
 
         //Metadata/Collections
-        public void MetadataCollectionsInfo(List<string> collections, Action<string> callback)
+        public void GetCollectionsInfo(List<string> collections, Action<string> callback)
         {
             MWSolanaWrapper.MetadataCollectionsInfo(collections, callback);
         }
 
-        public void MetadataCollectionFilters(string collection, Action<string> callBack)
+        public void GetCollectionFilters(string collection, Action<string> callBack)
         {
             MWSolanaWrapper.MetadataCollectionFilters(collection, callBack);
         }
 
-        public void MetadataCollectionsSummary(List<string> collections, Action<string> action)
+        public void GetCollectionsSummary(List<string> collections, Action<string> action)
         {
             MWSolanaWrapper.MetadataCollectionsSummary(collections, action);
         }
 
         //Metadata/NFT
-        public void MetadataNFTInfo(string mintAddress, Action<string> callBack)
+        public void GetNFTInfo(string mintAddress, Action<string> callBack)
         {
             MWSolanaWrapper.MetadataNFTInfo(mintAddress, callBack);
         }
 
-        public void MetadataNFTsByUnabridgedParams(string collection, int page, int pageSize, string orderByString, bool desc, List<GetNFTsRequestFilter> filters, Action<string> callback)
+        public void GetNFTs(string collection, int page, int pageSize, string orderByString, bool desc, List<GetNFTsRequestFilter> filters, Action<string> callback)
         {
             MWSolanaWrapper.MetadataNFTsByUnabridgedParams(collection, page, pageSize, orderByString, desc, filters, callback);
         }
 
-        public void MetadataNFTEvents(string mintAddress, int page, int pageSize, Action<string> callback)
+        public void GetNFTEvents(string mintAddress, int page, int pageSize, Action<string> callback)
         {
             MWSolanaWrapper.MetadataNFTEvents(mintAddress, page, pageSize, callback);
         }
 
-        public void MetadataSearchNFTs(List<string> collections, string searchString, Action<string> callback)
+        public void SearchNFTs(List<string> collections, string searchString, Action<string> callback)
         {
             MWSolanaWrapper.MetadataSearchNFTs(collections, searchString, callback);
         }
 
-        public void MetadataRecommendSearchNFTs(List<string> collections, Action<string> callback)
+        public void RecommendSearchNFTs(List<string> collections, Action<string> callback)
         {
             MWSolanaWrapper.MetadataRecommendSearchNFTs(collections, callback);
         }

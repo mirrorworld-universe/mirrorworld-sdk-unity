@@ -454,7 +454,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             SetInfoPanel("GetCollectionFilterInfo", "collection", null, null, null, null, null, "Get", "Get collection filter info", () =>
             {
                 string collection = v1;
-                MWSDK.Polygon.Metadata.MetadataCollectionFilters(v1, (res) =>
+                MWSDK.Polygon.Metadata.GetCollectionFilters(v1, (res) =>
                 {
 
                     PrintLog("result:" + res);
@@ -473,7 +473,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                     PrintLog("Please input something.");
                     return;
                 }
-                MWSDK.Polygon.Metadata.MetadataCollectionsSummary(cols, (res) =>
+                MWSDK.Polygon.Metadata.GetCollectionsSummary(cols, (res) =>
                 {
                     PrintLog("result:" + res);
                 });
@@ -487,7 +487,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 List<string> collections = new List<string>();
                 collections.Add(collection1);
 
-                MWSDK.Polygon.Metadata.MetadataCollectionsInfo(collections, (res) =>
+                MWSDK.Polygon.Metadata.GetCollectionsInfo(collections, (res) =>
                 {
 
                     PrintLog("result:" + res);
@@ -503,7 +503,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 int pageSize = int.Parse(v3);
                 int tokenID = int.Parse(v4);
 
-                MWSDK.Polygon.Metadata.MetadataNFTEvents(v1, page, pageSize, tokenID, v5, (res) =>
+                MWSDK.Polygon.Metadata.GetNFTEvents(v1, page, pageSize, tokenID, v5, (res) =>
                 {
                     PrintLog("result:" + res);
                 });
@@ -518,7 +518,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 collections.Add(collection1);
                 string searchString = v2;
 
-                MWSDK.Polygon.Metadata.MetadataSearchNFTs(collections, searchString, (res) =>
+                MWSDK.Polygon.Metadata.SearchNFTs(collections, searchString, (res) =>
                 {
                     PrintLog("result:" + res);
                 });
@@ -532,7 +532,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 List<string> collections = new List<string>();
                 collections.Add(collection1);
 
-                MWSDK.Polygon.Metadata.MetadataRecommendSearchNFTs(collections, (res) =>
+                MWSDK.Polygon.Metadata.RecommendSearchNFTs(collections, (res) =>
                 {
                     PrintLog("result:" + res);
                 });
@@ -544,7 +544,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             {
                 //int tokenID = PrecisionUtil.StrToInt(v2);
 
-                MWSDK.Polygon.Metadata.MetadataNFTInfo(v1, v2, (res) =>
+                MWSDK.Polygon.Metadata.GetNFTInfo(v1, v2, (res) =>
                 {
                     PrintLog("result:" + res);
                 });
@@ -560,7 +560,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 string orderByString = v4;
                 bool desc = true;
 
-                MWSDK.Polygon.Metadata.MetadataNFTsByUnabridgedParams(collection, page, pageSize, orderByString, desc, null, (res) =>
+                MWSDK.Polygon.Metadata.GetNFTs(collection, page, pageSize, orderByString, desc, null, (res) =>
                 {
                     PrintLog("result:" + res);
                 });

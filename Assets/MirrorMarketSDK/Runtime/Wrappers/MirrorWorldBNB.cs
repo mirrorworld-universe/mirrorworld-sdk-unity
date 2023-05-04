@@ -57,43 +57,43 @@ namespace MirrorWorld
     public class BNBMetadata
     {
         //Metadata/Collections
-        public void MetadataCollectionsInfo(List<string> collections, Action<string> callback)
+        public void GetCollectionsInfo(List<string> collections, Action<string> callback)
         {
             MWEVMWrapper.MetadataCollectionsInfo(collections, callback);
         }
 
-        public void MetadataCollectionFilters(string collection, Action<string> callBack)
+        public void GetCollectionFilters(string collection, Action<string> callBack)
         {
             MWEVMWrapper.MetadataCollectionFilters(collection, callBack);
         }
 
-        public void MetadataCollectionsSummary(List<string> collections, Action<string> action)
+        public void GetCollectionsSummary(List<string> collections, Action<string> action)
         {
             MWEVMWrapper.MetadataCollectionsSummary(collections, action);
         }
 
         //Metadata/NFT
-        public void MetadataNFTInfo(string contract, string token_id, Action<string> callBack)
+        public void GetNFTInfo(string contract, string token_id, Action<string> callBack)
         {
             MWEVMWrapper.MetadataNFTInfo(contract, token_id, callBack);
         }
 
-        public void MetadataNFTsByUnabridgedParams(string collection, int page, int pageSize, string orderByString, bool desc, List<EVMGetNFTsByParamsReqFilter> filters, Action<string> callback)
+        public void GetNFTs(string collection, int page, int pageSize, string orderByString, bool desc, List<EVMGetNFTsByParamsReqFilter> filters, Action<string> callback)
         {
             MWEVMWrapper.MetadataNFTsByUnabridgedParams(collection, page, pageSize, orderByString, desc, filters, callback);
         }
 
-        public void MetadataNFTEvents(string contract, int page, int pageSize, int token_id, string marketplace_address, Action<string> callback)
+        public void GetNFTEvents(string contract, int page, int pageSize, int token_id, string marketplace_address, Action<string> callback)
         {
             MWEVMWrapper.MetadataNFTEvents(contract, page, pageSize, token_id, marketplace_address, callback);
         }
 
-        public void MetadataSearchNFTs(List<string> collections, string searchString, Action<string> callback)
+        public void SearchNFTs(List<string> collections, string searchString, Action<string> callback)
         {
             MWEVMWrapper.MetadataSearchNFTs(collections, searchString, callback);
         }
 
-        public void MetadataRecommendSearchNFTs(List<string> collections, Action<string> callback)
+        public void RecommendSearchNFTs(List<string> collections, Action<string> callback)
         {
             MWEVMWrapper.MetadataCollectionsSummary(collections, callback);
         }
