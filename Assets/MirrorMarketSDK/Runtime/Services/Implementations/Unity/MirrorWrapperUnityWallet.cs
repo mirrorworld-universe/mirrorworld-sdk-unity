@@ -56,7 +56,7 @@ namespace MirrorworldSDK.Wrapper
 
         public void GetWalletTransactionsByWallet(string walletAddress, Dictionary<string, string> requestParams, Action<string> action)
         {
-            string url = UrlUtils.GetMirrorGetUrl(MirrorService.Wallet) + "wallet/" + walletAddress + "/transactions";
+            string url = UrlUtils.GetMirrorGetUrl(MirrorService.Wallet) + walletAddress + "/transactions";
 
             monoBehaviour.StartCoroutine(CheckAndGet(url, requestParams, (response) =>
             {
