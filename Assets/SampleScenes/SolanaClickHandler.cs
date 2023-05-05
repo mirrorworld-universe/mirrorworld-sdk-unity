@@ -187,7 +187,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
         {
             SetInfoPanel("QueryUser", "email", null, null, null, null, null, "Query", "Query user info.", () => {
                 MWSDK.QueryUser(v1, (res) => {
-                    PrintLog("Query result:" + res);
+                    PrintLog("Query result:" + JsonUtility.ToJson(res));
                 });
             });
         }

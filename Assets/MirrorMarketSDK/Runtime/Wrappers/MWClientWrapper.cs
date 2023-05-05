@@ -104,7 +104,7 @@ public class MWClientWrapper
         MirrorWrapper.Instance.Logout(logoutAction);
     }
 
-    public static void QueryUser(string email, Action<string> callback)
+    public static void QueryUser(string email, Action<CommonResponse<UserResponse>> callback)
     {
         MirrorWrapper.Instance.QueryUser(email, (response) =>
         {

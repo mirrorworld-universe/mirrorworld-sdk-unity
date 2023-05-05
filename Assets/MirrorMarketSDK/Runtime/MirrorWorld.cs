@@ -51,7 +51,7 @@ namespace MirrorWorld
             MWClientWrapper.OpenMarketPage(marketUrl);
         }
 
-        public static void QueryUser(string email, Action<string> callback)
+        public static void QueryUser(string email, Action<CommonResponse<UserResponse>> callback)
         {
             MWClientWrapper.QueryUser(email, callback);
         }
