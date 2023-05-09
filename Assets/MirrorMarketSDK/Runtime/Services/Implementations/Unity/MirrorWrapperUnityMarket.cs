@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MirrorworldSDK.Interfaces;
 using MirrorworldSDK.Models;
+using MWEVMResponses;
 using UnityEngine;
 
 namespace MirrorworldSDK.Wrapper
@@ -60,6 +61,17 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
+        public void CreateMarketplace(string rawRequestBody, Action<string> callBack)
+        {
+            string url = UrlUtils.GetMirrorPostUrl(MirrorService.AssetMarketplace, "create");
+
+            monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
+
+                callBack(response);
+
+            }));
+        }
+
         public void CreateVerifiedCollection(string rawRequestBody, Action<string> callBack)
         {
             string url = UrlUtils.GetMirrorPostUrl(MirrorService.AssetMint, urlCreateCollection);
@@ -73,8 +85,6 @@ namespace MirrorworldSDK.Wrapper
 
         public void MintNFT(string rawRequestBody, Action<string> callBack)
         {
-            CreateNftRequestNoMintID requestBodyNoMintID = new CreateNftRequestNoMintID();
-
             string url = UrlUtils.GetMirrorPostUrl(MirrorService.AssetMint, urlMintNFTCollection);
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
@@ -84,33 +94,6 @@ namespace MirrorworldSDK.Wrapper
                 callBack(response);
             }));
         }
-
-        //public void MintNFT(string parentCollection, string collectionName, string collectionSymbol, string collectionInfoUrl,string confirmation, string mint_id,Action<CommonResponse<MintResponse>> callBack)
-        //{
-        //    CreateNftRequestWithoutPayment requestBody = new CreateNftRequestWithoutPayment();
-
-        //    requestBody.name = collectionName;
-        //    requestBody.symbol = collectionSymbol;
-        //    requestBody.url = collectionInfoUrl;
-        //    requestBody.collection_mint = parentCollection;
-        //    requestBody.mint_id = mint_id;
-        //    requestBody.confirmation = confirmation;
-        //    string rawRequestBody = JsonUtility.ToJson(requestBody);
-        //    LogFlow("MintNFT request:" + rawRequestBody);
-
-        //    CreateNftRequestNoMintID requestBodyNoMintID = new CreateNftRequestNoMintID();
-
-        //    string url = UrlUtils.GetMirrorPostUrl(MirrorService.AssetMint, urlMintNFTCollection);
-
-        //    monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
-
-        //        LogFlow("MintNft result:" + response);
-
-        //        CommonResponse<MintResponse> responseBody = JsonUtility.FromJson<CommonResponse<MintResponse>>(response);
-
-        //        callBack(responseBody);
-        //    }));
-        //}
 
         public void FetchNftsByCreatorAddresses(List<string> creators, Action<CommonResponse<MultipleNFTsResponse>> callBack)
         {
@@ -244,6 +227,7 @@ namespace MirrorworldSDK.Wrapper
 
                 LogFlow("TransferNFT result:" + response);
 
+                //CommonResponse<EVMResTransferNFT> responseBody = JsonUtility.FromJson<CommonResponse<EVMResTransferNFT>>(response);
                 callBack(response);
 
             }));

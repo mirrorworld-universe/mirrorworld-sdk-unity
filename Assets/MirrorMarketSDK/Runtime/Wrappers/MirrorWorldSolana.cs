@@ -167,45 +167,5 @@ namespace MirrorWorld
         public SolanaWallet Wallet = new SolanaWallet();
 
         public SolanaMetadata Metadata = new SolanaMetadata();
-
-        //public void StartLogin(Action<LoginResponse> action)
-        //{
-        //    MWClientWrapper.StartLogin(action);
-        //}
-
-        //public void LoginWithEmail(string emailAddress, string password, Action<CommonResponse<LoginResponse>> callBack)
-        //{
-        //    MWClientWrapper.LoginWithEmail(emailAddress,password,callBack);
-        //}
-
-        //public void IsLogged(Action<bool> action)
-        //{
-        //    MWClientWrapper.IsLoggedIn(action);
-        //}
-
-        //public void GuestLogin(Action<LoginResponse> action)
-        //{
-        //    MWClientWrapper.GuestLogin(action);
-        //}
-
-        //public void Logout(Action logoutAction)
-        //{
-        //    MWClientWrapper.Logout(logoutAction);
-        //}
-
-        //public void QueryUser(string email, Action<string> callback)
-        //{
-        //    MWClientWrapper.QueryUser(email,callback);
-        //}
-
-        //public void OpenWallet(Action walletLogoutAction)
-        //{
-        //    MWClientWrapper.OpenWalletPage(walletLogoutAction);
-        //}
-
-        //public void OpenMarket(string marketUrl)
-        //{
-        //    MWClientWrapper.OpenMarketPage(marketUrl);
-        //}
     }
 }

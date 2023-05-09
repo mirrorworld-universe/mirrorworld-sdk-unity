@@ -19,6 +19,7 @@ namespace MirrorworldSDK
     public enum MirrorService
     {
         AssetAuction,
+        AssetMarketplace,
         AssetMint,
         AssetNFT,
         Metadata,
