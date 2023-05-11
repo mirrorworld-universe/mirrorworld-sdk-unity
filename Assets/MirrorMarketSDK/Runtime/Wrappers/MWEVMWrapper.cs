@@ -143,11 +143,13 @@ public class MWEVMWrapper
         });
     }
 
-    public static void MintNFT(string collection_address, int token_id, string to_wallet_address, int mint_amount, string confirmation, Action approveFinished, Action<CommonResponse<EVMResMintNFT>> callBack)
+    public static void MintNFT(string collection_address, int token_id, string url, string to_wallet_address, int mint_amount, string confirmation, Action approveFinished, Action<CommonResponse<EVMResMintNFT>> callBack)
     {
         EVMMintNFTReq requestParams = new EVMMintNFTReq();
         requestParams.collection_address = collection_address;
         requestParams.token_id = token_id;
+        requestParams.url = url; //Url of NFT json config file. If not specified, it will default to collection's base_url + token_id
+
         requestParams.to_wallet_address = to_wallet_address;
         requestParams.mint_amount = mint_amount;
         requestParams.confirmation = confirmation;
@@ -239,13 +241,11 @@ public class MWEVMWrapper
         });
     }
 
-    public static void GetTransactionsBySignature(string signature, Action<string> action)
+    public static void GetTransactionsBySignature(string signature, Action<CommonResponse<EVMResTransactionData>> action)
     {
         MirrorWrapper.Instance.GetWalletTransactionsBySignatrue(signature, (response) => {
-
-            //CommonResponse<TransferTokenResponse> responseBody = JsonUtility.FromJson<CommonResponse<TransferTokenResponse>>(response);
-
-            action(response);
+            CommonResponse<EVMResTransactionData> responseBody = JsonUtility.FromJson<CommonResponse<EVMResTransactionData>>(response);
+            action(responseBody);
         });
     }
 
@@ -310,12 +310,12 @@ public class MWEVMWrapper
         });
     }
 
-    public static void TransferToken(string nonce, string gasPrice, string gasLimit, string to, string amount, string contract, Action approveFinished, Action<string> callBack)
+    public static void TransferToken(string to, string amount, string contract, Action approveFinished, Action<string> callBack)
     {
         EVMTransferTokenReq requestParams = new EVMTransferTokenReq();
-        requestParams.nonce = nonce;
-        requestParams.gasPrice = gasPrice;
-        requestParams.gasLimit = gasLimit;
+        //requestParams.nonce = nonce;
+        //requestParams.gasPrice = gasPrice;
+        //requestParams.gasLimit = gasLimit;
         requestParams.to = to;
         requestParams.amount = amount;
         requestParams.contract = contract;
@@ -437,7 +437,7 @@ public class MWEVMWrapper
         });
     }
 
-    public static void MetadataSearchNFTs(List<string> collections, string searchString, Action<string> callback)
+    public static void MetadataSearchNFTs(List<string> collections, string searchString, Action<CommonResponse<List<EVMResMetadataSearchNFTs>>> callback)
     {
         EVMMetadataSearchNFTReq req = new EVMMetadataSearchNFTReq();
 
@@ -448,7 +448,8 @@ public class MWEVMWrapper
         string rawRequestBody = JsonUtility.ToJson(req);
 
         MirrorWrapper.Instance.SearchNFTs(rawRequestBody, (response) => {
-            callback(response);
+            CommonResponse<List<EVMResMetadataSearchNFTs>> commonResponse = JsonUtility.FromJson<CommonResponse<List<EVMResMetadataSearchNFTs>>>(response);
+            callback(commonResponse);
         });
     }
 

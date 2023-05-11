@@ -4,6 +4,7 @@ using System;
 using MirrorworldSDK.Models;
 using System.Collections.Generic;
 using MirrorworldSDK;
+using MWEVMResponses;
 
 namespace MirrorWorld
 {
@@ -31,23 +32,27 @@ namespace MirrorWorld
         }
 
         //Asset/Confirmation
-        public void CheckTransactionsStatus(List<string> signatures, Action<string> callBack)
+        public void CheckTransactionsStatus(List<string> signatures, Action<CommonResponse<GetStatusOfTransactionsResponse>> callBack)
         {
             MWSolanaWrapper.CheckTransactionsStatus(signatures, callBack);
         }
 
-        public void CheckMintingStatus(List<string> mintAddresses, Action<string> callBack)
+        public void CheckMintingStatus(List<string> mintAddresses, Action<CommonResponse<GetStatusOfTransactionsResponse>> callBack)
         {
             MWSolanaWrapper.CheckMintingStatus(mintAddresses, callBack);
         }
 
         //Asset/Mint
-        public void MintCollection(string collectionName, string collectionSymbol, string NFTDetailJson, int seller_fee_basis_points, string confirmation, Action approveFinished, Action<string> callBack)
+        public void CreateMarketplace(int seller_fee_basis_points, EVMReqStorefrontObj storefrontObj, List<string> collections, Action<CommonResponse<SolResCreateMarket>> callBack)
+        {
+            MWSolanaWrapper.CreateMarketplace(seller_fee_basis_points,storefrontObj,collections,callBack);
+        }
+        public void MintCollection(string collectionName, string collectionSymbol, string NFTDetailJson, int seller_fee_basis_points, string confirmation, Action approveFinished, Action<CommonResponse<SolResMintResponse>> callBack)
         {
             MWSolanaWrapper.MintCollection(collectionName, collectionSymbol, NFTDetailJson, seller_fee_basis_points, confirmation, approveFinished, callBack);
         }
 
-        public void MintNFT(string parentCollection, string nFTName, string nFTSymbol, string nFTJsonUrl, string confirmation, string mint_id, string receiveWallet, double amountSol, Action approveFinished, Action<string> callBack)
+        public void MintNFT(string parentCollection, string nFTName, string nFTSymbol, string nFTJsonUrl, string confirmation, string mint_id, string receiveWallet, double amountSol, Action approveFinished, Action<CommonResponse<SolResMintResponse>> callBack)
         {
             LogUtils.LogFlow("Mint request:amountSol:" + amountSol + ",receiveWallet:" + receiveWallet);
             MWSolanaWrapper.MintNFT(parentCollection, nFTName, nFTSymbol, nFTJsonUrl, confirmation, mint_id, receiveWallet, amountSol, approveFinished, callBack);
@@ -59,7 +64,7 @@ namespace MirrorWorld
         }
 
         //Asset/Search
-        public void QueryNFT(string mintAddress, Action<string> action)
+        public void QueryNFT(string mintAddress, Action<CommonResponse<SingleNFTResponse>> action)
         {
             MWSolanaWrapper.QueryNFT(mintAddress, action);
         }

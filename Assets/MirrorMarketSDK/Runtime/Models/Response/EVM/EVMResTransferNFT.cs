@@ -6,15 +6,25 @@ namespace MWEVMResponses
     [System.Serializable]
     public class EVMResTransferNFT
     {
-        public string from { get; set; }
-        public string to { get; set; }
-        public string contract_address { get; set; }
-        public string contract_type { get; set; }
-        public string token_id { get; set; }
-        public int amount { get; set; }
-        public string transaction_hash { get; set; }
-        public string chain { get; set; }
-        public string network { get; set; }
+        public string from ;
+        public string to ;
+        public string contract_address ;
+        public string contract_type ;
+        public string token_id ;
+        public int amount ;
+        public string transaction_hash ;
+        public string chain ;
+        public string network ;
+    }
+    public class NftTransferData
+    {
+        public string from ;
+        public string to ;
+        public string contract_address ;
+        public string contract_type ;
+        public string token_id ;
+        public string amount ;
+        public string transaction_hash ;
     }
 
 }

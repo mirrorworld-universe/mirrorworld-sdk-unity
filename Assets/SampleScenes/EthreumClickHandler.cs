@@ -298,11 +298,11 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
         }
         else if (btnName == APINames.SolAssetMintNFT)
         {
-            SetInfoPanel("MintNFT", "contract_address", "token_id", "to_wallet", "mint amount", null, null, "MintNFT", "MintNFT", () =>
+            SetInfoPanel("MintNFT", "contract_address", "token_id", "to_wallet", "mint amount", "url", null, "MintNFT", "MintNFT", () =>
             {
                 int amount = PrecisionUtil.StrToInt(v4);
                 int token_id = int.Parse(v2);
-                MWSDK.Ethereum.Asset.MintNFT(v1, token_id, v3, amount, Confirmation.Default, approveFinished, (res) =>
+                MWSDK.Ethereum.Asset.MintNFT(v1, token_id, v5, v3, amount, Confirmation.Default, approveFinished, (res) =>
                 {
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -399,8 +399,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             {
                 MWSDK.Ethereum.Wallet.GetTransactionsBySignature(v1, (res) =>
                 {
-
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -417,12 +416,11 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
         }
         else if (btnName == APINames.SolWalletTransferToken)
         {
-            SetInfoPanel("TransferToken", "nonce", "gas price", "gas limit", "to", "amout", "contract", "Transfer", "Transfer", () =>
+            SetInfoPanel("TransferToken", "to", "amout", "contract", null, null, null, "Transfer", "Transfer", () =>
             {
-                MWSDK.Ethereum.Wallet.TransferToken(v1, v2, v3, v4, v5, v6, approveFinished, (res) =>
+                MWSDK.Ethereum.Wallet.TransferToken(v1, v2, v3, approveFinished, (res) =>
                 {
-
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -511,7 +509,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
 
                 MWSDK.Ethereum.Metadata.SearchNFTs(collections, searchString, (res) =>
                 {
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }

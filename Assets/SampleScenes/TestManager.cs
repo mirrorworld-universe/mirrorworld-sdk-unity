@@ -101,6 +101,7 @@ public class TestManager : MonoBehaviour
         AddAPIButton(lineAssetMint, APINames.SolAssetMintCollection);
         AddAPIButton(lineAssetMint, APINames.SolAssetMintNFT);
         AddAPIButton(lineAssetMint, APINames.SolAssetMintUpdateNFTProperties);
+        AddAPIButton(lineAssetMint, APINames.AssetCreateMarketplace);
         //Asset/Search
         Transform lineAssetSearch = AddAPILine(apiParent,"Asset/Search");
         AddAPIButton(lineAssetSearch, APINames.SolAssetSearchQueryNFT);

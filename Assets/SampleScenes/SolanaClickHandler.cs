@@ -7,6 +7,7 @@ using TMPro;
 using MirrorworldSDK;
 using MirrorworldSDK.UI;
 using System.Collections.Generic;
+using MWEVMResponses;
 
 public class SolanaClickHandler
 {
@@ -225,8 +226,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
         {
             SetInfoPanel("QueryNFT", "mint address", null, null, null, null, null, "GetNFTDetails", "GetNFTDetails", () => {
                 MWSDK.Solana.Asset.QueryNFT(v1, (res) => {
-
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -270,10 +270,27 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
             SetInfoPanel("CreateVerifiedCollection", "name", "symbol", "url", "seller fee basis points", null, null, "CreateVerifiedCollection", "CreateVerifiedCollection", () => {
                 int seller_fee_basis_points = (int)PrecisionUtil.StrToDouble(v4);
                 MWSDK.Solana.Asset.MintCollection(v1, v2, v3, seller_fee_basis_points, null, approveFinished, (res) => {
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             }
                 );
+        }
+        else if (btnName == APINames.AssetCreateMarketplace)
+        {
+            SetInfoPanel("Create Marketplace", "seller_fee_basis_points", "collection 1", "name", "sub domain", "description", null, "CreateMarket", "Create", () =>
+            {
+                int seller_fee_basis_points = PrecisionUtil.StrToInt(v1);
+                EVMReqStorefrontObj storefrontObj = new EVMReqStorefrontObj();
+                storefrontObj.description = v5;
+                storefrontObj.name = v3;
+                storefrontObj.subdomain = v4;
+                List<string> collections = new List<string>();
+                collections.Add(v2);
+                MWSDK.Solana.Asset.CreateMarketplace(seller_fee_basis_points, storefrontObj, collections, (res) =>
+                {
+                    PrintLog("result:" + JsonUtility.ToJson(res));
+                });
+            });
         }
         else if (btnName == APINames.SolAssetMintNFT)
         {
@@ -281,7 +298,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 double amount = PrecisionUtil.StrToDouble(v6);
                 MWSDK.Solana.Asset.MintNFT(v1, v2, "testsymbol", v4, Confirmation.Default, v3, v5, amount, approveFinished, (res) => {
 
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -374,8 +391,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
 
                 MWSDK.Solana.Asset.CheckTransactionsStatus(signatures, (res) =>
                 {
-
-                    PrintLog("GetStatusOfTransactions result:" + res);
+                    PrintLog("GetStatusOfTransactions result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -387,8 +403,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 if (v2 != "") mintAddresses.Add(v2);
                 MWSDK.Solana.Asset.CheckMintingStatus(mintAddresses, (res) =>
                 {
-
-                    PrintLog("GetStatusOfMintings result:" + res);
+                    PrintLog("GetStatusOfMintings result:" + JsonUtility.ToJson(res));
                 });
             });
         }

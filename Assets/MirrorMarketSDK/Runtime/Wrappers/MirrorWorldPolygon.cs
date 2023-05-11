@@ -89,7 +89,7 @@ namespace MirrorWorld
             MWEVMWrapper.MetadataNFTEvents(contract, page, pageSize, token_id, marketplace_address, callback);
         }
 
-        public void SearchNFTs(List<string> collections, string searchString, Action<string> callback)
+        public void SearchNFTs(List<string> collections, string searchString, Action<CommonResponse<List<EVMResMetadataSearchNFTs>>> callback)
         {
             MWEVMWrapper.MetadataSearchNFTs(collections, searchString, callback);
         }
@@ -113,7 +113,7 @@ namespace MirrorWorld
             MWEVMWrapper.GetTransactionsByWallet(wallet_address, limit, action);
         }
 
-        public void GetTransactionsBySignature(string signature, Action<string> action)
+        public void GetTransactionsBySignature(string signature, Action<CommonResponse<EVMResTransactionData>> action)
         {
             MWEVMWrapper.GetTransactionsBySignature(signature, action);
         }
@@ -133,9 +133,9 @@ namespace MirrorWorld
             MWEVMWrapper.TransferMatic(nonce, gasPrice, gasLimit, to, amount, approveFinished, callBack);
         }
 
-        public void TransferToken(string nonce, string gasPrice, string gasLimit, string to, string amount, string contract, Action approveFinished, Action<string> callBack)
+        public void TransferToken(string to, string amount, string contract, Action approveFinished, Action<string> callBack)
         {
-            MWEVMWrapper.TransferToken(nonce, gasPrice, gasLimit, to, amount, contract, approveFinished, callBack);
+            MWEVMWrapper.TransferToken(to, amount, contract, approveFinished, callBack);
         }
     }
 
@@ -173,9 +173,9 @@ namespace MirrorWorld
             MWEVMWrapper.MintCollection(collectionName, collectionSymbol, NFTDetailJson, approveFinished, callBack);
         }
 
-        public void MintNFT(string collection_address, int token_id, string to_wallet_address, int mint_amount, string confirmation, Action approveFinished, Action<CommonResponse<EVMResMintNFT>> callBack)
+        public void MintNFT(string collection_address, int token_id, string url, string to_wallet_address, int mint_amount, string confirmation, Action approveFinished, Action<CommonResponse<EVMResMintNFT>> callBack)
         {
-            MWEVMWrapper.MintNFT(collection_address, token_id, to_wallet_address, mint_amount, confirmation, approveFinished, callBack);
+            MWEVMWrapper.MintNFT(collection_address, token_id, url, to_wallet_address, mint_amount, confirmation, approveFinished, callBack);
         }
 
         //Asset/Search

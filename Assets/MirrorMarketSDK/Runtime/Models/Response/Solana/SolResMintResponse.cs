@@ -2,7 +2,7 @@
 namespace MirrorworldSDK.Models
 {
     [Serializable]
-    public class MintResponse
+    public class SolResMintResponse
     {
         public string mint_address;
 
@@ -18,7 +18,7 @@ namespace MirrorworldSDK.Models
 
         public string collection;
 
-        public string seller_fee_basis_points;
+        public int seller_fee_basis_points;
 
         public string signature;
 

@@ -4,6 +4,7 @@ using System;
 using MirrorworldSDK.Wrapper;
 using MirrorworldSDK.Models;
 using System.Collections.Generic;
+using MWEVMResponses;
 
 namespace MirrorworldSDK
 {
@@ -145,28 +146,40 @@ namespace MirrorworldSDK
         }
 
         //Asset/Confirmation
-        public static void CheckTransactionsStatus(List<string> signatures, Action<string> callBack)
+        public static void CheckTransactionsStatus(List<string> signatures, Action<CommonResponse<GetStatusOfTransactionsResponse>> callBack)
         {
             MirrorWrapper.Instance.GetStatusOfTransactions(signatures, (response)=> {
-
-                //CommonResponse<GetStatusOfTransactionsResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetStatusOfTransactionsResponse>>(response);
-
-                callBack(response);
+                CommonResponse<GetStatusOfTransactionsResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetStatusOfTransactionsResponse>>(response);
+                callBack(responseBody);
             });
         }
 
-        public static void CheckMintingStatus(List<string> mintAddresses, Action<string> callBack)
+        public static void CheckMintingStatus(List<string> mintAddresses, Action<CommonResponse<GetStatusOfTransactionsResponse>> callBack)
         {
             MirrorWrapper.Instance.GetStatusOfMintings(mintAddresses, (response)=> {
 
-                //CommonResponse<GetStatusOfTransactionsResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetStatusOfTransactionsResponse>>(response);
+                CommonResponse<GetStatusOfTransactionsResponse> responseBody = JsonUtility.FromJson<CommonResponse<GetStatusOfTransactionsResponse>>(response);
 
-                callBack(response);
+                callBack(responseBody);
             });
         }
 
         //Asset/Mint
-        public static void MintCollection(string collectionName, string collectionSymbol, string NFTDetailJson, int seller_fee_basis_points, string confirmation, Action approveFinished, Action<string> callBack)
+        public static void CreateMarketplace(int seller_fee_basis_points, EVMReqStorefrontObj storefrontObj, List<string> collections, Action<CommonResponse<SolResCreateMarket>> callBack)
+        {
+            SolReqCreateMarketplace requestParams = new SolReqCreateMarketplace();
+            requestParams.seller_fee_basis_points = seller_fee_basis_points;
+            requestParams.storefront = storefrontObj;
+            requestParams.collections = collections;
+            var rawRequestBody = JsonUtility.ToJson(requestParams);
+
+            MirrorWrapper.Instance.CreateMarketplace(rawRequestBody, (response) => {
+                CommonResponse<SolResCreateMarket> responseBody = JsonUtility.FromJson<CommonResponse<SolResCreateMarket>>(response);
+                callBack(responseBody);
+            });
+        }
+
+        public static void MintCollection(string collectionName, string collectionSymbol, string NFTDetailJson, int seller_fee_basis_points, string confirmation, Action approveFinished, Action<CommonResponse<SolResMintResponse>> callBack)
         {
             ApproveCreateCollection requestParams = new ApproveCreateCollection();
             requestParams.name = collectionName;
@@ -191,15 +204,13 @@ namespace MirrorworldSDK
                 var rawRequestBody = JsonUtility.ToJson(requestBody);
                 MirrorWrapper.Instance.CreateVerifiedCollection(rawRequestBody, (response)=> {
                     LogUtils.LogFlow("Create collection result:"+response);
-
-                    //CommonResponse<MintResponse> responseBody = JsonUtility.FromJson<CommonResponse<MintResponse>>(response);
-
-                    callBack(response);
+                    CommonResponse<SolResMintResponse> responseBody = JsonUtility.FromJson<CommonResponse<SolResMintResponse>>(response);
+                    callBack(responseBody);
                 });
             });
         }
 
-        public static void MintNFT(string parentCollection, string nFTName, string nFTSymbol, string nFTJsonUrl, string confirmation, string mint_id, string receiveWallet, double amountSol, Action approveFinished, Action<string> callBack)
+        public static void MintNFT(string parentCollection, string nFTName, string nFTSymbol, string nFTJsonUrl, string confirmation, string mint_id, string receiveWallet, double amountSol, Action approveFinished, Action<CommonResponse<SolResMintResponse>> callBack)
         {
             LogUtils.LogFlow("Mint request:amountSol:" + amountSol + ",receiveWallet:" + receiveWallet);
             ApproveMintNFT requestParams = new ApproveMintNFT();
@@ -240,10 +251,8 @@ namespace MirrorworldSDK
                 LogUtils.LogFlow("MintNFT rawRequestBody:"+ rawRequestBody);
 
                 MirrorWrapper.Instance.MintNFT(rawRequestBody, (response)=> {
-
-                    //CommonResponse<MintResponse> responseBody = JsonUtility.FromJson<CommonResponse<MintResponse>>(response);
-
-                    callBack(response);
+                    CommonResponse<SolResMintResponse> responseBody = JsonUtility.FromJson<CommonResponse<SolResMintResponse>>(response);
+                    callBack(responseBody);
                 });
             });
         }
@@ -283,13 +292,11 @@ namespace MirrorworldSDK
         }
 
         //Asset/Search
-        public static void QueryNFT(string mintAddress, Action<string> action)
+        public static void QueryNFT(string mintAddress, Action<CommonResponse<SingleNFTResponse>> action)
         {
             MirrorWrapper.Instance.GetNFTDetails(mintAddress, (response)=> {
-
-                //CommonResponse<SingleNFTResponse> responseBody = JsonUtility.FromJson<CommonResponse<SingleNFTResponse>>(response);
-
-                action(response);
+                CommonResponse<SingleNFTResponse> responseBody = JsonUtility.FromJson<CommonResponse<SingleNFTResponse>>(response);
+                action(responseBody);
             });
         }
 
