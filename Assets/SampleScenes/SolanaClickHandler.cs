@@ -196,8 +196,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
         {
             SetInfoPanel("GetWalletTokens", null, null, null, null, null, null, "Get", "Get your tokens", () => {
                 MWSDK.Solana.Wallet.GetTokens((res) => {
-
-                    PrintLog("Get tokens result:" + res);
+                    PrintLog("Get tokens result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -240,7 +239,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
 
                 MWSDK.Solana.Asset.SearchNFTsByOwner(owners, limit, offset, (res) => {
 
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -251,7 +250,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 list.Add(v1);
                 MWSDK.Solana.Asset.SearchNFTsByMintAddress(list, (res) => {
 
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -306,8 +305,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
         {
             SetInfoPanel("UpdateNFTProperties", "mint address", "name", "updateAuthority", "json url", null, null, "MintNFT", "MintNFT", () => {
                 MWSDK.Solana.Asset.UpdateNFT(v1, v2, "newsymbol", v3, v4, 200, Confirmation.Default, approveFinished, (res) => {
-
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -317,7 +315,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 double price = PrecisionUtil.StrToDouble(v2);
                 MWSDK.Solana.Asset.ListNFT(v1, price, v3, Confirmation.Default, approveFinished, (res) => {
 
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -328,7 +326,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 MWSDK.Solana.Asset.CancelListing(v1, price, v3, Confirmation.Default, approveFinished, (res) =>
                 {
 
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -347,8 +345,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
         {
             SetInfoPanel("Transfer NFT", "mint address", "to wallet", null, null, null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses", () => {
                 MWSDK.Solana.Asset.TransferNFT(v1, v2, approveFinished, (res) => {
-
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -358,7 +355,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 float price = PrecisionUtil.StrToFloat(v1);
                 MWSDK.Solana.Wallet.GetTransactions(price, v2, (res) => {
 
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -368,7 +365,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 int limit = PrecisionUtil.StrToInt(v2);
                 MWSDK.Solana.Wallet.GetTransactionsByWallet(v1, limit, v3, (res) => {
 
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -377,8 +374,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
             SetInfoPanel("GetWalletTransactionsBySignatrue", "signature", null, null, null, null, null, "GetWalletTransactionsBySignatrue", "GetWalletTransactionsBySignatrue", () => {
                 MWSDK.Solana.Wallet.GetTransactionsBySignature(v1, (res) =>
                 {
-
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -421,19 +417,17 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 }
                 int price = (int)PrecisionUtil.StrToDouble(v1);
                 MWSDK.Solana.Wallet.TransferSol(price, v2, Confirmation.Default, approveFinished, (res) => {
-
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
         else if (btnName == APINames.SolWalletTransferToken)
         {
-            SetInfoPanel("TransferSPLToken", "amount", "public key", "amount", "mint_address", null, null, "Transfer", "Transfer", () => {
-                ulong price = PrecisionUtil.StrToULong(v1);
-                int decimals = PrecisionUtil.StrToInt(v3);
-                MWSDK.Solana.Wallet.TransferToken(v4, decimals, price, v2, approveFinished, (res) => {
-
-                    PrintLog("result:" + res);
+            SetInfoPanel("TransferSPLToken","public key", "amount", "token_mint", "decimals", null, null, "Transfer", "Transfer", () => {
+                ulong price = PrecisionUtil.StrToULong(v2);
+                int decimals = PrecisionUtil.StrToInt(v4);
+                MWSDK.Solana.Wallet.TransferToken(v3, decimals, price, v1, approveFinished, (res) => {
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }

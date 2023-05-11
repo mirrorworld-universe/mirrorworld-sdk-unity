@@ -302,7 +302,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             {
                 int amount = PrecisionUtil.StrToInt(v4);
                 int token_id = int.Parse(v2);
-                MWSDK.Polygon.Asset.MintNFT(v1, token_id, v5, v3, amount, Confirmation.Default, approveFinished, (res) =>
+                MWSDK.Polygon.Asset.MintNFT(v1, token_id, v5, v3, amount, Confirmation.Finalized, approveFinished, (res) =>
                 {
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });

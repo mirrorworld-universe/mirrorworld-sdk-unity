@@ -151,6 +151,7 @@ namespace MirrorworldSDK.Wrapper
 
             string rawResponseBody = request.downloadHandler.text;
 
+            LogFlow("get response raw:" + rawResponseBody);
             request.Dispose();
 
             callBack(rawResponseBody);

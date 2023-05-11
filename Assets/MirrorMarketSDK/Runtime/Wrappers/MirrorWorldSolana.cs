@@ -16,17 +16,17 @@ namespace MirrorWorld
             MWSolanaWrapper.BuyNFT(mint_address, price, auction_house, approveFinished, callBack);
         }
 
-        public void CancelListing(string mint_address, double price, string auction_house, string confirmation, Action approveFinished, Action<string> callBack)
+        public void CancelListing(string mint_address, double price, string auction_house, string confirmation, Action approveFinished, Action<CommonResponse<ListingResponse>> callBack)
         {
             MWSolanaWrapper.CancelListing(mint_address, price, auction_house, confirmation, approveFinished, callBack);
         }
 
-        public void ListNFT(string mint_address, double price, string auction_house, string confirmation, Action approveFinished, Action<string> callBack)
+        public void ListNFT(string mint_address, double price, string auction_house, string confirmation, Action approveFinished, Action<CommonResponse<ListingResponse>> callBack)
         {
             MWSolanaWrapper.ListNFT(mint_address, price, auction_house, confirmation, approveFinished, callBack);
         }
 
-        public void TransferNFT(string mint_address, string to_wallet_address, Action approveAction, Action<string> callBack)
+        public void TransferNFT(string mint_address, string to_wallet_address, Action approveAction, Action<CommonResponse<SolResTransferNFT>> callBack)
         {
             MWSolanaWrapper.TransferNFT(mint_address, to_wallet_address, approveAction, callBack);
         }
@@ -58,7 +58,7 @@ namespace MirrorWorld
             MWSolanaWrapper.MintNFT(parentCollection, nFTName, nFTSymbol, nFTJsonUrl, confirmation, mint_id, receiveWallet, amountSol, approveFinished, callBack);
         }
 
-        public void UpdateNFT(string mintAddress, string NFTName, string symbol, string updateAuthority, string NFTJsonUrl, int seller_fee_basis_points, string confirmation, Action approveAction, Action<string> callBack)
+        public void UpdateNFT(string mintAddress, string NFTName, string symbol, string updateAuthority, string NFTJsonUrl, int seller_fee_basis_points, string confirmation, Action approveAction, Action<CommonResponse<SolResUpdateNFT>> callBack)
         {
             MWSolanaWrapper.UpdateNFT(mintAddress, NFTName, symbol, updateAuthority, NFTJsonUrl, seller_fee_basis_points, confirmation, approveAction, callBack);
         }
@@ -69,12 +69,12 @@ namespace MirrorWorld
             MWSolanaWrapper.QueryNFT(mintAddress, action);
         }
 
-        public void SearchNFTsByMintAddress(List<string> mintAddresses, Action<string> action)
+        public void SearchNFTsByMintAddress(List<string> mintAddresses, Action<CommonResponse<MultipleNFTsResponse>> action)
         {
             MWSolanaWrapper.SearchNFTsByMintAddress(mintAddresses, action);
         }
 
-        public void SearchNFTsByOwner(List<string> owners, long limit, long offset, Action<string> callBack)
+        public void SearchNFTsByOwner(List<string> owners, long limit, long offset, Action<CommonResponse<MultipleNFTsResponse>> callBack)
         {
             MWSolanaWrapper.SearchNFTsByOwner(owners, limit, offset, callBack);
         }
@@ -83,22 +83,22 @@ namespace MirrorWorld
     public class SolanaWallet
     {
         //Wallet
-        public void GetTransactions(double number, string nextBefore, Action<string> action)
+        public void GetTransactions(double number, string nextBefore, Action<CommonResponse<SolResGetTransactions>> action)
         {
             MWSolanaWrapper.GetTransactions(number, nextBefore, action);
         }
 
-        public void GetTransactionsByWallet(string wallet_address, int limit, string next_before, Action<string> action)
+        public void GetTransactionsByWallet(string wallet_address, int limit, string next_before, Action<CommonResponse<SolResGetTransactionByWallet>> action)
         {
             MWSolanaWrapper.GetTransactionsByWallet(wallet_address, limit, next_before, action);
         }
 
-        public void GetTransactionsBySignature(string signature, Action<string> action)
+        public void GetTransactionsBySignature(string signature, Action<CommonResponse<SolResGetTransactionBySig>> action)
         {
             MWSolanaWrapper.GetTransactionsBySignature(signature, action);
         }
 
-        public void GetTokens(Action<string> action)
+        public void GetTokens(Action<CommonResponse<WalletTokenResponse>> action)
         {
             MWSolanaWrapper.GetTokens(action);
         }
@@ -108,12 +108,12 @@ namespace MirrorWorld
             MWSolanaWrapper.GetTokensByWalletByWallet(wallet, limit, next_before, action);
         }
 
-        public void TransferSol(int amount, string to_publickey, string confirmation, Action approveFinished, Action<string> callBack)
+        public void TransferSol(int amount, string to_publickey, string confirmation, Action approveFinished, Action<CommonResponse<TransferSolResponse>> callBack)
         {
             MWSolanaWrapper.TransferSol(amount, to_publickey, confirmation, approveFinished, callBack);
         }
 
-        public void TransferToken(string token_mint, int decimals, ulong amount, string to_publickey, Action approveFinished, Action<string> callBack)
+        public void TransferToken(string token_mint, int decimals, ulong amount, string to_publickey, Action approveFinished, Action<CommonResponse<TransferTokenResponse>> callBack)
         {
             MWSolanaWrapper.TransferToken(token_mint, decimals, amount, to_publickey, approveFinished, callBack);
         }
