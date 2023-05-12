@@ -15,6 +15,6 @@ namespace MirrorworldSDK.Wrapper
     public class EVMSearchNFTsByAddressesReqToken
     {
         public string token_address;
-        public int token_id;
+        public string token_id;
     }
 }

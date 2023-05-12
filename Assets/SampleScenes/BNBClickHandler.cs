@@ -7,6 +7,7 @@ using TMPro;
 using MirrorworldSDK;
 using MirrorworldSDK.UI;
 using System.Collections.Generic;
+using MWEVMResponses;
 
 public class BNBClickHandler
 {
@@ -237,11 +238,11 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
         }
         else if (btnName == APINames.SolAssetSearchQueryNFT)
         {
-            SetInfoPanel("QueryNFT", "mint address", "token id", null, null, null, null, "GetNFTDetails", "GetNFTDetails", () =>
+            SetInfoPanel("QueryNFT", "token_address", "token id", null, null, null, null, "GetNFTDetails", "GetNFTDetails", () =>
             {
                 MWSDK.BNB.Asset.QueryNFT(v1, v2, (res) =>
                 {
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -253,22 +254,22 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
 
                 MWSDK.BNB.Asset.SearchNFTsByOwner(v1, limit, v3, (res) =>
                 {
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
         else if (btnName == APINames.SolAssetSearchSearchNFTs)
         {
-            SetInfoPanel("FetchNFTsByMintAddresses", "mint address", "token id", null, null, null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses", () =>
+            SetInfoPanel("FetchNFTsByMintAddresses", "token address", "token id", null, null, null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses", () =>
             {
                 List<EVMSearchNFTsByAddressesReqToken> list = new List<EVMSearchNFTsByAddressesReqToken>();
                 EVMSearchNFTsByAddressesReqToken token = new EVMSearchNFTsByAddressesReqToken();
                 token.token_address = v1;
-                token.token_id = int.Parse(v2);
+                token.token_id = v2;// int.Parse(v2);
                 list.Add(token);
                 MWSDK.BNB.Asset.SearchNFTsByMintAddress(list, (res) =>
                 {
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -290,26 +291,43 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 int seller_fee_basis_points = (int)PrecisionUtil.StrToDouble(v4);
                 MWSDK.BNB.Asset.MintCollection(v1, v2, v3, approveFinished, (res) =>
                 {
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             }
                 );
         }
+        else if (btnName == APINames.AssetCreateMarketplace)
+        {
+            SetInfoPanel("Buy NFT", "seller_fee_basis_points", "payment_token", "name", "sub domain", "description", "collection 1", "BuyNFT", "BuyNFT", () =>
+            {
+                int seller_fee_basis_points = PrecisionUtil.StrToInt(v1);
+                EVMReqStorefrontObj storefrontObj = new EVMReqStorefrontObj();
+                storefrontObj.description = v5;
+                storefrontObj.name = v3;
+                storefrontObj.subdomain = v4;
+                List<string> collections = new List<string>();
+                collections.Add(v6);
+                MWSDK.Polygon.Asset.CreateMarketplace(seller_fee_basis_points, v2, storefrontObj, collections, Confirmation.Default, (res) =>
+                {
+                    PrintLog("result:" + JsonUtility.ToJson(res));
+                });
+            });
+        }
         else if (btnName == APINames.SolAssetMintNFT)
         {
-            SetInfoPanel("MintNFT", "parent collection", "token_id", "to_wallet", "mint amount", null, null, "MintNFT", "MintNFT", () =>
+            SetInfoPanel("MintNFT", "contract_address", "token_id", "to_wallet", "mint amount", "url", null, "MintNFT", "MintNFT", () =>
             {
                 int amount = PrecisionUtil.StrToInt(v4);
                 int token_id = int.Parse(v2);
-                MWSDK.BNB.Asset.MintNFT(v1, token_id, v3, amount, Confirmation.Default, approveFinished, (res) =>
+                MWSDK.BNB.Asset.MintNFT(v1, token_id, v5, v3, amount, Confirmation.Default, approveFinished, (res) =>
                 {
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
         else if (btnName == APINames.SolAssetAuctionListNFT)
         {
-            SetInfoPanel("ListNFT", "collection address", "token id", "price", "marketplace address", null, null, "ListNFT", "ListNFT", () =>
+            SetInfoPanel("ListNFT", "contract_address", "token id", "price", "marketplace address", null, null, "ListNFT", "ListNFT", () =>
             {
                 int token_id = PrecisionUtil.StrToInt(v2);
                 double price = PrecisionUtil.StrToDouble(v3);
@@ -321,35 +339,35 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
         }
         else if (btnName == APINames.SolAssetAuctionCancelListing)
         {
-            SetInfoPanel("CancelNFTListing", "collection address", "token id", "marketplace_address", null, null, null, "CancelNFTListing", "CancelNFTListing", () =>
+            SetInfoPanel("CancelNFTListing", "contract_address", "token id", "marketplace_address", null, null, null, "CancelNFTListing", "CancelNFTListing", () =>
             {
                 int token_id = PrecisionUtil.StrToInt(v2);
                 MWSDK.BNB.Asset.CancelListing(v1, token_id, v3, approveFinished, (res) =>
                 {
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
         else if (btnName == APINames.SolAssetAuctionBuyNFT)
         {
-            SetInfoPanel("Buy NFT", "mint address", "Price", "token id", "marketplace_address", null, null, "BuyNFT", "BuyNFT", () =>
+            SetInfoPanel("Buy NFT", "contract_address", "Price", "token id", "marketplace_address", null, null, "BuyNFT", "BuyNFT", () =>
             {
                 double price = PrecisionUtil.StrToDouble(v2);
                 int token_id = PrecisionUtil.StrToInt(v3);
                 MWSDK.BNB.Asset.BuyNFT(v1, price, token_id, v4, approveFinished, (res) =>
                 {
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
         else if (btnName == APINames.SolAssetAuctionTransferNFT)
         {
-            SetInfoPanel("Transfer NFT", "collection address", "token id", "to wallet address", null, null, null, "Transfer", "Transfer", () =>
+            SetInfoPanel("Transfer NFT", "contract_address", "token id", "to wallet address", null, null, null, "Transfer", "Transfer", () =>
             {
                 int token_id = PrecisionUtil.StrToInt(v2);
                 MWSDK.BNB.Asset.TransferNFT(v1, token_id, v3, approveFinished, (res) =>
                 {
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -360,7 +378,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 double price = PrecisionUtil.StrToDouble(v1);
                 MWSDK.BNB.Wallet.GetTransactions(price, (res) =>
                 {
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -371,7 +389,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 int limit = PrecisionUtil.StrToInt(v2);
                 MWSDK.BNB.Wallet.GetTransactionsByWallet(v1, limit, (res) =>
                 {
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -381,20 +399,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             {
                 MWSDK.BNB.Wallet.GetTransactionsBySignature(v1, (res) =>
                 {
-
-                    PrintLog("result:" + res);
-                });
-            });
-        }
-        else if (btnName == APINames.SolWalletTransferETH)
-        {
-            SetInfoPanel("Transfer ETH", "nonce", "gas price", "gas limit", "to", "amout", null, "Transfer", "Transfer", () =>
-            {
-                int price = (int)PrecisionUtil.StrToDouble(v1);
-                MWSDK.BNB.Wallet.TransferETH(v1, v2, v3, v4, v5, approveFinished, (res) =>
-                {
-
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -405,31 +410,17 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 int price = (int)PrecisionUtil.StrToDouble(v1);
                 MWSDK.BNB.Wallet.TransferBNB(v1, v2, v3, v4, v5, approveFinished, (res) =>
                 {
-
-                    PrintLog("result:" + res);
-                });
-            });
-        }
-        else if (btnName == APINames.SolWalletTransferMatic)
-        {
-            SetInfoPanel("Transfer Matic", "nonce", "gas price", "gas limit", "to", "amout", null, "Transfer", "Transfer", () =>
-            {
-                int price = (int)PrecisionUtil.StrToDouble(v1);
-                MWSDK.BNB.Wallet.TransferMatic(v1, v2, v3, v4, v5, approveFinished, (res) =>
-                {
-
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
         else if (btnName == APINames.SolWalletTransferToken)
         {
-            SetInfoPanel("TransferToken", "nonce", "gas price", "gas limit", "to", "amout", "contract", "Transfer", "Transfer", () =>
+            SetInfoPanel("TransferToken", "to", "amout", "contract", null, null, null, "Transfer", "Transfer", () =>
             {
-                MWSDK.BNB.Wallet.TransferToken(v1, v2, v3, v4, v5, v6, approveFinished, (res) =>
+                MWSDK.BNB.Wallet.TransferToken(v1, v2, v3, approveFinished, (res) =>
                 {
-
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -475,7 +466,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 }
                 MWSDK.BNB.Metadata.GetCollectionsSummary(cols, (res) =>
                 {
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -489,8 +480,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
 
                 MWSDK.BNB.Metadata.GetCollectionsInfo(collections, (res) =>
                 {
-
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -505,7 +495,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
 
                 MWSDK.BNB.Metadata.GetNFTEvents(v1, page, pageSize, tokenID, v5, (res) =>
                 {
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -534,7 +524,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
 
                 MWSDK.BNB.Metadata.RecommendSearchNFTs(collections, (res) =>
                 {
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -546,7 +536,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
 
                 MWSDK.BNB.Metadata.GetNFTInfo(v1, v2, (res) =>
                 {
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -562,7 +552,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
 
                 MWSDK.BNB.Metadata.GetNFTs(collection, page, pageSize, orderByString, desc, null, (res) =>
                 {
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }

@@ -7,6 +7,7 @@ using MirrorworldSDK.Wrapper;
 using TMPro;
 using UnityEngine;
 using MirrorWorld;
+using MWEVMResponses;
 
 public class TestManager : MonoBehaviour
 {
@@ -45,6 +46,10 @@ public class TestManager : MonoBehaviour
             apiInfo.SetActive(false);
             apiList.SetActive(true);
         };
+
+        //string response = "{\"status\":\"success\",\"data\":{\"id\":44,\"seed\":\"c8qhvhpOlC5hP4I3or-UX\",\"hash\":\"0xa39b44ee7c788fcaf32c755816225e569ac99f0c40a24b81b982491318081c5b\",\"signature\":\"0xef4cbef46636217bca4e2db63e2634276bcdc5a843d9d51ce35273d4965fdd4d45cac2548034eccbbec02df2bacaab66d38fb4f7d81720ed9481371fcd13c0571b\",\"contract_address\":\"0x5e7f819F1678f46B50e7C13208B7B56804fD020e\",\"contract_type\":\"erc1155\",\"url\":\"https://metadata-assets.mirrorworld.fun/mirror_jump/metadata/1.json\",\"name\":\"aaaa\",\"symbol\":\"ssss\",\"creator_address\":\"0xdB5986d3F431bFdc53b6C796DD96431b6a0B11B4\",\"track_mint\":true,\"burn_mint\":true,\"mint_enabled\":true,\"mint_start_id\":0,\"mint_end_id\":0,\"mint_amount\":0,\"status\":\"done\",\"transaction_hash\":\"0x70c7a81e1b4acf5b89f3401a9b5d8823defa61d4664121158e365209180508d3\",\"client_id\":\"8T5DIY19ujf5PHMpRqgBzyGdxFaIqBaidWfA.niFz1Kj3.mirrorworld.fun\",\"mint_id\":null,\"createdAt\":\"2023-05-06T09:06:09.774Z\",\"updatedAt\":\"2023-05-06T09:06:17.421Z\"},\"code\":0,\"message\":\"Successfully minted collection\"}";
+        //CommonResponse<EVMResMintCollection> responseBody = JsonUtility.FromJson<CommonResponse<EVMResMintCollection>>(response);
+        //Debug.Log(responseBody);
     }
 
     public void InitAPIList()
@@ -96,6 +101,7 @@ public class TestManager : MonoBehaviour
         AddAPIButton(lineAssetMint, APINames.SolAssetMintCollection);
         AddAPIButton(lineAssetMint, APINames.SolAssetMintNFT);
         AddAPIButton(lineAssetMint, APINames.SolAssetMintUpdateNFTProperties);
+        AddAPIButton(lineAssetMint, APINames.AssetCreateMarketplace);
         //Asset/Search
         Transform lineAssetSearch = AddAPILine(apiParent,"Asset/Search");
         AddAPIButton(lineAssetSearch, APINames.SolAssetSearchQueryNFT);
@@ -147,6 +153,7 @@ public class TestManager : MonoBehaviour
         Transform lineAssetMint = AddAPILine(apiParent, "Asset/Mint");
         AddAPIButton(lineAssetMint, APINames.SolAssetMintCollection);
         AddAPIButton(lineAssetMint, APINames.SolAssetMintNFT);
+        AddAPIButton(lineAssetMint, APINames.AssetCreateMarketplace);
         //Asset/Search
         Transform lineAssetSearch = AddAPILine(apiParent, "Asset/Search");
         AddAPIButton(lineAssetSearch, APINames.SolAssetSearchQueryNFT);

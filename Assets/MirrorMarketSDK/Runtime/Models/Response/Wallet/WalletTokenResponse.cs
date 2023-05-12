@@ -22,5 +22,8 @@ namespace MirrorworldSDK.Models
         public ulong amount;
 
         public int decimals;
+
+        public object metadata;
     }
+
 }

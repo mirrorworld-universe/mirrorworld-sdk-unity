@@ -161,6 +161,10 @@ namespace MirrorworldSDK
             {
                 return "asset/auction";
             }
+            else if (serviceEnum == MirrorService.AssetMarketplace)
+            {
+                return "asset/marketplaces";
+            }
             else if (serviceEnum == MirrorService.AssetMint)
             {
                 return "asset/mint";
@@ -228,7 +232,7 @@ namespace MirrorworldSDK
 
         private static bool belongToAsset(MirrorService service)
         {
-            return service == MirrorService.AssetAuction || service == MirrorService.AssetMint || service == MirrorService.AssetNFT;
+            return service == MirrorService.AssetAuction || service == MirrorService.AssetMint || service == MirrorService.AssetNFT || service == MirrorService.AssetMarketplace;
         }
 
         private static bool belongToMetadata(MirrorService service)

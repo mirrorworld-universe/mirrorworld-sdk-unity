@@ -26,7 +26,7 @@ namespace MirrorworldSDK.Wrapper
 
             monoBehaviour.StartCoroutine(CheckAndGet(url, null, (response) =>
             {
-                LogFlow("GetWalletTokens result:" + JsonUtility.ToJson(response));
+                LogFlow("GetWalletTokens result:" + response);
 
                 action(response);
             }));
@@ -34,7 +34,19 @@ namespace MirrorworldSDK.Wrapper
 
         public void GetWalletTokensByWallet(string walletAddress, Dictionary<string, string> requestParams, Action<string> action)
         {
-            string url = UrlUtils.GetMirrorGetUrl(MirrorService.Wallet) + walletAddress + "/transactions";
+            string url = UrlUtils.GetMirrorGetUrl(MirrorService.Wallet) + "tokens/" + walletAddress;
+
+            monoBehaviour.StartCoroutine(CheckAndGet(url, requestParams, (response) =>
+            {
+                LogFlow("GetWalletTokens result:" + response);
+
+                action(response);
+            }));
+        }
+
+        public void GetWalletTokensByWalletOnEVM(string walletAddress, Dictionary<string, string> requestParams, Action<string> action)
+        {
+            string url = UrlUtils.GetMirrorGetUrl(MirrorService.Wallet) + "tokens" + walletAddress;
 
             monoBehaviour.StartCoroutine(CheckAndGet(url, requestParams, (response) =>
             {
@@ -60,6 +72,7 @@ namespace MirrorworldSDK.Wrapper
 
             monoBehaviour.StartCoroutine(CheckAndGet(url, requestParams, (response) =>
             {
+                LogFlow("GetWalletTransactionsByWallet response:"+response);
                 action(response);
             }));
         }
@@ -89,14 +102,13 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void TransferOnEVM(string url, string rawRequestBody, Action<string> callBack)
+        public void TransferOnEVM(string url, string rawRequestBody, Action<CommonResponse<TransferSolResponse>> callBack)
         {
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, (response) => {
 
                 LogFlow("TransferSol result :" + response);
-
-                callBack(response);
-
+                CommonResponse<TransferSolResponse> responseBody = JsonUtility.FromJson<CommonResponse<TransferSolResponse>>(response);
+                callBack(responseBody);
             }));
         }
 

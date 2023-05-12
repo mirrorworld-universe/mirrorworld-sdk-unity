@@ -21,6 +21,7 @@ public class APINames
     public static string SolAssetAuctionCancelListing = "Cancel Listing";
     public static string SolAssetAuctionListNFT = "List NFT";
     public static string SolAssetAuctionTransferNFT = "Transfer NFT";
+    public static string AssetCreateMarketplace = "Create Marketplace";
     //Asset/Confirmation
     public static string SolAssetConfirmationCheckStatusOfTransactions = "Check Transactions Status";
     public static string SolAssetConfirmationCheckStatusOfMinting = "Check Minting Status";

@@ -9,7 +9,7 @@ using UnityEngine.Networking;
 
 namespace MirrorworldSDK.Wrapper
 {
-    public partial class MirrorWrapper : IAuthenticationService
+    public partial class MirrorWrapper
     {
         private readonly string urlLoginWithEmail = "auth/login";
         private readonly string urlRefreshToken = "auth/refresh-token";
@@ -60,12 +60,12 @@ namespace MirrorworldSDK.Wrapper
             }));
         }
 
-        public void QueryUser(string email, Action<string> callBack)
+        public void QueryUser(string email, Action<CommonResponse<UserResponse>> callBack)
         {
             string url = GetAuthRoot() + urlQueryUser + "?email=" + email;
             monoBehaviour.StartCoroutine(CheckAndGet(url, null, (response) => {
-                //CommonResponse<UserResponse> responseBody = JsonUtility.FromJson<CommonResponse<UserResponse>>(response);
-                callBack(response);
+                CommonResponse<UserResponse> responseBody = JsonUtility.FromJson<CommonResponse<UserResponse>>(response);
+                callBack(responseBody);
             }));
         }
 

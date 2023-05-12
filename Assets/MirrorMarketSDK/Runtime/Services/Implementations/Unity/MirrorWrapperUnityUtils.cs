@@ -32,7 +32,7 @@ namespace MirrorworldSDK.Wrapper
                     }
                     else
                     {
-                        LogFlow("CheckAndPost: Get access token failed.");
+                        LogFlow("No access token, please login first.");
                         return;
                     }
                 }));
@@ -70,7 +70,7 @@ namespace MirrorworldSDK.Wrapper
                         LogFlow("CheckAndGet: Get access token failed.");
                         CommonResponse<string> commonResponse = new CommonResponse<string>();
                         commonResponse.code = (long)MirrorResponseCode.LocalFailed;
-                        commonResponse.error = "Unity:Get access token failed.";
+                        commonResponse.error = "Please login first.";
 
                         string resStr = JsonUtility.ToJson(commonResponse);
                         callBack(resStr);
@@ -112,6 +112,8 @@ namespace MirrorworldSDK.Wrapper
 
             string rawResponseBody = request.downloadHandler.text;
 
+            LogFlow("post response raw:"+ rawResponseBody);
+
             request.Dispose();
 
             callBack(rawResponseBody);
@@ -149,6 +151,7 @@ namespace MirrorworldSDK.Wrapper
 
             string rawResponseBody = request.downloadHandler.text;
 
+            LogFlow("get response raw:" + rawResponseBody);
             request.Dispose();
 
             callBack(rawResponseBody);
