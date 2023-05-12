@@ -354,8 +354,14 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             {
                 double price = PrecisionUtil.StrToDouble(v2);
                 int token_id = PrecisionUtil.StrToInt(v3);
-                MWSDK.BNB.Asset.BuyNFT(v1, price, token_id, v4, approveFinished, (res) =>
+                string contract_address = v1;
+                string marketplace_address = v4;
+
+                MWSDK.BNB.Asset.BuyNFT(contract_address, price, token_id, marketplace_address, approveFinished, (res) =>
                 {
+                    string amount = res.data.amount;
+                    string buyer = res.data.buyer;
+                    //todo...
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
