@@ -142,7 +142,7 @@ namespace MirrorWorld
     public class PolygonAsset
     {
         //Asset/Auction
-        public void BuyNFT(string collection_address, double price, int token_id, string marketplace_address, Action approveFinished, Action<string> callBack)
+        public void BuyNFT(string collection_address, double price, int token_id, string marketplace_address, Action approveFinished, Action<CommonResponse<EVMResBuyNFT>> callBack)
         {
             MWEVMWrapper.BuyNFT(collection_address, price, token_id, marketplace_address, approveFinished, callBack);
         }

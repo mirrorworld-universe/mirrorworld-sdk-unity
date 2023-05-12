@@ -38,7 +38,7 @@ namespace MirrorworldSDK.Wrapper
 
             monoBehaviour.StartCoroutine(CheckAndGet(url, requestParams, (response) =>
             {
-                LogFlow("GetWalletTokens result:" + JsonUtility.ToJson(response));
+                LogFlow("GetWalletTokens result:" + response);
 
                 action(response);
             }));

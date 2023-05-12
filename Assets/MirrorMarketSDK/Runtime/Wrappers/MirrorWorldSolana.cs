@@ -11,7 +11,7 @@ namespace MirrorWorld
     public class SolanaAsset
     {
         //Asset/Auction
-        public void BuyNFT(string mint_address, double price, string auction_house, Action approveFinished, Action<string> callBack)
+        public void BuyNFT(string mint_address, double price, string auction_house, Action approveFinished, Action<CommonResponse<SolResBuyNFT>> callBack)
         {
             MWSolanaWrapper.BuyNFT(mint_address, price, auction_house, approveFinished, callBack);
         }
@@ -103,7 +103,7 @@ namespace MirrorWorld
             MWSolanaWrapper.GetTokens(action);
         }
 
-        public void GetTokensByWallet(string wallet, int limit, string next_before, Action<string> action)
+        public void GetTokensByWallet(string wallet, int limit, string next_before, Action<CommonResponse<WalletTokenResponse>> action)
         {
             MWSolanaWrapper.GetTokensByWalletByWallet(wallet, limit, next_before, action);
         }
@@ -123,17 +123,17 @@ namespace MirrorWorld
     {
 
         //Metadata/Collections
-        public void GetCollectionsInfo(List<string> collections, Action<string> callback)
+        public void GetCollectionsInfo(List<string> collections, Action<CommonResponse<List<GetCollectionInfoResponse>>> callback)
         {
             MWSolanaWrapper.MetadataCollectionsInfo(collections, callback);
         }
 
-        public void GetCollectionFilters(string collection, Action<string> callBack)
+        public void GetCollectionFilters(string collection, Action<CommonResponse<GetCollectionFilterInfoResponse>> callBack)
         {
             MWSolanaWrapper.MetadataCollectionFilters(collection, callBack);
         }
 
-        public void GetCollectionsSummary(List<string> collections, Action<string> action)
+        public void GetCollectionsSummary(List<string> collections, Action<CommonResponse<List<SolResMetadataGetCollectionSummary>>> action)
         {
             MWSolanaWrapper.MetadataCollectionsSummary(collections, action);
         }
@@ -144,22 +144,22 @@ namespace MirrorWorld
             MWSolanaWrapper.MetadataNFTInfo(mintAddress, callBack);
         }
 
-        public void GetNFTs(string collection, int page, int pageSize, string orderByString, bool desc, List<GetNFTsRequestFilter> filters, Action<string> callback)
+        public void GetNFTs(string collection, int page, int pageSize, string orderByString, bool desc, List<GetNFTsRequestFilter> filters, Action<CommonResponse<GetNFTsResponse>> callback)
         {
             MWSolanaWrapper.MetadataNFTsByUnabridgedParams(collection, page, pageSize, orderByString, desc, filters, callback);
         }
 
-        public void GetNFTEvents(string mintAddress, int page, int pageSize, Action<string> callback)
+        public void GetNFTEvents(string mintAddress, int page, int pageSize, Action<CommonResponse<GetNFTEventsResponse>> callback)
         {
             MWSolanaWrapper.MetadataNFTEvents(mintAddress, page, pageSize, callback);
         }
 
-        public void SearchNFTs(List<string> collections, string searchString, Action<string> callback)
+        public void SearchNFTs(List<string> collections, string searchString, Action<CommonResponse<List<MirrorMarketNFTObj>>> callback)
         {
             MWSolanaWrapper.MetadataSearchNFTs(collections, searchString, callback);
         }
 
-        public void RecommendSearchNFTs(List<string> collections, Action<string> callback)
+        public void RecommendSearchNFTs(List<string> collections, Action<CommonResponse<List<MirrorMarketNFTObj>>> callback)
         {
             MWSolanaWrapper.MetadataRecommendSearchNFTs(collections, callback);
         }

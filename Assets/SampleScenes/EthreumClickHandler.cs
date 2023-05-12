@@ -356,7 +356,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 int token_id = PrecisionUtil.StrToInt(v3);
                 MWSDK.Ethereum.Asset.BuyNFT(v1, price, token_id, v4, approveFinished, (res) =>
                 {
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }

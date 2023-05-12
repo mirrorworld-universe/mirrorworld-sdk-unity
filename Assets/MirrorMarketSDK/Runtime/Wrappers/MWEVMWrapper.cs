@@ -9,7 +9,7 @@ using MWEVMResponses;
 public class MWEVMWrapper
 {
     //Asset/Auction
-    public static void BuyNFT(string collection_address, double price, int token_id, string marketplace_address, Action approveFinished, Action<string> callBack)
+    public static void BuyNFT(string collection_address, double price, int token_id, string marketplace_address, Action approveFinished, Action<CommonResponse<EVMResBuyNFT>> callBack)
     {
         EVMBuyNFTReq requestParams = new EVMBuyNFTReq();
         requestParams.collection_address = collection_address;
@@ -28,8 +28,8 @@ public class MWEVMWrapper
             var rawRequestBody = JsonUtility.ToJson(requestParams);
 
             MirrorWrapper.Instance.BuyNFT(rawRequestBody, (response) => {
-
-                callBack(response);
+                CommonResponse<EVMResBuyNFT> commonResponse = JsonUtility.FromJson<CommonResponse<EVMResBuyNFT>>(response);
+                callBack(commonResponse);
 
             });
         });

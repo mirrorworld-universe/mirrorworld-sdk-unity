@@ -205,8 +205,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
             SetInfoPanel("GetWalletTokensByWallet", "wallet address", "limit", "next_before", null, null, null, "Get", "Get your tokens", () => {
                 int limit = PrecisionUtil.StrToInt(v2);
                 MWSDK.Solana.Wallet.GetTokensByWallet(v1, limit, v3, (res) => {
-
-                    PrintLog("Get tokens result:" + res);
+                    PrintLog("Get tokens result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -336,8 +335,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 double price = PrecisionUtil.StrToDouble(v2);
                 MWSDK.DebugLog("price:" + price);
                 MWSDK.Solana.Asset.BuyNFT(v1, price, v3, approveFinished, (res) => {
-
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -449,8 +447,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
             SetInfoPanel("GetCollectionFilterInfo", "collection", null, null, null, null, null, "Get", "Get collection filter info", () => {
                 string collection = v1;
                 MWSDK.Solana.Metadata.GetCollectionFilters(v1, (res) => {
-
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -466,8 +463,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                     return;
                 }
                 MWSDK.Solana.Metadata.GetCollectionsSummary(cols, (res) => {
-
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -480,7 +476,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
 
                 MWSDK.Solana.Metadata.GetCollectionsInfo(collections, (res) => {
 
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -493,7 +489,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
 
                 MWSDK.Solana.Metadata.GetNFTEvents(mintAddress, page, pageSize, (res) => {
 
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -506,8 +502,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 string searchString = v2;
 
                 MWSDK.Solana.Metadata.SearchNFTs(collections, searchString, (res) => {
-
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -520,7 +515,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
 
                 MWSDK.Solana.Metadata.RecommendSearchNFTs(collections, (res) => {
 
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -549,8 +544,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 bool desc = true;
 
                 MWSDK.Solana.Metadata.GetNFTs(collection, page, pageSize, orderByString, desc, null, (res) => {
-
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
