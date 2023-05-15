@@ -42,6 +42,7 @@ public class APINames
     public static string SolWalletTransferSOL = "Transfer SOL";
     public static string SolWalletTransferETH = "Transfer ETH";
     public static string SolWalletTransferBNB = "Transfer BNB";
+    public static string SolWalletTransferSUI = "Transfer SUI";
     public static string SolWalletTransferMatic = "Transfer Matic";
     public static string SolWalletTransferToken = "Transfer Token";
     //Metadata/Collections
@@ -54,4 +55,12 @@ public class APINames
     public static string SolMetadataNFTEvents = "Get NFT Events";
     public static string SolMetadataNFTSearchNFT = "Search NFT";
     public static string SolMetadataNFTRecommendSearchNFT = "Search Recommend NFTs";
+
+
+    //SUI
+    public static string SUIWalletGetTransactionByDigest = "Get Transaction By Digest";
+    public static string SUIWalletTokens = "Get Tokens";
+    public static string SUITransferSUI = "Transfer SUI";
+    public static string SUITransferToken = "Transfer Token";
+
 }

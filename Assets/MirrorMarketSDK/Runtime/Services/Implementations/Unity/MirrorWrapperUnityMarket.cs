@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using MirrorworldSDK.Interfaces;
 using MirrorworldSDK.Models;
-using MWEVMResponses;
+using MirrorWorldResponses;
 using UnityEngine;
 
 namespace MirrorworldSDK.Wrapper

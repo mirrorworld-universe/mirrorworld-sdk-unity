@@ -13,6 +13,7 @@ namespace MirrorWorld
         public static MirrorWorldEthereum Ethereum = new MirrorWorldEthereum();
         public static MirrorWorldPolygon Polygon = new MirrorWorldPolygon();
         public static MirrorWorldBNB BNB = new MirrorWorldBNB();
+        public static MirrorWorldSUI SUI = new MirrorWorldSUI();
 
         //Authentication APIs
         public static void StartLogin(Action<LoginResponse> action)

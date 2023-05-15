@@ -12,7 +12,7 @@ namespace MirrorworldSDK.Wrapper
     {
         private string localKeyRefreshToken = "local_key_refresh_token";
 
-        private IEnumerator CheckAndPost(string url, string messageBody, Action<string> callBack)
+        public IEnumerator CheckAndPost(string url, string messageBody, Action<string> callBack)
         {
             LogFlow("Try to post url:" + url);
             if(apiKey == "")
@@ -43,7 +43,7 @@ namespace MirrorworldSDK.Wrapper
             }
         }
 
-        private IEnumerator CheckAndGet(string url, Dictionary<string, string> requestParams, Action<string> callBack)
+        public IEnumerator CheckAndGet(string url, Dictionary<string, string> requestParams, Action<string> callBack)
         {
             LogFlow("Try to get url:" + url);
             if (apiKey == "")

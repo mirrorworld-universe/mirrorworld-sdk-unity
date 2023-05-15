@@ -7,7 +7,7 @@ using TMPro;
 using MirrorworldSDK;
 using MirrorworldSDK.UI;
 using System.Collections.Generic;
-using MWEVMResponses;
+using MirrorWorldResponses;
 
 public class PolygonClickHandler
 {
@@ -199,7 +199,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             {
                 MWSDK.QueryUser(v1, (res) =>
                 {
-                    PrintLog("Query result:" + res);
+                    PrintLog("Query result:" + JsonUtility.ToJson(res));
                 });
             });
         }

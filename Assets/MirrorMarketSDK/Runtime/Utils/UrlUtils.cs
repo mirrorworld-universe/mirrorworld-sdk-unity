@@ -88,7 +88,7 @@ namespace MirrorworldSDK
                 }
                 else
                 {
-                    MirrorWrapper.Instance.LogFlow("Unknown env:" + env + ".Will use mainnet.");
+                    MirrorWrapper.Instance.LogFlow("Unknown env:" + env + ".Will use testnet.");
                     return "devnet";
                 }
             }
@@ -104,7 +104,7 @@ namespace MirrorworldSDK
                 }
                 else
                 {
-                    MirrorWrapper.Instance.LogFlow("Unknown env:" + env + ".Will use mainnet.");
+                    MirrorWrapper.Instance.LogFlow("Unknown env:" + env + ".Will use testnet.");
                     return "goerli";
                 }
             }
@@ -120,7 +120,7 @@ namespace MirrorworldSDK
                 }
                 else
                 {
-                    MirrorWrapper.Instance.LogFlow("Unknown env:" + env + ".Will use mainnet.");
+                    MirrorWrapper.Instance.LogFlow("Unknown env:" + env + ".Will use testnet.");
                     return "mumbai-testnet";
                 }
             }
@@ -136,8 +136,24 @@ namespace MirrorworldSDK
                 }
                 else
                 {
-                    MirrorWrapper.Instance.LogFlow("Unknown env:" + env + ".Will use mainnet.");
+                    MirrorWrapper.Instance.LogFlow("Unknown env:" + env + ".Will use testnet.");
                     return "bnb-testnet";
+                }
+            }
+            else if (chain == MirrorChain.SUI)
+            {
+                if (env == MirrorEnv.Mainnet)
+                {
+                    return "mainnet";
+                }
+                else if (env == MirrorEnv.Devnet)
+                {
+                    return "devnet";
+                }
+                else
+                {
+                    MirrorWrapper.Instance.LogFlow("Unknown env:" + env + ".Will use testnet.");
+                    return "devnet";
                 }
             }
             else

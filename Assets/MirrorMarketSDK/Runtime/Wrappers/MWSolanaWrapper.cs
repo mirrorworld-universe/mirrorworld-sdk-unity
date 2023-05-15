@@ -4,7 +4,7 @@ using System;
 using MirrorworldSDK.Wrapper;
 using MirrorworldSDK.Models;
 using System.Collections.Generic;
-using MWEVMResponses;
+using MirrorWorldResponses;
 
 namespace MirrorworldSDK
 {

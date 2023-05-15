@@ -7,7 +7,7 @@ using TMPro;
 using MirrorworldSDK;
 using MirrorworldSDK.UI;
 using System.Collections.Generic;
-using MWEVMResponses;
+using MirrorWorldResponses;
 
 public class SolanaClickHandler
 {
@@ -359,7 +359,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
         }
         else if (btnName == APINames.SolWalletGetTransactionsByWallet)
         {
-            SetInfoPanel("GetWalletTransactions", "wallet address", "limit", "next_before", null, null, null, "GetWalletTransactions", "GetWalletTransactions", () => {
+            SetInfoPanel("GetWalletTransactionsByWallet", "wallet address", "limit", "next_before", null, null, null, "GetWalletTransactions", "GetWalletTransactions", () => {
                 int limit = PrecisionUtil.StrToInt(v2);
                 MWSDK.Solana.Wallet.GetTransactionsByWallet(v1, limit, v3, (res) => {
 

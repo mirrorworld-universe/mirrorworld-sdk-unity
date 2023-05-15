@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace MWEVMResponses
+namespace MirrorWorldResponses
 {
     [System.Serializable]
     public class EVMResMetadataNFTs

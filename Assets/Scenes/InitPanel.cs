@@ -55,6 +55,10 @@ public class InitPanel : MonoBehaviour
         {
             chain = MirrorChain.BNB;
         }
+        else if (selectedChain == 4)
+        {
+            chain = MirrorChain.SUI;
+        }
         else
         {
             Debug.LogError("MirrorSDK: unknwon selected item index:"+selectedChain);

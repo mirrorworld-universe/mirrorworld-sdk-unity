@@ -7,17 +7,10 @@ using TMPro;
 using MirrorworldSDK;
 using MirrorworldSDK.UI;
 using System.Collections.Generic;
-using MWEVMResponses;
+using MirrorWorldResponses;
 
-public class EthereumClickHandler
+public class BNBClickHandler:BaseClickHandler
 {
-    public GameObject apiInfo;
-    public GameObject apiList;
-    private TextMeshProUGUI apiNameText, btnText, contentText;
-    private ParamCell cell1, cell2, cell3, cell4, cell5, cell6;
-    private string v1, v2, v3, v4, v5, v6;
-    private Action clickAction;
-
     public void Init(GameObject apiInfo, GameObject apiList, TextMeshProUGUI apiNameText, TextMeshProUGUI btnText, TextMeshProUGUI contentText,
 ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell cell5, ParamCell cell6)
     {
@@ -32,11 +25,6 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
         this.cell4 = cell4;
         this.cell5 = cell5;
         this.cell6 = cell6;
-    }
-
-    private void ClearLog()
-    {
-        contentText.text = "";
     }
 
     public void OnConfirmClicked()
@@ -121,20 +109,6 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
         clickAction = action;
     }
 
-    private void PrintLog(string content)
-    {
-        contentText.text += "MirrorTest:" + content + "\n";
-        GUIUtility.systemCopyBuffer = content;
-    }
-    private UniversalDialog ShowUniversalNotice(string title, string content, string yesText, string noText, Action yesAction, Action noAction)
-    {
-        MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
-        GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("UniversalDialog", GameObject.Find("Canvas").transform);
-        UniversalDialog dialog = dialogCanvas.GetComponent<UniversalDialog>();
-        dialog.Init(title, content, yesText, noText, yesAction, noAction);
-        return dialog;
-    }
-
     public void handleEVMDemoClick(string btnName)
     {
         ClearLog();
@@ -170,7 +144,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 MirrorWrapper.Instance.LoginAsDeveloper((loginSuccess) =>
                 {
 
-                    //MWSDK.DebugLog("GuestLogin result:" + JsonUtility.ToJson(loginResponse));
+                    MWSDK.DebugLog("GuestLogin result:" + JsonUtility.ToJson(loginResponse));
 
                     UniversalDialog dialog = null;
                     dialog = ShowUniversalNotice("Guest Login", "Guest login success! But a guest account can not visit sensitive APIs.", "OK", null,
@@ -199,7 +173,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             {
                 MWSDK.QueryUser(v1, (res) =>
                 {
-                    PrintLog("Query result:" + res);
+                    PrintLog("Query result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -207,7 +181,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
         {
             SetInfoPanel("GetWalletTokens", null, null, null, null, null, null, "Get", "Get your tokens", () =>
             {
-                MWSDK.Ethereum.Wallet.GetTokens((res) =>
+                MWSDK.BNB.Wallet.GetTokens((res) =>
                 {
                     PrintLog("Get tokens result:" + JsonUtility.ToJson(res));
                 });
@@ -217,7 +191,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
         {
             SetInfoPanel("GetWalletTokens", "wallet address", null, null, null, null, null, "Get", "Get your tokens", () =>
             {
-                MWSDK.Ethereum.Wallet.GetTokensByWalletByWallet(v1, (res) =>
+                MWSDK.BNB.Wallet.GetTokensByWalletByWallet(v1, (res) =>
                 {
                     PrintLog("Get tokens result:" + res);
                 });
@@ -238,9 +212,9 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
         }
         else if (btnName == APINames.SolAssetSearchQueryNFT)
         {
-            SetInfoPanel("QueryNFT", "token address", "token id", null, null, null, null, "GetNFTDetails", "GetNFTDetails", () =>
+            SetInfoPanel("QueryNFT", "token_address", "token id", null, null, null, null, "GetNFTDetails", "GetNFTDetails", () =>
             {
-                MWSDK.Ethereum.Asset.QueryNFT(v1, v2, (res) =>
+                MWSDK.BNB.Asset.QueryNFT(v1, v2, (res) =>
                 {
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -252,7 +226,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             {
                 int limit = int.Parse(v2);
 
-                MWSDK.Ethereum.Asset.SearchNFTsByOwner(v1, limit, v3, (res) =>
+                MWSDK.BNB.Asset.SearchNFTsByOwner(v1, limit, v3, (res) =>
                 {
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -267,7 +241,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 token.token_address = v1;
                 token.token_id = v2;// int.Parse(v2);
                 list.Add(token);
-                MWSDK.Ethereum.Asset.SearchNFTsByMintAddress(list, (res) =>
+                MWSDK.BNB.Asset.SearchNFTsByMintAddress(list, (res) =>
                 {
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -289,36 +263,12 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             SetInfoPanel("CreateVerifiedCollection", "name", "symbol", "url", null, null, null, "CreateVerifiedCollection", "CreateVerifiedCollection", () =>
             {
                 int seller_fee_basis_points = (int)PrecisionUtil.StrToDouble(v4);
-                MWSDK.Ethereum.Asset.MintCollection(v1, v2, v3, approveFinished, (res) =>
+                MWSDK.BNB.Asset.MintCollection(v1, v2, v3, approveFinished, (res) =>
                 {
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             }
                 );
-        }
-        else if (btnName == APINames.SolAssetMintNFT)
-        {
-            SetInfoPanel("MintNFT", "contract_address", "token_id", "to_wallet", "mint amount", "url", null, "MintNFT", "MintNFT", () =>
-            {
-                int amount = PrecisionUtil.StrToInt(v4);
-                int token_id = int.Parse(v2);
-                MWSDK.Ethereum.Asset.MintNFT(v1, token_id, v5, v3, amount, Confirmation.Default, approveFinished, (res) =>
-                {
-                    PrintLog("result:" + JsonUtility.ToJson(res));
-                });
-            });
-        }
-        else if (btnName == APINames.SolAssetAuctionListNFT)
-        {
-            SetInfoPanel("ListNFT", "contract_address", "token id", "price", "marketplace address", null, null, "ListNFT", "ListNFT", () =>
-            {
-                int token_id = PrecisionUtil.StrToInt(v2);
-                double price = PrecisionUtil.StrToDouble(v3);
-                MWSDK.Ethereum.Asset.ListNFT(v1, token_id, price, v4, approveFinished, (res) =>
-                {
-                    PrintLog("result:" + res);
-                });
-            });
         }
         else if (btnName == APINames.AssetCreateMarketplace)
         {
@@ -337,12 +287,36 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 });
             });
         }
+        else if (btnName == APINames.SolAssetMintNFT)
+        {
+            SetInfoPanel("MintNFT", "contract_address", "token_id", "to_wallet", "mint amount", "url", null, "MintNFT", "MintNFT", () =>
+            {
+                int amount = PrecisionUtil.StrToInt(v4);
+                int token_id = int.Parse(v2);
+                MWSDK.BNB.Asset.MintNFT(v1, token_id, v5, v3, amount, Confirmation.Default, approveFinished, (res) =>
+                {
+                    PrintLog("result:" + JsonUtility.ToJson(res));
+                });
+            });
+        }
+        else if (btnName == APINames.SolAssetAuctionListNFT)
+        {
+            SetInfoPanel("ListNFT", "contract_address", "token id", "price", "marketplace address", null, null, "ListNFT", "ListNFT", () =>
+            {
+                int token_id = PrecisionUtil.StrToInt(v2);
+                double price = PrecisionUtil.StrToDouble(v3);
+                MWSDK.BNB.Asset.ListNFT(v1, token_id, price, v4, approveFinished, (res) =>
+                {
+                    PrintLog("result:" + res);
+                });
+            });
+        }
         else if (btnName == APINames.SolAssetAuctionCancelListing)
         {
             SetInfoPanel("CancelNFTListing", "contract_address", "token id", "marketplace_address", null, null, null, "CancelNFTListing", "CancelNFTListing", () =>
             {
                 int token_id = PrecisionUtil.StrToInt(v2);
-                MWSDK.Ethereum.Asset.CancelListing(v1, token_id, v3, approveFinished, (res) =>
+                MWSDK.BNB.Asset.CancelListing(v1, token_id, v3, approveFinished, (res) =>
                 {
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -350,22 +324,28 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
         }
         else if (btnName == APINames.SolAssetAuctionBuyNFT)
         {
-            SetInfoPanel("Buy NFT", "mint address", "Price", "token id", "marketplace_address", null, null, "BuyNFT", "BuyNFT", () =>
+            SetInfoPanel("Buy NFT", "contract_address", "Price", "token id", "marketplace_address", null, null, "BuyNFT", "BuyNFT", () =>
             {
                 double price = PrecisionUtil.StrToDouble(v2);
                 int token_id = PrecisionUtil.StrToInt(v3);
-                MWSDK.Ethereum.Asset.BuyNFT(v1, price, token_id, v4, approveFinished, (res) =>
+                string contract_address = v1;
+                string marketplace_address = v4;
+
+                MWSDK.BNB.Asset.BuyNFT(contract_address, price, token_id, marketplace_address, approveFinished, (res) =>
                 {
+                    string amount = res.data.amount;
+                    string buyer = res.data.buyer;
+                    //todo...
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
         else if (btnName == APINames.SolAssetAuctionTransferNFT)
         {
-            SetInfoPanel("Transfer NFT", "collection address", "token id", "to wallet address", null, null, null, "Transfer", "Transfer", () =>
+            SetInfoPanel("Transfer NFT", "contract_address", "token id", "to wallet address", null, null, null, "Transfer", "Transfer", () =>
             {
                 int token_id = PrecisionUtil.StrToInt(v2);
-                MWSDK.Ethereum.Asset.TransferNFT(v1, token_id, v3, approveFinished, (res) =>
+                MWSDK.BNB.Asset.TransferNFT(v1, token_id, v3, approveFinished, (res) =>
                 {
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -376,7 +356,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             SetInfoPanel("GetWalletTransactions", "number", null, null, null, null, null, "GetWalletTransactions", "GetWalletTransactions", () =>
             {
                 double price = PrecisionUtil.StrToDouble(v1);
-                MWSDK.Ethereum.Wallet.GetTransactions(price, (res) =>
+                MWSDK.BNB.Wallet.GetTransactions(price, (res) =>
                 {
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -387,7 +367,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             SetInfoPanel("GetWalletTransactions", "wallet address", "limit", null, null, null, null, "GetWalletTransactions", "GetWalletTransactions", () =>
             {
                 int limit = PrecisionUtil.StrToInt(v2);
-                MWSDK.Ethereum.Wallet.GetTransactionsByWallet(v1, limit, (res) =>
+                MWSDK.BNB.Wallet.GetTransactionsByWallet(v1, limit, (res) =>
                 {
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -397,18 +377,18 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
         {
             SetInfoPanel("GetWalletTransactionsBySignatrue", "signature", null, null, null, null, null, "GetWalletTransactionsBySignatrue", "GetWalletTransactionsBySignatrue", () =>
             {
-                MWSDK.Ethereum.Wallet.GetTransactionsBySignature(v1, (res) =>
+                MWSDK.BNB.Wallet.GetTransactionsBySignature(v1, (res) =>
                 {
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
-        else if (btnName == APINames.SolWalletTransferETH)
+        else if (btnName == APINames.SolWalletTransferBNB)
         {
-            SetInfoPanel("Transfer ETH", "nonce", "gas price", "gas limit", "to", "amout", null, "Transfer", "Transfer", () =>
+            SetInfoPanel("Transfer BNB", "nonce", "gas price", "gas limit", "to", "amout", null, "Transfer", "Transfer", () =>
             {
                 int price = (int)PrecisionUtil.StrToDouble(v1);
-                MWSDK.Ethereum.Wallet.TransferETH(v1, v2, v3, v4, v5, approveFinished, (res) =>
+                MWSDK.BNB.Wallet.TransferBNB(v1, v2, v3, v4, v5, approveFinished, (res) =>
                 {
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -418,7 +398,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
         {
             SetInfoPanel("TransferToken", "to", "amout", "contract", null, null, null, "Transfer", "Transfer", () =>
             {
-                MWSDK.Ethereum.Wallet.TransferToken(v1, v2, v3, approveFinished, (res) =>
+                MWSDK.BNB.Wallet.TransferToken(v1, v2, v3, approveFinished, (res) =>
                 {
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -445,9 +425,10 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             SetInfoPanel("GetCollectionFilterInfo", "collection", null, null, null, null, null, "Get", "Get collection filter info", () =>
             {
                 string collection = v1;
-                MWSDK.Ethereum.Metadata.GetCollectionFilters(v1, (res) =>
+                MWSDK.BNB.Metadata.GetCollectionFilters(v1, (res) =>
                 {
-                    PrintLog("result:" + JsonUtility.ToJson(res));
+
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -463,7 +444,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                     PrintLog("Please input something.");
                     return;
                 }
-                MWSDK.Ethereum.Metadata.GetCollectionsSummary(cols, (res) =>
+                MWSDK.BNB.Metadata.GetCollectionsSummary(cols, (res) =>
                 {
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -477,7 +458,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 List<string> collections = new List<string>();
                 collections.Add(collection1);
 
-                MWSDK.Ethereum.Metadata.GetCollectionsInfo(collections, (res) =>
+                MWSDK.BNB.Metadata.GetCollectionsInfo(collections, (res) =>
                 {
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -492,7 +473,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 int pageSize = int.Parse(v3);
                 int tokenID = int.Parse(v4);
 
-                MWSDK.Ethereum.Metadata.GetNFTEvents(v1, page, pageSize, tokenID, v5, (res) =>
+                MWSDK.BNB.Metadata.GetNFTEvents(v1, page, pageSize, tokenID, v5, (res) =>
                 {
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -507,9 +488,9 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 collections.Add(collection1);
                 string searchString = v2;
 
-                MWSDK.Ethereum.Metadata.SearchNFTs(collections, searchString, (res) =>
+                MWSDK.BNB.Metadata.SearchNFTs(collections, searchString, (res) =>
                 {
-                    PrintLog("result:" + JsonUtility.ToJson(res));
+                    PrintLog("result:" + res);
                 });
             });
         }
@@ -521,7 +502,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 List<string> collections = new List<string>();
                 collections.Add(collection1);
 
-                MWSDK.Ethereum.Metadata.RecommendSearchNFTs(collections, (res) =>
+                MWSDK.BNB.Metadata.RecommendSearchNFTs(collections, (res) =>
                 {
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -533,7 +514,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             {
                 //int tokenID = PrecisionUtil.StrToInt(v2);
 
-                MWSDK.Ethereum.Metadata.GetNFTInfo(v1, v2, (res) =>
+                MWSDK.BNB.Metadata.GetNFTInfo(v1, v2, (res) =>
                 {
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -549,7 +530,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 string orderByString = v4;
                 bool desc = true;
 
-                MWSDK.Ethereum.Metadata.GetNFTs(collection, page, pageSize, orderByString, desc, null, (res) =>
+                MWSDK.BNB.Metadata.GetNFTs(collection, page, pageSize, orderByString, desc, null, (res) =>
                 {
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });

@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-namespace MWEVMResponses
+namespace MirrorWorldResponses
 {
     [Serializable]
     public class EVMResMintNFT

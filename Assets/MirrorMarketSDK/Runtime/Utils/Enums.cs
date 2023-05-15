@@ -64,7 +64,9 @@ namespace MirrorworldSDK
         public static string MintNFT = "mint_nft";
         public static string UpdateNFT = "update_nft";
         public static string TransferSol = "transfer_sol";
-        public static string TransferETH = "transfer_eth"; 
+        public static string TransferSUI = "transfer_sui";
+        public static string TransferETH = "transfer_eth";
+        public static string TransferToken = "transfer_token";
         public static string TransferSPLToken = "transfer_spl_token";
         public static string CreateCollection = "create_collection";
         public static string ListNFT = "list_nft";

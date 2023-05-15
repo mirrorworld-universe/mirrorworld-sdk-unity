@@ -7,7 +7,7 @@ using MirrorworldSDK.Wrapper;
 using TMPro;
 using UnityEngine;
 using MirrorWorld;
-using MWEVMResponses;
+using MirrorWorldResponses;
 
 public class TestManager : MonoBehaviour
 {
@@ -66,6 +66,10 @@ public class TestManager : MonoBehaviour
         else if (selectedChain == MirrorChain.Ethereum || selectedChain == MirrorChain.Polygon || selectedChain == MirrorChain.BNB)
         {
             InitEVMAPIList(selectedChain);
+        }
+        else if (selectedChain == MirrorChain.SUI)
+        {
+            InitSUIAPIList();
         }
         else
         {
@@ -166,7 +170,7 @@ public class TestManager : MonoBehaviour
         AddAPIButton(lineWallet, APINames.SolWalletGetTransactionsBySignature, 18);
         AddAPIButton(lineWallet, APINames.SolWalletGetTokens);
         AddAPIButton(lineWallet, APINames.SolWalletGetTokensByWallet, 18);
-        if(chain == MirrorChain.Ethereum)
+        if (chain == MirrorChain.Ethereum)
         {
             AddAPIButton(lineWallet, APINames.SolWalletTransferETH);
         }
@@ -191,6 +195,55 @@ public class TestManager : MonoBehaviour
         AddAPIButton(lineMetadataNFT, APINames.SolMetadataNFTEvents);
         AddAPIButton(lineMetadataNFT, APINames.SolMetadataNFTSearchNFT);
         AddAPIButton(lineMetadataNFT, APINames.SolMetadataNFTRecommendSearchNFT, 18);
+    }
+
+    private void InitSUIAPIList()
+    {
+        //Client
+        Transform lineClient = AddAPILine(apiParent, "Client");
+        AddAPIButton(lineClient, APINames.ClientGuestLogin);
+        AddAPIButton(lineClient, APINames.ClientStartLogin);
+        AddAPIButton(lineClient, APINames.ClientIsLogged);
+        AddAPIButton(lineClient, APINames.ClientLoginWithEmail, 22);
+        AddAPIButton(lineClient, APINames.ClientLogout);
+        AddAPIButton(lineClient, APINames.ClientOpenWallet);
+        AddAPIButton(lineClient, APINames.ClientOpenMarket);
+        AddAPIButton(lineClient, APINames.ClientQueryUser);
+        //Asset/Auction
+        //Transform lineAssetAuction = AddAPILine(apiParent, "Asset/Auction");
+        //AddAPIButton(lineAssetAuction, APINames.SolAssetAuctionBuyNFT);
+        //AddAPIButton(lineAssetAuction, APINames.SolAssetAuctionCancelListing, 22);
+        //AddAPIButton(lineAssetAuction, APINames.SolAssetAuctionListNFT);
+        //AddAPIButton(lineAssetAuction, APINames.SolAssetAuctionTransferNFT);
+        //Asset/Confirmation
+        //Asset/Mint
+        //Transform lineAssetMint = AddAPILine(apiParent, "Asset/Mint");
+        //AddAPIButton(lineAssetMint, APINames.SolAssetMintCollection);
+        //AddAPIButton(lineAssetMint, APINames.SolAssetMintNFT);
+        //AddAPIButton(lineAssetMint, APINames.AssetCreateMarketplace);
+        //Asset/Search
+        //Transform lineAssetSearch = AddAPILine(apiParent, "Asset/Search");
+        //AddAPIButton(lineAssetSearch, APINames.SolAssetSearchQueryNFT);
+        //AddAPIButton(lineAssetSearch, APINames.SolAssetSearchSearchNFTs);
+        //AddAPIButton(lineAssetSearch, APINames.SolAssetSearchSearchNFTsByOwner, 20);
+        //Wallet
+        Transform lineWallet = AddAPILine(apiParent, "Wallet");
+        AddAPIButton(lineWallet, APINames.SUIWalletGetTransactionByDigest, 18);
+        AddAPIButton(lineWallet, APINames.SUIWalletTokens);
+        AddAPIButton(lineWallet, APINames.SUITransferSUI);
+        AddAPIButton(lineWallet, APINames.SUITransferToken);
+        //Metadata/Collection
+        //Transform lineMetadataCollections = AddAPILine(apiParent, "Metadata/Collection");
+        //AddAPIButton(lineMetadataCollections, APINames.SolMetadataGetCollectionsInfo, 18);
+        //AddAPIButton(lineMetadataCollections, APINames.SolMetadataGetCollectionFiltersInfo, 18);
+        //AddAPIButton(lineMetadataCollections, APINames.SolMetadataGetCollectionsSummary, 18);
+        //Metadata/NFT
+        //Transform lineMetadataNFT = AddAPILine(apiParent, "Metadata/NFT");
+        //AddAPIButton(lineMetadataNFT, APINames.SolMetadataNFTInfo);
+        //AddAPIButton(lineMetadataNFT, APINames.SolMetadataNFTsInfo);
+        //AddAPIButton(lineMetadataNFT, APINames.SolMetadataNFTEvents);
+        //AddAPIButton(lineMetadataNFT, APINames.SolMetadataNFTSearchNFT);
+        //AddAPIButton(lineMetadataNFT, APINames.SolMetadataNFTRecommendSearchNFT, 18);
     }
 
     private Transform AddAPILine(Transform parent,string title)
@@ -226,6 +279,7 @@ public class TestManager : MonoBehaviour
     private PolygonClickHandler polygonHandler = new PolygonClickHandler();
     private EthereumClickHandler ethereumHandler = new EthereumClickHandler();
     private BNBClickHandler bnbHandler = new BNBClickHandler();
+    private SUIClickHandler suiHandler = new SUIClickHandler();
     public void OnButtonsClicked()
     {
         var btnName = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name;
@@ -267,67 +321,19 @@ public class TestManager : MonoBehaviour
                 bnbHandler.OnConfirmClicked();
             };
         }
+        else if (selectedChain == MirrorChain.SUI)
+        {
+            suiHandler.Init(apiInfo, apiList, apiNameText, btnText, contentText, cell1, cell2, cell3, cell4, cell5, cell6);
+            suiHandler.handleSUIDemoClick(btnName);
+            clickAction = () =>
+            {
+                suiHandler.OnConfirmClicked();
+            };
+        }
         else
         {
             MWSDK.DebugLog("Unknwon chain!");
         }
-    }
-
-
-    private void SetInfoPanel(string apiName,string hint1,string hint2, string hint3, string hint4, string hint5,string hint6,string btnText,string content,Action action)
-    {
-        apiNameText.text = apiName;
-        if(hint1 == null)
-        {
-            cell1.Hide();
-        }
-        else
-        {
-            cell1.Show(hint1,hint1);
-        }
-        if (hint2 == null)
-        {
-            cell2.Hide();
-        }
-        else
-        {
-            cell2.Show(hint2, hint2);
-        }
-        if (hint3 == null)
-        {
-            cell3.Hide();
-        }
-        else
-        {
-            cell3.Show(hint3, hint3);
-        }
-        if (hint4 == null)
-        {
-            cell4.Hide();
-        }
-        else
-        {
-            cell4.Show(hint4, hint4);
-        }
-        if (hint5 == null)
-        {
-            cell5.Hide();
-        }
-        else
-        {
-            cell5.Show(hint5, hint5);
-        }
-        if (hint6 == null)
-        {
-            cell6.Hide();
-        }
-        else
-        {
-            cell6.Show(hint6, hint6);
-        }
-        this.btnText.text = btnText;
-        PrintLog(content);
-        clickAction = action;
     }
 
     public void OnConfirmClicked()
