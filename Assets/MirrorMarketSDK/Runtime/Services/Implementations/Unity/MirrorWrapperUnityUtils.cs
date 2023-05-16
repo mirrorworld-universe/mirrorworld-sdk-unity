@@ -85,6 +85,7 @@ namespace MirrorworldSDK.Wrapper
 
         private IEnumerator Post(string url, string messageBody, Action<string> callBack)
         {
+            LogUtils.LogFlow("Post url:"+url);
             messageBody = RemoveNull(messageBody);
 
             UnityWebRequest request = new UnityWebRequest(url, "POST");
@@ -95,7 +96,7 @@ namespace MirrorworldSDK.Wrapper
             MirrorUtils.SetAuthorizationHeader(request, accessToken);
             MirrorUtils.SetXAuthToken(request,authToken);
 
-            //LogFlow("apiKey:" + apiKey);
+            LogFlow("apiKey:" + apiKey);
             //LogFlow("accessToken:" + accessToken);
             //LogFlow("authToken:" + authToken);
 
@@ -219,38 +220,39 @@ namespace MirrorworldSDK.Wrapper
             SaveStringToLocal(localKeyRefreshToken, refreshToken);
         }
 
-        private string GetAPIRoot()
-        {
-            if(environment == MirrorEnv.Mainnet)
-            {
-                return Constant.ApiRootProduction;
-            }
-            else if(environment == MirrorEnv.Devnet)
-            {
-                return Constant.ApiRootProductionDev;
-            }
-            else
-            {
-                LogFlow("GetAPIRoot failed! env is:" + environment);
-                return Constant.ApiRootStagingDevnet;
-            }
-        }
+        //private string GetAPIRoot()
+        //{
+        //    if(environment == MirrorEnv.Mainnet)
+        //    {
+        //        return "https://api.mirrorworld.fun/v1/mainnet/";
+        //    }
+        //    else if(environment == MirrorEnv.Devnet)
+        //    {
+        //        return "https://api.mirrorworld.fun/v1/devnet/";
+        //    }
+        //    else
+        //    {
+        //        LogFlow("GetAPIRoot failed! env is:" + environment);
+        //        return "https://api-staging.mirrorworld.fun/v1/devnet/";
+        //    }
+        //}
 
         private string GetEntranceRoot()
         {
-            if (environment == MirrorEnv.Mainnet)
-            {
-                return Constant.AuthRootProduction;
-            }
-            else if (environment == MirrorEnv.Devnet)
-            {
-                return Constant.AuthRootProductionDev;
-            }
-            else
-            {
-                LogFlow("GetAuthRoot failed! env is:" + environment);
-                return Constant.UserRootStagingDevnet;
-            }
+            //if (environment == MirrorEnv.Mainnet)
+            //{
+            //    return "https://auth.mirrorworld.fun/";
+            //}
+            //else if (environment == MirrorEnv.Devnet)
+            //{
+            //    return "https://auth.mirrorworld.fun/";
+            //}
+            //else
+            //{
+            //    LogFlow("GetAuthRoot failed! env is:" + environment);
+            //    return "https://auth.mirrorworld.fun/";
+            //}
+            return UrlUtils.GetAuthRoot();
         }
 
         public string GetMarketUrl(string marketRoot)
@@ -272,55 +274,42 @@ namespace MirrorworldSDK.Wrapper
             }
         }
 
-        private string GetMarketRoot()
-        {
-            if (environment == MirrorEnv.Mainnet)
-            {
-                return Constant.MarketRootProduction;
-            }
-            else if (environment == MirrorEnv.Devnet)
-            {
-                return Constant.MarketRootProductionDev;
-            }
-            else
-            {
-                LogFlow("GetAuthRoot failed! env is:" + environment);
-                return Constant.MarketRootStagingDevnet;
-            }
-        }
-
         private string GetAuthRoot()
         {
-            if (environment == MirrorEnv.Mainnet)
-            {
-                return Constant.UserRootProduction;
-            }
-            else if (environment == MirrorEnv.Devnet)
-            {
-                return Constant.UserRootProduction;
-            }
-            else
-            {
-                LogFlow("GetAuthRoot failed! env is:" + environment);
-                return Constant.UserRootStagingDevnet;
-            }
+            //if (environment == MirrorEnv.Mainnet)
+            //{
+            //    return "https://api.mirrorworld.fun/v1/";
+            //}
+            //else if (environment == MirrorEnv.Devnet)
+            //{
+            //    return "https://api.mirrorworld.fun/v1/";
+            //}
+            //else
+            //{
+            //    LogFlow("GetAuthRoot failed! env is:" + environment);
+            //    return "https://api.mirrorworld.fun/v1/";
+            //}
+            string apiRoot = UrlUtils.GetAPIRoot();
+            return apiRoot + "/" + MWConfig.serverAPIVersion + "/";
         }
 
         private string GetDebugLoginPageRoot()
         {
-            if (environment == MirrorEnv.Mainnet)
-            {
-                return Constant.urlDebugLoginUrlPreProductionMain;
-            }
-            else if (environment == MirrorEnv.Devnet)
-            {
-                return Constant.urlDebugLoginUrlPreProductionDev;
-            }
-            else
-            {
-                LogFlow("GetAuthRoot failed! env is:" + environment);
-                return Constant.urlDebugLoginUrlPreProductionDev;
-            }
+            //if (environment == MirrorEnv.Mainnet)
+            //{
+            //    return "https://auth.mirrorworld.fun/login?session=";
+            //}
+            //else if (environment == MirrorEnv.Devnet)
+            //{
+            //    return "https://auth.mirrorworld.fun/login?session=";
+            //}
+            //else
+            //{
+            //    LogFlow("GetAuthRoot failed! env is:" + environment);
+            //    return "https://auth.mirrorworld.fun/login?session=";
+            //}
+            string authRoot = UrlUtils.GetAuthRoot();
+            return authRoot + "/login?session=";
         }
     }
 }

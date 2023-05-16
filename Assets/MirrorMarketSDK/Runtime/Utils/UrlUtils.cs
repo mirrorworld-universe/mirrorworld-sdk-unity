@@ -6,6 +6,59 @@ namespace MirrorworldSDK
 {
     public class UrlUtils
     {
+        public static string GetAPIRoot()
+        {
+            MirrorEnv env = MWClientWrapper.GetEnv();
+            return GetAPIRoot(env);
+        }
+
+        public static string GetAuthRoot()
+        {
+            MirrorEnv env = MWClientWrapper.GetEnv();
+            return GetAuthRoot(env);
+        }
+
+        private static string GetAPIRoot(MirrorEnv env)
+        {
+            if (MWConfig.useStagingRoot)
+            {
+                return "https://api-staging.mirrorworld.fun";
+            }
+            else if (env == MirrorEnv.Devnet)
+            {
+                return "https://api.mirrorworld.fun";
+            }
+            else if (env == MirrorEnv.Mainnet)
+            {
+                return "https://api.mirrorworld.fun";
+            }
+            else
+            {
+                MirrorWrapper.Instance.LogFlow("Unknown env:" + env);
+                return "https://api-staging.mirrorworld.fun";
+            }
+        }
+
+        private static string GetAuthRoot(MirrorEnv env)
+        {
+            if (MWConfig.useStagingRoot)
+            {
+                return "https://auth-staging.mirrorworld.fun";
+            }
+            else if (env == MirrorEnv.Devnet)
+            {
+                return "https://auth.mirrorworld.fun";
+            }
+            else if (env == MirrorEnv.Mainnet)
+            {
+                return "https://auth.mirrorworld.fun";
+            }
+            else
+            {
+                MirrorWrapper.Instance.LogFlow("Unknown env:" + env + ".Will use production host.");
+                return "https://auth.mirrorworld.fun";
+            }
+        }
 
         private static string GetHost(MirrorService service)
         {
@@ -13,35 +66,11 @@ namespace MirrorworldSDK
             if (service == MirrorService.Wallet || belongToAsset(service) || belongToMetadata(service)
         || service == MirrorService.Confirmation)
             {
-                if (env == MirrorEnv.Devnet)
-                {
-                    return "https://api.mirrorworld.fun";
-                }
-                else if (env == MirrorEnv.Mainnet)
-                {
-                    return "https://api.mirrorworld.fun";
-                }
-                else
-                {
-                    MirrorWrapper.Instance.LogFlow("Unknown env:" + env);
-                    return "https://api-staging.mirrorworld.fun";
-                }
+                return GetAPIRoot(env);
             }
             else
             {
-                if (env == MirrorEnv.Devnet)
-                {
-                    return "https://auth.mirrorworld.fun";
-                }
-                else if (env == MirrorEnv.Mainnet)
-                {
-                    return "https://auth.mirrorworld.fun";
-                }
-                else
-                {
-                    MirrorWrapper.Instance.LogFlow("Unknown env:" + env + ".Will use production host.");
-                    return "https://auth.mirrorworld.fun";
-                }
+                return GetAuthRoot(env);
             }
         }
 
@@ -148,12 +177,12 @@ namespace MirrorworldSDK
                 }
                 else if (env == MirrorEnv.Devnet)
                 {
-                    return "devnet";
+                    return "testnet";
                 }
                 else
                 {
                     MirrorWrapper.Instance.LogFlow("Unknown env:" + env + ".Will use testnet.");
-                    return "devnet";
+                    return "testnet";
                 }
             }
             else

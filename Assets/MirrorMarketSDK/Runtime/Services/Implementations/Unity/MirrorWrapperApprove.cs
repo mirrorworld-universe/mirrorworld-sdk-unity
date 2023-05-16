@@ -51,19 +51,21 @@ namespace MirrorworldSDK.Wrapper
 
         public string GetActionRoot()
         {
-            if (environment == MirrorEnv.Devnet)
-            {
-                return "https://api.mirrorworld.fun/v1/";
-            }
-            else if (environment == MirrorEnv.Mainnet)
-            {
-                return "https://api.mirrorworld.fun/v1/";
-            }
-            else
-            {
-                LogFlow("Unknown env:" + environment);
-                return "https://api.mirrorworld.fun/v1/";
-            }
+            //if (environment == MirrorEnv.Devnet)
+            //{
+            //    return "https://api.mirrorworld.fun/v1/";
+            //}
+            //else if (environment == MirrorEnv.Mainnet)
+            //{
+            //    return "https://api.mirrorworld.fun/v1/";
+            //}
+            //else
+            //{
+            //    LogFlow("Unknown env:" + environment);
+            //    return "https://api.mirrorworld.fun/v1/";
+            //}
+            string apiRoot = UrlUtils.GetAPIRoot();
+            return apiRoot + "/" + MWConfig.serverAPIVersion + "/";
         }
 
         /// <summary>
@@ -194,19 +196,20 @@ namespace MirrorworldSDK.Wrapper
 
         public string GetActionRootWithoutVersion()
         {
-            if (environment == MirrorEnv.Devnet)
-            {
-                return "https://auth.mirrorworld.fun/";
-            }
-            else if (environment == MirrorEnv.Mainnet)
-            {
-                return "https://auth.mirrorworld.fun/";
-            }
-            else
-            {
-                LogFlow("Unknown env:" + environment);
-                return "https://auth.mirrorworld.fun/";
-            }
+            //if (environment == MirrorEnv.Devnet)
+            //{
+            //    return "https://auth.mirrorworld.fun/";
+            //}
+            //else if (environment == MirrorEnv.Mainnet)
+            //{
+            //    return "https://auth.mirrorworld.fun/";
+            //}
+            //else
+            //{
+            //    LogFlow("Unknown env:" + environment);
+            //    return "https://auth.mirrorworld.fun/";
+            //}
+            return UrlUtils.GetAuthRoot();
         }
 
         private int GetDigit(double number)
