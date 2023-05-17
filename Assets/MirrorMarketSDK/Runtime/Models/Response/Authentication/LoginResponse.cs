@@ -46,5 +46,6 @@ namespace MirrorworldSDK.Models
     {
         public string eth_address;
         public string sol_address;
+        public string sui_address;
     }
 }

@@ -170,7 +170,7 @@ namespace MirrorworldSDK.Wrapper
 
                 return;
             }
-            string url = GetActionRootWithoutVersion() + urlActionAPPROVE + actionUUID + "?key=" + accessToken;
+            string url = GetActionRootWithoutVersion() + "/" + urlActionAPPROVE + actionUUID + "?key=" + accessToken;
 
             LogFlow("Unity open approve url:"+url);
 

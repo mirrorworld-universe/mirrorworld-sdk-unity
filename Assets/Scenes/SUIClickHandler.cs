@@ -8,6 +8,7 @@ using MirrorworldSDK;
 using MirrorworldSDK.UI;
 using System.Collections.Generic;
 using MirrorWorldResponses;
+using MirrorworldSDK.Models;
 
 public class SUIClickHandler : BaseClickHandler
 {
@@ -207,6 +208,10 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             {
                 MWSDK.SUI.Wallet.GetTokens((res) =>
                 {
+                    CommonResponse<SUIResGetTokens> resObj = res;
+                    string message = resObj.message;
+                    SUIResGetTokens data = resObj.data;
+
                     PrintLog("Get tokens result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -217,6 +222,11 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             {
                 MWSDK.SUI.Wallet.GetTransactionByDigest(v1, (res) =>
                 {
+                    CommonResponse<SUIResGetTransactionByDigest> resObj = res;
+                    long http_status_code = resObj.http_status_code;
+                    string message = resObj.message;
+                    SUIResGetTransactionByDigest data = resObj.data;
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -225,9 +235,14 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
         {
             SetInfoPanel("Transfer SUI", "to public", "amount", null, null, null, null, "TransferSUI", "Transfer", () =>
             {
-                int price = (int)PrecisionUtil.StrToDouble(v2);
-                MWSDK.SUI.Wallet.TransferSUI(v1, price,approveFinished, (res) =>
+                int amount = (int)PrecisionUtil.StrToDouble(v2);
+                MWSDK.SUI.Wallet.TransferSUI(v1, amount,approveFinished, (res) =>
                 {
+                    CommonResponse<SUIResTransferSUI> resObj = res;
+                    long http_status_code = resObj.http_status_code;
+                    string message = resObj.message;
+                    SUIResTransferSUI data = resObj.data;
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -239,6 +254,11 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 int amount = (int)PrecisionUtil.StrToDouble(v2);
                 MWSDK.SUI.Wallet.TransferToken(v1, amount, v3, approveFinished, (res) =>
                 {
+                    CommonResponse<SUIResTransferToken> resObj = res;
+                    long http_status_code = resObj.http_status_code;
+                    string message = resObj.message;
+                    SUIResTransferToken data = resObj.data;
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
