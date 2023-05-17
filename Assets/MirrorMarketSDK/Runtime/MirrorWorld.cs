@@ -42,6 +42,11 @@ namespace MirrorWorld
         }
 
         //Client APIs
+        public static void InitSDK(string apiKey, GameObject gameObject, MirrorChain chain, bool useDebug, MirrorEnv environment)
+        {
+            MirrorSDK.InitSDK(apiKey,gameObject,chain,useDebug,environment);
+        }
+
         public static void OpenWallet(Action walletLogoutAction)
         {
             MWClientWrapper.OpenWalletPage(walletLogoutAction);
