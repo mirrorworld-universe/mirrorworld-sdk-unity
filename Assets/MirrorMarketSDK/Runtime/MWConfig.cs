@@ -7,4 +7,6 @@ public class MWConfig
     public static bool useStagingRoot = false;
 
     public static string serverAPIVersion = "v2";
+
+    public static bool isSUIBeta = true;
 }

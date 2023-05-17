@@ -38,6 +38,19 @@ namespace MirrorworldSDK
             requestParams.to_publickey = to_publickey;
             requestParams.amount = amount;
 
+            if (MWConfig.isSUIBeta)
+            {
+                var rawRequestBody = JsonUtility.ToJson(requestParams);
+
+                string url = UrlUtils.GetMirrorPostUrl(MirrorService.Wallet, "transfer-sui");
+                MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
+                monoBehaviour.StartCoroutine(MirrorWrapper.Instance.CheckAndPost(url, rawRequestBody, (response) => {
+                    CommonResponse<SUIResTransferSUI> responseBody = JsonUtility.FromJson<CommonResponse<SUIResTransferSUI>>(response);
+                    callBack(responseBody);
+                }));
+                return;
+            }
+
             string approveValue = PrecisionUtil.GetApproveValue(amount);
 
             MirrorWrapper.Instance.StartSecuirtyApprove(MirrorSafeOptType.TransferSUI, approveValue, "transfer sui", requestParams, () => {
@@ -73,6 +86,20 @@ namespace MirrorworldSDK
             requestParams.to_publickey = to_publickey;
             requestParams.amount = amount;
             requestParams.token = token;
+
+            if (MWConfig.isSUIBeta)
+            {
+                var rawRequestBody = JsonUtility.ToJson(requestParams);
+
+                string url = UrlUtils.GetMirrorPostUrl(MirrorService.Wallet, "transfer-token");
+                MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
+                monoBehaviour.StartCoroutine(MirrorWrapper.Instance.CheckAndPost(url, rawRequestBody, (response) =>
+                {
+                    CommonResponse<SUIResTransferToken> responseBody = JsonUtility.FromJson<CommonResponse<SUIResTransferToken>>(response);
+                    callBack(responseBody);
+                }));
+                return;
+            }
 
             string approveValue = PrecisionUtil.GetApproveValue(amount);
 
