@@ -6,6 +6,6 @@ namespace MirrorWorldResponses
     [System.Serializable]
     public class SUIResTransferToken
     {
-        public string digest;
+        public string tx_signature;
     }
 }

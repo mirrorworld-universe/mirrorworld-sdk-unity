@@ -58,6 +58,17 @@ namespace MirrorworldSDK
 
         public static void TransferToken(string to_publickey, int amount, string token,Action approveFinished, Action<CommonResponse<SUIResTransferToken>> callBack)
         {
+            if (token == null || !token.Contains("::"))
+            {
+                CommonResponse<SUIResTransferToken> commonResponse = new CommonResponse<SUIResTransferToken>();
+                commonResponse.code = (long)MirrorResponseCode.LocalFailed;
+                commonResponse.error = "Please check your token address,normally it contains ::.";
+                commonResponse.data = new SUIResTransferToken();
+                commonResponse.data.tx_signature = "";
+
+                callBack(commonResponse);
+                return;
+            }
             SUIReqTransferToken requestParams = new SUIReqTransferToken();
             requestParams.to_publickey = to_publickey;
             requestParams.amount = amount;
