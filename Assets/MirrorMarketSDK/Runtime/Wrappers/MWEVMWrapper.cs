@@ -4,7 +4,7 @@ using MirrorworldSDK.Wrapper;
 using MirrorworldSDK;
 using System.Collections.Generic;
 using MirrorworldSDK.Models;
-using MWEVMResponses;
+using MirrorWorldResponses;
 
 public class MWEVMWrapper
 {

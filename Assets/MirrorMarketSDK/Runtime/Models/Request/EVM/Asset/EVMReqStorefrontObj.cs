@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MWEVMResponses
+namespace MirrorWorldResponses
 {
     [System.Serializable]
     public class EVMReqStorefrontObj

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace MWEVMResponses
+namespace MirrorWorldResponses
 {
     [System.Serializable]
     public class EVMResNFTInfo

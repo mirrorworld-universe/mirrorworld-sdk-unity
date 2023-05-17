@@ -1,3 +1,4 @@
+
 # Mirror World Unity SDK
 
 >Mirror World's Official Unity SDK  
@@ -14,6 +15,7 @@ import it to your project `Assets > Import Package > Custom Package` and select 
 ## Usage
 ### Configration
 #### Config with prefab
+Drag and drop the "MirrorSDK" prefab located in the MirrorMarketSDK directory into your initial scene and proceed with the configuration.
 ![image](https://github.com/mirrorworld-universe/mirrorworld-sdk-unity/blob/master/CaseImage/case_prefab_example.jpg)
 
 Explanation of beyond image:
@@ -27,7 +29,7 @@ Choose the environment you want to use.
 Using for debug. Please input the email which used to register the API key.
 
 #### Configration dynamic
-If you don't want to add a game object to your scene,you can init Mirror World SDK with the following code:  
+We strongly recommend configuring the SDK by dragging and dropping the prefab. However, if you prefer not to do so, you can init Mirror World SDK with the following code:  
 ```cs
 GameObject mirrorObj = new GameObject("MirrorSDK", typeof(MirrorSDK));
 string apiKey = "your api key";
@@ -35,7 +37,7 @@ MirrorChain chain = MirrorChain.Solana;
 bool debugMode = true;
 MirrorEnv env = MirrorEnv.Devnet;
 
-MirrorSDK.InitSDK(apiKey, mirrorObj, chain, debugMode, env);
+MWSDK.InitSDK(apiKey, mirrorObj, chain, debugMode, env);
 ```
 
 ### Login
@@ -45,22 +47,21 @@ And then,if you want to call some API of SDK in your app,you should lead users t
 
 If you want him to login(or again), you can use the following code:
 ```cs
-//Solana
-MirrorWorld.Solana.StartLogin((loginResponse) => {
-    Debug.Log("Login result:" + JsonUtility.ToJson(loginResponse));
-});
-//EVM
-MirrorWorld.EVM.StartLogin((loginResponse) => {
-    Debug.Log("Login result:" + JsonUtility.ToJson(loginResponse));
+MWSDK.StartLogin((loginResponse) =>
+{
+    MWSDK.DebugLog("Login result:" + JsonUtility.ToJson(loginResponse));
 });
 ```
-As you see, you need to use different instance on different chain.
-Normally, they are **MirrorWorld.chain_name**.
+StartLogin is a client API, so you don't need to concern about chain.
+But for most API, you need to use different instance on different chain.
+Normally, they are **MWSDK.chain_name**.
+*You can refer to our documentation website to find out which functional module each API belongs to.*
+
 For convinience, we will use Solana as default at following code.
 
 And if you want to do something after the logining is successful,you can pass an action to it as follows code:
 ```cs
-MirrorWorld.Solana.StartLogin((isSuccess)=>{
+MWSDK.StartLogin((isSuccess)=>{
     if(isSuccess){
         Debug.Log("Login success!");
     }else{
@@ -73,7 +74,7 @@ MirrorWorld.Solana.StartLogin((isSuccess)=>{
 When a user opens your app, you may want to know whether this user has logged in before,instead of letting him login every time, you can call the following code to know that.
 
 ```cs
-MirrorWorld.Solana.IsLoggedIn((isLoggedIn) => {
+MWSDK.IsLoggedIn((isLoggedIn) => {
     Debug.Log("If he is logged in:" + isLoggedIn);
 });
 ```
@@ -82,11 +83,11 @@ MirrorWorld.Solana.IsLoggedIn((isLoggedIn) => {
 User may want to check their wallet in your app,you can open their wallet by following code:
 
 ```cs
-MirrorWorld.Solana.OpenWallet(() => {
+MWSDK.OpenWallet(() => {
     Debug.Log("Wallet logout callback runs!!");
 });
 ```
-If you don't need to do anything if user clicked logout button in wallet page,passing 'logoutAction' to this function would be ok.
+If you want to do some operation when user clicked logout button in wallet page, passing 'logoutAction' to this function would be ok.
 
 ### Confirmation
 When we call some API of SDK, you are allowed to pass a param named 'confirmation' to it.
@@ -261,3 +262,4 @@ So, finnaly your openUrl function may looked like this:
 
 ## Full API Documentation
 You can view the documentation for Mirror World SDK for Mobile on [our Official Documentation Site](https://docs.mirrorworld.fun/unity/unity-api)
+

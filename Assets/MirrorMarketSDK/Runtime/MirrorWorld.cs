@@ -13,6 +13,7 @@ namespace MirrorWorld
         public static MirrorWorldEthereum Ethereum = new MirrorWorldEthereum();
         public static MirrorWorldPolygon Polygon = new MirrorWorldPolygon();
         public static MirrorWorldBNB BNB = new MirrorWorldBNB();
+        public static MirrorWorldSUI SUI = new MirrorWorldSUI();
 
         //Authentication APIs
         public static void StartLogin(Action<LoginResponse> action)
@@ -41,6 +42,11 @@ namespace MirrorWorld
         }
 
         //Client APIs
+        public static void InitSDK(string apiKey, GameObject gameObject, MirrorChain chain, bool useDebug, MirrorEnv environment)
+        {
+            MirrorSDK.InitSDK(apiKey,gameObject,chain,useDebug,environment);
+        }
+
         public static void OpenWallet(Action walletLogoutAction)
         {
             MWClientWrapper.OpenWalletPage(walletLogoutAction);
