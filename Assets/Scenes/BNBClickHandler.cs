@@ -8,6 +8,7 @@ using MirrorworldSDK;
 using MirrorworldSDK.UI;
 using System.Collections.Generic;
 using MirrorWorldResponses;
+using MirrorworldSDK.Models;
 
 public class BNBClickHandler:BaseClickHandler
 {
@@ -133,8 +134,20 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             notOpenDetail = true;
             MWSDK.StartLogin((loginResponse) =>
             {
+                LoginResponse resObj = loginResponse;
+                string solAddress = resObj.user.wallet.sol_address;
+                string userName = resObj.user.username;
+                //todo...
+
                 MWSDK.DebugLog("Login result:" + JsonUtility.ToJson(loginResponse));
             });
+
+            //Action<LoginResponse> action = (loginResponse) =>
+            //{
+            //    MWSDK.DebugLog("Login result:" + JsonUtility.ToJson(loginResponse));
+            //};
+
+            //MWSDK.StartLogin(action);
         }
         else if (btnName == APINames.ClientGuestLogin)
         {

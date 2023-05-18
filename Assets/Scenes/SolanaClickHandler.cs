@@ -8,6 +8,7 @@ using MirrorworldSDK;
 using MirrorworldSDK.UI;
 using System.Collections.Generic;
 using MirrorWorldResponses;
+using MirrorworldSDK.Models;
 
 public class SolanaClickHandler
 {
@@ -188,6 +189,11 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
         {
             SetInfoPanel("QueryUser", "email", null, null, null, null, null, "Query", "Query user info.", () => {
                 MWSDK.QueryUser(v1, (res) => {
+                    CommonResponse<UserResponse> resObj = res;
+                    string userName = resObj.data.username;
+                    string solAddress = resObj.data.wallet.sol_address;
+                    //todo...
+
                     PrintLog("Query result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -224,6 +230,12 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
         {
             SetInfoPanel("QueryNFT", "mint address", null, null, null, null, null, "GetNFTDetails", "GetNFTDetails", () => {
                 MWSDK.Solana.Asset.QueryNFT(v1, (res) => {
+                    CommonResponse<SingleNFTResponse> resObj = res;
+                    long code = res.code;
+                    string message = res.message;
+                    string name = res.data.nft.name;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -237,6 +249,11 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 long offset = long.Parse(v3);
 
                 MWSDK.Solana.Asset.SearchNFTsByOwner(owners, limit, offset, (res) => {
+                    CommonResponse<MultipleNFTsResponse> resObj = res;
+                    long code = res.code;
+                    string message = res.message;
+                    MultipleNFTsResponse multipleNFTs = res.data;
+                    //todo...
 
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -248,6 +265,11 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 List<string> list = new List<string>();
                 list.Add(v1);
                 MWSDK.Solana.Asset.SearchNFTsByMintAddress(list, (res) => {
+                    CommonResponse<MultipleNFTsResponse> resObj = res;
+                    long code = res.code;
+                    string message = res.message;
+                    MultipleNFTsResponse multipleNFTs = res.data;
+                    //todo...
 
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -258,6 +280,8 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
             SetInfoPanel("IsLoggedIn", null, null, null, null, null, null, "IsLoggedIn", "IsLoggedIn", () =>
             {
                 MWSDK.IsLogged((res) => {
+                    bool isLogged = res;
+
                     PrintLog("result:" + res);
                 });
             }
@@ -267,7 +291,15 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
         {
             SetInfoPanel("CreateVerifiedCollection", "name", "symbol", "url", "seller fee basis points", null, null, "CreateVerifiedCollection", "CreateVerifiedCollection", () => {
                 int seller_fee_basis_points = (int)PrecisionUtil.StrToDouble(v4);
-                MWSDK.Solana.Asset.MintCollection(v1, v2, v3, seller_fee_basis_points, null, approveFinished, (res) => {
+                string name = v1;
+                string symbol = v2;
+                string jsonUrl = v3;
+                string confirmation = Confirmation.Default;
+                MWSDK.Solana.Asset.MintCollection(v1, v2, v3, seller_fee_basis_points, confirmation, approveFinished, (res) => {
+                    CommonResponse<SolResMintResponse> resObj = res;
+                    string collectionAddress = res.data.mint_address;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             }
@@ -295,6 +327,10 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
             SetInfoPanel("MintNFT", "parent collection", "name", "mint_id", "url", "receive wallet", "amount", "MintNFT", "MintNFT", () => {
                 double amount = PrecisionUtil.StrToDouble(v6);
                 MWSDK.Solana.Asset.MintNFT(v1, v2, "testsymbol", v4, Confirmation.Default, v3, v5, amount, approveFinished, (res) => {
+                    CommonResponse<SolResMintResponse> resObj = res;
+                    long code = res.code;
+                    string nftMintAddress = res.data.mint_address;
+                    //todo...
 
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -304,6 +340,12 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
         {
             SetInfoPanel("UpdateNFTProperties", "mint address", "name", "updateAuthority", "json url", null, null, "MintNFT", "MintNFT", () => {
                 MWSDK.Solana.Asset.UpdateNFT(v1, v2, "newsymbol", v3, v4, 200, Confirmation.Default, approveFinished, (res) => {
+                    CommonResponse<SolResUpdateNFT> resObj = res;
+                    long code = res.code;
+                    string message = res.message;
+                    string nftName = res.data.nft.name;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -324,6 +366,11 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 double price = PrecisionUtil.StrToDouble(v2);
                 MWSDK.Solana.Asset.CancelListing(v1, price, v3, Confirmation.Default, approveFinished, (res) =>
                 {
+                    CommonResponse<ListingResponse> resObj = res;
+                    long code = res.code;
+                    ListingResponse lr = res.data;
+                    string signature = res.data.signature;
+                    //todo...
 
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -335,6 +382,11 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 double price = PrecisionUtil.StrToDouble(v2);
                 MWSDK.DebugLog("price:" + price);
                 MWSDK.Solana.Asset.BuyNFT(v1, price, v3, approveFinished, (res) => {
+                    CommonResponse<SolResBuyNFT> resObj = res;
+                    long http_status_code = res.http_status_code;
+                    SolResBuyNFTNft nft = res.data.nft;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -343,6 +395,11 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
         {
             SetInfoPanel("Transfer NFT", "mint address", "to wallet", null, null, null, null, "FetchNFTsByMintAddresses", "FetchNFTsByMintAddresses", () => {
                 MWSDK.Solana.Asset.TransferNFT(v1, v2, approveFinished, (res) => {
+                    CommonResponse<SolResTransferNFT> resObj = res;
+                    long code = res.code;
+                    string nftAddress = res.data.mint_address;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -385,6 +442,12 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
 
                 MWSDK.Solana.Asset.CheckTransactionsStatus(signatures, (res) =>
                 {
+                    CommonResponse<GetStatusOfTransactionsResponse> resObj = res;
+                    long code = res.code;
+                    string message = res.message;
+                    GetStatusOfTransactionsResponse transactionStatus = res.data;
+                    //todo...
+
                     PrintLog("GetStatusOfTransactions result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -397,6 +460,12 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 if (v2 != "") mintAddresses.Add(v2);
                 MWSDK.Solana.Asset.CheckMintingStatus(mintAddresses, (res) =>
                 {
+                    CommonResponse<GetStatusOfTransactionsResponse> resObj = res;
+                    long code = res.code;
+                    string message = res.message;
+                    GetStatusOfTransactionsResponse transactionStatus = res.data;
+                    //todo...
+
                     PrintLog("GetStatusOfMintings result:" + JsonUtility.ToJson(res));
                 });
             });

@@ -27,6 +27,8 @@ If checking this, you could see all the flow and error notice on console.
 Choose the environment you want to use.
 - Debug Email
 Using for debug. Please input the email which used to register the API key.
+- Chain
+Which chain you want to work on.
 
 #### Configration dynamic
 We strongly recommend configuring the SDK by dragging and dropping the prefab. However, if you prefer not to do so, you can init Mirror World SDK with the following code:  
@@ -97,6 +99,9 @@ You can use all the confirmation we provide in 'Confirmation' enum. Here is an e
 So the time will be longer more or less.
 - `Confirmed`: It is a fairly quick response to the user and is a reasonable promise that the transaction if processed, will be eventually finalized after a certain number of confirmations by the validator network.
 - `Processed`: The node will query its most recent block. Note that the block may still be skipped by the cluster.
+
+> Tips:
+If you want to obtain the complete information of an on-chain operation, please make sure to use "Finalized." For example, when calling the "MintNFT" method, if you don't use "Finalized," the returned result will not include the "transaction_hash" field.
 
 ### Package
 You need to do some configuation if you want to package your app.
