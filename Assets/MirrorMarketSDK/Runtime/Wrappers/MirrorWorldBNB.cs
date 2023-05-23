@@ -103,9 +103,9 @@ namespace MirrorWorld
     public class BNBWallet
     {
         //Wallet
-        public void GetTransactions(double number, Action<CommonResponse<EVMResTransactions>> action)
+        public void GetTransactions(int limit, Action<CommonResponse<EVMResTransactions>> action)
         {
-            MWEVMWrapper.GetTransactions(number, action);
+            MWEVMWrapper.GetTransactions(limit, action);
         }
 
         public void GetTransactionsByWallet(string wallet_address, int limit, Action<CommonResponse<EVMResGetTransactionsByWallet>> action)
@@ -128,11 +128,12 @@ namespace MirrorWorld
             MWEVMWrapper.GetTokensByWalletByWallet(wallet, action);
         }
 
-        public void TransferETH(string nonce, string gasPrice, string gasLimit, string to, string amount, Action approveFinished, Action<CommonResponse<TransferSolResponse>> callBack)
+        public void TransferNativeToken(string to_publickey, int amount, Action<CommonResponse<TransferSolResponse>> callBack)
         {
-            MWEVMWrapper.TransferETH(nonce, gasPrice, gasLimit, to, amount, approveFinished, callBack);
+            MWEVMWrapper.TransferNativeOnEVM(to_publickey, amount, callBack);
         }
 
+        [Obsolete("This method is deprecated. Please use the TransferNativeToken instead.")]
         public void TransferBNB(string nonce, string gasPrice, string gasLimit, string to, string amount, Action approveFinished, Action<CommonResponse<TransferSolResponse>> callBack)
         {
             MWEVMWrapper.TransferBNB(nonce, gasPrice, gasLimit, to, amount, approveFinished, callBack);
@@ -157,7 +158,7 @@ namespace MirrorWorld
             MWEVMWrapper.CancelListing(collection_address, token_id, marketplace_address, approveFinished, callBack);
         }
 
-        public void ListNFT(string collection_address, int token_id, double price, string marketplace_address, Action approveFinished, Action<string> callBack)
+        public void ListNFT(string collection_address, int token_id, double price, string marketplace_address, Action approveFinished, Action<CommonResponse<EVMResListNFT>> callBack)
         {
             MWEVMWrapper.ListNFT(collection_address, token_id, price, marketplace_address, approveFinished, callBack);
         }

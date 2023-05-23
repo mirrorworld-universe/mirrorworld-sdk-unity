@@ -33,10 +33,10 @@ namespace MirrorworldSDK.Models
     [Serializable]
     public class GetNFTsRequestFilter
     {
-        public string collection;
+        public string filter_name;
 
-        public int page;
+        public string filter_type;
 
-        public int page_size;
+        public List<object> filter_value;
     }
 }

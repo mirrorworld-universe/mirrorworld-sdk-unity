@@ -316,7 +316,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 double price = PrecisionUtil.StrToDouble(v3);
                 MWSDK.Polygon.Asset.ListNFT(v1, token_id, price, v4, approveFinished, (res) =>
                 {
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -375,7 +375,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
         {
             SetInfoPanel("GetWalletTransactions", "number", null, null, null, null, null, "GetWalletTransactions", "GetWalletTransactions", () =>
             {
-                double price = PrecisionUtil.StrToDouble(v1);
+                int price = PrecisionUtil.StrToInt(v1);
                 MWSDK.Polygon.Wallet.GetTransactions(price, (res) =>
                 {
                     PrintLog("result:" + JsonUtility.ToJson(res));
@@ -398,6 +398,17 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             SetInfoPanel("GetWalletTransactionsBySignatrue", "signature", null, null, null, null, null, "GetWalletTransactionsBySignatrue", "GetWalletTransactionsBySignatrue", () =>
             {
                 MWSDK.Polygon.Wallet.GetTransactionsBySignature(v1, (res) =>
+                {
+                    PrintLog("result:" + JsonUtility.ToJson(res));
+                });
+            });
+        }
+        else if (btnName == APINames.EVMWalletTransferNativeToken)
+        {
+            SetInfoPanel("Transfer Native Token", "to_publickey", "amount", null, null, null, null, "Transfer", "Transfer", () =>
+            {
+                int amount = (int)PrecisionUtil.StrToInt(v2);
+                MWSDK.Polygon.Wallet.TransferNativeToken(v1, amount, (res) =>
                 {
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });

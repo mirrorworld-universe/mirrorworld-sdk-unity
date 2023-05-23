@@ -8,6 +8,7 @@ using MirrorworldSDK;
 using MirrorworldSDK.UI;
 using System.Collections.Generic;
 using MirrorWorldResponses;
+using MirrorworldSDK.Models;
 
 public class EthereumClickHandler
 {
@@ -209,6 +210,12 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             {
                 MWSDK.Ethereum.Wallet.GetTokens((res) =>
                 {
+                    CommonResponse<EVMResGetTokens> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    EVMResGetTokens tokens = resObj.data;
+                    //todo...
+
                     PrintLog("Get tokens result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -242,6 +249,12 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             {
                 MWSDK.Ethereum.Asset.QueryNFT(v1, v2, (res) =>
                 {
+                    CommonResponse<EVMResNFTInfo[]> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    EVMResNFTInfo[] nftInfo = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -254,6 +267,12 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
 
                 MWSDK.Ethereum.Asset.SearchNFTsByOwner(v1, limit, v3, (res) =>
                 {
+                    CommonResponse<NFTDataResponse> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    NFTDataResponse nftInfo = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -269,6 +288,12 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 list.Add(token);
                 MWSDK.Ethereum.Asset.SearchNFTsByMintAddress(list, (res) =>
                 {
+                    CommonResponse<EVMResNFTInfo[]> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    EVMResNFTInfo[] nftInfo = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -291,6 +316,12 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 int seller_fee_basis_points = (int)PrecisionUtil.StrToDouble(v4);
                 MWSDK.Ethereum.Asset.MintCollection(v1, v2, v3, approveFinished, (res) =>
                 {
+                    CommonResponse<EVMResMintCollection> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    EVMResMintCollection mintRes = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             }
@@ -304,6 +335,12 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 int token_id = int.Parse(v2);
                 MWSDK.Ethereum.Asset.MintNFT(v1, token_id, v5, v3, amount, Confirmation.Default, approveFinished, (res) =>
                 {
+                    CommonResponse<EVMResMintNFT> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    EVMResMintNFT mintRes = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -316,13 +353,19 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 double price = PrecisionUtil.StrToDouble(v3);
                 MWSDK.Ethereum.Asset.ListNFT(v1, token_id, price, v4, approveFinished, (res) =>
                 {
-                    PrintLog("result:" + res);
+                    CommonResponse<EVMResListNFT> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    EVMResListNFT listRes = resObj.data;
+                    //todo...
+
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
         else if (btnName == APINames.AssetCreateMarketplace)
         {
-            SetInfoPanel("Buy NFT", "seller_fee_basis_points", "payment_token", "name", "sub domain", "description", "collection 1", "BuyNFT", "BuyNFT", () =>
+            SetInfoPanel("CreateMarketplace", "seller_fee_basis_points", "payment_token", "name", "sub domain", "description", "collection 1", "Create", "Create", () =>
             {
                 int seller_fee_basis_points = PrecisionUtil.StrToInt(v1);
                 EVMReqStorefrontObj storefrontObj = new EVMReqStorefrontObj();
@@ -331,8 +374,14 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 storefrontObj.subdomain = v4;
                 List<string> collections = new List<string>();
                 collections.Add(v6);
-                MWSDK.Polygon.Asset.CreateMarketplace(seller_fee_basis_points, v2, storefrontObj, collections, Confirmation.Default, (res) =>
+                MWSDK.Ethereum.Asset.CreateMarketplace(seller_fee_basis_points, v2, storefrontObj, collections, Confirmation.Default, (res) =>
                 {
+                    CommonResponse<EVMResCreateMarketplace> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    EVMResCreateMarketplace createResult = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -344,6 +393,12 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 int token_id = PrecisionUtil.StrToInt(v2);
                 MWSDK.Ethereum.Asset.CancelListing(v1, token_id, v3, approveFinished, (res) =>
                 {
+                    CommonResponse<EVMResCancelList> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    EVMResCancelList calcelList = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -356,6 +411,12 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 int token_id = PrecisionUtil.StrToInt(v3);
                 MWSDK.Ethereum.Asset.BuyNFT(v1, price, token_id, v4, approveFinished, (res) =>
                 {
+                    CommonResponse<EVMResBuyNFT> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    EVMResBuyNFT buyResult = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -367,17 +428,29 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 int token_id = PrecisionUtil.StrToInt(v2);
                 MWSDK.Ethereum.Asset.TransferNFT(v1, token_id, v3, approveFinished, (res) =>
                 {
+                    CommonResponse<EVMResTransferNFT> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    EVMResTransferNFT transferRes = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
         else if (btnName == APINames.SolWalletGetTransactions)
         {
-            SetInfoPanel("GetWalletTransactions", "number", null, null, null, null, null, "GetWalletTransactions", "GetWalletTransactions", () =>
+            SetInfoPanel("GetWalletTransactions", "limit", null, null, null, null, null, "GetWalletTransactions", "GetWalletTransactions", () =>
             {
-                double price = PrecisionUtil.StrToDouble(v1);
-                MWSDK.Ethereum.Wallet.GetTransactions(price, (res) =>
+                int limit = PrecisionUtil.StrToInt(v1);
+                MWSDK.Ethereum.Wallet.GetTransactions(limit, (res) =>
                 {
+                    CommonResponse<EVMResTransactions> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    EVMResTransactions transactionsRes = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -389,6 +462,12 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 int limit = PrecisionUtil.StrToInt(v2);
                 MWSDK.Ethereum.Wallet.GetTransactionsByWallet(v1, limit, (res) =>
                 {
+                    CommonResponse<EVMResGetTransactionsByWallet> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    EVMResGetTransactionsByWallet transactions = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -398,6 +477,23 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             SetInfoPanel("GetWalletTransactionsBySignatrue", "signature", null, null, null, null, null, "GetWalletTransactionsBySignatrue", "GetWalletTransactionsBySignatrue", () =>
             {
                 MWSDK.Ethereum.Wallet.GetTransactionsBySignature(v1, (res) =>
+                {
+                    CommonResponse<EVMResTransactionData> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    EVMResTransactionData transaction = resObj.data;
+                    //todo...
+
+                    PrintLog("result:" + JsonUtility.ToJson(res));
+                });
+            });
+        }
+        else if (btnName == APINames.EVMWalletTransferNativeToken)
+        {
+            SetInfoPanel("Transfer Native Token", "to_publickey", "amount", null, null, null, null, "Transfer", "Transfer", () =>
+            {
+                int amount = (int)PrecisionUtil.StrToInt(v2);
+                MWSDK.Ethereum.Wallet.TransferNativeToken(v1, amount, (res) =>
                 {
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -410,6 +506,12 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 int price = (int)PrecisionUtil.StrToDouble(v1);
                 MWSDK.Ethereum.Wallet.TransferETH(v1, v2, v3, v4, v5, approveFinished, (res) =>
                 {
+                    CommonResponse<TransferSolResponse> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    TransferSolResponse transferRes = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -447,6 +549,12 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 string collection = v1;
                 MWSDK.Ethereum.Metadata.GetCollectionFilters(v1, (res) =>
                 {
+                    CommonResponse<EVMResMetadataCollectionFilter> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    EVMResMetadataCollectionFilter filterInfo = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -465,6 +573,12 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 }
                 MWSDK.Ethereum.Metadata.GetCollectionsSummary(cols, (res) =>
                 {
+                    CommonResponse<List<EVMResMetadataCollectionsSummary>> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    List<EVMResMetadataCollectionsSummary> collectionInfos = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -479,6 +593,12 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
 
                 MWSDK.Ethereum.Metadata.GetCollectionsInfo(collections, (res) =>
                 {
+                    CommonResponse<List<EVMResMetadataCollectionInfo>> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    List<EVMResMetadataCollectionInfo> collectionInfo = resObj.data;
+                    //todo..
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -494,6 +614,12 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
 
                 MWSDK.Ethereum.Metadata.GetNFTEvents(v1, page, pageSize, tokenID, v5, (res) =>
                 {
+                    CommonResponse<EVMResMetadataNFTEvents> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    EVMResMetadataNFTEvents events = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -509,6 +635,12 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
 
                 MWSDK.Ethereum.Metadata.SearchNFTs(collections, searchString, (res) =>
                 {
+                    CommonResponse<List<EVMResMetadataSearchNFTs>> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    List<EVMResMetadataSearchNFTs> nftRes = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -523,6 +655,12 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
 
                 MWSDK.Ethereum.Metadata.RecommendSearchNFTs(collections, (res) =>
                 {
+                    CommonResponse<List<EVMResMetadataRecommendNFTs>> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    List<EVMResMetadataRecommendNFTs> nftList = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -535,6 +673,12 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
 
                 MWSDK.Ethereum.Metadata.GetNFTInfo(v1, v2, (res) =>
                 {
+                    CommonResponse<EVMResMetadataNFTInfo> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    EVMResMetadataNFTInfo nftInfo = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -549,8 +693,21 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 string orderByString = v4;
                 bool desc = true;
 
-                MWSDK.Ethereum.Metadata.GetNFTs(collection, page, pageSize, orderByString, desc, null, (res) =>
+                List<EVMGetNFTsByParamsReqFilter> filters = new List<EVMGetNFTsByParamsReqFilter>();
+                EVMGetNFTsByParamsReqFilter filter = new EVMGetNFTsByParamsReqFilter();
+                filter.filter_name = "filter name";
+                filter.filter_type = "price";
+                filter.filter_value = new List<int>() { 1,2 };
+                filters.Add(filter);
+
+                MWSDK.Ethereum.Metadata.GetNFTs(collection, page, pageSize, orderByString, desc, filters, (res) =>
                 {
+                    CommonResponse<EVMResMetadataNFTs> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    EVMResMetadataNFTs nftsResult = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
