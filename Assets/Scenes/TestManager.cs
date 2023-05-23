@@ -170,18 +170,19 @@ public class TestManager : MonoBehaviour
         AddAPIButton(lineWallet, APINames.SolWalletGetTransactionsBySignature, 18);
         AddAPIButton(lineWallet, APINames.SolWalletGetTokens);
         AddAPIButton(lineWallet, APINames.SolWalletGetTokensByWallet, 18);
-        if (chain == MirrorChain.Ethereum)
-        {
-            AddAPIButton(lineWallet, APINames.SolWalletTransferETH);
-        }
-        else if (chain == MirrorChain.Polygon)
-        {
-            AddAPIButton(lineWallet, APINames.SolWalletTransferMatic);
-        }
-        else if (chain == MirrorChain.BNB)
-        {
-            AddAPIButton(lineWallet, APINames.SolWalletTransferBNB);
-        }
+        //if (chain == MirrorChain.Ethereum)
+        //{
+        //    AddAPIButton(lineWallet, APINames.SolWalletTransferETH);
+        //}
+        //else if (chain == MirrorChain.Polygon)
+        //{
+        //    AddAPIButton(lineWallet, APINames.SolWalletTransferMatic);
+        //}
+        //else if (chain == MirrorChain.BNB)
+        //{
+        //    AddAPIButton(lineWallet, APINames.SolWalletTransferBNB);
+        //}
+        AddAPIButton(lineWallet, APINames.EVMWalletTransferNativeToken);
         AddAPIButton(lineWallet, APINames.SolWalletTransferToken);
         //Metadata/Collection
         Transform lineMetadataCollections = AddAPILine(apiParent, "Metadata/Collection");

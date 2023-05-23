@@ -83,7 +83,7 @@ namespace MirrorWorld
     public class SolanaWallet
     {
         //Wallet
-        public void GetTransactions(double number, string nextBefore, Action<CommonResponse<SolResGetTransactions>> action)
+        public void GetTransactions(int number, string nextBefore, Action<CommonResponse<SolResGetTransactions>> action)
         {
             MWSolanaWrapper.GetTransactions(number, nextBefore, action);
         }

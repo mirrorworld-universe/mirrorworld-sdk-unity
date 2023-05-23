@@ -57,7 +57,7 @@ public class MWEVMWrapper
         });
     }
 
-    public static void ListNFT(string collection_address, int token_id, double price, string marketplace_address, Action approveFinished, Action<string> callBack)
+    public static void ListNFT(string collection_address, int token_id, double price, string marketplace_address, Action approveFinished, Action<CommonResponse<EVMResListNFT>> callBack)
     {
         EVMListNFTReq requestParams = new EVMListNFTReq();
         requestParams.collection_address = collection_address;
@@ -76,8 +76,8 @@ public class MWEVMWrapper
             var rawRequestBody = JsonUtility.ToJson(requestParams);
 
             MirrorWrapper.Instance.ListNFT(rawRequestBody, (response) => {
-
-                callBack(response);
+                CommonResponse<EVMResListNFT> commonResponse = JsonUtility.FromJson<CommonResponse<EVMResListNFT>>(response);
+                callBack(commonResponse);
             });
         });
     }
@@ -216,11 +216,11 @@ public class MWEVMWrapper
 
 
     //Wallet
-    public static void GetTransactions(double number, Action<CommonResponse<EVMResTransactions>> action)
+    public static void GetTransactions(int limit, Action<CommonResponse<EVMResTransactions>> action)
     {
         Dictionary<string, string> requestParams = new Dictionary<string, string>();
 
-        requestParams.Add("limit", "" + number);
+        requestParams.Add("limit", "" + limit);
 
         MirrorWrapper.Instance.GetWalletTransactions(requestParams, (response) => {
             CommonResponse<EVMResTransactions> commonResponse = JsonUtility.FromJson<CommonResponse<EVMResTransactions>>(response);
@@ -275,7 +275,6 @@ public class MWEVMWrapper
 
         TransferOnEVM(url, nonce, gasPrice, gasLimit, to, amount, approveFinished, callBack);
     }
-
     public static void TransferMatic(string nonce, string gasPrice, string gasLimit, string to, string amount, Action approveFinished, Action<CommonResponse<TransferSolResponse>> callBack)
     {
         string url = UrlUtils.GetMirrorPostUrl(MirrorService.Wallet, "transfer-matic");
@@ -306,6 +305,20 @@ public class MWEVMWrapper
 
                 callBack(response);
             });
+        });
+    }
+
+    public static void TransferNativeOnEVM(string to_publickey, int amount, Action<CommonResponse<TransferSolResponse>> callBack)
+    {
+        EVMReqTransferNativeToken requestParams = new EVMReqTransferNativeToken();
+        requestParams.to_publickey = to_publickey;
+        requestParams.amount = amount;
+
+        var rawRequestBody = JsonUtility.ToJson(requestParams);
+        string url = UrlUtils.GetMirrorPostUrl(MirrorService.Wallet, "transfer-native-token");
+
+        MirrorWrapper.Instance.TransferOnEVM(url, rawRequestBody, (response) => {
+            callBack(response);
         });
     }
 

@@ -202,6 +202,12 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
         {
             SetInfoPanel("GetWalletTokens", null, null, null, null, null, null, "Get", "Get your tokens", () => {
                 MWSDK.Solana.Wallet.GetTokens((res) => {
+                    CommonResponse<WalletTokenResponse> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    WalletTokenResponse token = resObj.data;
+                    //todo...
+
                     PrintLog("Get tokens result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -211,6 +217,12 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
             SetInfoPanel("GetWalletTokensByWallet", "wallet address", "limit", "next_before", null, null, null, "Get", "Get your tokens", () => {
                 int limit = PrecisionUtil.StrToInt(v2);
                 MWSDK.Solana.Wallet.GetTokensByWallet(v1, limit, v3, (res) => {
+                    CommonResponse<WalletTokenResponse> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    WalletTokenResponse tokens = resObj.data;
+                    //todo...
+
                     PrintLog("Get tokens result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -406,9 +418,14 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
         }
         else if (btnName == APINames.SolWalletGetTransactions)
         {
-            SetInfoPanel("GetWalletTransactions", "number", "next_before", null, null, null, null, "GetWalletTransactions", "GetWalletTransactions", () => {
-                float price = PrecisionUtil.StrToFloat(v1);
-                MWSDK.Solana.Wallet.GetTransactions(price, v2, (res) => {
+            SetInfoPanel("GetWalletTransactions", "limit", "next_before", null, null, null, null, "GetWalletTransactions", "GetWalletTransactions", () => {
+                int limit = PrecisionUtil.StrToInt(v1);
+                MWSDK.Solana.Wallet.GetTransactions(limit, v2, (res) => {
+                    CommonResponse<SolResGetTransactions> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    SolResGetTransactions transactions = resObj.data;
+                    //todo...
 
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -419,6 +436,11 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
             SetInfoPanel("GetWalletTransactionsByWallet", "wallet address", "limit", "next_before", null, null, null, "GetWalletTransactions", "GetWalletTransactions", () => {
                 int limit = PrecisionUtil.StrToInt(v2);
                 MWSDK.Solana.Wallet.GetTransactionsByWallet(v1, limit, v3, (res) => {
+                    CommonResponse<SolResGetTransactionByWallet> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    SolResGetTransactionByWallet transactions = resObj.data;
+                    //todo...
 
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -429,6 +451,12 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
             SetInfoPanel("GetWalletTransactionsBySignatrue", "signature", null, null, null, null, null, "GetWalletTransactionsBySignatrue", "GetWalletTransactionsBySignatrue", () => {
                 MWSDK.Solana.Wallet.GetTransactionsBySignature(v1, (res) =>
                 {
+                    CommonResponse<SolResGetTransactionBySig> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    SolResGetTransactionBySig transaction = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -484,6 +512,12 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 }
                 int price = (int)PrecisionUtil.StrToDouble(v1);
                 MWSDK.Solana.Wallet.TransferSol(price, v2, Confirmation.Default, approveFinished, (res) => {
+                    CommonResponse<TransferSolResponse> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    TransferSolResponse transResult = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -494,6 +528,12 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 ulong price = PrecisionUtil.StrToULong(v2);
                 int decimals = PrecisionUtil.StrToInt(v4);
                 MWSDK.Solana.Wallet.TransferToken(v3, decimals, price, v1, approveFinished, (res) => {
+                    CommonResponse<TransferTokenResponse> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    TransferTokenResponse transferResult = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -516,6 +556,12 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
             SetInfoPanel("GetCollectionFilterInfo", "collection", null, null, null, null, null, "Get", "Get collection filter info", () => {
                 string collection = v1;
                 MWSDK.Solana.Metadata.GetCollectionFilters(v1, (res) => {
+                    CommonResponse<GetCollectionFilterInfoResponse> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    GetCollectionFilterInfoResponse filterInfo = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -532,6 +578,12 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                     return;
                 }
                 MWSDK.Solana.Metadata.GetCollectionsSummary(cols, (res) => {
+                    CommonResponse<List<SolResMetadataGetCollectionSummary>> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    List<SolResMetadataGetCollectionSummary> collectionInfoList = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -544,6 +596,11 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 collections.Add(collection1);
 
                 MWSDK.Solana.Metadata.GetCollectionsInfo(collections, (res) => {
+                    CommonResponse<List<GetCollectionInfoResponse>> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    List<GetCollectionInfoResponse> infoList = resObj.data;
+                    //todo...
 
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -557,6 +614,11 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 int pageSize = int.Parse(v3);
 
                 MWSDK.Solana.Metadata.GetNFTEvents(mintAddress, page, pageSize, (res) => {
+                    CommonResponse<GetNFTEventsResponse> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    GetNFTEventsResponse events = resObj.data;
+                    //todo...
 
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -571,6 +633,12 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 string searchString = v2;
 
                 MWSDK.Solana.Metadata.SearchNFTs(collections, searchString, (res) => {
+                    CommonResponse<List<MirrorMarketNFTObj>> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    List<MirrorMarketNFTObj> nftObjs = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
@@ -583,6 +651,11 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 collections.Add(collection1);
 
                 MWSDK.Solana.Metadata.RecommendSearchNFTs(collections, (res) => {
+                    CommonResponse<List<MirrorMarketNFTObj>> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    List<MirrorMarketNFTObj> nftObjs = resObj.data;
+                    //todo...
 
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -611,8 +684,22 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                 int pageSize = int.Parse(v3);
                 string orderByString = v4;
                 bool desc = true;
+                List<GetNFTsRequestFilter> filters = new List<GetNFTsRequestFilter>();
+                GetNFTsRequestFilter filter1 = new GetNFTsRequestFilter();
+                filter1.filter_name = "filter_name";
+                filter1.filter_type = "filter_type";
+                filter1.filter_value = new List<object>();
+                filter1.filter_value.Add(1);
+                filter1.filter_value.Add("2");
+                filters.Add(filter1);
 
-                MWSDK.Solana.Metadata.GetNFTs(collection, page, pageSize, orderByString, desc, null, (res) => {
+                MWSDK.Solana.Metadata.GetNFTs(collection, page, pageSize, orderByString, desc, filters, (res) => {
+                    CommonResponse<GetNFTsResponse> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    GetNFTsResponse nftsResult = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });

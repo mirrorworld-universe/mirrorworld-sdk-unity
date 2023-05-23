@@ -320,7 +320,7 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 double price = PrecisionUtil.StrToDouble(v3);
                 MWSDK.BNB.Asset.ListNFT(v1, token_id, price, v4, approveFinished, (res) =>
                 {
-                    PrintLog("result:" + res);
+                    PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });
         }
@@ -366,10 +366,10 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
         }
         else if (btnName == APINames.SolWalletGetTransactions)
         {
-            SetInfoPanel("GetWalletTransactions", "number", null, null, null, null, null, "GetWalletTransactions", "GetWalletTransactions", () =>
+            SetInfoPanel("GetWalletTransactions", "limit", null, null, null, null, null, "GetWalletTransactions", "GetWalletTransactions", () =>
             {
-                double price = PrecisionUtil.StrToDouble(v1);
-                MWSDK.BNB.Wallet.GetTransactions(price, (res) =>
+                int limit = PrecisionUtil.StrToInt(v1);
+                MWSDK.BNB.Wallet.GetTransactions(limit, (res) =>
                 {
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
@@ -396,13 +396,19 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                 });
             });
         }
-        else if (btnName == APINames.SolWalletTransferBNB)
+        else if (btnName == APINames.EVMWalletTransferNativeToken)
         {
-            SetInfoPanel("Transfer BNB", "nonce", "gas price", "gas limit", "to", "amout", null, "Transfer", "Transfer", () =>
+            SetInfoPanel("Transfer Native Token", "to_publickey", "amount", null, null, null, null, "Transfer", "Transfer", () =>
             {
-                int price = (int)PrecisionUtil.StrToDouble(v1);
-                MWSDK.BNB.Wallet.TransferBNB(v1, v2, v3, v4, v5, approveFinished, (res) =>
+                int amount = (int)PrecisionUtil.StrToInt(v2);
+                MWSDK.BNB.Wallet.TransferNativeToken(v1, amount, (res) =>
                 {
+                    CommonResponse<TransferSolResponse> resObj = res;
+                    long code = resObj.code;
+                    string message = resObj.message;
+                    TransferSolResponse transferRes = resObj.data;
+                    //todo...
+
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });
             });

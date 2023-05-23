@@ -333,7 +333,7 @@ namespace MirrorworldSDK
         }
 
         //Wallet
-        public static void GetTransactions(double number, string nextBefore, Action<CommonResponse<SolResGetTransactions>> action)
+        public static void GetTransactions(int number, string nextBefore, Action<CommonResponse<SolResGetTransactions>> action)
         {
             Dictionary<string, string> requestParams = new Dictionary<string, string>();
 

@@ -43,6 +43,7 @@ public class APINames
     public static string SolWalletTransferETH = "Transfer ETH";
     public static string SolWalletTransferBNB = "Transfer BNB";
     public static string SolWalletTransferSUI = "Transfer SUI";
+    public static string EVMWalletTransferNativeToken = "Transfer Native Token";
     public static string SolWalletTransferMatic = "Transfer Matic";
     public static string SolWalletTransferToken = "Transfer Token";
     //Metadata/Collections
