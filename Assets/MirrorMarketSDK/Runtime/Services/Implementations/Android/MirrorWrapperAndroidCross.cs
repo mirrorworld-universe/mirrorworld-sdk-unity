@@ -26,19 +26,32 @@ namespace MirrorworldSDK.Wrapper
                 unitActivity = jc.GetStatic<AndroidJavaObject>("currentActivity");
 
                 string packageName;
-                if(chain == MirrorChain.Solana)
+                string enumChainStr;
+                if (chain == MirrorChain.Solana)
                 {
                     packageName = "com.mirror.sdk.solana.MirrorWorld";
+                    enumChainStr = "Solana";
+                }
+                else if (chain == MirrorChain.Ethereum)
+                {
+                    packageName = "com.mirror.sdk.evm.MirrorWorld";
+                    enumChainStr = "Ethereum";
+                }
+                else if (chain == MirrorChain.BNB)
+                {
+                    packageName = "com.mirror.sdk.evm.MirrorWorld";
+                    enumChainStr = "BNB";
                 }
                 else
                 {
                     packageName = "com.mirror.sdk.evm.MirrorWorld";
+                    enumChainStr = "Polygon";
                 }
 
                 javaMirrorWorld = new AndroidJavaClass(packageName);
 
                 string enumStrOnAndroid;
-                if(env == MirrorEnv.Mainnet)
+                if (env == MirrorEnv.Mainnet)
                 {
                     enumStrOnAndroid = "MainNet";
                 }
@@ -49,12 +62,20 @@ namespace MirrorworldSDK.Wrapper
                 else
                 {
                     enumStrOnAndroid = "";
-                    LogUtils.LogFlow("Unknown net:"+env);
+                    LogUtils.LogFlow("Unknown net:" + env);
                 }
                 AndroidJavaClass ajc = new AndroidJavaClass("com.mirror.sdk.constant.MirrorEnv");
                 AndroidJavaObject loginP = ajc.GetStatic<AndroidJavaObject>(enumStrOnAndroid);
 
-                javaMirrorWorld.CallStatic("initSDK", unitActivity, apiKey, loginP);
+                if (chain == MirrorChain.Solana)
+                {
+                    javaMirrorWorld.CallStatic("initSDK", unitActivity, apiKey, loginP);
+                }
+                else
+                {
+                    AndroidJavaObject chainJavaEnum = GetJavaEnum("com.mirror.sdk.constant.MirrorChains", enumChainStr);
+                    javaMirrorWorld.CallStatic("initSDK", unitActivity, apiKey, loginP, chainJavaEnum);
+                }
 
                 AndroidSetAuthTokenCallback();
             }
@@ -62,6 +83,14 @@ namespace MirrorworldSDK.Wrapper
             {
                 LogFlow("This is not ANDROID platform,inner logic error!");
             }
+        }
+
+        private AndroidJavaObject GetJavaEnum(string packageName,string enumStr)
+        {
+            AndroidJavaClass chainsClass = new AndroidJavaClass(packageName);
+            AndroidJavaObject chainJavaEnum = chainsClass.GetStatic<AndroidJavaObject>(enumStr);
+
+            return chainJavaEnum;
         }
 
         public void AndroidSetAuthTokenCallback()
