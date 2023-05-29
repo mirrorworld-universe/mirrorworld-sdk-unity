@@ -104,6 +104,22 @@ namespace MirrorWorld
         {
             MWEVMWrapper.TransferToken(to, amount, contract, approveFinished, callBack);
         }
+
+        /**
+         * Sign transaction and send to chain
+         * Document: https://developer.mirrorworld.fun/#84998237-ba2f-46d7-9176-9aa1d5a63bce
+         * 
+         * nonce | string The transaction nonce, should be hex string
+         * gasPrice | string The transaction gas price, should be hex string
+         * gasLimit | string The transaction gas limit, should be hex string
+         * to | string The receiver address
+         * value | string The transaction value
+         * data | string The transaction data
+         */
+        public void SignTransactionAndSend(string nonce, string gasPrice, string gasLimit, string to, string value, string data, Action<CommonResponse<EVMResSignTransactionAndSend>> action)
+        {
+            MWEVMWrapper.SignTransactionAndSend(nonce,gasPrice,gasLimit,to,value,data,action);
+        }
     }
 
     public class EthereumAsset

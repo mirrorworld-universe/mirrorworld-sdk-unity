@@ -118,5 +118,10 @@ namespace MirrorworldSDK.Wrapper
 
             monoBehaviour.StartCoroutine(CheckAndPost(url, rawRequestBody, callBack));
         }
+
+        public void StartPost(string wholeUrl,string rawRequestBody,Action<string> callBack)
+        {
+            monoBehaviour.StartCoroutine(CheckAndPost(wholeUrl, rawRequestBody, callBack));
+        }
     }
 }
