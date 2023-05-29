@@ -39,6 +39,7 @@ public class APINames
     public static string SolWalletGetTransactionsBySignature = "Get Transactions By Signature";
     public static string SolWalletGetTokens = "Get Tokens";
     public static string SolWalletGetTokensByWallet = "Get Tokens By Wallet";
+    public static string EVMSignTransactionAndSend = "Sign Transaction And Send";
     public static string SolWalletTransferSOL = "Transfer SOL";
     public static string SolWalletTransferETH = "Transfer ETH";
     public static string SolWalletTransferBNB = "Transfer BNB";

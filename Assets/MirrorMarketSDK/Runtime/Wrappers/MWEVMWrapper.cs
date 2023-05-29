@@ -350,6 +350,67 @@ public class MWEVMWrapper
         });
     }
 
+    public static void SignTransactionAndSend(string nonce, string gasPrice, string gasLimit, string to, string value, string data, Action<CommonResponse<EVMResSignTransactionAndSend>> action)
+    {
+        if (IsEmpty(nonce) || IsEmpty(gasPrice) || IsEmpty(gasLimit) || IsEmpty(to) || IsEmpty(value))
+        {
+            CommonResponse<EVMResSignTransactionAndSend> responseBody = new CommonResponse<EVMResSignTransactionAndSend>();
+            responseBody.code = (long)MirrorResponseCode.LocalFailed;
+            responseBody.message = "Please input parameters.";
+            action(responseBody);
+            return;
+        }
+
+        string url = UrlUtils.GetMirrorPostUrl(MirrorService.Wallet, "send-tx");
+        EVMReqSignTransactionAndSend req = new EVMReqSignTransactionAndSend();
+        req.nonce = nonce;
+        req.gasPrice = gasPrice;
+        req.gasLimit = gasLimit;
+        req.to = to;
+        req.value = value;
+        req.data = data;
+        var rawRequestBody = JsonUtility.ToJson(req);
+
+        MirrorWrapper.Instance.StartPost(url, rawRequestBody, (response) => {
+            CommonResponse<EVMResSignTransactionAndSend> responseBody = JsonUtility.FromJson<CommonResponse<EVMResSignTransactionAndSend>>(response);
+            action(responseBody);
+        });
+    }
+
+    private static bool IsEmpty(string str)
+    {
+        if (string.IsNullOrEmpty(str))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private static bool IsHexString(string str)
+    {
+        if (string.IsNullOrEmpty(str))
+        {
+            return false;
+        }
+        if (str.Length < 2)
+        {
+            return false;
+        }
+        if (str[0] != '0' || (str[1] != 'x' && str[1] != 'X'))
+        {
+            return false;
+        }
+        for (int i = 2; i < str.Length; i++)
+        {
+            if (!char.IsDigit(str[i]) && (str[i] < 'A' || str[i] > 'F') && (str[i] < 'a' || str[i] > 'f'))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     //Metadata/Collections
     public static void MetadataCollectionsInfo(List<string> collections, Action<CommonResponse<List<EVMResMetadataCollectionInfo>>> callback)
     {

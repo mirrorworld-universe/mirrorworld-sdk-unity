@@ -170,6 +170,7 @@ public class TestManager : MonoBehaviour
         AddAPIButton(lineWallet, APINames.SolWalletGetTransactionsBySignature, 18);
         AddAPIButton(lineWallet, APINames.SolWalletGetTokens);
         AddAPIButton(lineWallet, APINames.SolWalletGetTokensByWallet, 18);
+        AddAPIButton(lineWallet, APINames.EVMSignTransactionAndSend, 16);
         //if (chain == MirrorChain.Ethereum)
         //{
         //    AddAPIButton(lineWallet, APINames.SolWalletTransferETH);

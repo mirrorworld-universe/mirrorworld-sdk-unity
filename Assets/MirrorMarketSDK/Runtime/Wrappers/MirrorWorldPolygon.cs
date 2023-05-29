@@ -13,46 +13,6 @@ namespace MirrorWorld
         public PolygonAsset Asset = new PolygonAsset();
         public PolygonWallet Wallet = new PolygonWallet();
         public PolygonMetadata Metadata = new PolygonMetadata();
-        //Client
-        //public void StartLogin(Action<LoginResponse> action)
-        //{
-        //    MWClientWrapper.StartLogin(action);
-        //}
-
-        //public void LoginWithEmail(string emailAddress, string password, Action<CommonResponse<LoginResponse>> callBack)
-        //{
-        //    MWClientWrapper.LoginWithEmail(emailAddress, password, callBack);
-        //}
-
-        //public void IsLogged(Action<bool> action)
-        //{
-        //    MWClientWrapper.IsLoggedIn(action);
-        //}
-
-        //public void GuestLogin(Action<LoginResponse> action)
-        //{
-        //    MWClientWrapper.GuestLogin(action);
-        //}
-
-        //public void Logout(Action logoutAction)
-        //{
-        //    MWClientWrapper.Logout(logoutAction);
-        //}
-
-        //public void QueryUser(string email, Action<string> callback)
-        //{
-        //    MWClientWrapper.QueryUser(email, callback);
-        //}
-
-        //public void OpenWallet(Action walletLogoutAction)
-        //{
-        //    MWClientWrapper.OpenWalletPage(walletLogoutAction);
-        //}
-
-        //public void OpenMarket(string marketUrl)
-        //{
-        //    MWClientWrapper.OpenMarketPage(marketUrl);
-        //}  
     }
 
     public class PolygonMetadata
@@ -142,6 +102,24 @@ namespace MirrorWorld
         public void TransferToken(string to, string amount, string contract, Action approveFinished, Action<string> callBack)
         {
             MWEVMWrapper.TransferToken(to, amount, contract, approveFinished, callBack);
+        }
+
+        /**
+         * Sign transaction and send to chain
+         * Document: https://developer.mirrorworld.fun/#84998237-ba2f-46d7-9176-9aa1d5a63bce
+         * 
+         * nonce | string The transaction nonce, should be hex string
+         * gasPrice | string The transaction gas price, should be hex string
+         * gasLimit | string The transaction gas limit, should be hex string
+         * to | string The receiver address
+         * value | string The transaction value
+         * data | string The transaction data
+         */
+        public void SignTransactionAndSend(string nonce, string gasPrice, string gasLimit, string to, string value, string data, Action<CommonResponse<EVMResSignTransactionAndSend>> action)
+        {
+            LogUtils.LogFlow("SignTransactionAndSend not support on Polygon for now.");
+            return;
+            MWEVMWrapper.SignTransactionAndSend(nonce, gasPrice, gasLimit, to, value, data, action);
         }
     }
 
