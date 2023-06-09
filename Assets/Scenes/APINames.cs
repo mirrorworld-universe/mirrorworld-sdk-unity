@@ -60,9 +60,14 @@ public class APINames
 
 
     //SUI
+    //Wallet
     public static string SUIWalletGetTransactionByDigest = "Get Transaction By Digest";
     public static string SUIWalletTokens = "Get Tokens";
     public static string SUITransferSUI = "Transfer SUI";
     public static string SUITransferToken = "Transfer Token";
-
+    //Asset
+    public static string SUIAssetGetMintedCollections = "Get Minted Collections";
+    public static string SUIAssetGetMintedNFTOnCollections = "Get Minted Collections";
+    public static string SUIAssetMintCollection = "Mint Collection";
+    public static string SUIAssetMintNFT = "Mint NFT";
 }

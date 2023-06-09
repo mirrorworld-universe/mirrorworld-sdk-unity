@@ -202,6 +202,64 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
             }
             );
         }
+        //Asset
+        else if (btnName == APINames.SUIAssetGetMintedCollections)
+        {
+            SetInfoPanel("GetMintedCollections", null, null, null, null, null, null, "Get", "Get your collections", () =>
+            {
+                MWSDK.SUI.Asset.GetMintedCollections((res) =>
+                {
+                    CommonResponse<List<SUIResGetMintedCollectionsObj>> resObj = res;
+                    string message = resObj.message;
+                    List<SUIResGetMintedCollectionsObj> data = resObj.data;
+
+                    PrintLog("result:" + JsonUtility.ToJson(res));
+                });
+            });
+        }
+        else if (btnName == APINames.SUIAssetGetMintedNFTOnCollections)
+        {
+            SetInfoPanel("GetMintedNFTOnCollection", "collection_address", null, null, null, null, null, "Get", "Get NFTs", () =>
+            {
+                MWSDK.SUI.Asset.GetMintedNFTOnCollection(v1, (res) =>
+                {
+                    CommonResponse<List<SUIResGetMintedNFTOnCollectionObj>> resObj = res;
+                    string message = resObj.message;
+                    List<SUIResGetMintedNFTOnCollectionObj> data = resObj.data;
+
+                    PrintLog("result:" + JsonUtility.ToJson(res));
+                });
+            });
+        }
+        else if (btnName == APINames.SUIAssetMintCollection)
+        {
+            SetInfoPanel("MintCollection", "name", "symbol", null, null, null, null, "Mint", "Mint Collection", () =>
+            {
+                MWSDK.SUI.Asset.MintCollection(v1, v2, null, (res) =>
+                {
+                    CommonResponse<SUIResMintCollection> resObj = res;
+                    string message = resObj.message;
+                    SUIResMintCollection data = resObj.data;
+
+                    PrintLog("result:" + JsonUtility.ToJson(res));
+                });
+            });
+        }
+        else if (btnName == APINames.SUIAssetMintNFT)
+        {
+            SetInfoPanel("MintNFT", "collection_address", "name", "description", "image_url", null, null, "Mint", "Mint NFT", () =>
+            {
+                MWSDK.SUI.Asset.MintNFT(v1, v2, v3, v3, null, null, (res) =>
+                {
+                    CommonResponse<SUIResMintNFT> resObj = res;
+                    string message = resObj.message;
+                    SUIResMintNFT data = resObj.data;
+
+                    PrintLog("result:" + JsonUtility.ToJson(res));
+                });
+            });
+        }
+        //Wallet
         else if (btnName == APINames.SUIWalletTokens)
         {
             SetInfoPanel("GetWalletTokens", null, null, null, null, null, null, "Get", "Get your tokens", () =>
