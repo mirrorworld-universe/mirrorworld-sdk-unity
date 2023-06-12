@@ -219,10 +219,11 @@ public class TestManager : MonoBehaviour
         //AddAPIButton(lineAssetAuction, APINames.SolAssetAuctionTransferNFT);
         //Asset/Confirmation
         //Asset/Mint
-        //Transform lineAssetMint = AddAPILine(apiParent, "Asset/Mint");
-        //AddAPIButton(lineAssetMint, APINames.SolAssetMintCollection);
-        //AddAPIButton(lineAssetMint, APINames.SolAssetMintNFT);
-        //AddAPIButton(lineAssetMint, APINames.AssetCreateMarketplace);
+        Transform lineAssetMint = AddAPILine(apiParent, "Asset/Mint");
+        AddAPIButton(lineAssetMint, APINames.SUIAssetGetMintedCollections);
+        AddAPIButton(lineAssetMint, APINames.SUIAssetGetMintedNFTOnCollections);
+        AddAPIButton(lineAssetMint, APINames.SUIAssetMintCollection);
+        AddAPIButton(lineAssetMint, APINames.SUIAssetMintNFT);
         //Asset/Search
         //Transform lineAssetSearch = AddAPILine(apiParent, "Asset/Search");
         //AddAPIButton(lineAssetSearch, APINames.SolAssetSearchQueryNFT);
