@@ -12,7 +12,31 @@ namespace MirrorWorld
     public class MirrorWorldSUI
     {
         public SUIWallet Wallet = new SUIWallet();
-        
+
+        public SUIAsset Asset = new SUIAsset();
+    }
+
+    public class SUIAsset
+    {
+        public void GetMintedCollections(Action<CommonResponse<List<SUIResGetMintedCollectionsObj>>> action)
+        {
+            MWSUIWrapper.GetMintedCollections(action);
+        }
+
+        public void GetMintedNFTOnCollection(string collection_address, Action<CommonResponse<List<SUIResGetMintedNFTOnCollectionObj>>> action)
+        {
+            MWSUIWrapper.GetMintedNFTOnCollection(collection_address,action);
+        }
+
+        public void MintCollection(string name, string symbol, List<string> creators, Action<CommonResponse<SUIResMintCollection>> action)
+        {
+            MWSUIWrapper.MintCollection(name,symbol,creators,action);
+        }
+
+        public void MintNFT(string collection_address, string name, string description, string image_url, List<SUIReqMintNFTAttribute> attributes, string to_wallet_address, Action<CommonResponse<SUIResMintNFT>> action)
+        {
+            MWSUIWrapper.MintNFT(collection_address,name,description,image_url,attributes,to_wallet_address,action);
+        }
     }
 
     public class SUIWallet

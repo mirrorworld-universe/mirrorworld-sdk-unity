@@ -10,6 +10,64 @@ namespace MirrorworldSDK
 {
     public class MWSUIWrapper
     {
+        //Asset
+        public static void GetMintedCollections(Action<CommonResponse<List<SUIResGetMintedCollectionsObj>>> action)
+        {
+            string url = UrlUtils.GetMirrorGetUrl(MirrorService.AssetMint) + "get-collections";
+            MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
+            monoBehaviour.StartCoroutine(MirrorWrapper.Instance.CheckAndGet(url, null, (response) =>
+            {
+                CommonResponse<List<SUIResGetMintedCollectionsObj>> responseBody = JsonUtility.FromJson<CommonResponse<List<SUIResGetMintedCollectionsObj>>>(response);
+                action(responseBody);
+            }));
+        }
+
+        public static void GetMintedNFTOnCollection(string collection_address,Action<CommonResponse<List<SUIResGetMintedNFTOnCollectionObj>>> action)
+        {
+            string url = UrlUtils.GetMirrorGetUrl(MirrorService.AssetMint) + "get-collection-nfts/" + collection_address;
+            MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
+            monoBehaviour.StartCoroutine(MirrorWrapper.Instance.CheckAndGet(url, null, (response) =>
+            {
+                CommonResponse<List<SUIResGetMintedNFTOnCollectionObj>> responseBody = JsonUtility.FromJson<CommonResponse<List<SUIResGetMintedNFTOnCollectionObj>>>(response);
+                action(responseBody);
+            }));
+        }
+
+        public static void MintCollection(string name,string symbol,List<string> creators,Action<CommonResponse<SUIResMintCollection>> action)
+        {
+            SUIReqMintCollection requestParams = new SUIReqMintCollection();
+            requestParams.creators = creators;
+            requestParams.name = name;
+            requestParams.symbol = symbol;
+
+            string url = UrlUtils.GetMirrorPostUrl(MirrorService.AssetMint, "collection");
+            MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
+            var rawRequestBody = JsonUtility.ToJson(requestParams);
+            monoBehaviour.StartCoroutine(MirrorWrapper.Instance.CheckAndPost(url, rawRequestBody, (response) => {
+                CommonResponse<SUIResMintCollection> responseBody = JsonUtility.FromJson<CommonResponse<SUIResMintCollection>>(response);
+                action(responseBody);
+            }));
+        }
+
+        public static void MintNFT(string collection_address,string name,string description,string image_url,List<SUIReqMintNFTAttribute> attributes,string to_wallet_address,Action<CommonResponse<SUIResMintNFT>> action)
+        {
+            SUIReqMintNFT requestParams = new SUIReqMintNFT();
+            requestParams.collection_address = collection_address;
+            requestParams.name = name;
+            requestParams.description = description;
+            requestParams.image_url = image_url;
+            requestParams.to_wallet_address = to_wallet_address;
+            requestParams.attributes = attributes;
+
+            string url = UrlUtils.GetMirrorPostUrl(MirrorService.AssetMint, "nft");
+            MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
+            var rawRequestBody = JsonUtility.ToJson(requestParams);
+            monoBehaviour.StartCoroutine(MirrorWrapper.Instance.CheckAndPost(url, rawRequestBody, (response) => {
+                CommonResponse<SUIResMintNFT> responseBody = JsonUtility.FromJson<CommonResponse<SUIResMintNFT>>(response);
+                action(responseBody);
+            }));
+        }
+
         //Wallet
         public static void GetTransactionsByDigest(string digest, Action<CommonResponse<SUIResGetTransactionByDigest>> action)
         {
