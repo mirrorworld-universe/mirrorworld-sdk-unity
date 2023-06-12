@@ -43,6 +43,37 @@ namespace MirrorworldSDK.Wrapper
             }
         }
 
+        public IEnumerator CheckAndPostWithTimeoutConfig(string url, string messageBody,int timeOut,string timeOutMessage, Action<string> callBack)
+        {
+            LogFlow("Try to post url:" + url);
+            if (apiKey == "")
+            {
+                LogFlow("Please set apiKey first.");
+
+                yield break;
+            }
+
+            if (accessToken == "")
+            {
+                LogFlow("No access token,try to get one...");
+                yield return monoBehaviour.StartCoroutine(DoGetAccessToken((isSuccess) => {
+                    if (isSuccess)
+                    {
+                        monoBehaviour.StartCoroutine(PostWithTotalParameters(url, messageBody,timeOut,timeOutMessage, callBack));
+                    }
+                    else
+                    {
+                        LogFlow("No access token, please login first.");
+                        return;
+                    }
+                }));
+            }
+            else
+            {
+                yield return Post(url, messageBody, callBack);
+            }
+        }
+
         public IEnumerator CheckAndGet(string url, Dictionary<string, string> requestParams, Action<string> callBack)
         {
             LogFlow("Try to get url:" + url);
@@ -82,8 +113,12 @@ namespace MirrorworldSDK.Wrapper
                 yield return Get(url, requestParams, callBack);
             }
         }
-
         private IEnumerator Post(string url, string messageBody, Action<string> callBack)
+        {
+            yield return PostWithTotalParameters(url, messageBody,-1,"Request error",callBack);
+        }
+
+        private IEnumerator PostWithTotalParameters(string url, string messageBody,int outTime,string timeOutMessage, Action<string> callBack)
         {
             LogUtils.LogFlow("Post url:"+url);
             messageBody = RemoveNull(messageBody);
@@ -108,16 +143,39 @@ namespace MirrorworldSDK.Wrapper
             }
             
             request.downloadHandler = new DownloadHandlerBuffer();
+            if(outTime != 0 && outTime != -1) request.timeout = MWConfig.MaxHttpTimeout;
 
             yield return request.SendWebRequest();
 
-            string rawResponseBody = request.downloadHandler.text;
+            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+            {
+                LogUtils.LogWarn(request.error);
 
-            LogFlow("post response raw:"+ rawResponseBody);
+                CommonResponse<string> commonResponse = new CommonResponse<string>();
+                commonResponse.code = (long)MirrorResponseCode.LocalFailed;
+                commonResponse.data = null;
+                commonResponse.error = timeOutMessage;
+                commonResponse.http_status_code = (long)MirrorResponseCode.LocalFailed;
+                commonResponse.status = "Time out";
+                commonResponse.error = timeOutMessage;
 
-            request.Dispose();
+                string rawResponseBody = JsonUtility.ToJson(commonResponse);
+                LogUtils.LogFlow("Time out in client, fake response is:"+ rawResponseBody);
 
-            callBack(rawResponseBody);
+                callBack(rawResponseBody);
+
+                request.Dispose();
+            }
+            else
+            {
+                string rawResponseBody = request.downloadHandler.text;
+
+                LogFlow("post response raw:" + rawResponseBody);
+
+                request.Dispose();
+
+                callBack(rawResponseBody);
+            }
         }
 
         private IEnumerator Get(string url, Dictionary<string,string> requestParams, Action<string> callBack)

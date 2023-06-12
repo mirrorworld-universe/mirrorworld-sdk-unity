@@ -371,7 +371,7 @@ public class MWEVMWrapper
         req.data = data;
         var rawRequestBody = JsonUtility.ToJson(req);
 
-        MirrorWrapper.Instance.StartPost(url, rawRequestBody, (response) => {
+        MirrorWrapper.Instance.StartPostWithTimoutConfig(url, rawRequestBody,300,"Transaction was not minted in 300 seconds,please make sure your transaction was property sent.", (response) => {
             CommonResponse<EVMResSignTransactionAndSend> responseBody = JsonUtility.FromJson<CommonResponse<EVMResSignTransactionAndSend>>(response);
             action(responseBody);
         });
