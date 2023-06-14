@@ -233,9 +233,9 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
         }
         else if (btnName == APINames.SUIAssetMintCollection)
         {
-            SetInfoPanel("MintCollection", "name", "symbol", null, null, null, null, "Mint", "Mint Collection", () =>
+            SetInfoPanel("MintCollection", "name", "symbol", "description", null, null, null, "Mint", "Mint Collection", () =>
             {
-                MWSDK.SUI.Asset.MintCollection(v1, v2, null, (res) =>
+                MWSDK.SUI.Asset.MintCollection(v1, v2, v3, null, (res) =>
                 {
                     CommonResponse<SUIResMintCollection> resObj = res;
                     string message = resObj.message;
@@ -254,6 +254,51 @@ ParamCell cell1, ParamCell cell2, ParamCell cell3, ParamCell cell4, ParamCell ce
                     CommonResponse<SUIResMintNFT> resObj = res;
                     string message = resObj.message;
                     SUIResMintNFT data = resObj.data;
+
+                    PrintLog("result:" + JsonUtility.ToJson(res));
+                });
+            });
+        }
+        else if (btnName == APINames.SUIAssetQueryNFT)
+        {
+            SetInfoPanel("QueryNFT", "nft_object_id", null, null, null, null, null, "Query", "Query NFT", () =>
+            {
+                MWSDK.SUI.Asset.QueryNFT(v1, (res) =>
+                {
+                    CommonResponse<List<SUIResQueryNFT>> resObj = res;
+                    string message = resObj.message;
+                    List<SUIResQueryNFT> data = resObj.data;
+
+                    PrintLog("result:" + JsonUtility.ToJson(res));
+                });
+            });
+        }
+        else if (btnName == APINames.SUIAssetSearchNFTsByOwner)
+        {
+            SetInfoPanel("SearchNFTsByOwner", "owner_address", null, null, null, null, null, "Seach", "Search NFTs", () =>
+            {
+                MWSDK.SUI.Asset.SearchNFTsByOwner(v1, (res) =>
+                {
+                    CommonResponse<List<SUIResQueryNFT>> resObj = res;
+                    string message = resObj.message;
+                    List<SUIResQueryNFT> data = resObj.data;
+
+                    PrintLog("result:" + JsonUtility.ToJson(res));
+                });
+            });
+        }
+        else if (btnName == APINames.SUIAssetSearchNFT)
+        {
+            SetInfoPanel("QueryNFTs", "nft_object_id 1", "nft_object_id 2", null, null, null, null, "Seach", "Search NFTs", () =>
+            {
+                List<string> nft_object_ids = new List<string>();
+                if (!string.IsNullOrWhiteSpace(v1)) nft_object_ids.Add(v1);
+                if (!string.IsNullOrWhiteSpace(v2)) nft_object_ids.Add(v2);
+                MWSDK.SUI.Asset.SearchNFTs(nft_object_ids, (res) =>
+                {
+                    CommonResponse<List<SUIResQueryNFT>> resObj = res;
+                    string message = resObj.message;
+                    List<SUIResQueryNFT> data = resObj.data;
 
                     PrintLog("result:" + JsonUtility.ToJson(res));
                 });

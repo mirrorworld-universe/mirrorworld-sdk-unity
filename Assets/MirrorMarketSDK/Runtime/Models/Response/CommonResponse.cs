@@ -18,10 +18,5 @@ namespace MirrorworldSDK.Models
         public string message;
 
         public long http_status_code;
-
-        public static implicit operator CommonResponse<T>(CommonResponse<SUIResMintNFT> v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

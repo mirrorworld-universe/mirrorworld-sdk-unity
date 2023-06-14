@@ -147,26 +147,26 @@ namespace MirrorworldSDK.Wrapper
 
             yield return request.SendWebRequest();
 
-            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
-            {
-                LogUtils.LogWarn(request.error);
+            //if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+            //{
+            //    LogUtils.LogWarn(request.error);
 
-                CommonResponse<string> commonResponse = new CommonResponse<string>();
-                commonResponse.code = (long)MirrorResponseCode.LocalFailed;
-                commonResponse.data = null;
-                commonResponse.error = timeOutMessage;
-                commonResponse.http_status_code = (long)MirrorResponseCode.LocalFailed;
-                commonResponse.status = "Time out";
-                commonResponse.error = timeOutMessage;
+            //    CommonResponse<string> commonResponse = new CommonResponse<string>();
+            //    commonResponse.code = (long)MirrorResponseCode.LocalFailed;
+            //    commonResponse.data = null;
+            //    commonResponse.error = timeOutMessage;
+            //    commonResponse.http_status_code = (long)MirrorResponseCode.LocalFailed;
+            //    commonResponse.status = "Time out";
+            //    commonResponse.error = timeOutMessage;
 
-                string rawResponseBody = JsonUtility.ToJson(commonResponse);
-                LogUtils.LogFlow("Time out in client, fake response is:"+ rawResponseBody);
+            //    string rawResponseBody = JsonUtility.ToJson(commonResponse);
+            //    LogUtils.LogFlow("Time out in client, fake response is:"+ rawResponseBody);
 
-                callBack(rawResponseBody);
+            //    callBack(rawResponseBody);
 
-                request.Dispose();
-            }
-            else
+            //    request.Dispose();
+            //}
+            //else
             {
                 string rawResponseBody = request.downloadHandler.text;
 

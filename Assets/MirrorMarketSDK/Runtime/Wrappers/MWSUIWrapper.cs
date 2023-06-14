@@ -11,6 +11,7 @@ namespace MirrorworldSDK
     public class MWSUIWrapper
     {
         //Asset
+        //Mint
         public static void GetMintedCollections(Action<CommonResponse<List<SUIResGetMintedCollectionsObj>>> action)
         {
             string url = UrlUtils.GetMirrorGetUrl(MirrorService.AssetMint) + "get-collections";
@@ -33,12 +34,13 @@ namespace MirrorworldSDK
             }));
         }
 
-        public static void MintCollection(string name,string symbol,List<string> creators,Action<CommonResponse<SUIResMintCollection>> action)
+        public static void MintCollection(string name,string symbol, string description,List<string> creators,Action<CommonResponse<SUIResMintCollection>> action)
         {
             SUIReqMintCollection requestParams = new SUIReqMintCollection();
             requestParams.creators = creators;
             requestParams.name = name;
             requestParams.symbol = symbol;
+            requestParams.description = description;
 
             string url = UrlUtils.GetMirrorPostUrl(MirrorService.AssetMint, "collection");
             MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
@@ -64,6 +66,46 @@ namespace MirrorworldSDK
             var rawRequestBody = JsonUtility.ToJson(requestParams);
             monoBehaviour.StartCoroutine(MirrorWrapper.Instance.CheckAndPost(url, rawRequestBody, (response) => {
                 CommonResponse<SUIResMintNFT> responseBody = JsonUtility.FromJson<CommonResponse<SUIResMintNFT>>(response);
+                action(responseBody);
+            }));
+        }
+
+        //Asset/Search
+        public static void QueryNFT(string nft_object_id, Action<CommonResponse<List<SUIResQueryNFT>>> action)
+        {
+            string url = UrlUtils.GetMirrorGetUrl(MirrorService.AssetNFT) + nft_object_id;
+            MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
+            monoBehaviour.StartCoroutine(MirrorWrapper.Instance.CheckAndGet(url, null, (response) =>
+            {
+                CommonResponse<List<SUIResQueryNFT>> responseBody = JsonUtility.FromJson<CommonResponse<List<SUIResQueryNFT>>>(response);
+                action(responseBody);
+            }));
+        }
+
+        public static void SearchNFTsByOwner(string owner_address, Action<CommonResponse<List<SUIResQueryNFT>>> action)
+        {
+            SUIReqSearchNFTsByOwner requestParams = new SUIReqSearchNFTsByOwner();
+            requestParams.owner_address = owner_address;
+
+            string url = UrlUtils.GetMirrorPostUrl(MirrorService.AssetNFT, "owner");
+            MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
+            var rawRequestBody = JsonUtility.ToJson(requestParams);
+            monoBehaviour.StartCoroutine(MirrorWrapper.Instance.CheckAndPost(url, rawRequestBody, (response) => {
+                CommonResponse<List<SUIResQueryNFT>> responseBody = JsonUtility.FromJson<CommonResponse<List<SUIResQueryNFT>>>(response);
+                action(responseBody);
+            }));
+        }
+
+        public static void SearchNFTs(List<string> nft_object_ids, Action<CommonResponse<List<SUIResQueryNFT>>> action)
+        {
+            SUIReqSearchNFTs requestParams = new SUIReqSearchNFTs();
+            requestParams.nft_object_ids = nft_object_ids;
+
+            string url = UrlUtils.GetMirrorPostUrl(MirrorService.AssetNFT, "mints");
+            MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
+            var rawRequestBody = JsonUtility.ToJson(requestParams);
+            monoBehaviour.StartCoroutine(MirrorWrapper.Instance.CheckAndPost(url, rawRequestBody, (response) => {
+                CommonResponse<List<SUIResQueryNFT>> responseBody = JsonUtility.FromJson<CommonResponse<List<SUIResQueryNFT>>>(response);
                 action(responseBody);
             }));
         }

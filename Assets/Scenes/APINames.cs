@@ -65,9 +65,13 @@ public class APINames
     public static string SUIWalletTokens = "Get Tokens";
     public static string SUITransferSUI = "Transfer SUI";
     public static string SUITransferToken = "Transfer Token";
-    //Asset
+    //Asset/Mint
     public static string SUIAssetGetMintedCollections = "Get Minted Collections";
     public static string SUIAssetGetMintedNFTOnCollections = "Get Minted Collections";
     public static string SUIAssetMintCollection = "Mint Collection";
     public static string SUIAssetMintNFT = "Mint NFT";
+    //Asset/Search
+    public static string SUIAssetQueryNFT = "Query NFT";
+    public static string SUIAssetSearchNFTsByOwner = "Search NFTs By Owner";
+    public static string SUIAssetSearchNFT = "Search NFT";
 }
