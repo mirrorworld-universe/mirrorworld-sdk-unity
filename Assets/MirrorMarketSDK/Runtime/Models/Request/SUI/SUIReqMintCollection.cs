@@ -10,5 +10,6 @@ namespace MirrorWorldResponses
         public string name;
         public string symbol;
         public List<string> creators;
+        public string description;
     }
 }

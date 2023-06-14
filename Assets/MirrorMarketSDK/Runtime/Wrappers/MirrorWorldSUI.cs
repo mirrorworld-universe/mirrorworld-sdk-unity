@@ -28,14 +28,29 @@ namespace MirrorWorld
             MWSUIWrapper.GetMintedNFTOnCollection(collection_address,action);
         }
 
-        public void MintCollection(string name, string symbol, List<string> creators, Action<CommonResponse<SUIResMintCollection>> action)
+        public void MintCollection(string name, string symbol, string description, List<string> creators, Action<CommonResponse<SUIResMintCollection>> action)
         {
-            MWSUIWrapper.MintCollection(name,symbol,creators,action);
+            MWSUIWrapper.MintCollection(name,symbol, description, creators, action);
         }
 
         public void MintNFT(string collection_address, string name, string description, string image_url, List<SUIReqMintNFTAttribute> attributes, string to_wallet_address, Action<CommonResponse<SUIResMintNFT>> action)
         {
             MWSUIWrapper.MintNFT(collection_address,name,description,image_url,attributes,to_wallet_address,action);
+        }
+
+        public void QueryNFT(string nft_object_id, Action<CommonResponse<List<SUIResQueryNFT>>> action)
+        {
+            MWSUIWrapper.QueryNFT(nft_object_id, action);
+        }
+
+        public void SearchNFTsByOwner(string owner_address, Action<CommonResponse<List<SUIResQueryNFT>>> action)
+        {
+            MWSUIWrapper.SearchNFTsByOwner(owner_address, action);
+        }
+
+        public void SearchNFTs(List<string> nft_object_ids, Action<CommonResponse<List<SUIResQueryNFT>>> action)
+        {
+            MWSUIWrapper.SearchNFTs(nft_object_ids, action);
         }
     }
 
