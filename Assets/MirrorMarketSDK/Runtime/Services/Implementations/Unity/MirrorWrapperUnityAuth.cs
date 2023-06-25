@@ -106,7 +106,7 @@ namespace MirrorworldSDK.Wrapper
             MirrorUtils.SetRefreshToken(request, refreshToken);
 
             request.downloadHandler = new DownloadHandlerBuffer();
-            request.timeout = MWConfig.MaxHttpTimeout;
+            //request.timeout = MWConfig.MaxHttpTimeout;
 
             yield return request.SendWebRequest();
 
