@@ -143,7 +143,7 @@ namespace MirrorworldSDK.Wrapper
             }
             
             request.downloadHandler = new DownloadHandlerBuffer();
-            if(outTime != 0 && outTime != -1) request.timeout = MWConfig.MaxHttpTimeout;
+            if(outTime != 0 && outTime != -1) request.timeout = outTime;
 
             yield return request.SendWebRequest();
 
