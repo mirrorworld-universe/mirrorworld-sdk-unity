@@ -48,7 +48,16 @@ namespace MirrorworldSDK.Wrapper
         {
             LogFlow("Set env to " + env);
 
-            this.environment = environment;
+            this.environment = env;
+        }
+
+        public MirrorEnv GetEnvironment()
+        {
+            if (!inited)
+            {
+                LogUtils.LogWarn("MWSDK has not been inited!");
+            }
+            return this.environment;
         }
 
         public MirrorChain GetChain()
@@ -65,11 +74,6 @@ namespace MirrorworldSDK.Wrapper
         {
             LogFlow("Set unity sdk api key"+apiKey);
             this.apiKey = apiKey;
-        }
-
-        public MirrorEnv GetEnvironment()
-        {
-            return environment;
         }
 
         public MonoBehaviour GetMonoBehaviour()
