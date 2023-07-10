@@ -232,7 +232,7 @@ public class MirrorSDK : MonoBehaviour
     #region market ui
     public static void OpenWalletPage(Action walletLogoutAction)
     {
-        string walletUrl = Instance.GetWalletUrl();
+        string walletUrl = UrlUtils.GetWalletUrl();
 
         if (MirrorUtils.IsEditor())
         {
