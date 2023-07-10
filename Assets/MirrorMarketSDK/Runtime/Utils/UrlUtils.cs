@@ -18,6 +18,37 @@ namespace MirrorworldSDK
             return GetAuthRoot(env);
         }
 
+        public static string GetWalletUrl()
+        {
+            return "https://auth-next.mirrorworld.fun/v1/assets/tokens";
+        }
+
+        public static string GetDebugLoginPageRoot(string session)
+        {
+            string authRoot;
+            MirrorEnv env = MWClientWrapper.GetEnv();
+            if (MWConfig.useStagingRoot)
+            {
+                authRoot = "https://auth-next-staging.mirrorworld.fun/v1/auth/login";// "https://auth-staging.mirrorworld.fun";
+            }
+            else if (env == MirrorEnv.Devnet)
+            {
+                authRoot = "https://auth-next.mirrorworld.fun/v1/auth/login";
+            }
+            else if (env == MirrorEnv.Mainnet)
+            {
+                authRoot = "https://auth-next.mirrorworld.fun/v1/auth/login";
+            }
+            else
+            {
+                LogUtils.LogFlow("Unknown env:" + env + ".Will use production host.");
+
+                authRoot = "https://auth-next.mirrorworld.fun/v1/auth/login";
+            }
+
+            return authRoot + "?session=" + session;
+        }
+
         private static string GetAPIRoot(MirrorEnv env)
         {
             if (MWConfig.useStagingRoot)

@@ -81,7 +81,7 @@ namespace MirrorworldSDK.Wrapper
 
                     string session = responseBody.data.session_token;
 
-                    string url = GetDebugLoginPageRoot() + session;
+                    string url = UrlUtils.GetDebugLoginPageRoot(session);
 
                     Application.OpenURL(url);
 

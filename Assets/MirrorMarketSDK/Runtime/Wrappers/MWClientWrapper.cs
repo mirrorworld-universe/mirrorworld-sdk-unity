@@ -119,7 +119,7 @@ public class MWClientWrapper
 
     public static void OpenWalletPage(Action walletLogoutAction)
     {
-        string walletUrl = MirrorWrapper.Instance.GetWalletUrl();
+        string walletUrl = UrlUtils.GetWalletUrl();
 
         if (MirrorUtils.IsEditor())
         {

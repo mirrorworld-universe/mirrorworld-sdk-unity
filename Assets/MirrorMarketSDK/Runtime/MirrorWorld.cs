@@ -67,6 +67,15 @@ namespace MirrorWorld
             MirrorWrapper.Instance.LogFlow(content);
         }
 
+        public static MirrorEnv GetEnvironment()
+        {
+            return MirrorWrapper.Instance.GetEnvironment();
+        }
+
+        public static MirrorChain GetChain()
+        {
+            return MirrorWrapper.Instance.GetChain();
+        }
     }
 }
     

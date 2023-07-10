@@ -196,19 +196,6 @@ namespace MirrorworldSDK.Wrapper
 
         public string GetActionRootWithoutVersion()
         {
-            //if (environment == MirrorEnv.Devnet)
-            //{
-            //    return "https://auth.mirrorworld.fun/";
-            //}
-            //else if (environment == MirrorEnv.Mainnet)
-            //{
-            //    return "https://auth.mirrorworld.fun/";
-            //}
-            //else
-            //{
-            //    LogFlow("Unknown env:" + environment);
-            //    return "https://auth.mirrorworld.fun/";
-            //}
             return UrlUtils.GetAuthRoot();
         }
 
