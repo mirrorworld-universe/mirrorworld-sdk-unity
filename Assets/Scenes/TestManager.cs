@@ -47,6 +47,8 @@ public class TestManager : MonoBehaviour
             apiList.SetActive(true);
         };
 
+        //string approveValue = PrecisionUtil.GetApproveValue(0.1);
+        //LogUtils.LogFlow("9090909009:"+approveValue);
         //string response = "{ \"status\":\"success\",\"data\":[{ \"id\":\"0x3987a468826f382dcc9c60eb472e2723cc5f4b81cf1a0ba8051d0e6192338f54\",\"url\":\"aaa\",\"name\":\"ppp\",\"description\":\"\",\"attributes\":{ },\"owner_address\":\"0x56f5a7ddda41857b764f8c87a78a3ce65cba6484743e4b87a58a4be38f8c669b\",\"package_module\":\"asset_minting\",\"package_module_class_name\":\"NFTData\",\"collection_package_id\":\"0x4b8563ccf44aef795f0c51780df8e00d5e15c115f263151ceb0c8fae5aeeb892\"}],\"code\":0,\"message\":\"\"}";
         //CommonResponse<List<SUIResQueryNFT>> responseBody = JsonUtility.FromJson<CommonResponse<List<SUIResQueryNFT>>>(response);
         //Debug.Log(JsonUtility.ToJson(responseBody));
