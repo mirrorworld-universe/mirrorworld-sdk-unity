@@ -291,9 +291,9 @@ public class MWEVMWrapper
         requestParams.to = to;
         requestParams.amount = amount;
 
-        string approveValue = PrecisionUtil.GetApproveValue(PrecisionUtil.StrToInt(amount));
+        string approveValue = PrecisionUtil.GetApproveValue(PrecisionUtil.StrToFloat(amount));
 
-        MirrorWrapper.Instance.StartSecuirtyApprove(MirrorSafeOptType.TransferETH, approveValue, "transfer sol", requestParams, () => {
+        MirrorWrapper.Instance.StartSecuirtyApprove(MirrorSafeOptType.TransferETH, approveValue, "transfer evm", requestParams, () => {
             if (approveFinished != null)
             {
                 approveFinished();
@@ -332,9 +332,9 @@ public class MWEVMWrapper
         requestParams.amount = amount;
         requestParams.contract = contract;
 
-        string approveValue = PrecisionUtil.GetApproveValue(PrecisionUtil.StrToInt(amount));
+        string approveValue = PrecisionUtil.GetApproveValue(PrecisionUtil.StrToFloat(amount));
 
-        MirrorWrapper.Instance.StartSecuirtyApprove(MirrorSafeOptType.TransferSPLToken, approveValue, "transfer spl token", requestParams, () => {
+        MirrorWrapper.Instance.StartSecuirtyApprove(MirrorSafeOptType.TransferSPLToken, approveValue, "transfer token", requestParams, () => {
 
             if (approveFinished != null)
             {

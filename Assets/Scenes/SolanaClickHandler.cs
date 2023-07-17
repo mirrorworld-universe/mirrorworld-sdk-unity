@@ -501,7 +501,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
         else if (btnName == APINames.SolWalletTransferSOL)
         {
             SetInfoPanel("TransferSol", "amount", "public key", null, null, null, null, "TransferSol", "TransferSol", () => {
-                if (v1.Contains('.'))
+                if (v1.Contains("."))
                 {
                     int realAmout = (int)PrecisionUtil.StrToDouble(v1);
                     UniversalDialog dialog = null;
@@ -509,6 +509,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
                         dialog.DestroyDialog();
                     };
                     dialog = ShowUniversalNotice("Tips", "You can only transfer integer, so the transfer amount now is:" + realAmout, "Got it", "", yesAction, null);
+                    return;
                 }
                 int price = (int)PrecisionUtil.StrToDouble(v1);
                 MWSDK.Solana.Wallet.TransferSol(price, v2, Confirmation.Default, approveFinished, (res) => {
