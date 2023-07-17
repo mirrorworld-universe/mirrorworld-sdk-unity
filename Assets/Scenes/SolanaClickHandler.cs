@@ -501,7 +501,7 @@ ParamCell cell1,ParamCell cell2,ParamCell cell3,ParamCell cell4,ParamCell cell5,
         else if (btnName == APINames.SolWalletTransferSOL)
         {
             SetInfoPanel("TransferSol", "amount", "public key", null, null, null, null, "TransferSol", "TransferSol", () => {
-                if (v1.Contains('.'))
+                if (v1.Contains("."))
                 {
                     int realAmout = (int)PrecisionUtil.StrToDouble(v1);
                     UniversalDialog dialog = null;

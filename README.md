@@ -1,16 +1,16 @@
-
 # Mirror World Unity SDK
 
 >Mirror World's Official Unity SDK  
 
 ## Getting started
+*We have tested our SDK on Unity 2022/Unity 2021/Unity 2020 and ensured that our demo program can directly generate Android installation packages. Theoretically, higher versions of Unity should also work without problems. If your product is lower than the minimum version we tested, you may need to make some compatibility modifications to the SDK yourself. If you need any help with this, you can also contact us for assistance.*
 1. You should have a MirrorWorld developer account,you can register for it at [our official site](https://app.mirrorworld.fun).
-2. You need to prepare an APIKey. If you don't have one,you can acquire it `following Home->Create Project` and create a new project for yourself.
+2. You need to prepare an APIKey. If you don't have one,you can acquire it following `Home -> Add Project` and create a new project for yourself.
 
 ## Import SDK
 
 Download assets [Mirror World Unity SDK](https://github.com/mirrorworld-universe/mirrorworld-sdk-unity/releases).  
-import it to your project `Assets > Import Package > Custom Package` and select the package you just downloaded.
+import it to your project, you can drag the unitypackage file to your Unity direction or follow `Assets > Import Package > Custom Package` and select the package you just downloaded.
 
 ## Usage
 ### Configration

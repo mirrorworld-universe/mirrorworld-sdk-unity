@@ -39,7 +39,7 @@ namespace MirrorworldSDK.Models
         public long user_id;
 
         public string sol_address;
-
+        public string sui_address;
         public string eth_address;
 
         public DateTime? createdAt;
