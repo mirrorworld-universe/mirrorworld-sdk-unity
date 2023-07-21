@@ -16,7 +16,6 @@ namespace MirrorworldSDK.Wrapper
         public Action approveFinalAction;
 
         private readonly string urlActionRequest = "auth/actions/request";
-        private readonly string urlActionAPPROVE = "approve/";
 
         public void StartSecuirtyApprove<T>(string type, string message, T request, Action callback)
         {
@@ -170,7 +169,7 @@ namespace MirrorworldSDK.Wrapper
 
                 return;
             }
-            string url = GetActionRootWithoutVersion() + "/" + urlActionAPPROVE + actionUUID + "?key=" + accessToken;
+            string url = UrlUtils.GetApproveUrl() + actionUUID + "?key=" + accessToken;
 
             LogFlow("Unity open approve url:"+url);
 

@@ -23,6 +23,11 @@ namespace MirrorworldSDK
             return "https://auth-next.mirrorworld.fun/v1/assets/tokens";
         }
 
+        public static string GetApproveUrl()
+        {
+            return "https://auth-next.mirrorworld.fun/v1/approve/";
+        }
+
         public static string GetDebugLoginPageRoot(string session)
         {
             string authRoot;
