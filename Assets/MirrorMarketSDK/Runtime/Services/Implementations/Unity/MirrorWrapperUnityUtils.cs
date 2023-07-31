@@ -244,7 +244,7 @@ namespace MirrorworldSDK.Wrapper
         {
             this.accessToken = accessToken;
 
-            UpdateRefreshToken(refreshToken);
+            if(!string.IsNullOrEmpty(refreshToken)) UpdateRefreshToken(refreshToken);
 
             SaveCurrentUser(userResponse);
         }
@@ -252,7 +252,7 @@ namespace MirrorworldSDK.Wrapper
         {
             this.accessToken = accessToken;
 
-            UpdateRefreshToken(refreshToken);
+            if (!string.IsNullOrEmpty(refreshToken)) UpdateRefreshToken(refreshToken);
         }
 
         private void SaveCurrentUser(UserResponse userResponse)
@@ -265,7 +265,7 @@ namespace MirrorworldSDK.Wrapper
             tmpUser = userResponse;
         }
 
-        private void UpdateRefreshToken(string newRefreshToken)
+        public void UpdateRefreshToken(string newRefreshToken)
         {
             refreshToken = newRefreshToken;
             SaveStringToLocal(localKeyRefreshToken, refreshToken);
