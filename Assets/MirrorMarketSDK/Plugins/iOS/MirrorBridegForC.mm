@@ -15,9 +15,11 @@ extern "C"
 {
     extern void IOSInitSDK(int environment, int chain, char *apikey){
         MWEnvironment env = MWEnvironmentMainNet;
-        if (environment == 0){env = MWEnvironmentStagingDevNet; }
-        if (environment == 1){env = MWEnvironmentStagingMainNet; }
-        if (environment == 3){ env = MWEnvironmentDevNet; }
+        if (environment == 1){env = MWEnvironmentMainNet; }
+        if (environment == 2){env = MWEnvironmentDevNet; }
+//        if (environment == 0){env = MWEnvironmentStagingDevNet; }
+//        if (environment == 1){env = MWEnvironmentStagingMainNet; }
+//        if (environment == 3){ env = MWEnvironmentDevNet; }
         MWChain chainEnum = MWChainSolana;
         if (chain == 1){ chainEnum = MWChainSolana; }
         if (chain == 2){ chainEnum = MWChainEthereum; }

@@ -18,7 +18,7 @@
 		</data>
 		<key>Modules/MirrorWorldSDK.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
 		<data>
-		zE3WzQ+FmTyO/UX4soN4vbR19uw=
+		hx/pm5mzUKaTDT163dt+gxEuAtU=
 		</data>
 		<key>Modules/MirrorWorldSDK.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
@@ -30,7 +30,7 @@
 		</data>
 		<key>Modules/MirrorWorldSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		0da2jPpqv9tlRBH2vXHV4fFW7LA=
+		taJibdzIdV+PbNb64ps6gR8Q5is=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -65,11 +65,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			zE3WzQ+FmTyO/UX4soN4vbR19uw=
+			hx/pm5mzUKaTDT163dt+gxEuAtU=
 			</data>
 			<key>hash2</key>
 			<data>
-			ecGF6ALooEjkVfqqhuv6RgLopGiYMA7B9bF0gqh7gBs=
+			8dc07p/icJJQZw9Lh9IlAU5Yk5EqXL93Urv5vzHrSQs=
 			</data>
 		</dict>
 		<key>Modules/MirrorWorldSDK.swiftmodule/arm64-apple-ios.abi.json</key>
@@ -98,11 +98,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			0da2jPpqv9tlRBH2vXHV4fFW7LA=
+			taJibdzIdV+PbNb64ps6gR8Q5is=
 			</data>
 			<key>hash2</key>
 			<data>
-			ca/KlE71GfFoGsuenkwxtoAWY8t06fFECjld2fZno5E=
+			l8xu65YbJ4p5fbC//gD5QBmOcHU0nKySRvPq9AhhF/A=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
