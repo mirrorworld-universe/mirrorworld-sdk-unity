@@ -121,7 +121,37 @@ public class MirrorSDK : MonoBehaviour
         {
             MonoBehaviour monoBehaviour = MirrorWrapper.Instance.GetMonoBehaviour();
 
-            GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("DialogCanvas", GameObject.Find("Canvas").transform);
+            if (VersionUtils.IsUnityLowerThan2018())
+            {
+                GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("DialogCompatible", GameObject.Find("Canvas").transform);
+                IMGUIDialog iMGUIDialog = dialogCanvas.GetComponent<IMGUIDialog>();
+                iMGUIDialog.InitDialog("Have you complete login on popup page?","Yes","Cancel",()=> {
+                    iMGUIDialog.SetContent("Checking login status...");
+                    MirrorSDK.CompleteLoginWithSession((success) => {
+                        if (success)
+                        {
+                            MirrorWrapper.Instance.LoginAsDeveloper((loginSuccess) => {
+                                iMGUIDialog.SetContent("Login success!");
+                                Destroy(dialogCanvas);
+                            });
+                        }
+                        else
+                        {
+                            iMGUIDialog.SetContent("Login have no response,please try again.");
+                        }
+                    });
+                },
+                ()=> {
+                    MirrorSDK.LoginDebugClear();
+                    Destroy(dialogCanvas);
+                });
+            }
+            else
+            {
+                GameObject dialogCanvas = ResourcesUtils.Instance.LoadPrefab("DialogCanvas", GameObject.Find("Canvas").transform);
+            }
+
+            
 
             MirrorWrapper.Instance.LogFlow("Open login page result:" + startSuccess);
 

@@ -2,7 +2,6 @@
 using System;
 using System.Collections;
 using MirrorworldSDK;
-using MirrorworldSDK.Interfaces;
 using MirrorworldSDK.Models;
 using UnityEngine;
 using UnityEngine.Networking;

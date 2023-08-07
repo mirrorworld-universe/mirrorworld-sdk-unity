@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using MirrorworldSDK.Interfaces;
 using MirrorworldSDK.Models;
 using MirrorWorldResponses;
 using UnityEngine;

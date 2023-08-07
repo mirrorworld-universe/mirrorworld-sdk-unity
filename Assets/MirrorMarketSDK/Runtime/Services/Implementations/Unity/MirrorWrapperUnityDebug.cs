@@ -1,11 +1,10 @@
 ﻿using System;
-using MirrorworldSDK.Interfaces;
 using MirrorworldSDK.Models;
 using UnityEngine;
 
 namespace MirrorworldSDK.Wrapper
 {
-    public partial class MirrorWrapper : IUnityDebugService
+    public partial class MirrorWrapper
     {
         /**
          * Email used in Unity Editor login flow
@@ -81,9 +80,9 @@ namespace MirrorworldSDK.Wrapper
 
                     string session = responseBody.data.session_token;
 
-                    string url = UrlUtils.GetDebugLoginPageRoot(session);
+                    string pageUrl = UrlUtils.GetDebugLoginPageRoot(session);
 
-                    Application.OpenURL(url);
+                    Application.OpenURL(pageUrl);
 
                     if(openBrowerResult != null) openBrowerResult(true);
                 }
