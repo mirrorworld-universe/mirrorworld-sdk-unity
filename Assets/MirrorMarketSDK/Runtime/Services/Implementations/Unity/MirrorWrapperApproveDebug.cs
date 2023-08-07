@@ -33,8 +33,8 @@ namespace MirrorworldSDK.Wrapper
                 if (response.code == (long)MirrorResponseCode.Success)
                 {
                     string secreteToken = response.data.secret_access_key;
-                    GetCurrentUserInfo((response)=> {
-                        UserResponse user = response.data;
+                    GetCurrentUserInfo((res)=> {
+                        UserResponse user = res.data;
                         SaveKeyParams(secreteToken,null,user);
                         UpdateRefreshToken("");
                         action(true);
