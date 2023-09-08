@@ -274,6 +274,7 @@ You can view the documentation for Mirror World SDK for Mobile on [our Official 
 A: If you want to experience the effect of our SDK, you can search for the game `Mirrors Jump` in app store, we will always apply our latest SDK to this game. 
 If you want to start learning how to integrate our SDK, you can visit our [github](https://github.com/mirrorworld-universe/mirrorworld-sdk-unity), you can directly run this project and package it with this project!
 At the same time, you can also refer to the code in it to learn how to call our API, but we still recommend that you read our Readme document first, because that may be the basis for subsequent operations.
+![image](./CaseImage/faq-mirrorsjump-thumb.jpeg)
 
 #### Q: I found the source code of the MirrorsJump game, how do I run it? 
 A: Actually, MirrorsJump is not only a showcase of our SDK, but also a game that we officially run online, which involves some configuration of passwords, interfaces or third-party SDKs. So, if you just want to run MirrorsJump on your computer, we think that’s fine, but if you want to do more operations such as packaging and installing it on a device, that should be very difficult. Therefore, we strongly recommend users to download our SDK-specific demo to get started or do some of their own experiments, this is its address:[github](https://github.com/mirrorworld-universe/mirrorworld-sdk-unity)
@@ -288,6 +289,7 @@ A: You need to make sure that the debug email you enter in the MirrorSDK object 
 The debug email should also be the owner of the API key you enter in the MirrorSDK object. 
 For example, if you log in with your Google account `myaccount@gmail.com` and get an API key `myaccount-apikey`, you should enter both of them into the MirrorSDK object. After you log in, you should click the “I have logged” button on the panel that pops up from the SDK.
 Then you can see the login result on your Unity console.
+![image](./CaseImage/faq-emailandapikeymatch.jpeg)
 
 #### Q:Do Mirror SDK support older versions than Unity 2019?
 A: Our testing work has been carried out to the lowest Unity2019 version, but this does not mean that our SDK does not support lower versions than that. 
