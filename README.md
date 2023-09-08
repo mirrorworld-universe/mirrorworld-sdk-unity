@@ -273,7 +273,7 @@ You can view the documentation for Mirror World SDK for Mobile on [our Official 
 #### Q: How do I get started? 
 A: If you want to experience the effect of our SDK, you can search for the game `Mirrors Jump` in app store, we will always apply our latest SDK to this game. 
 If you want to start learning how to integrate our SDK, you can visit our [github](https://github.com/mirrorworld-universe/mirrorworld-sdk-unity), you can directly run this project and package it with this project!
-At the same time, you can also refer to the code in it to learn how to call our API, but we still recommend that you read our Readme document first, because that may be the basis for subsequent operations.
+At the same time, you can also refer to the code in it to learn how to call our API, but we still recommend that you read our Readme document first, because that may be the basis for subsequent operations.  
 ![image](./CaseImage/faq-mirrorsjump-thumb.jpeg)
 
 #### Q: I found the source code of the MirrorsJump game, how do I run it? 
