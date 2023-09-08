@@ -295,3 +295,7 @@ Then you can see the login result on your Unity console.
 A: Our testing work has been carried out to the lowest Unity2019 version, but this does not mean that our SDK does not support lower versions than that. 
 If you want to use our SDK in lower versions, we believe you can do it. Although we don’t think you won’t encounter any problems, there shouldn’t be any major issues. 
 If you don't want to do that by yourself and really need that, please try to contact us, we are confident that we can complete the compatibility work for lower versions for you!
+
+#### Q: I exported the project as an Android project through Unity, why can’t this project run? 
+A: First of all, we suggest you try to see if an empty Unity project exported as an Android project can run normally on your computer. 
+If you are sure that the problem is caused by MirrorSDK, please do not hesitate to contact us.
