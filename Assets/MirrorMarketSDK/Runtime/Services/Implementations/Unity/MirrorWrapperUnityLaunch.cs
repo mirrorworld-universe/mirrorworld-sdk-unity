@@ -37,6 +37,16 @@ namespace MirrorworldSDK.Wrapper
             LogFlow("Unity wrapper inited.");
         }
 
+        public string GetAccessToken()
+        {
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                LogUtils.LogWarn("There is no access token yet, did you finished login?");
+                return "No_Access_Token";
+            }
+            return accessToken;
+        }
+
         public void SetChain(MirrorChain chain)
         {
             LogFlow("Set chain to " + chain);

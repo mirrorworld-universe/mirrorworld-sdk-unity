@@ -41,6 +41,11 @@ namespace MirrorWorld
             MWClientWrapper.Logout(logoutAction);
         }
 
+        public static string GetAccessToken()
+        {
+            return MWClientWrapper.GetAccessToken();
+        }
+
         //Client APIs
         public static void InitSDK(string apiKey, GameObject gameObject, MirrorChain chain, bool useDebug, MirrorEnv environment)
         {

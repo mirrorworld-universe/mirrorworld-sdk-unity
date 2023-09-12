@@ -132,6 +132,15 @@ public class MWClientWrapper
         MirrorWrapper.Instance.Logout(logoutAction);
     }
 
+    /// <summary>
+    /// To get current access token, user may visit our API by themselves with this jwt token.
+    /// </summary>
+    /// <returns>access token if login is successful</returns>
+    public static string GetAccessToken()
+    {
+        return MirrorWrapper.Instance.GetAccessToken();
+    }
+
     public static void QueryUser(string email, Action<CommonResponse<UserResponse>> callback)
     {
         MirrorWrapper.Instance.QueryUser(email, (response) =>
