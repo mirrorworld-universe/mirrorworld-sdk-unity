@@ -224,6 +224,8 @@ android.enableJetifier=true
 
 **Besides, you can refer to Android Document to get more information.**
 
+[点击查看详情](./AndroidConfig.md)
+
 #### iOS
 **Build your xCode project**
 Find File->Build and settings->iOS->Switch Platform->Build
