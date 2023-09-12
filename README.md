@@ -147,3 +147,8 @@ If you don't want to do that by yourself and really need that, please try to con
 #### Q: I exported the project as an Android project through Unity, why can’t this project run? 
 A: First of all, we suggest you try to see if an empty Unity project exported as an Android project can run normally on your computer. 
 If you are sure that the problem is caused by MirrorSDK, please do not hesitate to contact us.
+
+#### Q: How can I use MirrorSDK to access the network interface of MirrorWorld? 
+A: The UnitySDK has implemented almost all of the network interfaces we have. After completing the integration work with UnitySDK, you can directly call them. [The list of interfaces can be found here](https://www.mirrorworld.fun/docs/api-reference/unity).   
+Additionally, if you want to implement your own network requests, it is also possible. First, you can refer to [our network API list](https://developer.mirrorworld.fun/). Then, you can use the `MWSDK.GetAccessToken()` interface from UnitySDK to obtain a valid JWT token to implement your own network request to access any of our network APIs. 
+Furthermore, if you have any customization requirements, please feel free to contact us at any time.
