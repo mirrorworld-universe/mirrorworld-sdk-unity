@@ -46,6 +46,11 @@ namespace MirrorWorld
             return MWClientWrapper.GetAccessToken();
         }
 
+        public static void SetSchemeName(string schemeName)
+        {
+            MWClientWrapper.SetSchemeName(schemeName);
+        }
+
         //Client APIs
         public static void InitSDK(string apiKey, GameObject gameObject, MirrorChain chain, bool useDebug, MirrorEnv environment)
         {

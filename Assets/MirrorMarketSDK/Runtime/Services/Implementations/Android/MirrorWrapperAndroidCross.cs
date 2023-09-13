@@ -116,6 +116,11 @@ namespace MirrorworldSDK.Wrapper
             if (javaMirrorWorld != null) javaMirrorWorld.CallStatic("setDebug", useDebug);
         }
 
+        public void AndroidSetSchemeName(string schemeName)
+        {
+            if (javaMirrorWorld != null) javaMirrorWorld.CallStatic("setSchemeName", schemeName);
+        }
+
         public void AndroidSetLogoutCallback(Action logoutAction)
         {
             if (javaMirrorWorld == null)

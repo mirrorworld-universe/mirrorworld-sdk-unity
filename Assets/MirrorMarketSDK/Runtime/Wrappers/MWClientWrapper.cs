@@ -93,6 +93,19 @@ public class MWClientWrapper
 #endif
     }
 
+    /// <summary>
+    /// Custom the scheme name.
+    /// Tips: This is only effect android, because iOS don't use the scheme name to return to app.
+    /// </summary>
+    /// <param name="schemeName"></param>
+    public static void SetSchemeName(string schemeName)
+    {
+#if (UNITY_ANDROID && !(UNITY_EDITOR))
+
+            MirrorWrapper.Instance.AndroidSetSchemeName(schemeName);
+#endif
+    }
+
     public static MirrorEnv GetEnv()
     {
         return MirrorWrapper.Instance.GetEnvironment();
