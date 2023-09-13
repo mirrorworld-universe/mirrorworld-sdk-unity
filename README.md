@@ -2,6 +2,7 @@
 
 >Mirror World's Official Unity SDK  
 
+Here is a graphic to introduce the SDK and teach you how to integrate it, if you like the video, you can just click on: https://www.youtube.com/watch?v=Bi8GHO9gmU4
 ## Getting started
 *We have tested our SDK on Unity 2022/Unity 2021/Unity 2020/Unity 2019 and ensured that our demo program can directly generate Android installation packages. Theoretically, higher versions of Unity should also work without problems. If your product is lower than the minimum version we tested, you may need to make some compatibility modifications to the SDK yourself. If you need any help with this, you can also contact us for assistance.*
 1. You should have a MirrorWorld developer account,you can register for it at [our official site](https://app.mirrorworld.fun).
@@ -107,7 +108,10 @@ If you want to obtain the complete information of an on-chain operation, please 
 You need to do some configuation if you want to package your app.
 
 #### Android
-When packaging your Unity project that uses Mirror SDK into an Android APK, you need to configure the Androidmanifest.xml, laucherTemplate.gradle, and gradleTemplate.properties (if applicable). [Please refer to this link](./AndroidConfig.md) for detailed instructions.
+When packaging your Unity project that uses Mirror SDK into an Android APK, you need to configure the Androidmanifest.xml, laucherTemplate.gradle, and gradleTemplate.properties (if applicable). 
+[Please refer to this link](./AndroidConfig.md) for detailed instructions.
+
+If you prefer to learn from video, you can click on: https://www.youtube.com/watch?v=ksjQGPsohGU
 
 #### iOS
 When packaging your Unity project that uses Mirror SDK into an iOS IPA, you need to manually add the Mirror SDK framework to the build phase of your Xcode project and make a single-line modification to the universal code.  
