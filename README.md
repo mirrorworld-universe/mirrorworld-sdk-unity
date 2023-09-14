@@ -124,34 +124,35 @@ You can view the documentation for Mirror World SDK for Mobile on [our Official 
 ## FAQ
 
 #### Q: How do I get started? 
-A: If you want to experience the effect of our SDK, you can search for the game `Mirrors Jump` in app store, we will always apply our latest SDK to this game. 
-But if you want to start learning how to integrate our SDK, you can check [our official demo](https://github.com/mirrorworld-universe/mirrorworld-sdk-unity), you can directly run this project and package it with this project!
+**A:** If you want to experience the effect of our SDK, you can search for the game `Mirrors Jump` in app store, we will always apply our latest SDK to this game.  
+But if you want to start learning how to integrate our SDK, you can check [our official demo](https://github.com/mirrorworld-universe/mirrorworld-sdk-unity), you can directly run this project and package it with this project!  
 At the same time, you can also refer to the code in it to learn how to call our API, but we still recommend that you read our Readme document first, because that may be the basis for subsequent operations.  
 ![image](./CaseImage/faq-mirrorsjump-thumb.jpeg)
 
 #### Q: I found the source code of the MirrorsJump game, how do I run it? 
-A: Actually, MirrorsJump is not only a showcase of our SDK, but also a game that we officially run online, which involves some configuration of passwords, interfaces or third-party SDKs. So, if you just want to run MirrorsJump on your computer, we think that’s fine, but if you want to do more operations such as packaging and installing it on a device, that should be very difficult. Therefore, we strongly recommend users to download our SDK-specific demo to get started or do some of their own experiments, this is its address:[github](https://github.com/mirrorworld-universe/mirrorworld-sdk-unity)
+A: Actually, MirrorsJump is not only a showcase of our SDK, but also a game that we officially run online, which involves some configuration of passwords, interfaces or third-party SDKs.  
+So, if you just want to run MirrorsJump on your computer, we think that’s fine, but if you want to do more operations such as packaging and installing it on a device, that should be very difficult. Therefore, we strongly recommend users to download our SDK-specific demo to get started or do some of their own experiments, this is its address:[github](https://github.com/mirrorworld-universe/mirrorworld-sdk-unity)
 
 #### Q:How do I test the login flow on a computer instead of a mobile device? 
-A: Our SDK works on both your computer and your phone.
-You only need to input your parameters on MirrorSDK object well and call `StartLogin` API. Then your Unity editor will use your computer's default browser to open our login page.
+A: Our SDK works on both your computer and your phone.  
+You only need to input your parameters on MirrorSDK object well and call `StartLogin` API. Then your Unity editor will use your computer's default browser to open our login page.  
 You can choose the way you want to log in.
 
 #### Q:Why does the SDK show that I am not logged in after I complete the login process on my computer?
-A: You need to make sure that the debug email you enter in the MirrorSDK object matches the email and login method you use to log in to https://app.mirrorworld.fun/. 
-The debug email should also be the owner of the API key you enter in the MirrorSDK object. 
-For example, if you log in with your Google account `myaccount@gmail.com` and get an API key `myaccount-apikey`, you should enter both of them into the MirrorSDK object. And then, you must choose Google login way to login on the login page. After you log in, you should click the “I have logged” button on the panel that pops up from the SDK.
+A: You need to make sure that the debug email you enter in the MirrorSDK object matches the email and login method you use to log in to https://app.mirrorworld.fun/.   
+The debug email should also be the owner of the API key you enter in the MirrorSDK object.  
+For example, if you log in with your Google account `myaccount@gmail.com` and get an API key `myaccount-apikey`, you should enter both of them into the MirrorSDK object. And then, you must choose Google login way to login on the login page. After you log in, you should click the “I have logged” button on the panel that pops up from the SDK.  
 Then you can see the login result on your Unity console.  
 ![image](./CaseImage/faq-emailandapikeymatch.jpeg)
 
 #### Q:Do Mirror SDK support older versions than Unity 2019?
-A: Our testing work has been carried out to the lowest Unity2019 version, but this does not mean that our SDK does not support lower versions than that. 
-If you want to use our SDK in lower versions, we believe you can do it. Although we don’t think you won’t encounter any problems, there shouldn’t be any major issues. 
-If you don't want to do that by yourself and really need that, please try to contact us, we are confident that we can complete the compatibility work for lower versions for you!
+A: Our testing work has been carried out to the lowest Unity2019 version, but this does not mean that our SDK does not support lower versions than that.  
+If you want to use our SDK in lower versions, we believe you can do it. Although we don’t think you won’t encounter any problems, there shouldn’t be any major issues.  
+If you don't want to do that by yourself and really need that, please try to contact us, we are confident that we can complete the compatibility work for lower versions for you!  
 
 #### Q: I exported the project as an Android project through Unity, why can’t this project run? 
-A: First of all, we suggest you try to see if an empty Unity project exported as an Android project can run normally on your computer. 
-If you are sure that the problem is caused by MirrorSDK, please do not hesitate to contact us.
+A: First of all, we suggest you try to see if an empty Unity project exported as an Android project can run normally on your computer.  
+If you are sure that the problem is caused by MirrorSDK, please do not hesitate to contact us.  
 
 #### Q: How can I use MirrorSDK to access the network interface of MirrorWorld? 
 A: The UnitySDK has implemented almost all of the network interfaces we have. After completing the integration work with UnitySDK, you can directly call them. [The list of interfaces can be found here](https://www.mirrorworld.fun/docs/api-reference/unity).   
