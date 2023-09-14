@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MirrorWorld;
 using MirrorworldSDK;
 using MirrorworldSDK.UI;
 using MirrorworldSDK.Wrapper;
@@ -82,8 +83,9 @@ public class InitPanel : MonoBehaviour
 
         MirrorSDK.SetChain(chain);
         MirrorSDK.SetEnvironment(env);
+        MWSDK.SetSchemeName("mwsdkunity");
 
-        if(EnterNextPage != null)
+        if (EnterNextPage != null)
         {
             EnterNextPage(chain);
         }
