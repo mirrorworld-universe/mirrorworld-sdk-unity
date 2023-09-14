@@ -2,7 +2,8 @@
 
 >Mirror World's Official Unity SDK  
 
-Here is a graphic to introduce the SDK and teach you how to integrate it, if you like the video, you can just click on: https://www.youtube.com/watch?v=Bi8GHO9gmU4
+This readme is an article to introduce the SDK and teach you how to integrate it, if you prefer video, you can just click on the following link: https://www.youtube.com/watch?v=Bi8GHO9gmU4
+
 ## Getting started
 *We have tested our SDK on Unity 2022/Unity 2021/Unity 2020/Unity 2019 and ensured that our demo program can directly generate Android installation packages. Theoretically, higher versions of Unity should also work without problems. If your product is lower than the minimum version we tested, you may need to make some compatibility modifications to the SDK yourself. If you need any help with this, you can also contact us for assistance.*
 1. You should have a MirrorWorld developer account,you can register for it at [our official site](https://app.mirrorworld.fun).
@@ -156,3 +157,12 @@ If you are sure that the problem is caused by MirrorSDK, please do not hesitate 
 A: The UnitySDK has implemented almost all of the network interfaces we have. After completing the integration work with UnitySDK, you can directly call them. [The list of interfaces can be found here](https://www.mirrorworld.fun/docs/api-reference/unity).   
 Additionally, if you want to implement your own network requests, it is also possible. First, you can refer to [our network API list](https://developer.mirrorworld.fun/). Then, you can use the `MWSDK.GetAccessToken()` interface from UnitySDK to obtain a valid JWT token to implement your own network request to access any of our network APIs. 
 Furthermore, if you have any customization requirements, please feel free to contact us at any time.
+
+#### Q: Why do I need to choose which app to return to after completing the operation on the web page popped up by the SDK? I don't like this.
+**A:** This might be because you have more than one app from MirrorWorld installed on your device.
+
+Firstly, it's important to understand that our web page redirects back to the app by sending a scheme command. Therefore, when multiple apps have the same scheme name, the system requires you to specify which app to return to.
+
+To address this issue, we recommend using the `MWSDK.SetSchemeName()` method to customize your own scheme name.
+
+Please note that if you use this method, make sure to **keep the scheme configuration in your AndroidManifest.xml file in sync with the customized scheme name**.
