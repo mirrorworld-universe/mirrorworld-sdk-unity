@@ -125,7 +125,7 @@ You can view the documentation for Mirror World SDK for Mobile on [our Official 
 
 #### Q: How do I get started? 
 A: If you want to experience the effect of our SDK, you can search for the game `Mirrors Jump` in app store, we will always apply our latest SDK to this game. 
-If you want to start learning how to integrate our SDK, you can visit our [github](https://github.com/mirrorworld-universe/mirrorworld-sdk-unity), you can directly run this project and package it with this project!
+But if you want to start learning how to integrate our SDK, you can check [our official demo](https://github.com/mirrorworld-universe/mirrorworld-sdk-unity), you can directly run this project and package it with this project!
 At the same time, you can also refer to the code in it to learn how to call our API, but we still recommend that you read our Readme document first, because that may be the basis for subsequent operations.  
 ![image](./CaseImage/faq-mirrorsjump-thumb.jpeg)
 
@@ -140,8 +140,8 @@ You can choose the way you want to log in.
 #### Q:Why does the SDK show that I am not logged in after I complete the login process on my computer?
 A: You need to make sure that the debug email you enter in the MirrorSDK object matches the email and login method you use to log in to https://app.mirrorworld.fun/. 
 The debug email should also be the owner of the API key you enter in the MirrorSDK object. 
-For example, if you log in with your Google account `myaccount@gmail.com` and get an API key `myaccount-apikey`, you should enter both of them into the MirrorSDK object. After you log in, you should click the “I have logged” button on the panel that pops up from the SDK.
-Then you can see the login result on your Unity console.
+For example, if you log in with your Google account `myaccount@gmail.com` and get an API key `myaccount-apikey`, you should enter both of them into the MirrorSDK object. And then, you must choose Google login way to login on the login page. After you log in, you should click the “I have logged” button on the panel that pops up from the SDK.
+Then you can see the login result on your Unity console.  
 ![image](./CaseImage/faq-emailandapikeymatch.jpeg)
 
 #### Q:Do Mirror SDK support older versions than Unity 2019?
