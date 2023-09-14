@@ -159,7 +159,7 @@ Additionally, if you want to implement your own network requests, it is also pos
 Furthermore, if you have any customization requirements, please feel free to contact us at any time.
 
 #### Q: Why do I need to choose which app to return to after completing the operation on the web page popped up by the SDK? I don't like this.
->**A:** This might be because you have more than one app from MirrorWorld installed on your device.
+**A:** This might be because you have more than one app from MirrorWorld installed on your device.
 Firstly, it's important to understand that our web page redirects back to the app by sending a scheme command. Therefore, when multiple apps have the same scheme name, the system requires you to specify which app to return to.
 To address this issue, we recommend using the `MWSDK.SetSchemeName()` method to customize your own scheme name.
 Please note that if you use this method, make sure to **keep the scheme configuration in your AndroidManifest.xml file in sync with the customized scheme name**.
