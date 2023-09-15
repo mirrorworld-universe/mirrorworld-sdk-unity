@@ -139,11 +139,9 @@ You only need to input your parameters on MirrorSDK object well and call `StartL
 You can choose the way you want to log in.
 
 #### Q:Why does the SDK show that I am not logged in after I complete the login process on my computer?
-A: You need to make sure that the debug email you enter in the MirrorSDK object matches the email and login method you use to log in to https://app.mirrorworld.fun/.   
-The debug email should also be the owner of the API key you enter in the MirrorSDK object.  
-For example, if you log in with your Google account `myaccount@gmail.com` and get an API key `myaccount-apikey`, you should enter both of them into the MirrorSDK object. And then, you must choose Google login way to login on the login page. After you log in, you should click the “I have logged” button on the panel that pops up from the SDK.  
-Then you can see the login result on your Unity console.  
-![image](./CaseImage/faq-emailandapikeymatch.jpeg)
+**A:** First, please make sure that the debug email you have entered on the MirrorSDK GameObject is a valid email address. Then, ensure that your login method matches the debug email you have entered on the MirrorSDK object.  
+For example, if I have set the debug email as myaccount0001@gmail.com, you must choose Google login on the pop-up login webpage and select your Google account myaccount0001@gmail.com. After seeing the wallet page, you can close the login webpage, go back to Unity Editor, and click "Logged" button again to verify the login result.  
+In reality, you can only use a Google account or Discord account for this entire debug-login process. However, don't worry, users can use any method to log in when accessing on a mobile device.
 
 #### Q:Do Mirror SDK support older versions than Unity 2019?
 A: Our testing work has been carried out to the lowest Unity2019 version, but this does not mean that our SDK does not support lower versions than that.  
