@@ -278,6 +278,7 @@ namespace MirrorworldSDK.Wrapper
         {
             if (!string.IsNullOrEmpty(_mWaitUpdateRefreshToken))
             {
+                LogFlow("Detected _mWaitUpdateRefreshToken, try to save to local...");
                 refreshToken = _mWaitUpdateRefreshToken;
                 SaveStringToLocal(localKeyRefreshToken, refreshToken);
                 _mWaitUpdateRefreshToken = null;
