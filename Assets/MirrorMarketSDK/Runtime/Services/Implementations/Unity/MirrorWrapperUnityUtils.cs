@@ -265,10 +265,23 @@ namespace MirrorworldSDK.Wrapper
             tmpUser = userResponse;
         }
 
+        private string _mWaitUpdateRefreshToken = null;
         public void UpdateRefreshToken(string newRefreshToken)
         {
-            refreshToken = newRefreshToken;
-            SaveStringToLocal(localKeyRefreshToken, refreshToken);
+            _mWaitUpdateRefreshToken = newRefreshToken;
+            //refreshToken = newRefreshToken;
+            //SaveStringToLocal(localKeyRefreshToken, refreshToken);
+        }
+
+        //Shall onlly called in update
+        public void CheckUpdateRefreshToken()
+        {
+            if (!string.IsNullOrEmpty(_mWaitUpdateRefreshToken))
+            {
+                refreshToken = _mWaitUpdateRefreshToken;
+                SaveStringToLocal(localKeyRefreshToken, refreshToken);
+                _mWaitUpdateRefreshToken = null;
+            }
         }
 
         public void ClearUnitySDKCache()

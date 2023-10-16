@@ -46,6 +46,12 @@ public class MirrorSDK : MonoBehaviour
 #endif
     }
 
+    //Call some funcion here cause they are not allowed called in main thread
+    void Update()
+    {
+        MirrorWrapper.Instance.CheckUpdateRefreshToken();
+    }
+
     public static void InitSDK(string apiKey, GameObject gameObject ,MirrorChain chain, bool useDebug, MirrorEnv environment)
     {
         Debug.Log("env:"+ environment);
