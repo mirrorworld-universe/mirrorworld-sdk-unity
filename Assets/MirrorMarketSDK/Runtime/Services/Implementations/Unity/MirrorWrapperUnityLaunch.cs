@@ -91,12 +91,6 @@ namespace MirrorworldSDK.Wrapper
             return monoBehaviour;
         }
 
-        private void SetLoginResponse(LoginResponse response)
-        {
-            SaveStringToLocal(localKeyRefreshToken, response.refresh_token);
-            accessToken = response.access_token;
-        }
-
         public void LogFlow(string content)
         {
             if (debugMode)
