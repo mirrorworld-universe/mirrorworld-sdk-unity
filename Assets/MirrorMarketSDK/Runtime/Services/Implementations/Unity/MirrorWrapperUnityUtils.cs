@@ -280,7 +280,7 @@ namespace MirrorworldSDK.Wrapper
             {
                 LogFlow("Detected _mWaitUpdateRefreshToken, try to save to local...");
                 refreshToken = _mWaitUpdateRefreshToken;
-                SaveStringToLocal(localKeyRefreshToken, refreshToken);
+                //SaveStringToLocal(localKeyRefreshToken, refreshToken);
                 _mWaitUpdateRefreshToken = null;
             }
         }
