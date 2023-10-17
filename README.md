@@ -32,18 +32,6 @@ Using for debug. Please input the email which used to register the API key.
 - Chain
 Which chain you want to work on.
 
-#### Configration dynamic
-We strongly recommend configuring the SDK by dragging and dropping the prefab. However, if you prefer not to do so, you can init Mirror World SDK with the following code:  
-```cs
-GameObject mirrorObj = new GameObject("MirrorSDK", typeof(MirrorSDK));
-string apiKey = "your api key";
-MirrorChain chain = MirrorChain.Solana;
-bool debugMode = true;
-MirrorEnv env = MirrorEnv.Devnet;
-
-MWSDK.InitSDK(apiKey, mirrorObj, chain, debugMode, env);
-```
-
 ### Login
 And then,if you want to call some API of SDK in your app,you should lead users to login first.
 
