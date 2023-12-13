@@ -106,6 +106,9 @@ If you prefer to learn from video, you can click on: https://www.youtube.com/wat
 When packaging your Unity project that uses Mirror SDK into an iOS IPA, you need to manually add the Mirror SDK framework to the build phase of your Xcode project and make a single-line modification to the universal code.  
 [Please refer to this link](./iOSConfig.md) for detailed instructions.
 
+#### iOS if your Unity version is lower than 2019
+If you are using Unity2018 or a lower Unity, you should use our compatible ios framework. [This is the flow](./iOSCompatible.md).
+
 ## Full API Documentation
 You can view the documentation for Mirror World SDK for Mobile on [our Official Documentation Site](https://docs.mirrorworld.fun/unity/unity-api)
 
@@ -131,7 +134,7 @@ You can choose the way you want to log in.
 For example, if I have set the debug email as myaccount0001@gmail.com, you must choose Google login on the pop-up login webpage and select your Google account myaccount0001@gmail.com. After seeing the wallet page, you can close the login webpage, go back to Unity Editor, and click "Logged" button again to verify the login result.  
 In reality, you can only use a Google account or Discord account for this entire debug-login process. However, don't worry, users can use any method to log in when accessing on a mobile device.
 
-#### Q:Do Mirror SDK support older versions than Unity 2019?
+#### Q:Do Mirror SDK support older versions than Unity 2019 on Android?
 A: Our testing work has been carried out to the lowest Unity2019 version, but this does not mean that our SDK does not support lower versions than that.  
 If you want to use our SDK in lower versions, we believe you can do it. Although we don’t think you won’t encounter any problems, there shouldn’t be any major issues.  
 If you don't want to do that by yourself and really need that, please try to contact us, we are confident that we can complete the compatibility work for lower versions for you!  
