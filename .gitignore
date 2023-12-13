@@ -12,6 +12,8 @@
 /UserSettings/
 /.DS_Store
 .DS_Store
+.idea/
+
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
