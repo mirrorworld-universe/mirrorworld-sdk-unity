@@ -49,6 +49,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d00a8c7f9469414bbce390550849602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  apiKey: WsPRi3GQz0FGfoSklYUYzDesdKjKvxdrmtQ
+  apiKey: Input yourselfs API Key
   debugMode: 1
   environment: 0
+  chain: 101
+  debugEmail: 
