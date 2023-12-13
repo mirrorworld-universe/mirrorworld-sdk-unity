@@ -4,7 +4,7 @@ Then you need to do some change following this document:
 
 ## 1. Delete all files under MirrorMarketSDK/Plugins/iOS
 There should are 2 files and a folder, delete them all like the following image:
-![image](./CaseImage/faq-mirrorsjump-thumb.jpeg)
+![image](./CaseImage/delete_allfile_under_iOS.jpeg)
 
 ## 2. Import the compatible ios framework
 You can download the framework here:https://github.com/SuQiang2007/compatible_mwsdk_ios/releases/tag/v1.0
