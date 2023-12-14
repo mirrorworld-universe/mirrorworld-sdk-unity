@@ -1,6 +1,6 @@
 # iOS compat flow
 If the version of Unity you are using is lower than 2019, such as Unity2018 or Unity2017, your XCode project may not recognize the framework of ios in MirrorSDK.
-Then you need to do some change following this document:
+Then you need to do some change following this document:  
 *Note that this framework only supports two functionalities: login and wallet opening. If you require more comprehensive features, please refrain from attempting to use this package. Instead, reach out to us, as we may have alternative solutions to make it compatible with your game version.*
 
 ## 1. Delete all files under MirrorMarketSDK/Plugins/iOS
