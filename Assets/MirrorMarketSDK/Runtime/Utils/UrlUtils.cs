@@ -18,9 +18,14 @@ namespace MirrorworldSDK
             return GetAuthRoot(env);
         }
 
-        public static string GetWalletUrl()
+        public static string GetWalletUrl(string accessToken)
         {
-            return "https://auth-next.mirrorworld.fun/v1/assets/tokens";
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                return "https://auth-next.mirrorworld.fun/v1/assets/tokens";
+            }
+            
+            return "https://auth-next.mirrorworld.fun/v1/assets/tokens?key="+accessToken;
         }
 
         public static string GetApproveUrl()

@@ -190,7 +190,7 @@ public class MWEVMWrapper
 
         requestBody.owner_address = owner_address;
         requestBody.limit = limit;
-        requestBody.cursor = cursor;
+        if(!string.IsNullOrEmpty(cursor)) requestBody.cursor = cursor;
 
         var rawRequestBody = JsonUtility.ToJson(requestBody);
 

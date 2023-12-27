@@ -28,7 +28,7 @@ public class MirrorSDK : MonoBehaviour
 
     private void Awake()
     {
-        if (apiKey == "" || apiKey == "your api key")
+        if (apiKey is "" or "your api key")
         {
             MirrorWrapper.Instance.LogFlow("Please input an api key");
             return;
@@ -46,7 +46,7 @@ public class MirrorSDK : MonoBehaviour
 #endif
     }
 
-    //Call some funcion here cause they are not allowed called in main thread
+    //Call some function here cause they are not allowed called in main thread
     void Update()
     {
         MirrorWrapper.Instance.CheckUpdateRefreshToken();
@@ -268,7 +268,7 @@ public class MirrorSDK : MonoBehaviour
     #region market ui
     public static void OpenWalletPage(Action walletLogoutAction)
     {
-        string walletUrl = UrlUtils.GetWalletUrl();
+        string walletUrl = UrlUtils.GetWalletUrl(Instance.accessToken);
 
         if (MirrorUtils.IsEditor())
         {

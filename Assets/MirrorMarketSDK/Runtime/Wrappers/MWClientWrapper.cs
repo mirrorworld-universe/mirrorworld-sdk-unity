@@ -169,7 +169,11 @@ public class MWClientWrapper
 
     public static void OpenWalletPage(Action walletLogoutAction)
     {
-        string walletUrl = UrlUtils.GetWalletUrl();
+        if (string.IsNullOrEmpty(Instance.accessToken))
+        {
+            Debug.LogError("You have not logged yet.");
+        }
+        string walletUrl = UrlUtils.GetWalletUrl(Instance.accessToken);
 
         if (MirrorUtils.IsEditor())
         {

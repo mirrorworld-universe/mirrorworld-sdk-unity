@@ -12,7 +12,7 @@ namespace MirrorworldSDK.Wrapper
         private MirrorEnv environment;
         private MirrorChain chain;
 
-        private string accessToken = "";
+        public string accessToken = "";
         private string refreshToken = "";
         public string authToken = "";
         private UserResponse tmpUser = null;
